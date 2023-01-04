@@ -7,5 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <ThemeProvider enableSystem={true} attribute="class">
       <Component {...pageProps} />
     </ThemeProvider>
-  )
+  ) 
+
+  // holadsfad
 }
