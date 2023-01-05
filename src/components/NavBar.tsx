@@ -1,26 +1,55 @@
+import { useTheme } from "next-themes"
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
 const NavBar = () => {
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
   return (
-    <nav>
-      <span>La Dionisia</span>
-      <span>
-        <input type="text" placeholder="Buscar..." />
+    <nav className="w-full flex justify-between p-10">
+      <span className="block">La Dionisia</span>
+      <span className="block mx-20">
+        <input className="p-2 rounded-md focus:outline-none" type="text" placeholder="Buscar..." />
       </span>
-      <span>
+      <Link href='/' className="block">
         Home
-      </span> 
-      <span>
+      </Link> 
+      <Link href='#' className="block">
         About
-      </span> 
-      <span>
+      </Link> 
+      <Link href='#'  className="block">
         Productos
-      </span> 
-      <span>
+      </Link> 
+      <Link href='#'  className="block">
         Login
-      </span> 
-      <span>
+      </Link> 
+      <span className="block">
         Carrito
       </span> 
-      </nav>
+      <span className='block justify-center'>
+        <label>
+          Modo Oscuro
+        </label>
+        <input 
+          className='ml-2'
+          checked={theme !== 'light'} 
+          name="darkMode"
+          type="checkbox" 
+          onChange={() => setTheme(
+            theme === 'light' ? 'dark' : 'light'
+          )}
+        />
+      </span>
+    </nav>
   )
 }
 
