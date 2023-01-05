@@ -9,10 +9,10 @@ import { useRouter } from "next/router";
 export default function Home() {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
-  console.log(user);
+  // console.log(user);
   const handleCookieLogin = async () => {
     const res = await axios.post("/api/login", user);
-    console.log(res);
+    // console.log(res);
     if (res.status === 200 && res.data.message === "Successful login: admin" || res.data.message === "Successful login: user") {
       router.push("/");
     }
@@ -34,19 +34,26 @@ export default function Home() {
       <>
         {user[`/roles`].includes('administrador') ? (
           <>
+            <Head>
+              <title>La Dionisia - Tienda de vinos</title>
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <NavBar />
             <h2>binevenido admin</h2>
             <a href="dashboard">dashboard</a><br />
             <a href="api/auth/logout">logout</a>
           </>
         ) : (
           <>
+            <Head>
+              <title>La Dionisia - Tienda de vinos</title>
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <NavBar />
             <h1>Bienvenido user</h1>
             <a href="api/auth/logout">logout</a>
           </>
         )}
-        {/* <h2>Welcome {user.name}!</h2> */}
-        {/* <a href='#' onClick={handleCookieLogin}>Login cookies</a><br></br>
-        <a href='#' onClick={handleCookieLogout}>Logout cookies</a><br></br> */}
       </>
     )
   } else {
@@ -56,10 +63,10 @@ export default function Home() {
           <title>La Dionisia - Tienda de vinos</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-      <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
-      <NavBar />
-      {/* <Home /> */}
-      </main>
+        <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
+          <NavBar />
+          {/* <Home /> */}
+        </main>
 
 
         <footer>

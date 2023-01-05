@@ -1,10 +1,12 @@
 import { useTheme } from "next-themes"
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 const NavBar = () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme();
+  const { user, error, isLoading } = useUser();
 
   useEffect(() => {
     setMounted(true)
@@ -13,6 +15,8 @@ const NavBar = () => {
   if (!mounted) {
     return null
   }
+  if (isLoading) return <div>...loading</div>
+  if (error) return <div>{error.message}</div>
 
   return (
     <nav className="w-full flex justify-between p-10">
@@ -22,28 +26,35 @@ const NavBar = () => {
       </span>
       <Link href='/' className="block">
         Home
-      </Link> 
+      </Link>
       <Link href='#' className="block">
         About
-      </Link> 
-      <Link href='#'  className="block">
+      </Link>
+      <Link href='#' className="block">
         Productos
-      </Link> 
-      <Link href='#'  className="block">
-        Login
-      </Link> 
+      </Link>
+      {user && (
+        <Link href='api/auth/logout' className="block">
+          Logout
+        </Link>
+      )}
+      {!user && (
+        <Link href='api/auth/login' className="block">
+          Login
+        </Link>
+      )}
       <span className="block">
         Carrito
-      </span> 
+      </span>
       <span className='block justify-center'>
         <label>
           Modo Oscuro
         </label>
-        <input 
+        <input
           className='ml-2'
-          checked={theme !== 'light'} 
+          checked={theme !== 'light'}
           name="darkMode"
-          type="checkbox" 
+          type="checkbox"
           onChange={() => setTheme(
             theme === 'light' ? 'dark' : 'light'
           )}
