@@ -1,8 +1,10 @@
 import Head from 'next/head'
+import NavBar from '../components/NavBar'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
@@ -54,13 +56,11 @@ export default function Home() {
           <title>La Dionisia - Tienda de vinos</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
+      <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
+      <NavBar />
+      {/* <Home /> */}
+      </main>
 
-        <main className='h-screen bg-white dark:bg-black text-black dark:text-white '>
-          <h1 className='font-bold text-4xl'>
-            Hola a todos, esto es NextJS + TypeScript + TailwindCSS
-          </h1>
-          <a href="/api/auth/login">Login</a>
-        </main>
 
         <footer>
 
