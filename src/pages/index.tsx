@@ -10,9 +10,7 @@ export default function Home() {
       </Head>
 
       <main className='h-screen bg-white dark:bg-black text-black dark:text-white '>
-        <h1 className='font-bold text-4xl'>
-          Hola a todos, esto es NextJS + TypeScript + TailwindCSS
-        </h1>
+       
       </main>
 
       <footer>
