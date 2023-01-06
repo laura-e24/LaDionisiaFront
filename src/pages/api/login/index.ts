@@ -1,4 +1,5 @@
 import { sign } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 import axios from 'axios';
 
@@ -8,10 +9,10 @@ export default async function loginHandler(req, res) {
     const rol = response.data.find((element: { name: string; }) => element.name === 'administrador');
     const { myTokenName } = req.cookies;
     // console.log(res)
-    // console.log(myTokenName)
+    // console.log(rol)
     if (email && nickname) {
         // expire in 30 days
-        const token = sign(
+        const token = jwt.sign(
             {
                 exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
                 email,
@@ -20,6 +21,7 @@ export default async function loginHandler(req, res) {
             },
             "secret"
         );
+    // console.log(token)
 
         const serialized = serialize("myTokenName", token, {
             httpOnly: true,

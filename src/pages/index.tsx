@@ -2,7 +2,6 @@ import Head from 'next/head'
 import NavBar from '../components/NavBar'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 
@@ -17,16 +16,6 @@ export default function Home() {
       router.push("/");
     }
   }
-  const handleCookieLogout = async () => {
-    try {
-      const res = await axios.get("/api/logout");
-      if (res.status === 200) {
-        router.push("/");
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
   if (isLoading) return <div>...loading</div>
   if (error) return <div>{error.message}</div>
   if (user) {
@@ -57,7 +46,7 @@ export default function Home() {
       </>
     )
   } else {
-    return handleCookieLogout() && (
+    return(
       <div>
         <Head>
           <title>La Dionisia - Tienda de vinos</title>
