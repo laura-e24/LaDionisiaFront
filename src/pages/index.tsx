@@ -1,11 +1,12 @@
 import Head from 'next/head'
-import NavBar from '../components/NavBar'
+import NavBar from '../components/NavBar' 
+import Home from '../components/Home' 
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
 
 
-export default function Home() {
+export default function index() {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
   // console.log(user);
@@ -28,6 +29,7 @@ export default function Home() {
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavBar />
+            <Home />
             <h2>binevenido admin</h2>
             <a href="dashboard">dashboard</a><br />
             <a href="api/auth/logout">logout</a>

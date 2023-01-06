@@ -12,7 +12,7 @@ export default async function loginHandler(req, res) {
     // console.log(rol)
     if (email && nickname) {
         // expire in 30 days
-        const token = jwt.sign(
+        const token = sign(
             {
                 exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
                 email,
