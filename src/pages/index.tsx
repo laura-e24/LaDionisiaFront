@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import NavBar from '../components/NavBar' 
-import Home from '../components/Home' 
+import Home from '../components/Home'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
@@ -28,11 +27,12 @@ export default function index() {
               <title>La Dionisia - Tienda de vinos</title>
               <link rel="icon" href="/favicon.ico" />
             </Head>
-            <NavBar />
-            <Home />
-            <h2>binevenido admin</h2>
-            <a href="dashboard">dashboard</a><br />
-            <a href="api/auth/logout">logout</a>
+            <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
+              <Home />
+              <h2>binevenido admin</h2>
+              <a href="dashboard">dashboard</a><br />
+              <a href="api/auth/logout">logout</a>
+            </main>
           </>
         ) : (
           <>
@@ -40,23 +40,24 @@ export default function index() {
               <title>La Dionisia - Tienda de vinos</title>
               <link rel="icon" href="/favicon.ico" />
             </Head>
-            <NavBar />
-            <h1>Bienvenido user</h1>
-            <a href="api/auth/logout">logout</a>
+            <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
+              <Home />
+              <h1>Bienvenido user</h1>
+              <a href="api/auth/logout">logout</a>
+            </main>
           </>
         )}
       </>
     )
   } else {
-    return(
+    return (
       <div>
         <Head>
           <title>La Dionisia - Tienda de vinos</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
-          <NavBar />
-          {/* <Home /> */}
+          <Home />
         </main>
 
 

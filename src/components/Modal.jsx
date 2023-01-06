@@ -34,7 +34,6 @@ const Modal = () => {
                                     </div>
                                 </div>
                                 {/*footer*/}
-
                             </div>
                         </div>
                     </div>
