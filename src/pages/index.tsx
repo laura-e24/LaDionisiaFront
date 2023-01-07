@@ -12,6 +12,10 @@ export default function index() {
   const handleCookieLogin = async () => {
     const res = await axios.post("/api/login", user);
     // console.log(res);
+    if(user){
+      const response = await axios.post("http://localhost:3001/users/register", user);
+      console.log(response.data);
+    }
     if (res.status === 200 && res.data.message === "Successful login: admin" || res.data.message === "Successful login: user") {
       router.push("/");
     }
