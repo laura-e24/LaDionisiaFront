@@ -1,5 +1,3 @@
-import UpdateProduct from "../../../components/dashboard/UpdateProduct"
-
 export default function Product({wine}) {
   return (
     <div>
