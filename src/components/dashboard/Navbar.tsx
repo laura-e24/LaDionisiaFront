@@ -47,12 +47,12 @@ const NavBar = () => {
         Productos
       </Link>
       {!user && (
-        <Link href='api/auth/login' className="block">
+        <Link href='http://localhost:3000/api/auth/login' className="block">
           Login
         </Link>
       )}
       {user && (
-        <Link href='api/auth/logout' className="block" onClick={handleCookieLogout}>
+        <Link href='http://localhost:3000/api/auth/logout' className="block" onClick={handleCookieLogout}>
           Logout
         </Link>
       )}

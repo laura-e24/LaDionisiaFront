@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ handleNewProduct }) => {
     const [hasMounted, setHasMounted] = useState(false);
     useEffect(() => {
-      setHasMounted(true);
+        setHasMounted(true);
     }, []);
     if (!hasMounted) {
-      return null;
+        return null;
     }
     return (
         <>
@@ -19,6 +19,9 @@ const Sidebar = () => {
                             </li>
                             <li className="relative">
                                 <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="/dashboard/products" data-mdb-ripple="true" data-mdb-ripple-color="dark"><svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" width="40px" height="64px" viewBox="0 0 305.054 305.054"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M166.21,11.703C166.21,5.238,160.085,0,152.529,0c-7.555,0-13.68,5.238-13.68,11.703c0,6.462,0,11.7,0,11.7h27.361V11.703 z"></path> <path d="M138.849,75.85c0,8.787-3.855,21.896-8.611,29.279l-8.021,12.461c-4.751,7.386-8.611,20.5-8.611,29.28v142.276 c0,8.782,7.12,15.907,15.907,15.907h21.834h2.361h21.833c8.787,0,15.907-7.125,15.907-15.907V146.875 c0-8.785-3.857-21.893-8.611-29.279l-8.021-12.461c-4.759-7.384-8.611-20.498-8.611-29.28V27.18h-27.361V75.85H138.849z M180.601,158.326v85.398h-56.142v-85.398H180.601z"></path> </g> </g> </g></svg> Products</a>
+                            </li>
+                            <li className="relative" onClick={() => handleNewProduct}>
+                                <button className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="dark" onClick={() => handleNewProduct}><svg width="40px" height="64px" viewBox="-3.6 -3.6 27.20 27.20" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <g id="Lager_19" data-name="Lager 19" transform="translate(-6 -6)"> <rect id="Rectangle_7" data-name="Rectangle 7" width="4" height="20" rx="1.98" transform="translate(14 6)" fill="#000000"></rect> <rect id="Rectangle_8" data-name="Rectangle 8" width="20" height="4" rx="1.98" transform="translate(6 14)" fill="#000000"></rect> </g> </g></svg> New Product</button>
                             </li>
                             <li className="relative">
                                 <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="/dashboard/products" data-mdb-ripple="true" data-mdb-ripple-color="dark"><svg width="40px" height="64px" viewBox="-9.6 -9.6 51.20 51.20" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <title>users</title> <path d="M16 21.416c-5.035 0.022-9.243 3.537-10.326 8.247l-0.014 0.072c-0.018 0.080-0.029 0.172-0.029 0.266 0 0.69 0.56 1.25 1.25 1.25 0.596 0 1.095-0.418 1.22-0.976l0.002-0.008c0.825-3.658 4.047-6.35 7.897-6.35s7.073 2.692 7.887 6.297l0.010 0.054c0.127 0.566 0.625 0.982 1.221 0.982 0.69 0 1.25-0.559 1.25-1.25 0-0.095-0.011-0.187-0.031-0.276l0.002 0.008c-1.098-4.78-5.305-8.295-10.337-8.316h-0.002zM9.164 11.102c0 0 0 0 0 0 2.858 0 5.176-2.317 5.176-5.176s-2.317-5.176-5.176-5.176c-2.858 0-5.176 2.317-5.176 5.176v0c0.004 2.857 2.319 5.172 5.175 5.176h0zM9.164 3.25c0 0 0 0 0 0 1.478 0 2.676 1.198 2.676 2.676s-1.198 2.676-2.676 2.676c-1.478 0-2.676-1.198-2.676-2.676v0c0.002-1.477 1.199-2.674 2.676-2.676h0zM22.926 11.102c2.858 0 5.176-2.317 5.176-5.176s-2.317-5.176-5.176-5.176c-2.858 0-5.176 2.317-5.176 5.176v0c0.004 2.857 2.319 5.172 5.175 5.176h0zM22.926 3.25c1.478 0 2.676 1.198 2.676 2.676s-1.198 2.676-2.676 2.676c-1.478 0-2.676-1.198-2.676-2.676v0c0.002-1.477 1.199-2.674 2.676-2.676h0zM31.311 19.734c-0.864-4.111-4.46-7.154-8.767-7.154-0.395 0-0.784 0.026-1.165 0.075l0.045-0.005c-0.93-2.116-3.007-3.568-5.424-3.568-2.414 0-4.49 1.448-5.407 3.524l-0.015 0.038c-0.266-0.034-0.58-0.057-0.898-0.063l-0.009-0c-4.33 0.019-7.948 3.041-8.881 7.090l-0.012 0.062c-0.018 0.080-0.029 0.173-0.029 0.268 0 0.691 0.56 1.251 1.251 1.251 0.596 0 1.094-0.417 1.22-0.975l0.002-0.008c0.684-2.981 3.309-5.174 6.448-5.186h0.001c0.144 0 0.282 0.020 0.423 0.029 0.056 3.218 2.679 5.805 5.905 5.805 3.224 0 5.845-2.584 5.905-5.794l0-0.006c0.171-0.013 0.339-0.035 0.514-0.035 3.14 0.012 5.765 2.204 6.442 5.14l0.009 0.045c0.126 0.567 0.625 0.984 1.221 0.984 0.69 0 1.249-0.559 1.249-1.249 0-0.094-0.010-0.186-0.030-0.274l0.002 0.008zM16 18.416c-0 0-0 0-0.001 0-1.887 0-3.417-1.53-3.417-3.417s1.53-3.417 3.417-3.417c1.887 0 3.417 1.53 3.417 3.417 0 0 0 0 0 0.001v-0c-0.003 1.886-1.53 3.413-3.416 3.416h-0z"></path> </g></svg>Users</a>

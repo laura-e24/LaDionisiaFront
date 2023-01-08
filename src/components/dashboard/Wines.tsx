@@ -44,9 +44,9 @@ export default function Wines({ wines }) {
 
   function handleCloseModal() {
     setSelectedProduct(null);
-    document.body.classList.remove('modal-open');
+    document.body.classList.remove('modalU-open');
   }
-  // console.log(wines)
+  console.log(wines)
   return (
     <>
       <div className="w-full h-full flex flex-wrap self-center justify-center divide-x-2 gap-y-8">
@@ -56,14 +56,8 @@ export default function Wines({ wines }) {
           ))
         }
         {selectedProduct && (
-          <div className="modal">
+          <div className="modalU">
             <UpdateProduct handleCloseModal={handleCloseModal} selectedProduct={selectedProduct}></UpdateProduct>
-            <div className="modal-inner">
-              <h1>{selectedProduct.wine}</h1>
-            </div>
-            <button className="modal-close-button" onClick={handleCloseModal}>
-              Cerrar
-            </button>
           </div>
         )}
       </div>
