@@ -43,7 +43,7 @@ const NavBar = () => {
       <Link href='/about' className="block">
         About
       </Link>
-      <Link href='#' className="block">
+      <Link href='/products' className="block">
         Productos
       </Link>
       {!user && (
