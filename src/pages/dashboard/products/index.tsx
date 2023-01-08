@@ -12,6 +12,7 @@ export default function Products({ wines }) {
   const [newProduct, setNewProduct] = useState(true);
   useEffect(() => {
     setIsLoading(false);
+    setNewProduct(false);
   }, []);
   if (isLoading) {
     return null;
@@ -32,11 +33,11 @@ export default function Products({ wines }) {
         <Sidebar handleNewProduct={handleNewProduct}></Sidebar>
         <div className="w-full flex flex-col">
           <Wines wines={wines}></Wines>
-          {newProduct && (
+          {newProduct ? (
             <div className="modalC">
               <CreateProduct handleCloseModal={handleCloseModal}></CreateProduct>
             </div>
-          )}
+          ) : null}
           <Footer></Footer>
         </div>
       </div>
