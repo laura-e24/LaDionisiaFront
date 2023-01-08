@@ -16,7 +16,7 @@ const Home = () => {
         Open regular modal
       </button> */}
       <NavBar></NavBar>
-      <Modal></Modal>
+      {/* <Modal></Modal> */}
     </>
   );
 }
