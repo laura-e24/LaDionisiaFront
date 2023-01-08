@@ -10,6 +10,7 @@ module.exports = {
         'initial-color': '#360404',
         'final-color': '#980404',
         'btn-color': '#900404',
+        'star-color': '#2596be',
       },
     },
   },
