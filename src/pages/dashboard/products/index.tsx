@@ -5,6 +5,7 @@ import Sidebar from "../../../components/dashboard/Sidebar";
 import Wines from "../../../components/dashboard/Wines";
 import CreateProduct from "../../../components/dashboard/CreateProduct ";
 import { useRouter } from "next/router";
+import NavBar from "../../../components/dashboard/products/Navbar";
 
 export default function Products({ wines }) {
   const router = useRouter();
@@ -30,8 +31,9 @@ export default function Products({ wines }) {
     <>
       <Navbar></Navbar>
       <div className="w-full flex">
-        <Sidebar handleNewProduct={handleNewProduct}></Sidebar>
+        <Sidebar></Sidebar>
         <div className="w-full flex flex-col">
+          <NavBar handleNewProduct={handleNewProduct}></NavBar>
           <Wines wines={wines}></Wines>
           {newProduct ? (
             <div className="modalC">

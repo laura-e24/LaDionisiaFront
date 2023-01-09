@@ -8,7 +8,7 @@ import NewProductLogoWhite from "../../assets/img/NewWineWhite.svg"
 import UsersLogoBlack from "../../assets/img/UsersBlack.svg"
 import UsersLogoWhite from "../../assets/img/UsersWhite.svg"
 import { useTheme } from "next-themes";
-const Sidebar = ({ handleNewProduct }) => {
+const Sidebar = () => {
     const [hasMounted, setHasMounted] = useState(false);
     const { theme, setTheme } = useTheme();
     useEffect(() => {
@@ -34,12 +34,6 @@ const Sidebar = ({ handleNewProduct }) => {
                                     theme === 'light' ? <WinesLogoBlack className="w-10 h-10" />
                                         : <WinesLogoWhite className="w-10 h-10" />
                                 } Products</a>
-                            </li>
-                            <li className="relative">
-                                <button className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="dark" onClick={() => handleNewProduct()}> {
-                                    theme === 'light' ? <NewProductLogoBlack className="w-10 h-10" />
-                                        : <NewProductLogoWhite className="w-10 h-10" />
-                                } New Product</button>
                             </li>
                             <li className="relative">
                                 <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="/dashboard/products" data-mdb-ripple="true" data-mdb-ripple-color="dark"> {

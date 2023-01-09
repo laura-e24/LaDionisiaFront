@@ -7,8 +7,14 @@ import { useRouter } from "next/router";
 import Logo from "../assets/img/dionisio.svg"
 import Night from "../assets/img/night.svg"
 import Day from "../assets/img/day.svg"
+import HeartLogoWhite from "../assets/img/HeartWhite.svg"
+import HeartLogoBlack from "../assets/img/HeartBlack.svg"
+import SearchLogoWhite from "../assets/img/SearchWhite.svg"
+import SearchLogoBlack from "../assets/img/SearchBlack.svg"
 import PersonLogoBlack from "../assets/img/PersonBlack.svg"
 import PersonLogoWhite from "../assets/img/PersonWhite.svg"
+import CartLogoWhite from "../assets/img/CartWhite.svg"
+import CartLogoBlack from "../assets/img/CartBlack.svg"
 const NavBar = () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme();
@@ -56,20 +62,28 @@ const NavBar = () => {
           <Logo className="w-20 h-20"></Logo>
         </span>
         {!user && (
-          <Link href='api/auth/login' className="block">
+          <Link href='http://localhost:3000/api/auth/login' className="block">
             Login
           </Link>
         )}
         {user && (
-          <Link href='api/auth/logout' className="block" onClick={handleCookieLogout}>
+          <Link href='http://localhost:3000/api/auth/logout' className="block" onClick={handleCookieLogout}>
             Logout
           </Link>
         )}
         <span className='flex items-center w-1/2 justify-end'>
-          <button className='w-12 h-12 rounded-full'>❤</button>
-          <button className='w-12 h-12 rounded-full'>🔎</button>
-          <button className='w-12 h-12 rounded-full'><PersonLogoBlack className='w-8 h-8'/></button>
-          <button className='w-12 h-12 rounded-full'>🛒</button>
+          <button className='w-12 h-12 rounded-full'>
+            {theme === 'light' ? <HeartLogoBlack className='w-8 h-8' /> : <HeartLogoWhite className='w-8 h-8' />}
+          </button>
+          <button className='w-12 h-12 rounded-full'>
+            {theme === 'light' ? <SearchLogoBlack className='w-8 h-8' /> : <SearchLogoWhite className='w-8 h-8' />}
+          </button>
+          <button className='w-12 h-12 rounded-full'>
+            {theme === 'light' ? <PersonLogoBlack className='w-8 h-8' /> : <PersonLogoWhite className='w-8 h-8' />}
+          </button>
+          <button className='w-12 h-12 rounded-full'>
+          {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
+          </button>
           <label className='flex items-center'>
             <input
               className='hidden'
@@ -80,7 +94,7 @@ const NavBar = () => {
                 theme === 'light' ? 'dark' : 'light'
               )}
             />
-            {theme === 'light' ? <Day className="w-8 h-8"/> : <Night className="w-8 h-8"/>}
+            {theme === 'light' ? <Day className="w-8 h-8" /> : <Night className="w-8 h-8" />}
           </label>
         </span>
       </div>
