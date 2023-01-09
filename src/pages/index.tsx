@@ -20,12 +20,17 @@ export default function index() {
       router.push("/");
     }
   }
+  function isUser(obj: any): obj is { '/roles': string[] } {
+    return '/roles' in obj;
+  }
   if (isLoading) return <div>...loading</div>
   if (error) return <div>{error.message}</div>
   if (user) {
+    const usuario = isUser(user) ? user[`/roles`] : [];
+    console.log(usuario)
     return handleCookieLogin() && (
       <>
-        {user[`/roles`].includes('administrador') ? (
+        {usuario.includes('administrador') ? (
           <>
             <Head>
               <title>La Dionisia - Tienda de vinos</title>
