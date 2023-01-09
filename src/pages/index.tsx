@@ -12,7 +12,7 @@ export default function index() {
   const handleCookieLogin = async () => {
     const res = await axios.post("/api/login", user);
     // console.log(res);
-    if(user){
+    if (user) {
       const response = await axios.post("http://localhost:3001/users/register", user);
       console.log(response.data);
     }
@@ -33,9 +33,7 @@ export default function index() {
             </Head>
             <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
               <Home />
-              <h2>binevenido admin</h2>
-              <a href="dashboard">dashboard</a><br />
-              <a href="api/auth/logout">logout</a>
+              {/* administrador */}
             </main>
           </>
         ) : (
@@ -46,8 +44,7 @@ export default function index() {
             </Head>
             <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
               <Home />
-              <h1>Bienvenido user</h1>
-              <a href="api/auth/logout">logout</a>
+              {/* user */}
             </main>
           </>
         )}
@@ -62,6 +59,7 @@ export default function index() {
         </Head>
         <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
           <Home />
+          {/* guest */}
         </main>
 
 

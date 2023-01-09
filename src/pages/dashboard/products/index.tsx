@@ -45,7 +45,7 @@ export default function Products({ wines }) {
   )
 }
 export async function getServerSideProps() {
-  const response = await fetch('http://localhost:3001/products/wineByYear/1999')
+  const response = await fetch('http://localhost:3001/products/')
   const wines = await response.json()
   return {
     props: {

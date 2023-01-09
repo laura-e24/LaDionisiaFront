@@ -10,7 +10,7 @@ export default function Footer() {
     }
     return (
         <div className="h-min w-full">
-            <footer className="p-4 bg-gradient-to-r from-initial-color to-final-color text-white rounded-lg shadow md:px-6 md:py-6 dark:bg-gradient-to-r from-initial-color to-final-color">
+            <footer className="p-4 bg-gradient-to-r from-initial-color to-final-color text-white shadow md:px-6 md:py-6 dark:bg-gradient-to-r from-initial-color to-final-color">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <a href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0">
                         <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />

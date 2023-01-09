@@ -3,7 +3,7 @@ import Footer from "../../components/dashboard/Footer";
 import Navbar from "../../components/dashboard/Navbar";
 import Sidebar from "../../components/dashboard/Sidebar";
 
-export default function Dashboard() {
+export default function Dashboard({ handleNewProduct }) {
   const [hasMounted, setHasMounted] = useState(false);
   useEffect(() => {
     setHasMounted(true);
@@ -15,7 +15,7 @@ export default function Dashboard() {
     <>
       <Navbar></Navbar>
       <div className="h-screen w-full flex">
-        <Sidebar></Sidebar>
+        <Sidebar handleNewProduct={handleNewProduct}></Sidebar>
         <div className="w-full flex flex-col">
 
           <Footer></Footer>

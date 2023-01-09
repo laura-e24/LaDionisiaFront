@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
-import Modal from "../Modal";
 import UpdateProduct from "./UpdateProduct";
-import { useRouter } from "next/router";
 import Pagination from "../Pagination";
+import { useRouter } from "next/router";
 export const paginate = (items, pageNumber, pageSize) => {
   const startIndex = (pageNumber - 1) * pageSize;
   return items.slice(startIndex, startIndex + pageSize);
@@ -11,10 +10,12 @@ export const paginate = (items, pageNumber, pageSize) => {
 export default function Wines({ wines }) {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 21;
-  const paginatedPosts = paginate(wines, currentPage, pageSize);
+  const [itemsPerPage, setitemsPerPage] = useState(21);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = wines.slice(indexOfFirstItem, indexOfLastItem);
+  const router = useRouter();
   useEffect(() => {
     setIsLoading(false);
   }, []);
@@ -38,8 +39,8 @@ export default function Wines({ wines }) {
       console.log('error')
     }
   }
-  const onPageChange = (page) => {
-    setCurrentPage(page);
+  const onPageChange = (event) => {
+    setCurrentPage(Number(event.target.id));
   };
 
   function handleCloseModal() {
@@ -51,7 +52,7 @@ export default function Wines({ wines }) {
     <>
       <div className="w-full h-full flex flex-wrap self-center justify-center divide-x-2 gap-y-8">
         {
-          paginatedPosts.map((wine) => (
+          currentItems.map((wine) => (
             <Card wine={wine} handleEditProduct={handleEditProduct} updateProduct={updateProduct}></Card>
           ))
         }
@@ -62,10 +63,10 @@ export default function Wines({ wines }) {
         )}
       </div>
       <Pagination
-        items={wines.length} // total wines
-        currentPage={currentPage} // 1
-        pageSize={pageSize} // 10
         onPageChange={onPageChange}
+        wines={wines}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
     </>
