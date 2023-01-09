@@ -1,10 +1,14 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+function isUser(obj: any): obj is { '/roles': string[] } {
+    return '/roles' in obj;
+}
 
 export default function Card({ wine, handleEditProduct, updateProduct }) {
     const [isLoading, setIsLoading] = useState(true);
     const { user } = useUser();
+    const usuario = isUser(user) ? user[`/roles`] : [];
     useEffect(() => {
         setIsLoading(false);
     }, []);
@@ -17,7 +21,7 @@ export default function Card({ wine, handleEditProduct, updateProduct }) {
     return (
         <>
             <div className="flex flex-col items-center w-4/12 text-center relative" key={wine.id}>
-                {user && user[`/roles`].includes('administrador') &&(
+                {user && usuario.includes('administrador') && (
                     <>
                         <div className="absolute right-0 top-0">
                             <button className="inline-flex items-center justify-center w-8 h-8 mr-2 text-pink-100 transition-colors duration-150 bg-red-600 hover:bg-red-700 rounded-lg focus:shadow-outline" onClick={() => handleClick()}>

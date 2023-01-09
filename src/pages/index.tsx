@@ -4,6 +4,9 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
 
+function isUser(obj: any): obj is { '/roles': string[] } {
+  return '/roles' in obj;
+}
 
 export default function index() {
   const { user, error, isLoading } = useUser();
@@ -19,9 +22,6 @@ export default function index() {
     if (res.status === 200 && res.data.message === "Successful login: admin" || res.data.message === "Successful login: user") {
       router.push("/");
     }
-  }
-  function isUser(obj: any): obj is { '/roles': string[] } {
-    return '/roles' in obj;
   }
   if (isLoading) return <div>...loading</div>
   if (error) return <div>{error.message}</div>
