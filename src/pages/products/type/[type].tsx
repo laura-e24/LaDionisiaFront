@@ -15,13 +15,6 @@ export default function Reds({ wines }) {
     return (
         <>
             <NavBar></NavBar>
-            <Pagination
-                onPageChange={onPageChange}
-                wines={wines}
-                itemsPerPage={itemsPerPage}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-            />
             <div className="w-full h-full flex flex-wrap self-center justify-center divide-x-2 gap-y-8">
                 {
                     currentItems.map((wine) => (
@@ -29,7 +22,13 @@ export default function Reds({ wines }) {
                     ))
                 }
             </div>
-
+            <Pagination
+                onPageChange={onPageChange}
+                wines={wines}
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+            />
         </>
     )
 }

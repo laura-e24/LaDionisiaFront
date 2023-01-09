@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Footer from "../../../components/dashboard/Footer";
+import Footer from "../../../components/Footer";
 import Navbar from "../../../components/dashboard/Navbar";
 import Sidebar from "../../../components/dashboard/Sidebar";
 import Wines from "../../../components/dashboard/Wines";
