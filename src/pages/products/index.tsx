@@ -3,6 +3,7 @@ import NavBar from "../../components/NavBar";
 import Wines from "../../components/dashboard/Wines";
 import Pagination from "../../components/Pagination";
 import Card from "../../components/Card";
+import axios from "axios";
 
 export default function index({ wines }) {
     const [currentPage, setCurrentPage] = useState(1);
@@ -35,8 +36,8 @@ export default function index({ wines }) {
     )
 }
 export async function getServerSideProps() {
-    const response = await fetch('http://localhost:3001/products/')
-    const wines = await response.json()
+    const response = await axios.get('/products/')
+    const wines = response.data
     return {
         props: {
             wines,

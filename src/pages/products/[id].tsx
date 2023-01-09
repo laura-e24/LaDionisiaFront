@@ -1,3 +1,4 @@
+import axios from "axios";
 import Navbar from "../../components/NavBar";
 
 export default function Product({ wine }) {
@@ -68,9 +69,8 @@ export default function Product({ wine }) {
   )
 }
 export async function getStaticPaths() {
-  const res = await fetch('http://localhost:3001/products')
-  const data = await res.json()
-  const paths = data.map(({ id }) => ({
+  const res = await axios.get('/products')
+  const paths = res.data.map(({ id }) => ({
     params: { id: `${id}` }
   }))
   return {
@@ -81,8 +81,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const response = await fetch('http://localhost:3001/products/' + params.id)
-  const wine = await response.json()
+  const response = await axios.get('/products/' + params.id)
+  const wine = response.data
   return {
     props: {
       wine,

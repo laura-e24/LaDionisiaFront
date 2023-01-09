@@ -2,6 +2,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function Card({ wine, setSelectedProduct }) {
     const [isLoading, setIsLoading] = useState(true);
@@ -21,12 +22,8 @@ export default function Card({ wine, setSelectedProduct }) {
         document.body.classList.add('modal-open');
     }
     async function updateProduct(productId, data) {
-        const response = await fetch(`http://localhost:3001/products/${productId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-        if (response.ok) {
+        const response = await axios.put(`/products/${productId}`, data);
+        if (response.status === 200) {
             alert('producto eliminado')
             router.push("/dashboard/products");
         } else {

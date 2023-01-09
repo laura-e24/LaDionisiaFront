@@ -3,6 +3,7 @@ import Card from "../../../components/Card"
 import NavBar from "../../../components/NavBar"
 import Pagination from "../../../components/Pagination"
 import Footer from "../../../components/Footer";
+import axios from "axios";
 export default function Reds({ wines }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setitemsPerPage] = useState(21);
@@ -37,9 +38,8 @@ export default function Reds({ wines }) {
     )
 }
 export async function getStaticPaths() {
-    const res = await fetch('http://localhost:3001/products/')
-    const data = await res.json()
-    const paths = data.map(({ type }) => ({
+    const res = await axios.get('/products/')
+    const paths = res.data.map(({ type }) => ({
         params: { type: `${type}` }
     }))
     return {
@@ -50,8 +50,8 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps({ params }) {
-    const response = await fetch('http://localhost:3001/products/wineTypes/' + params.type)
-    const wines = await response.json()
+    const response = await axios.get('/products/wineTypes/' + params.type)
+    const wines = response.data
     return {
         props: {
             wines,

@@ -1,5 +1,6 @@
 import UpdateProduct from "../../../components/dashboard/UpdateProduct"
 import Navbar from "../../../components/dashboard/Navbar";
+import axios from "axios";
 
 export default function Product({ wine }) {
   return (
@@ -70,8 +71,8 @@ export default function Product({ wine }) {
 }
 export async function getStaticPaths() {
   try {
-    const res = await fetch('http://localhost:3001/products')
-    const data = await res.json()
+    const res = await axios.get('/products')
+    const data = await res.data
     const paths = data.map(({ id }) => ({
       params: { id: `${id}` }
     }))
@@ -85,8 +86,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const response = await fetch('http://localhost:3001/products/' + params.id)
-  const wine = await response.json()
+  const response = await axios.get('/products/' + params.id)
+  const wine = response.data
   return {
     props: {
       wine,

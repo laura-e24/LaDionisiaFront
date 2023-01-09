@@ -6,6 +6,7 @@ import Wines from "../../../components/dashboard/Wines";
 import CreateProduct from "../../../components/dashboard/CreateProduct ";
 import { useRouter } from "next/router";
 import NavBar from "../../../components/dashboard/products/Navbar";
+import axios from "axios";
 
 export default function Products({ wines }) {
   const router = useRouter();
@@ -47,8 +48,8 @@ export default function Products({ wines }) {
   )
 }
 export async function getServerSideProps() {
-  const response = await fetch('http://localhost:3001/products/')
-  const wines = await response.json()
+  const response = await axios.get('/products/')
+  const wines = response.data
   return {
     props: {
       wines,

@@ -3,6 +3,7 @@ import Card from "./Card";
 import UpdateProduct from "./UpdateProduct";
 import Pagination from "../Pagination";
 import { useRouter } from "next/router";
+import axios from "axios";
 export const paginate = (items, pageNumber, pageSize) => {
   const startIndex = (pageNumber - 1) * pageSize;
   return items.slice(startIndex, startIndex + pageSize);
@@ -27,12 +28,8 @@ export default function Wines({ wines }) {
     document.body.classList.add('modal-open');
   }
   async function updateProduct(productId, data) {
-    const response = await fetch(`http://localhost:3001/products/${productId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    if (response.ok) {
+    const response = await axios.put(`/products/${productId}`, data);
+    if (response.status === 200) {
       alert('producto eliminado')
       router.push("/dashboard/products");
     } else {
