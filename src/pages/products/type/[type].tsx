@@ -2,7 +2,7 @@ import { useState } from "react";
 import Card from "../../../components/Card"
 import NavBar from "../../../components/NavBar"
 import Pagination from "../../../components/Pagination"
-
+import Footer from "../../../components/Footer";
 export default function Reds({ wines }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setitemsPerPage] = useState(21);
@@ -21,6 +21,7 @@ export default function Reds({ wines }) {
                         <Card wine={wine} setSelectedProduct={undefined}></Card>
                     ))
                 }
+
             </div>
             <Pagination
                 onPageChange={onPageChange}
@@ -28,8 +29,11 @@ export default function Reds({ wines }) {
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+
             />
+            <Footer></Footer>
         </>
+
     )
 }
 export async function getStaticPaths() {
@@ -48,6 +52,7 @@ export async function getStaticPaths() {
     }
 }
 
+
 export async function getStaticProps({ params }) {
     const response = await fetch('http://localhost:3001/products/wineTypes/' + params.type)
     const wines = await response.json()
@@ -55,5 +60,6 @@ export async function getStaticProps({ params }) {
         props: {
             wines,
         },
+
     }
 }
