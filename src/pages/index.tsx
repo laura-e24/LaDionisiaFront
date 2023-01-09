@@ -3,7 +3,6 @@ import Home from '../components/Home'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
-axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001'
 function isUser(obj: any): obj is { '/roles': string[] } {
   return '/roles' in obj;
 }
@@ -13,10 +12,10 @@ export default function index() {
   const router = useRouter();
   // console.log(user);
   const handleCookieLogin = async () => {
-    const res = await axios.post("/api/login", user);
+    const res = await axios.post(`http://localhost:3000/api/login`, user);
     // console.log(res);
     if (user) {
-      const response = await axios.post("/users/register", user);
+      const response = await axios.post(`${process.env.RESTURL_PRODUCTS}/users/register`, user);
       console.log(response.data);
     }
     if (res.status === 200 && res.data.message === "Successful login: admin" || res.data.message === "Successful login: user") {
@@ -25,10 +24,11 @@ export default function index() {
   }
   if (isLoading) return <div>...loading</div>
   if (error) return <div>{error.message}</div>
+  console.log(user)
   if (user) {
     const usuario = isUser(user) ? user[`/roles`] : [];
     console.log(usuario)
-    return(
+    return handleCookieLogin && (
       <>
         {usuario.includes('administrador') ? (
           <>

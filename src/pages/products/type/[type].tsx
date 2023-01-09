@@ -38,7 +38,7 @@ export default function Reds({ wines }) {
     )
 }
 export async function getStaticPaths() {
-    const res = await axios.get('/products/')
+    const res = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/`)
     const paths = res.data.map(({ type }) => ({
         params: { type: `${type}` }
     }))
@@ -50,7 +50,7 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps({ params }) {
-    const response = await axios.get('/products/wineTypes/' + params.type)
+    const response = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/wineTypes/` + params.type)
     const wines = response.data
     return {
         props: {

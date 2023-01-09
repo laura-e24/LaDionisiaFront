@@ -6,7 +6,7 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
     const router = useRouter();
 
     async function updateProduct(product) {
-        const response = await axios.put(`/products/${product.id}`, product);
+        const response = await axios.put(`${process.env.RESTURL_PRODUCTS}/products/${product.id}`, product);
         // console.log(response.status);
         response.status = 200 && handleCloseModal()
         alert('this is ok!')

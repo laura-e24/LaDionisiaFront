@@ -36,7 +36,7 @@ export default function index({ wines }) {
     )
 }
 export async function getServerSideProps() {
-    const response = await axios.get('/products/')
+    const response = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/`)
     const wines = response.data
     return {
         props: {

@@ -28,7 +28,7 @@ export default function Wines({ wines }) {
     document.body.classList.add('modal-open');
   }
   async function updateProduct(productId, data) {
-    const response = await axios.put(`/products/${productId}`, data);
+    const response = await axios.put(`${process.env.RESTURL_PRODUCTS}/products/${productId}`, data);
     if (response.status === 200) {
       alert('producto eliminado')
       router.push("/dashboard/products");
