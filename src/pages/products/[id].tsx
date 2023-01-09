@@ -68,19 +68,16 @@ export default function Product({ wine }) {
   )
 }
 export async function getStaticPaths() {
-  try {
-    const res = await fetch('http://localhost:3001/products')
-    const data = await res.json()
-    const paths = data.map(({ id }) => ({
-      params: { id: `${id}` }
-    }))
-    return {
-      paths,
-      fallback: false
-    }
-  } catch (error) {
-    console.log(error.message)
+  const res = await fetch('http://localhost:3001/products')
+  const data = await res.json()
+  const paths = data.map(({ id }) => ({
+    params: { id: `${id}` }
+  }))
+  return {
+    paths,
+    fallback: false
   }
+
 }
 
 export async function getStaticProps({ params }) {
