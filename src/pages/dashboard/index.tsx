@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
-import Navbar from "../../components/dashboard/Navbar";
+import NavBar from "../../components/NavBar"
 import Sidebar from "../../components/dashboard/Sidebar";
 
 export default function Dashboard({ handleNewProduct }) {
@@ -13,7 +13,7 @@ export default function Dashboard({ handleNewProduct }) {
   }
   return (
     <>
-      <Navbar></Navbar>
+      <NavBar></NavBar>
       <div className="h-screen w-full flex">
         <Sidebar handleNewProduct={handleNewProduct}></Sidebar>
         <div className="w-full flex flex-col">

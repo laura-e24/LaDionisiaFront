@@ -60,7 +60,9 @@ export default function Wines({ wines }) {
           <div className="modalU">
             <UpdateProduct handleCloseModal={handleCloseModal} selectedProduct={selectedProduct}></UpdateProduct>
           </div>
+        
         )}
+        
       </div>
       <Pagination
         onPageChange={onPageChange}
