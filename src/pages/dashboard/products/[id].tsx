@@ -70,7 +70,6 @@ export default function Product({ wine }) {
   )
 }
 export async function getStaticPaths() {
-  try {
     const res = await axios.get(`${process.env.RESTURL_PRODUCTS}/products`)
     const data = await res.data
     const paths = data.map(({ id }) => ({
@@ -80,9 +79,6 @@ export async function getStaticPaths() {
       paths,
       fallback: false
     }
-  } catch (error) {
-    console.log(error.message)
-  }
 }
 
 export async function getStaticProps({ params }) {
