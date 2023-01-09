@@ -13,11 +13,11 @@ const Home = () => {
           <button className="bg-white w-min">button</button>
         </div>
         <div className="w-full flex justify-around items-center">
-          <a href="/products/reds" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center">+ <br /> Reds</a>
-          <a href="/products/whites" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center">+ <br /> Whites</a>
-          <a href="/products/rose" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center bg-[url('https://images.vivino.com/thumbs/CRBSmK3xRuqHdCg4TpBpVw_pb_x300.png')] bg-contain">+ <br /> Rose</a>
-          <a href="/products/sparkling" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center bg-[url('https://images.vivino.com/thumbs/CRBSmK3xRuqHdCg4TpBpVw_pb_x300.png')] bg-contain bg-no-repeat bg-center">+ <br /> Sparkling</a>
-          <a href="/products/dessert" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center">+ <br /> Dessert</a>
+          <a href="/products/type/reds" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center">+ <br /> Reds</a>
+          <a href="/products/type/whites" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center">+ <br /> Whites</a>
+          <a href="/products/type/rose" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center bg-[url('https://images.vivino.com/thumbs/CRBSmK3xRuqHdCg4TpBpVw_pb_x300.png')] bg-contain">+ <br /> Rose</a>
+          <a href="/products/type/sparkling" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center bg-[url('https://images.vivino.com/thumbs/CRBSmK3xRuqHdCg4TpBpVw_pb_x300.png')] bg-contain bg-no-repeat bg-center">+ <br /> Sparkling</a>
+          <a href="/products/type/dessert" className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-200 text-center">+ <br /> Dessert</a>
         </div>
         <div className="flex flex-col items-center w-full">
           <h1 className="text-2xl">Arrivals</h1>

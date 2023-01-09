@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import Logo from "../assets/img/dionisio.svg"
 import Night from "../assets/img/night.svg"
 import Day from "../assets/img/day.svg"
+import PersonLogoBlack from "../assets/img/PersonBlack.svg"
+import PersonLogoWhite from "../assets/img/PersonWhite.svg"
 const NavBar = () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme();
@@ -43,20 +45,17 @@ const NavBar = () => {
           <Link href='/' className="block">Wine List</Link>
         </li>
         <li className="px-2">
-          <Link href='/' className="block">New Products</Link>
+          <Link href='/products' className="block">New Products</Link>
         </li>
         <li className="px-2">
-          <Link href='/' className="block">Bestseller</Link>
-        </li>
-        <li className="px-2">
-          <Link href='/' className="block">Contact Us</Link>
+          <Link href='/products' className="block">Bestseller</Link>
         </li>
       </ul>
       <div className="w-2/3 inline-flex items-center">
         <span className="flex items-center w-1/2 justify-center">La Dionisia
           <Logo className="w-20 h-20"></Logo>
         </span>
-        {/* {!user && (
+        {!user && (
           <Link href='api/auth/login' className="block">
             Login
           </Link>
@@ -65,11 +64,11 @@ const NavBar = () => {
           <Link href='api/auth/logout' className="block" onClick={handleCookieLogout}>
             Logout
           </Link>
-        )} */}
+        )}
         <span className='flex items-center w-1/2 justify-end'>
           <button className='w-12 h-12 rounded-full'>❤</button>
           <button className='w-12 h-12 rounded-full'>🔎</button>
-          <button className='w-12 h-12 rounded-full'>🙍‍♂️</button>
+          <button className='w-12 h-12 rounded-full'><PersonLogoBlack className='w-8 h-8'/></button>
           <button className='w-12 h-12 rounded-full'>🛒</button>
           <label className='flex items-center'>
             <input
