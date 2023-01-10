@@ -1,23 +1,34 @@
 import { useEffect, useState } from "react";
-import Footer from "../../../components/Footer";
-import Navbar from "../../../components/dashboard/Navbar";
-import Sidebar from "../../../components/dashboard/Sidebar";
-import Wines from "../../../components/dashboard/Wines";
-import CreateProduct from "../../../components/dashboard/CreateProduct ";
+import Footer from "../../../components/Footer/Footer";
+import NavBar from "../../../components/Navbar/NavBar"
+import Sidebar from "../../../components/Dashboard/Sidebar";
+import Wines from "../../../components/Dashboard/Products/Wines";
+import CreateProduct from "../../../components/Dashboard/CreateProduct ";
 import { useRouter } from "next/router";
-import NavBar from "../../../components/dashboard/products/Navbar";
+import Navbar from "../../../components/Dashboard/Products/Navbar";
 import axios from "axios";
+import WinesDisabled from "../../../components/Dashboard/Products/WinesDisabled";
 
-export default function Products({ wines }) {
+export default function Products({ wines, winesDisabled }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [newProduct, setNewProduct] = useState(true);
+  const [productsEnabled, setProductsEnabled] = useState(true);
+  const [productsDisabled, setProductsDisabled] = useState(false);
   useEffect(() => {
     setIsLoading(false);
     setNewProduct(false);
   }, []);
   if (isLoading) {
     return null;
+  }
+  function ViewProducts() {
+    setProductsEnabled(true)
+    setProductsDisabled(false)
+  }
+  function ViewProductsDisabled() {
+    setProductsEnabled(false)
+    setProductsDisabled(true)
   }
   function handleNewProduct() {
     setNewProduct(true)
@@ -30,12 +41,13 @@ export default function Products({ wines }) {
   }
   return (
     <>
-      <Navbar></Navbar>
+      <NavBar ></NavBar>
       <div className="w-full flex">
         <Sidebar></Sidebar>
         <div className="w-full flex flex-col">
-          <NavBar handleNewProduct={handleNewProduct}></NavBar>
-          <Wines wines={wines}></Wines>
+          <Navbar handleNewProduct={handleNewProduct} ViewProducts={ViewProducts} ViewProductsDisabled={ViewProductsDisabled}></Navbar>
+          {productsEnabled && <Wines wines={wines}></Wines>}
+          {productsDisabled && <WinesDisabled winesDisabled={winesDisabled}></WinesDisabled>}
           {newProduct ? (
             <div className="modalC">
               <CreateProduct handleCloseModal={handleCloseModal}></CreateProduct>
@@ -49,10 +61,13 @@ export default function Products({ wines }) {
 }
 export async function getServerSideProps() {
   const response = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/`)
+  const responseDisabled = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/disabled`)
   const wines = response.data
+  const winesDisabled = responseDisabled.data
   return {
     props: {
       wines,
+      winesDisabled
     },
   }
 }

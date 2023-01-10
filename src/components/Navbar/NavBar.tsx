@@ -4,21 +4,21 @@ import { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
-import Logo from "../assets/img/dionisio.svg"
-import Night from "../assets/img/night.svg"
-import Day from "../assets/img/day.svg"
-import HeartLogoWhite from "../assets/img/HeartWhite.svg"
-import HeartLogoBlack from "../assets/img/HeartBlack.svg"
-import SearchLogoWhite from "../assets/img/SearchWhite.svg"
-import SearchLogoBlack from "../assets/img/SearchBlack.svg"
-import PersonLogoBlack from "../assets/img/PersonBlack.svg"
-import PersonLogoWhite from "../assets/img/PersonWhite.svg"
-import CartLogoWhite from "../assets/img/CartWhite.svg"
-import CartLogoBlack from "../assets/img/CartBlack.svg"
+import Logo from "../../assets/img/dionisio.svg"
+import Night from "../../assets/img/night.svg"
+import Day from "../../assets/img/day.svg"
+import HeartLogoWhite from "../../assets/img/HeartWhite.svg"
+import HeartLogoBlack from "../../assets/img/HeartBlack.svg"
+import SearchLogoWhite from "../../assets/img/SearchWhite.svg"
+import SearchLogoBlack from "../../assets/img/SearchBlack.svg"
+import PersonLogoBlack from "../../assets/img/PersonBlack.svg"
+import PersonLogoWhite from "../../assets/img/PersonWhite.svg"
+import CartLogoWhite from "../../assets/img/CartWhite.svg"
+import CartLogoBlack from "../../assets/img/CartBlack.svg"
 const NavBar = () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme();
-  const { user, error, isLoading } = useUser();
+  const { user } = useUser();
   const router = useRouter();
 
   const handleCookieLogout = async () => {
@@ -38,8 +38,6 @@ const NavBar = () => {
   if (!mounted) {
     return null
   }
-  if (isLoading) return <div>...loading</div>
-  if (error) return <div>{error.message}</div>
 
   return (
     <nav className="w-full flex justify-between items-center p-2">

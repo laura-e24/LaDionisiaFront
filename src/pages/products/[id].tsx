@@ -1,5 +1,5 @@
 import axios from "axios";
-import Navbar from "../../components/NavBar";
+import Navbar from "../../components/Navbar/NavBar";
 
 export default function Product({ wine }) {
   return (

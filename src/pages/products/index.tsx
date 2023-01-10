@@ -1,8 +1,8 @@
 import { useState } from "react";
-import NavBar from "../../components/NavBar";
-import Wines from "../../components/dashboard/Wines";
+import NavBar from "../../components/Navbar/NavBar";
+import Wines from "../../components/dashboard/products/Wines";
 import Pagination from "../../components/Pagination";
-import Card from "../../components/Card";
+import Card from "../../components/Card/Card";
 import axios from "axios";
 
 export default function index({ wines }) {

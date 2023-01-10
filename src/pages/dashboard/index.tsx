@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Footer from "../../components/Footer";
-import NavBar from "../../components/NavBar"
-import Sidebar from "../../components/dashboard/Sidebar";
+import Footer from "../../components/Footer/Footer";
+import NavBar from "../../components/Navbar/NavBar"
+import Sidebar from "../../components/Dashboard/Sidebar";
 
 export default function Dashboard() {
   const [hasMounted, setHasMounted] = useState(false);

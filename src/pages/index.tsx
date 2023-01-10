@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Home from '../components/Home'
+import Home from '../components/Home/Home'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ export default function index() {
   // console.log(user);
   const handleCookieLogin = async () => {
     const res = await axios.post(`/api/login`, user);
-    // console.log(res);
+    console.log(res);
     if (user) {
       const response = await axios.post(`${process.env.RESTURL_PRODUCTS}/users/register`, user);
       console.log(response.data);
@@ -28,7 +28,7 @@ export default function index() {
   if (user) {
     const usuario = isUser(user) ? user[`/roles`] : [];
     console.log(usuario)
-    return handleCookieLogin && (
+    return handleCookieLogin() && (
       <>
         {usuario.includes('administrador') ? (
           <>

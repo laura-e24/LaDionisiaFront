@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Card from "../../../components/Card"
-import NavBar from "../../../components/NavBar"
+import Card from "../../../components/Card/Card"
+import NavBar from "../../../components/Navbar/NavBar"
 import Pagination from "../../../components/Pagination"
-import Footer from "../../../components/Footer";
+import Footer from "../../../components/Footer/Footer";
 import axios from "axios";
 export default function Reds({ wines }) {
     const [currentPage, setCurrentPage] = useState(1);
