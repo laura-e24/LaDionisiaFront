@@ -12,7 +12,7 @@ export default function index() {
   const router = useRouter();
   // console.log(user);
   const handleCookieLogin = async () => {
-    const res = await axios.post(`http://localhost:3000/api/login`, user);
+    const res = await axios.post(`/api/login`, user);
     // console.log(res);
     if (user) {
       const response = await axios.post(`${process.env.RESTURL_PRODUCTS}/users/register`, user);

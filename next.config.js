@@ -19,7 +19,7 @@ module.exports = (phase) => {
     RESTURL_PRODUCTS: (() => {
       if (isDev) return 'http://localhost:3001'
       if (isProd) {
-        return 'https://ladionisiaback-production.up.railway.app/products'
+        return 'https://ladionisiaback-production.up.railway.app'
       }
     })(),
     RESTURL_SESSIONS: (() => {

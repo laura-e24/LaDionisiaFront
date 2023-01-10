@@ -62,12 +62,12 @@ const NavBar = () => {
           <Logo className="w-20 h-20"></Logo>
         </span>
         {!user && (
-          <Link href='http://localhost:3000/api/auth/login' className="block">
+          <Link href='/api/auth/login' className="block">
             Login
           </Link>
         )}
         {user && (
-          <Link href='http://localhost:3000/api/auth/logout' className="block" onClick={handleCookieLogout}>
+          <Link href='/api/auth/logout' className="block" onClick={handleCookieLogout}>
             Logout
           </Link>
         )}
