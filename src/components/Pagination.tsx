@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrentPage }) {
-    const [pageNumberLimit, setpageNumberLimit] = useState(10);
+    const pageNumberLimit = 10;
     const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(10);
     const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
