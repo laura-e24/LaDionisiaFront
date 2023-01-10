@@ -1,6 +1,5 @@
 import { useState } from "react";
 import NavBar from "../../components/Navbar/NavBar";
-import Wines from "../../components/dashboard/products/Wines";
 import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import axios from "axios";
