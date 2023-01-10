@@ -1,5 +1,4 @@
-import UpdateProduct from "../../../components/dashboard/UpdateProduct"
-import Navbar from "../../../components/dashboard/Navbar";
+import Navbar from "../../../components/Dashboard/Navbar";
 import axios from "axios";
 
 export default function Product({ wine }) {
