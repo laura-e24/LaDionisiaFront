@@ -15,12 +15,19 @@ import PersonLogoBlack from "../../assets/img/PersonBlack.svg"
 import PersonLogoWhite from "../../assets/img/PersonWhite.svg"
 import CartLogoWhite from "../../assets/img/CartWhite.svg"
 import CartLogoBlack from "../../assets/img/CartBlack.svg"
+// import 'tw-elements';
 const NavBar = () => {
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false);
+  const [searchBar, setSearchBar] = useState(false)
+  const [favorites, setFavorites] = useState(false)
+  const [search, setSearch] = useState('')
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
   const router = useRouter();
-
+  useEffect(() => {
+    setMounted(true)
+    setSearchBar(false)
+  }, [])
   const handleCookieLogout = async () => {
     try {
       const res = await axios.get("/api/logout");
@@ -31,14 +38,27 @@ const NavBar = () => {
       console.error(error.message);
     }
   };
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
+  async function handleWinesByName(e) {
+    e.preventDefault(e)
+    try {
+      const response = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/?wines=${search}`);
+      // console.log(response.status);
+      if (response.status === 200) {
+        router.push(`/products?wine=${search}`);
+        setSearch('')
+      }
+      // alert('this is ok!')
+    } catch (error) {
+      alert('error product not found')
+    }
+  }
+  function handleInputName(e) {
+    setSearch(e.target.value)
+  }
   if (!mounted) {
     return null
   }
-
+  // console.log(search)
   return (
     <nav className="w-full flex justify-between items-center p-2">
       <ul className="w-1/3 flex inline-flex justify-between divide-x-2 divide-black">
@@ -56,31 +76,67 @@ const NavBar = () => {
         </li>
       </ul>
       <div className="w-2/3 inline-flex items-center">
-        <span className="flex items-center w-1/2 justify-center">La Dionisia
+        <span className="flex items-center w-1/4 justify-center">La Dionisia
           <Logo className="w-20 h-20"></Logo>
         </span>
-        {!user && (
-          <Link href='/api/auth/login' className="block">
-            Login
-          </Link>
-        )}
-        {user && (
-          <Link href='/api/auth/logout' className="block" onClick={handleCookieLogout}>
-            Logout
-          </Link>
-        )}
-        <span className='flex items-center w-1/2 justify-end'>
-          <button className='w-12 h-12 rounded-full'>
+        <span className="flex items-center w-1/4 justify-center">
+          {!user && (
+            <Link href='/api/auth/login' className="block">
+              Login
+            </Link>
+          )}
+          {user && (
+            <Link href='/api/auth/logout' className="block" onClick={handleCookieLogout}>
+              Logout
+            </Link>
+          )}
+        </span>
+        <span className='flex items-center w-2/4 justify-end'>
+          <label>
+            <input
+              className='hidden'
+              checked={theme !== 'light'}
+              name="darkMode"
+              type="checkbox"
+              onChange={() => setSearchBar(true)}
+            />
+            {!searchBar && (theme === 'light' ? <SearchLogoBlack className='w-8 h-8' /> : <SearchLogoWhite className='w-8 h-8' />)
+            }
+          </label>
+          {searchBar ? (
+            <div className="flex">
+              <form className="flex gap-2 p-2" onSubmit={(e) => { handleWinesByName(e) }}>
+                <input placeholder="Type something here..." type="text" className="rounded focus:outline-none focus:ring focus:ring-violet-300" onChange={(e) => { handleInputName(e) }}></input>
+                <button type='submit' className="p-2 rounded  bg-sky-800"> Search</button>
+              </form>
+            </div>
+          ) : null
+          }
+          {/* <label>
+            <input
+              className='hidden'
+              checked={theme !== 'light'}
+              name="darkMode"
+              type="checkbox"
+              onChange={() => setFavorites(true)}
+            />
+            {!searchBar && (theme === 'light' ? <HeartLogoBlack className='w-8 h-8' /> : <HeartLogoWhite className='w-8 h-8' />)
+            }
+          </label>
+          {favorites ? (
+            <div className="flex">
+              <p>dadaaaaaaaaa</p>
+            </div>
+          ) : null
+          } */}
+          {/* <button className='w-12 h-12 rounded-full'>
             {theme === 'light' ? <HeartLogoBlack className='w-8 h-8' /> : <HeartLogoWhite className='w-8 h-8' />}
-          </button>
-          <button className='w-12 h-12 rounded-full'>
-            {theme === 'light' ? <SearchLogoBlack className='w-8 h-8' /> : <SearchLogoWhite className='w-8 h-8' />}
-          </button>
+          </button> */}
           <button className='w-12 h-12 rounded-full'>
             {theme === 'light' ? <PersonLogoBlack className='w-8 h-8' /> : <PersonLogoWhite className='w-8 h-8' />}
           </button>
           <button className='w-12 h-12 rounded-full'>
-          {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
+            {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
           </button>
           <label className='flex items-center'>
             <input

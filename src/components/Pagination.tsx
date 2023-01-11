@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrentPage }) {
     const pageNumberLimit = 10;
@@ -43,15 +43,13 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
     };
     const handleLastPage = () => {
         setCurrentPage(pages[pages.length - 1]);
-        setmaxPageNumberLimit(pages[pages.length - 1])
-        setminPageNumberLimit(pages[pages.length - 1] - pages[pages.length - 1] % pageNumberLimit);
+        setmaxPageNumberLimit(pages.length)
+        setminPageNumberLimit(pages.length - pages[pages.length - 1] % pageNumberLimit);
     }
     const handleFirstPage = () => {
         setCurrentPage(1);
-        if ((currentPage - 1) % pageNumberLimit == 0) {
-            setmaxPageNumberLimit(pages[pages.length - 1])
-            setminPageNumberLimit(pages[pages.length - 1] - pageNumberLimit)
-        }
+        setmaxPageNumberLimit(10)
+        setminPageNumberLimit(0);
     }
 
     let pageIncrementBtn = null;
@@ -76,7 +74,7 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
                         Prev
                     </button>
                 </li>
-                {currentPage <= pages[pages.length - 1] ? <li>
+                {currentPage <= pages[pages.length - 1]  && currentPage >= pages[0] + pageNumberLimit? <li>
                     <button
                         className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                         onClick={handleFirstPage}
