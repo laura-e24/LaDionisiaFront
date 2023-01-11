@@ -15,11 +15,16 @@ import PersonLogoBlack from "../../assets/img/PersonBlack.svg"
 import PersonLogoWhite from "../../assets/img/PersonWhite.svg"
 import CartLogoWhite from "../../assets/img/CartWhite.svg"
 import CartLogoBlack from "../../assets/img/CartBlack.svg"
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 // import 'tw-elements';
 const NavBar = () => {
   const [mounted, setMounted] = useState(false);
   const [searchBar, setSearchBar] = useState(false)
-  const [favorites, setFavorites] = useState(false)
   const [search, setSearch] = useState('')
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
@@ -66,32 +71,20 @@ const NavBar = () => {
           <Link href='/' className="block">Home</Link>
         </li>
         <li className="px-2">
-          <Link href='/' className="block">Wine List</Link>
+          <Link href='/' className="block">Winery</Link>
         </li>
         <li className="px-2">
-          <Link href='/products' className="block">New Products</Link>
+          <Link href='/products' className="block">Contact Us</Link>
         </li>
         <li className="px-2">
           <Link href='/products' className="block">Bestseller</Link>
         </li>
       </ul>
       <div className="w-2/3 inline-flex items-center">
-        <span className="flex items-center w-1/4 justify-center">La Dionisia
+        <span className="flex items-center w-2/4 justify-center">La Dionisia
           <Logo className="w-20 h-20"></Logo>
         </span>
-        <span className="flex items-center w-1/4 justify-center">
-          {!user && (
-            <Link href='/api/auth/login' className="block">
-              Login
-            </Link>
-          )}
-          {user && (
-            <Link href='/api/auth/logout' className="block" onClick={handleCookieLogout}>
-              Logout
-            </Link>
-          )}
-        </span>
-        <span className='flex items-center w-2/4 justify-end'>
+        <span className='flex items-center w-2/4 justify-end gap-2'>
           <label>
             <input
               className='hidden'
@@ -107,37 +100,166 @@ const NavBar = () => {
             <div className="flex">
               <form className="flex gap-2 p-2" onSubmit={(e) => { handleWinesByName(e) }}>
                 <input placeholder="Type something here..." type="text" className="rounded focus:outline-none focus:ring focus:ring-violet-300" onChange={(e) => { handleInputName(e) }}></input>
-                <button type='submit' className="p-2 rounded  bg-sky-800"> Search</button>
+                <button type='submit' className="p-2 rounded border border-gray-300"> Search</button>
               </form>
             </div>
           ) : null
           }
-          {/* <label>
-            <input
-              className='hidden'
-              checked={theme !== 'light'}
-              name="darkMode"
-              type="checkbox"
-              onChange={() => setFavorites(true)}
-            />
-            {!searchBar && (theme === 'light' ? <HeartLogoBlack className='w-8 h-8' /> : <HeartLogoWhite className='w-8 h-8' />)
-            }
-          </label>
-          {favorites ? (
-            <div className="flex">
-              <p>dadaaaaaaaaa</p>
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button className="inline-flex justify-center rounded-md border border-gray-300 bg-white font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:bg-black">
+                {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
+
+              </Menu.Button>
             </div>
-          ) : null
-          } */}
-          {/* <button className='w-12 h-12 rounded-full'>
-            {theme === 'light' ? <HeartLogoBlack className='w-8 h-8' /> : <HeartLogoWhite className='w-8 h-8' />}
-          </button> */}
-          <button className='w-12 h-12 rounded-full'>
-            {theme === 'light' ? <PersonLogoBlack className='w-8 h-8' /> : <PersonLogoWhite className='w-8 h-8' />}
-          </button>
-          <button className='w-12 h-12 rounded-full'>
-            {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
-          </button>
+
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Account settings
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Support
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        License
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <form method="POST" action="#">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          type="submit"
+                          className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block w-full px-4 py-2 text-left text-sm'
+                          )}
+                        >
+                          Sign out
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </form>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button className="inline-flex justify-center rounded-md border border-gray-300 bg-white font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:bg-black">
+                {theme === 'light' ? <PersonLogoBlack className='w-8 h-8' /> : <PersonLogoWhite className='w-8 h-8' />}
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Account settings
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Support
+                      </a>
+                    )}
+                  </Menu.Item>
+                  {!user &&
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="/api/auth/login"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Login
+                      </a>
+                    )}
+                  </Menu.Item>
+                  }
+                  {user &&
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="/api/auth/logout"
+                          className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block px-4 py-2 text-sm'
+                          )}
+                          onClick={handleCookieLogout}
+                        >
+                          Logout
+                        </a>
+                      )}
+                    </Menu.Item>
+                  }
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
           <label className='flex items-center'>
             <input
               className='hidden'
