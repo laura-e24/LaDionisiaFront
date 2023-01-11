@@ -1,17 +1,21 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useAppDispatch } from '../../app/store';
+import { updateWine } from '../../features/products/productsSlice';
+import { IProduct } from '../../utils/types';
 const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
+  const dispatch = useAppDispatch()
+
     const [input, setInput] = useState(selectedProduct)
     const router = useRouter();
 
-    async function updateProduct(product) {
-        const response = await axios.put(`${process.env.RESTURL_PRODUCTS}/products/${product.id}`, product);
-        // console.log(response.status);
-        response.status = 200 && handleCloseModal()
-        alert('this is ok!')
-        router.push("/dashboard/products");
+    const updateProduct = async (product: IProduct) => {
+      const result = await dispatch(updateWine(product))
+      if (updateWine.fulfilled.match(result)) alert('Product Updated')
+      console.log(result)
     }
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
         updateProduct(input)
@@ -20,7 +24,7 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
         const { name, value } = event.target;
         setInput({ ...input, [name]: value });
     }
-    console.log(input)
+
     return (
         <>
             <div className="justify-center items-start flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">

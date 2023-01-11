@@ -2,7 +2,6 @@ import { useState } from "react";
 import NavBar from "../../components/Navbar/NavBar";
 import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
-import axios from "axios";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
 import { getAllWines, selectAllWines, selectAllWinesStatus } from "../../features/products/productsSlice";
@@ -35,6 +34,7 @@ export default function index() {
     const onPageChange = (event) => {
         setCurrentPage(Number(event.target.id));
     };
+
     return (
       <>
         <NavBar />

@@ -1,8 +1,30 @@
 import Navbar from "../../../components/Dashboard/Navbar";
-import axios from "axios";
+import { useAppDispatch } from "../../../app/store";
+import { useSelector } from "react-redux";
+import { getOneWine, selectOneWine, selectOneWineStatus } from "../../../features/products/productsSlice";
+import { StateGeneric } from "../../../utils/general";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-export default function Product({ wine }) {
+export default function Product() {
  
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+  const wine = useSelector(selectOneWine)
+  const wineStatus = useSelector(selectOneWineStatus)
+  const { id } = router.query
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (router.isReady) {
+        if (wineStatus === StateGeneric.IDLE) {
+          await dispatch(getOneWine(id?.toString()));
+        }
+      }
+    }
+    fetchData()
+  }, [id])
+
   return (
     <div>
       <Navbar></Navbar>
@@ -70,25 +92,4 @@ export default function Product({ wine }) {
     </div>
 
   )
-}
-export async function getStaticPaths() {
-    const res = await axios.get(`${process.env.RESTURL_PRODUCTS}/products`)
-    const data = await res.data
-    const paths = data.map(({ id }) => ({
-      params: { id: `${id}` }
-    }))
-    return {
-      paths,
-      fallback: false
-    }
-}
-
-export async function getStaticProps({ params }) {
-  const response = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/` + params.id)
-  const wine = response.data
-  return {
-    props: {
-      wine,
-    },
-  }
 }

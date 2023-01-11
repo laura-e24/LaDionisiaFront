@@ -3,8 +3,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useAppDispatch } from "../../app/store";
+import { updateWine } from "../../features/products/productsSlice";
 
 export default function Card({ wine, setSelectedProduct }) {
+  const dispatch = useAppDispatch()
+
     const [isLoading, setIsLoading] = useState(true);
     const { user } = useUser();
     const router = useRouter();
@@ -14,25 +18,27 @@ export default function Card({ wine, setSelectedProduct }) {
     if (isLoading) {
         return null;
     }
-    function handleClick() {
-        updateProduct(wine.id, { disabled: true });
+
+  const disableProduct = async () => {
+    const product = {
+      id: wine.id,
+      disabled: true
     }
+    const result = await dispatch(updateWine(product))
+    if (updateWine.fulfilled.match(result)) alert('Product Deleted')
+    console.log(result)
+  }
+
+    const handleClick = () => disableProduct();
+    
     function handleEditProduct(product) {
         setSelectedProduct(product);
         document.body.classList.add('modal-open');
     }
-    async function updateProduct(productId, data) {
-        const response = await axios.put(`${process.env.RESTURL_PRODUCTS}/products/${productId}`, data);
-        if (response.status === 200) {
-            alert('producto eliminado')
-            router.push("/dashboard/products");
-        } else {
-            console.log('error')
-        }
-    }
+   
     return (
         <>
-            <div className="flex flex-col items-center w-4/12 text-center relative" key={wine.id}>
+            <div className="flex flex-col items-center w-4/12 text-center relative">
                 {/* {user && user[`/roles`].includes('administrador') && (
                     <>
                         <div className="absolute right-0 top-0">
