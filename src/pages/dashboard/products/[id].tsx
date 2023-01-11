@@ -2,6 +2,7 @@ import Navbar from "../../../components/Dashboard/Navbar";
 import axios from "axios";
 
 export default function Product({ wine }) {
+ 
   return (
     <div>
       <Navbar></Navbar>
@@ -21,10 +22,12 @@ export default function Product({ wine }) {
             <span className="fa fa-star"></span>
             <span className="fa fa-star"></span>
           </div>
-          <h5>{wine.description}</h5>
+          <h5>
+          {wine.description}
+          </h5>
           <p>cantidad</p>
           <div className="mb-3 pt-0">
-            <input type="text" placeholder="1" className=" text-center shrink w-10 h-14px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full" />
+            <input type="text" placeholder="1" className=" text-center shrink w-10 h-14px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring" />
 
             <button className="w-80 flex flex-col items-center text-center8 bg-btn-color text-white py-4 px-8 hover:bg-red-600" type="button"
             >
@@ -44,7 +47,7 @@ export default function Product({ wine }) {
         <h1 className="font-bold mt-10 mb-5r" >RESEÑAS Y PUNTUACIONES</h1>
         <h2 className="font-bold mt-10 mb-5">Escribi una reseña</h2>
         <div className="mb-3 pt-0">
-          <input type="text" placeholder="Escribir..." className="shrink w-66 px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full" />
+          <input type="text" placeholder="Escribir..." className="shrink w-66 px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full" />
         </div>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
