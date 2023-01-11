@@ -1,23 +1,45 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { useAppDispatch } from "../../app/store";
+import { updateWine } from "../../features/products/productsSlice";
 
-export default function Card({ wine, handleEditProduct, updateProduct }) {
+export default function Card({ wine, setSelectedProduct }) {
+  const dispatch = useAppDispatch()
+
     const [isLoading, setIsLoading] = useState(true);
     const { user } = useUser();
+    const router = useRouter();
     useEffect(() => {
         setIsLoading(false);
     }, []);
     if (isLoading) {
         return null;
     }
-    function handleClick() {
-        updateProduct(wine.id, { disabled: true });
+
+  const disableProduct = async () => {
+    const product = {
+      id: wine.id,
+      disabled: true
     }
+    const result = await dispatch(updateWine(product))
+    if (updateWine.fulfilled.match(result)) alert('Product Deleted')
+    console.log(result)
+  }
+
+    const handleClick = () => disableProduct();
+    
+    function handleEditProduct(product) {
+        setSelectedProduct(product);
+        document.body.classList.add('modal-open');
+    }
+   
     return (
         <>
-            <div className="flex flex-col items-center w-4/12 text-center relative" key={wine.id}>
-                {user && user[`/roles`].includes('administrador') &&(
+            <div className="flex flex-col items-center w-4/12 text-center relative">
+                {/* {user && user[`/roles`].includes('administrador') && (
                     <>
                         <div className="absolute right-0 top-0">
                             <button className="inline-flex items-center justify-center w-8 h-8 mr-2 text-pink-100 transition-colors duration-150 bg-red-600 hover:bg-red-700 rounded-lg focus:shadow-outline" onClick={() => handleClick()}>
@@ -32,8 +54,8 @@ export default function Card({ wine, handleEditProduct, updateProduct }) {
                             </button>
                         </div>
                     </>
-                )}
-                <Link href={`/dashboard/products/${wine.id}`}>
+                )} */}
+                <Link href={`/products/${wine.id}`}>
                     <div className="flex flex-col items-center text-center ">
                         <img src={wine.image} alt={wine} className="object-scale-down" />
                         <h1 className="h-12">{wine.wine}</h1>

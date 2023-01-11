@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Footer from "../../components/dashboard/Footer";
-import Navbar from "../../components/dashboard/Navbar";
-import Sidebar from "../../components/dashboard/Sidebar";
+import Footer from "../../components/Footer/Footer";
+import NavBar from "../../components/Navbar/NavBar"
+import Sidebar from "../../components/Dashboard/Sidebar";
 
-export default function Dashboard({ handleNewProduct }) {
+export default function Dashboard() {
   const [hasMounted, setHasMounted] = useState(false);
   useEffect(() => {
     setHasMounted(true);
@@ -13,9 +13,9 @@ export default function Dashboard({ handleNewProduct }) {
   }
   return (
     <>
-      <Navbar></Navbar>
+      <NavBar></NavBar>
       <div className="h-screen w-full flex">
-        <Sidebar handleNewProduct={handleNewProduct}></Sidebar>
+        <Sidebar></Sidebar>
         <div className="w-full flex flex-col">
 
           <Footer></Footer>

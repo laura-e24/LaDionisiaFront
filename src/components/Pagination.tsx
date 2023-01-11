@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrentPage }) {
-    const [pageNumberLimit, setpageNumberLimit] = useState(10);
+    const pageNumberLimit = 10;
     const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(10);
     const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
@@ -29,7 +29,6 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
 
     const handleNextbtn = () => {
         setCurrentPage(currentPage + 1);
-
         if (currentPage + 1 > maxPageNumberLimit) {
             setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
             setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
@@ -42,6 +41,18 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
             setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
         }
     };
+    const handleLastPage = () => {
+        setCurrentPage(pages[pages.length - 1]);
+        setmaxPageNumberLimit(pages[pages.length - 1])
+        setminPageNumberLimit(pages[pages.length - 1] - pages[pages.length - 1] % pageNumberLimit);
+    }
+    const handleFirstPage = () => {
+        setCurrentPage(1);
+        if ((currentPage - 1) % pageNumberLimit == 0) {
+            setmaxPageNumberLimit(pages[pages.length - 1])
+            setminPageNumberLimit(pages[pages.length - 1] - pageNumberLimit)
+        }
+    }
 
     let pageIncrementBtn = null;
     if (pages.length > maxPageNumberLimit) {
@@ -65,10 +76,32 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
                         Prev
                     </button>
                 </li>
+                {currentPage <= pages[pages.length - 1] ? <li>
+                    <button
+                        className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        onClick={handleFirstPage}
+                        disabled={currentPage == pages[0] ? true : false}
+                    >
+                        {pages[0]}
+                    </button>
+
+                </li> : null
+                }
+
                 {pageDecrementBtn}
                 {renderPageNumbers}
                 {pageIncrementBtn}
+                {currentPage >= pages[0] && currentPage <= pages[pages.length - 1] - pageNumberLimit ? <li>
+                    <button
+                        className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        onClick={handleLastPage}
+                        disabled={currentPage == pages[pages.length - 1] ? true : false}
+                    >
+                        {pages[pages.length - 1]}
+                    </button>
 
+                </li> : null
+                }
                 <li>
                     <button
                         className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"

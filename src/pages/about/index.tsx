@@ -2,7 +2,7 @@ import members from '../../components/componentsAbout/membersInfo'
 import MembersCard from '../../components/componentsAbout/membersCards'
 import TecInfo from '../../components/componentsAbout/TecInfo'
 import TecCards from '../../components/componentsAbout/TecCards'
-import NavBar from '../../components/NavBar'
+import NavBar from '../../components/Navbar/NavBar'
 
 const About = () => {
   return (

@@ -1,22 +1,57 @@
 import { useEffect, useState } from "react";
-import Footer from "../../../components/dashboard/Footer";
-import Navbar from "../../../components/dashboard/Navbar";
-import Sidebar from "../../../components/dashboard/Sidebar";
-import Wines from "../../../components/dashboard/Wines";
-import CreateProduct from "../../../components/dashboard/CreateProduct ";
+import Footer from "../../../components/Footer/Footer";
+import NavBar from "../../../components/Navbar/NavBar"
+import Sidebar from "../../../components/Dashboard/Sidebar";
+import Wines from "../../../components/Dashboard/Products/Wines";
+import CreateProduct from "../../../components/Dashboard/CreateProduct ";
 import { useRouter } from "next/router";
-import NavBar from "../../../components/dashboard/products/Navbar";
+import Navbar from "../../../components/Dashboard/Products/Navbar";
+import WinesDisabled from "../../../components/Dashboard/Products/WinesDisabled";
+import { useAppDispatch } from "../../../app/store";
+import { useSelector } from "react-redux";
+import { getAllDisabledWines, getAllWines, selectAllDisabedWinesStatus, selectAllDisabledWines, selectAllWines, selectAllWinesStatus } from "../../../features/products/productsSlice";
+import { StateGeneric } from "../../../utils/general";
 
-export default function Products({ wines }) {
-  const router = useRouter();
+export default function Products() {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+  const wines = useSelector(selectAllWines)
+  const winesDisabled = useSelector(selectAllDisabledWines)
+  const winesStatus = useSelector(selectAllWinesStatus)
+  const winesDisabledStatus = useSelector(selectAllDisabedWinesStatus)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (router.isReady) {
+        if (winesStatus === StateGeneric.IDLE) {
+          await dispatch(getAllWines());
+        }
+        if (winesDisabledStatus === StateGeneric.IDLE) {
+          await dispatch(getAllDisabledWines());
+        }
+      }
+    }
+    fetchData()
+  }, [])
+
   const [isLoading, setIsLoading] = useState(true);
   const [newProduct, setNewProduct] = useState(true);
+  const [productsEnabled, setProductsEnabled] = useState(true);
+  const [productsDisabled, setProductsDisabled] = useState(false);
   useEffect(() => {
     setIsLoading(false);
     setNewProduct(false);
   }, []);
   if (isLoading) {
     return null;
+  }
+  function ViewProducts() {
+    setProductsEnabled(true)
+    setProductsDisabled(false)
+  }
+  function ViewProductsDisabled() {
+    setProductsEnabled(false)
+    setProductsDisabled(true)
   }
   function handleNewProduct() {
     setNewProduct(true)
@@ -27,31 +62,24 @@ export default function Products({ wines }) {
     document.body.classList.remove('modalC-open');
     router.push("/dashboard/products")
   }
+
   return (
     <>
-      <Navbar></Navbar>
+      <NavBar />
       <div className="w-full flex">
-        <Sidebar></Sidebar>
+        <Sidebar />
         <div className="w-full flex flex-col">
-          <NavBar handleNewProduct={handleNewProduct}></NavBar>
-          <Wines wines={wines}></Wines>
+          <Navbar handleNewProduct={handleNewProduct} ViewProducts={ViewProducts} ViewProductsDisabled={ViewProductsDisabled} />
+          {productsEnabled && <Wines wines={wines} />}
+          {productsDisabled && <WinesDisabled winesDisabled={winesDisabled} />}
           {newProduct ? (
             <div className="modalC">
-              <CreateProduct handleCloseModal={handleCloseModal}></CreateProduct>
+              <CreateProduct handleCloseModal={handleCloseModal} />
             </div>
           ) : null}
-          <Footer></Footer>
+          <Footer />
         </div>
       </div>
     </>
   )
-}
-export async function getServerSideProps() {
-  const response = await fetch('http://localhost:3001/products/')
-  const wines = await response.json()
-  return {
-    props: {
-      wines,
-    },
-  }
 }

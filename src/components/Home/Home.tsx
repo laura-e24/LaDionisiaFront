@@ -1,6 +1,6 @@
-import NavBar from "./NavBar";
-import Modal from "./Modal";
-import Footer from "./dashboard/Footer";
+import NavBar from "../Navbar/NavBar";
+import Modal from "../Modal";
+import Footer from "../Footer/Footer";
 
 const Home = () => {
   return (

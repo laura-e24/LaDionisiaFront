@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default async function loginHandler(req, res) {
     const { sub, email, nickname } = req.body;
-    const response = await axios.get(`http://localhost:3001/auth0/user/roles/${sub}`);
+    const response = await axios.get(`${process.env.RESTURL_PRODUCTS}/auth0/user/roles/${sub}`);
     const rol = response.data.find((element: { name: string; }) => element.name === 'administrador');
     const { myTokenName } = req.cookies;
     // console.log(res)

@@ -1,63 +1,30 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-const CreateProduct = ({ handleCloseModal }) => {
-    const [input, setInput] = useState({
-        winery: "",
-        wine: "",
-        rating: 0,
-        country: "",
-        region: "",
-        image: "",
-        description: "",
-        type: "",
-        year: 0,
-        disabled: "",
-        featured: "",
-        onSale: "",
-        totalSalesCurrent: 0,
-        stock: 0
-    })
+import { useAppDispatch } from '../../app/store';
+import { updateWine } from '../../features/products/productsSlice';
+import { IProduct } from '../../utils/types';
+const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
+  const dispatch = useAppDispatch()
+
+    const [input, setInput] = useState(selectedProduct)
     const router = useRouter();
 
-    async function createProduct(input) {
-        try {
-            const response = await axios.post('http://localhost:3001/products', input);
-            // La creación del producto se ha realizado con éxito
-            response.status === 200 && alert('Product Created')
-            console.log(response)
-        } catch (error) {
-            // Ha ocurrido un error al crear el producto
-            alert('Something was wrong')
-            console.log(error)
-        }
+    const updateProduct = async (product: IProduct) => {
+      const result = await dispatch(updateWine(product))
+      if (updateWine.fulfilled.match(result)) alert('Product Updated')
+      console.log(result)
     }
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        createProduct(input)
-        setInput({
-            ...input,
-            winery: "",
-            wine: "",
-            rating: 0,
-            country: "",
-            region: "",
-            image: "",
-            description: "",
-            type: "",
-            year: 0,
-            disabled: "",
-            featured: "",
-            onSale: "",
-            totalSalesCurrent: 0,
-            stock: 0
-        })
+        updateProduct(input)
     }
     function handleChange(event) {
         const { name, value } = event.target;
         setInput({ ...input, [name]: value });
     }
-    // console.log(input)
+
     return (
         <>
             <div className="justify-center items-start flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -67,7 +34,7 @@ const CreateProduct = ({ handleCloseModal }) => {
                         {/*header*/}
                         <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t">
                             <p className="text-lg text-center font-semibold">
-                                New Product | {input.wine}
+                                Product | {input.wine}
                             </p>
                         </div>
                         {/*body*/}
@@ -160,7 +127,7 @@ const CreateProduct = ({ handleCloseModal }) => {
                                 <button
                                     className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                     type="button"
-                                    onClick={handleCloseModal}>Cerrar
+                                    onClick={handleCloseModal}>Cancelar
                                 </button>
                                 <button
                                     className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -174,4 +141,4 @@ const CreateProduct = ({ handleCloseModal }) => {
         </>
     )
 }
-export default CreateProduct;
+export default UpdateProduct;
