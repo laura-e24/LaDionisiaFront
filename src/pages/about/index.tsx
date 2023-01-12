@@ -1,7 +1,5 @@
 import members from '../../components/componentsAbout/membersInfo'
 import MembersCard from '../../components/componentsAbout/membersCards'
-import TecInfo from '../../components/componentsAbout/TecInfo'
-import TecCards from '../../components/componentsAbout/TecCards'
 import NavBar from '../../components/Navbar/NavBar'
 
 const About = () => {
@@ -9,25 +7,17 @@ const About = () => {
     <div>
       <NavBar></NavBar>
       <div>
-        <h1>Informacion del proyecto:</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem ab aliquid quis vitae a consectetur dolore non, voluptates dicta aperiam optio architecto, molestiae iste, doloribus inventore corporis laborum dolor porro!</p>
+        <h1>ABOUT US</h1>
+        <p>
+          <span>
+            What do we believe? The wine is for all. You don't have to be a connoisseur to be able to enjoy it. We want everyone to approach    this great drink without fear, without prejudice.
+           There are no rules for enjoying wine. Everything changed. How to enjoy wine, too. Each bottle accompanies an experience, a unique pairing. Watching a movie in bed or hanging out on the terrace with friends. The possibilities are endless, it's just a matter of trying. There are no rules or formulas, just a desire to enjoy and share. We are, after all, accomplices of your moments lived.
+          </span>
+        </p>
       </div>
       
       <div>
-        <h1>Tecnologias</h1>
-        {TecInfo?.map((e) =>{
-          return(
-            <TecCards
-              name={e.name}
-              icon={e.icon}
-              documentation={e.documentation} 
-            />
-          )
-        })}
-      </div>
-
-      <div>
-        <h2>Miembros:</h2>
+        <h2>OUR TEAM</h2>
         {members?.map((e)=>{
           return(
             <MembersCard
