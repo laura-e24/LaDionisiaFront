@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <NavBar></NavBar>
-      <div className="w-full flex flex-col items-center gap-6 py-6">
+      <div className="w-full flex flex-col items-center gap-6 py-6 bg-bg-body">
         <div className="w-11/12 h-1/2 bg-btn-color text-center flex flex-col justify-center items-center">
           <h1 className="text-2xl">Lorem ipsum dolor sit amet consectetur</h1>
           <img className="w-11/12 h-80" src="https://i.pinimg.com/originals/48/a1/c3/48a1c3c3a2c198a7773500c5583ffc9f.jpg"></img>

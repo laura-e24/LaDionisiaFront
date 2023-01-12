@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Logo from "../../assets/img/logolucho2.svg"
+import Logo from "../../assets/img/logoD.svg"
 import styles from "../../assets/style/styles.module.css"
 export default function Footer() {
     const [hasMounted, setHasMounted] = useState(false);
@@ -21,7 +21,7 @@ export default function Footer() {
                         <input className="rounded focus:outline-none focus:ring focus:ring-red-500" type="text" placeholder="write your email..."/><br/>
                         <button type="submit" className="p-2 bg-white text-black w-min self-end">Susbcribe</button>
                     </form> */}
-                    <Logo className="w-52 h-52"/>
+                    <Logo className="w-28 h-28"/>
                     <ul className="text-gray-600">
                         <li><a href="/home">Home</a></li>
                         <li><a href="/about">About</a></li>

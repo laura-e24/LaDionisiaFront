@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
-import Logo from "../../assets/img/dionisio.svg"
+import Logo from "../../assets/img/logoD.svg"
 import Night from "../../assets/img/night.svg"
 import Day from "../../assets/img/day.svg"
 import HeartLogoWhite from "../../assets/img/HeartWhite.svg"
@@ -65,8 +65,8 @@ const NavBar = () => {
   }
   // console.log(search)
   return (
-    <nav className="w-full flex justify-between items-center p-2">
-      <ul className="w-1/3 flex inline-flex justify-between divide-x-2 divide-black">
+    <nav className="w-full flex justify-between items-center p-2 bg-bg-body">
+      <ul className="w-1/6 flex inline-flex justify-between divide-x-2 divide-black">
         <li className="px-2">
           <Link href='/' className="block">Home</Link>
         </li>
@@ -74,15 +74,12 @@ const NavBar = () => {
           <Link href='/' className="block">Winery</Link>
         </li>
         <li className="px-2">
-          <Link href='/products' className="block">Contact Us</Link>
-        </li>
-        <li className="px-2">
-          <Link href='/products' className="block">Bestseller</Link>
+          <Link href='/about' className="block">Contact Us</Link>
         </li>
       </ul>
-      <div className="w-2/3 inline-flex items-center">
-        <span className="flex items-center w-2/4 justify-center">La Dionisia
-          <Logo className="w-20 h-20"></Logo>
+      <div className="w-4/6 inline-flex items-center">
+        <span className="flex items-center w-2/4 justify-center">
+          <Logo className="w-28 h-28"></Logo>
         </span>
         <span className='flex items-center w-2/4 justify-end gap-2'>
           <label>
@@ -107,8 +104,8 @@ const NavBar = () => {
           }
           <Menu as="div" className="relative inline-block text-left">
             <div>
-              <Menu.Button className="inline-flex justify-center rounded-md border border-gray-300 bg-white font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:bg-black">
-                {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
+              <Menu.Button className="inline-flex justify-center rounded-md border border-gray-300 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:bg-black">
+                {theme === 'light' ? <HeartLogoBlack className='w-8 h-8' /> : <HeartLogoWhite className='w-8 h-8' />}
 
               </Menu.Button>
             </div>
@@ -122,7 +119,7 @@ const NavBar = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (
@@ -184,7 +181,84 @@ const NavBar = () => {
           </Menu>
           <Menu as="div" className="relative inline-block text-left">
             <div>
-              <Menu.Button className="inline-flex justify-center rounded-md border border-gray-300 bg-white font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:bg-black">
+              <Menu.Button className="inline-flex justify-center rounded-md border border-gray-300 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:bg-black">
+                {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
+
+              </Menu.Button>
+            </div>
+
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Account settings
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Support
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        License
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <form method="POST" action="#">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          type="submit"
+                          className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block w-full px-4 py-2 text-left text-sm'
+                          )}
+                        >
+                          Sign out
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </form>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button className="inline-flex justify-center rounded-md border border-gray-300 font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:bg-black">
                 {theme === 'light' ? <PersonLogoBlack className='w-8 h-8' /> : <PersonLogoWhite className='w-8 h-8' />}
               </Menu.Button>
             </div>
@@ -197,7 +271,7 @@ const NavBar = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (
