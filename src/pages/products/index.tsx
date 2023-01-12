@@ -59,7 +59,7 @@ export default function index() {
                         <a href="/products/type/dessert" className="flex items-center justify-center w-32 h-32 rounded-full text-black py- px-8 bg-btn-color text-center bg-[url('https://www.bordeaux.com/wp-content/uploads/2017/06/red.jpg')] bg-cover bg-no-repeat bg-center"></a>DESSERT
                     </div>
                 </div>
-                <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
+                <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8 flex-row odd:flex-row-reverse">
                     {
                         currentItems.map((wine) => (
                             <Card wine={wine}></Card>
