@@ -2,37 +2,47 @@ import NavBar from "../Navbar/NavBar";
 import Modal from "../Modal";
 import Footer from "../Footer/Footer";
 import styles from "../../assets/style/styles.module.css"
+import WineLet from "../../assets/img/wineHome.svg"
+import HomePr from "../../assets/img/HomeProv.svg"
+import BgProd from "../../assets/img/bgProduct.svg"
 const Home = () => {
   return (
     <>
-      <NavBar></NavBar>
-      <div className="w-full flex flex-col items-center gap-6 py-6 bg-bg-body">
-        <div className="w-11/12 h-1/2 bg-btn-color text-center flex flex-col justify-center items-center">
-          <h1 className="text-2xl">Lorem ipsum dolor sit amet consectetur</h1>
-          <img className="w-11/12 h-80" src="https://i.pinimg.com/originals/48/a1/c3/48a1c3c3a2c198a7773500c5583ffc9f.jpg"></img>
-          <button className="bg-btn-color">button</button>
-        </div>
-        <div className="w-full flex justify-around items-center">
-          <a href="/products/type/reds" className="flex items-center justify-center w-32 h-32 rounded-full text-black py-4 px-8 bg-btn-color text-center bg-[url('https://www.akros.gr/media/23088.jpg')] bg-cover">+ <br /> Reds</a>
-          <a href="/products/type/whites" className="flex items-center justify-center w-32 h-32 rounded-full text-black py-4 px-8 bg-btn-color text-center bg-[url('https://sonomawinegarden.com/wp-content/uploads/2022/07/Popular-Types-of-White-Wine.jpg')] bg-cover bg-no-repeat bg-center">+ <br /> Whites</a>
-          <a href="/products/type/rose" className="flex items-center justify-center w-32 h-32 rounded-full text-black py-4 px-8 bg-btn-color text-center bg-[url('https://cdn.shopify.com/s/files/1/0589/7882/8473/products/Vanderpump-930CroppedIII_540x.jpg?v=1653057805')] bg-cover bg-no-repeat bg-center">+ <br /> Rose</a>
-          <a href="/products/type/sparkling" className="flex items-center justify-center w-32 h-32 rounded-full text-black py-4 px-8 bg-btn-color text-center bg-[url('https://1.bp.blogspot.com/-RJbKZ7oWMiI/WB02n2TQNjI/AAAAAAAAMe0/zlvt1Q-zn-8Yof0V_bst-gwTZSIIhmdAACLcB/s1600/Beauty%2B-%2BCarta%2BNevada%2BBrut%2B.jpg')] bg-cover bg-no-repeat bg-center">+ <br /> Sparkling</a>
-          <a href="/products/type/dessert" className="flex items-center justify-center w-32 h-32 rounded-full text-black py- px-8 bg-btn-color text-center bg-[url('https://www.bordeaux.com/wp-content/uploads/2017/06/red.jpg')] bg-cover bg-no-repeat bg-center">+ <br /> Dessert</a>
-        </div>
-        <div className="flex flex-col items-center w-full">
-          <h1 className="text-2xl">Arrivals</h1>
-          <div className="flex w-full justify-center gap-6">
-            <div className="w-1/5 bg-btn-color flex flex-col items-center">
-              <img src="https://images.vivino.com/thumbs/nC9V6L2mQQSq0s-wZLcaxw_pb_x300.png" alt="" />
-              <button className="">TASTE IT</button>
-          
+
+      <div className="bg-bg-body min-h-screen">
+        <NavBar></NavBar>
+        <div className="w-full flex flex-col items-center gap-6 py-6">
+          <HomePr />
+          <div className="w-11/12 h-1/2 flex flex-col justify-center items-center">
+          </div>
+          <div className="w-full flex justify-around items-center">
+            <a href="/products/type/reds" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgReds}`}></a>
+            <a href="/products/type/whites" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgWhites}`}></a>
+            <a href="/products/type/rose" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgPinks}`}></a>
+            <a href="/products/type/sparkling" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgSpark}`}></a>
+            <a href="/products/type/dessert" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgDessert}`}></a>
+          </div>
+          <div className="w-full flex justify-around items-center">
+            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >REDS</p>
+            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >WHITES</p>
+            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >PINKS</p>
+            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >SPARKLING</p>
+            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >DESSERT</p>
+          </div>
+          <div className="bg-bg-body min-h-screen">
+            <div className="flex h-full w-6/6 self-center justify-self-end">
+              <WineLet /> <BgProd />
+
 
             </div>
           </div>
+          <button className="p-2 border border-gray-600 w-2/10 self-center justify-self-end text-gray-600 mt-8">TASTE IT</button>
+          <button className="p-2 border border-gray-600 w-2/10 self-center justify-self-end text-gray-600 mt-8">EXPLORE MORE</button>
+
         </div>
       </div>
       <Footer></Footer>
-      {/* <Modal></Modal> */}
+
     </>
   );
 }
