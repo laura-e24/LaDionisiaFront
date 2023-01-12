@@ -8,6 +8,7 @@ import BgProd from "../../assets/img/bgProduct.svg"
 const Home = () => {
   return (
     <>
+
       <div className="bg-bg-body min-h-screen">
         <NavBar></NavBar>
         <div className="w-full flex flex-col items-center gap-6 py-6">
@@ -31,6 +32,8 @@ const Home = () => {
           <div className="bg-bg-body min-h-screen">
             <div className="flex h-full w-6/6 self-center justify-self-end">
               <WineLet /> <BgProd />
+
+
             </div>
           </div>
           <button className="p-2 border border-gray-600 w-2/10 self-center justify-self-end text-gray-600 mt-8">TASTE IT</button>
