@@ -1,7 +1,7 @@
 import { Field, useField } from "formik";
 import _ from "lodash";
 
-const CustomField = ({
+const FileCustomField = ({
   label = "",
   name,
   placeholder = "Escriba...",
@@ -12,25 +12,24 @@ const CustomField = ({
   ...FormikBag
 }) => {
   const [field, meta, helpers] = useField({ ...FormikBag, name });
-  let className = `shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none 
-    focus:shadow-outline placeholder-gray-500 placeholder-opacity-20`;
+  let className = `form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white 
+    bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 
+    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`;
 
 
-  const isError = meta.touched && !_.isEmpty(meta.error)
-  if (isError)
-    className +=
-      " bg-red-700 bg-opacity-25 border-red-600 focus:border-red-600 ";
-  else
-    className +=
-      " bg-transparent focus:border-gray-500 ";
+  // const isError = meta.touched && !_.isEmpty(meta.error)
+  // if (isError)
+  //   className +=
+  //     " bg-red-700 bg-opacity-25 border-red-600 focus:border-red-600 ";
+  // else
+  //   className +=
+  //     " bg-transparent focus:border-gray-500 ";
 
   return (
     <Field
-      autoComplete="off"
       name={name}
-      type={type}
+      type='file'
       value={FormikBag.value}
-      lang="es"
     >
       {({ field, form: { setFieldValue } }) => (
         <div>
@@ -45,7 +44,7 @@ const CustomField = ({
           <input
             {...field}
             className={className}
-            type={type}
+            type='file'
             name={name}
             placeholder={placeholder}
             onChange={(e: React.ChangeEvent<any>) => {
@@ -59,4 +58,4 @@ const CustomField = ({
   );
 }
  
-export default CustomField;
+export default FileCustomField;

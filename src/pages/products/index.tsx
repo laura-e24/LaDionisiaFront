@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
 import { getAllWines, selectAllWines, selectAllWinesStatus } from "../../features/products/productsSlice";
 import { useEffect } from "react";
-import { StateGeneric } from "../../utils/general";
+import { EStateGeneric } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
 
@@ -19,7 +19,7 @@ export default function index() {
   useEffect(() => {
     const fetchData = async () => {
       if (router.isReady) {
-        if (winesStatus === StateGeneric.IDLE) {
+        if (winesStatus === EStateGeneric.IDLE) {
           await dispatch(getAllWines());
         }
       }

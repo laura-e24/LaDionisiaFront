@@ -15,12 +15,6 @@ export default function Footer() {
                 <div className="w-1/4 flex items-center p-4">
                 </div>
                 <div className="w-2/4 flex gap-4 px-12 items-center">
-                    {/* <h2 className="text-xl">Subscribe to Newsletter</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi molestiae dolore autem</p>
-                    <form className="flex flex-col">
-                        <input className="rounded focus:outline-none focus:ring focus:ring-red-500" type="text" placeholder="write your email..."/><br/>
-                        <button type="submit" className="p-2 bg-white text-black w-min self-end">Susbcribe</button>
-                    </form> */}
                     <Logo className="w-28 h-28"/>
                     <ul className="text-gray-600">
                         <li><a href="/home">Home</a></li>

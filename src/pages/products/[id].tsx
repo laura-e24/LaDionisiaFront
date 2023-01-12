@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
 import { getOneWine, selectOneWine, selectOneWineStatus } from "../../features/products/productsSlice";
 import { useEffect } from "react";
-import { StateGeneric } from "../../utils/general";
+import { EStateGeneric } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
 import styles from "../../assets/style/styles.module.css"
@@ -18,7 +18,7 @@ export default function Product() {
   useEffect(() => {
     const fetchData = async () => {
       if (router.isReady) {
-        if (wineStatus === StateGeneric.IDLE) {
+        if (wineStatus === EStateGeneric.IDLE) {
           await dispatch(getOneWine(id?.toString()));
         }
       }

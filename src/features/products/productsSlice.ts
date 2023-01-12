@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { StateGeneric } from "../../utils/general";
+import { EStateGeneric } from "../../utils/general";
 import { IProduct } from "../../utils/types";
 import { createOneProduct, getAllDisabledProducts, getAllProducts, getAllProductTypes, getOneProductById, updateOneProduct } from "./productsApi";
 
@@ -80,10 +80,10 @@ interface ProductsState {
   disabledWines: IProduct[],
   wineTypes: IProduct[],
   wine: IProduct,
-  allWinesStatus: StateGeneric,
-  allDisabledWinesStatus: StateGeneric,
-  allWineTypesStatus: StateGeneric,
-  oneWineStatus: StateGeneric
+  allWinesStatus: EStateGeneric,
+  allDisabledWinesStatus: EStateGeneric,
+  allWineTypesStatus: EStateGeneric,
+  oneWineStatus: EStateGeneric
 }
 
 const initialState = {
@@ -91,10 +91,10 @@ const initialState = {
   wine: {},
   disabledWines: [],
   wineTypes: [],
-  allWinesStatus: StateGeneric.IDLE,
-  allDisabledWinesStatus: StateGeneric.IDLE,
-  allWineTypesStatus: StateGeneric.IDLE,
-  oneWineStatus: StateGeneric.IDLE,
+  allWinesStatus: EStateGeneric.IDLE,
+  allDisabledWinesStatus: EStateGeneric.IDLE,
+  allWineTypesStatus: EStateGeneric.IDLE,
+  oneWineStatus: EStateGeneric.IDLE,
 } as ProductsState
 
 const productsSlice = createSlice({
@@ -107,65 +107,65 @@ const productsSlice = createSlice({
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getAllWines.fulfilled, (state, action) => {
       state.wines = action.payload;
-      state.allWinesStatus = StateGeneric.SUCCEEDED;
+      state.allWinesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getAllWines.pending, (state, action) => {
-      state.allWinesStatus = StateGeneric.PENDING;
+      state.allWinesStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getAllWines.rejected, (state, action) => {
-      state.allWinesStatus = StateGeneric.FAILED;
+      state.allWinesStatus = EStateGeneric.FAILED;
     })
 
 
 
     builder.addCase(getAllDisabledWines.fulfilled, (state, action) => {
       state.disabledWines = action.payload;
-      state.allWinesStatus = StateGeneric.SUCCEEDED;
+      state.allWinesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getAllDisabledWines.pending, (state, action) => {
-      state.allDisabledWinesStatus = StateGeneric.PENDING;
+      state.allDisabledWinesStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getAllDisabledWines.rejected, (state, action) => {
-      state.allDisabledWinesStatus = StateGeneric.FAILED;
+      state.allDisabledWinesStatus = EStateGeneric.FAILED;
     })
 
 
     
     builder.addCase(getAllWineTypes.fulfilled, (state, action) => {
       state.wineTypes = action.payload;
-      state.allWineTypesStatus = StateGeneric.SUCCEEDED;
+      state.allWineTypesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getAllWineTypes.pending, (state, action) => {
-      state.allWineTypesStatus = StateGeneric.PENDING;
+      state.allWineTypesStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getAllWineTypes.rejected, (state, action) => {
-      state.allWineTypesStatus = StateGeneric.FAILED;
+      state.allWineTypesStatus = EStateGeneric.FAILED;
     })
 
 
 
     builder.addCase(getOneWine.fulfilled, (state, action) => {
       state.wine = action.payload;
-      state.oneWineStatus = StateGeneric.SUCCEEDED;
+      state.oneWineStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getOneWine.pending, (state, action) => {
-      state.oneWineStatus = StateGeneric.PENDING;
+      state.oneWineStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getOneWine.rejected, (state, action) => {
-      state.oneWineStatus = StateGeneric.FAILED;
+      state.oneWineStatus = EStateGeneric.FAILED;
     })
 
 
 
     builder.addCase(createWine.fulfilled, (state, action) => {
       state.wines = state.wines.concat(action.payload);
-      state.allWinesStatus = StateGeneric.SUCCEEDED;
+      state.allWinesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(createWine.pending, (state, action) => {
-      state.oneWineStatus = StateGeneric.PENDING;
+      state.oneWineStatus = EStateGeneric.PENDING;
     })
     builder.addCase(createWine.rejected, (state, action) => {
-      state.oneWineStatus = StateGeneric.FAILED;
+      state.oneWineStatus = EStateGeneric.FAILED;
     })
 
 
@@ -176,13 +176,13 @@ const productsSlice = createSlice({
           return { ...w, ...action.payload }
         else return w
       });
-      state.allWinesStatus = StateGeneric.SUCCEEDED;
+      state.allWinesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(updateWine.pending, (state, action) => {
-      state.oneWineStatus = StateGeneric.PENDING;
+      state.oneWineStatus = EStateGeneric.PENDING;
     })
     builder.addCase(updateWine.rejected, (state, action) => {
-      state.oneWineStatus = StateGeneric.FAILED;
+      state.oneWineStatus = EStateGeneric.FAILED;
     })
   },
 })
