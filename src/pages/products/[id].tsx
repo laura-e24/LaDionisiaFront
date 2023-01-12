@@ -30,7 +30,6 @@ export default function Product() {
   return (
     <div className="bg-bg-body min-h-screen">
       <Navbar></Navbar>
-
       <div className="w-full grid grid-cols-2 p-8">
         <div className="flex flex-col pl-16">
           <span className="text-xl font-montserrat text-price-color">{wine.winery}</span>
@@ -44,11 +43,9 @@ export default function Product() {
             <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
             <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
           </div>
-        </div></>
-        )}
+        </div>
       </div>
       <Footer></Footer>
     </div>
-
   )
 }

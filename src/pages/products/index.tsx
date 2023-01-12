@@ -32,7 +32,7 @@ export default function index() {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = winesSearch ? winesSearch.slice(indexOfFirstItem, indexOfLastItem) : wines.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = wines.slice(indexOfFirstItem, indexOfLastItem);
     const onPageChange = (event) => {
         setCurrentPage(Number(event.target.id));
     };
@@ -69,7 +69,7 @@ export default function index() {
             </div>
             <Pagination
                 onPageChange={onPageChange}
-                wines={winesSearch ? winesSearch : wines}
+                wines={wines}
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
