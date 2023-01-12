@@ -10,7 +10,7 @@ export default function Wines({ wines }) {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setitemsPerPage] = useState(21);
+  const itemsPerPage = 21;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = wines.slice(indexOfFirstItem, indexOfLastItem);

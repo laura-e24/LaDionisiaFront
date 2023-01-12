@@ -1,17 +1,27 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+
+
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useAppDispatch } from "../../app/store";
 import { updateWine } from "../../features/products/productsSlice";
-
-export default function Card({ wine, setSelectedProduct }) {
+import styles from "../../assets/style/styles.module.css"
+export default function Card({ wine }) {
   const dispatch = useAppDispatch()
 
     const [isLoading, setIsLoading] = useState(true);
-    const { user } = useUser();
-    const router = useRouter();
+    // const stars = [];
+    // const wholeStars = Math.floor(wine.rating / 2);
+    // const halfStar = wine.rating % 2 !== 1;
+
+    // for (let i = 0; i < wholeStars; i++) {
+    //     stars.push('★');
+    // }
+    // if (halfStar) {
+    //     stars.push('♦');
+    // }
     useEffect(() => {
         setIsLoading(false);
     }, []);
@@ -35,37 +45,73 @@ export default function Card({ wine, setSelectedProduct }) {
         setSelectedProduct(product);
         document.body.classList.add('modal-open');
     }
-   
+
     return (
         <>
-            <div className="flex flex-col items-center w-4/12 text-center relative">
-                {/* {user && user[`/roles`].includes('administrador') && (
-                    <>
-                        <div className="absolute right-0 top-0">
-                            <button className="inline-flex items-center justify-center w-8 h-8 mr-2 text-pink-100 transition-colors duration-150 bg-red-600 hover:bg-red-700 rounded-lg focus:shadow-outline" onClick={() => handleClick()}>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div className="absolute right-10 top-0">
-                            <button className="inline-flex items-center justify-center w-8 h-8 mr-2 text-pink-100 transition-colors duration-150 bg-blue-600 hover:bg-blue-700 rounded-lg focus:shadow-outline" onClick={() => handleEditProduct(wine)}>
-                                <svg width="64px" height="64px" viewBox="0 0 16.00 16.00" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" className="bi bi-pencil w-4 h-4" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_iconCarrier"> <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path> </g></svg>
-                            </button>
-                        </div>
-                    </>
-                )} */}
-                <Link href={`/products/${wine.id}`}>
-                    <div className="flex flex-col items-center text-center ">
-                        <img src={wine.image} alt={wine} className="object-scale-down" />
-                        <h1 className="h-12">{wine.wine}</h1>
-                        <h2>$ 100</h2>
-                        <button className="bg-btn-color text-white py-4 px-8 hover:bg-red-600">Add to Cart</button>
+            <div className="w-4/5" key={wine.id}>
+                <div className="grid grid-cols-2">
+                    <div className="grid grid-rows-4 p-6 items-center">
+                        <span className="text-xl font-montserrat text-price-color w-full">{wine.winery}</span>
+                        <p className="text-5xl font-montserrat text-font-color" ><b>{wine.wine}</b></p>
+                        <p className="text-2xl font-montserrat text-gray-600"><span className="text-price-color">$ {wine.price ? wine.price : 100}</span></p>
+                        <a className="text-black border border-gray-600 hover:bg-red-600 w-28 h-12 p-4" href={`/products/${wine.id}`}>TASTE IT</a>
                     </div>
-                </Link>
+                    <div className="w-full h-full flex justify-center">
+                        <div className={`flex  w-96 h-96 justify-center items-center ${styles.bgProduct}`}>
+                            <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
+                            <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
+
+
+   
+   
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     )
 }
+
+
+// import Link from "next/link";
+// import { useEffect, useState } from "react";
+// export default function Card({ wine }) {
+//     const [isLoading, setIsLoading] = useState(true);
+//     // const stars = [];
+//     // const wholeStars = Math.floor(wine.rating / 2);
+//     // const halfStar = wine.rating % 2 !== 1;
+
+//     // for (let i = 0; i < wholeStars; i++) {
+//     //     stars.push('★');
+//     // }
+//     // if (halfStar) {
+//     //     stars.push('♦');
+//     // }
+//     useEffect(() => {
+//         setIsLoading(false);
+//     }, []);
+//     if (isLoading) {
+//         return null;
+//     }
+//     return (
+//         <>
+//             <div className="flex items-center w-full text-center relative border-l-2" key={wine.id}>
+//                 <div className="flex items-center text-center gap-6">
+//                     <div className="flex flex-col items-start">
+//                         <span className="text-xl font-montserrat text-price-color">{wine.winery}</span>
+//                         <p className="text-5xl font-montserrat text-font-color" ><b>{wine.wine}</b></p>
+//                         <p className="text-2xl font-montserrat text-gray-600"><span className="text-price-color">$ {wine.price ? wine.price : 100}</span></p>
+//                         <button className="bg-btn-color text-white py-4 px-20 hover:bg-red-600">Add to Cart</button>
+//                     </div>
+//                     <div className="flex">
+//                         <img src={wine.image} alt={wine} className="object-scale-down h-3/6" />
+//                         <img src={wine.image} alt={wine} className="object-scale-down h-3/6" />
+//                     </div>
+//                 </div>
+//             </div>
+//         </>
+//     )
+// }
 
 

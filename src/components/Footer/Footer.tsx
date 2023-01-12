@@ -1,38 +1,38 @@
 import { useEffect, useState } from "react";
-
+import Logo from "../../assets/img/logoD.svg"
+import styles from "../../assets/style/styles.module.css"
 export default function Footer() {
     const [hasMounted, setHasMounted] = useState(false);
     useEffect(() => {
-      setHasMounted(true);
+        setHasMounted(true);
     }, []);
     if (!hasMounted) {
-      return null;
+        return null;
     }
     return (
-        <div className="h-min w-full">
-            <footer className="p-4 bg-gradient-to-r from-initial-color to-final-color text-white shadow md:px-6 md:py-6 dark:bg-gradient-to-r from-initial-color to-final-color">
-                <div className="sm:flex sm:items-center sm:justify-between">
-                    <a href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0">
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Logo</span>
-                    </a>
-                    <ul className="flex flex-wrap items-center mb-6 text-sm text-white sm:mb-0 dark:text-gray-400">
-                        <li>
-                            <a href="/about" className="mr-4 hover:underline md:mr-6 ">About</a>
-                        </li>
-                        <li>
-                            <a href="#" className="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="#" className="mr-4 hover:underline md:mr-6 ">Licensing</a>
-                        </li>
-                        <li>
-                            <a href="#" className="hover:underline">Contact</a>
-                        </li>
+        <div className={`h-min w-full ${styles.bgfooter}`}>
+            <footer className="flex p-4 gap-4 shadow md:px-6 md:py-6 dark:bg-gradient-to-r from-initial-color to-final-color">
+                <div className="w-1/4 flex items-center p-4">
+                </div>
+                <div className="w-2/4 flex gap-4 px-12 items-center">
+                    {/* <h2 className="text-xl">Subscribe to Newsletter</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi molestiae dolore autem</p>
+                    <form className="flex flex-col">
+                        <input className="rounded focus:outline-none focus:ring focus:ring-red-500" type="text" placeholder="write your email..."/><br/>
+                        <button type="submit" className="p-2 bg-white text-black w-min self-end">Susbcribe</button>
+                    </form> */}
+                    <Logo className="w-28 h-28"/>
+                    <ul className="text-gray-600">
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/products">Products</a></li>
                     </ul>
                 </div>
-                <hr className="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4" />
-                <span className="block text-sm text-white sm:text-center dark:text-gray-400">© 3 <a href="https://flowbite.com/" className="hover:underline">Flowbite™</a>. All Rights Reserved.
-                </span>
+                <div className="w-1/4 flex flex-col gap-2 justify-center">
+                    <h1 className="text-xl text-gray-600">Contact</h1>
+                    <p className="text-gray-600">ladionisia@gmail.com</p>
+                    <p className="text-gray-600">+54 111 111 1111</p>
+                </div>
             </footer>
 
         </div>
