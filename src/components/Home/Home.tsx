@@ -1,7 +1,7 @@
 import NavBar from "../Navbar/NavBar";
 import Modal from "../Modal";
 import Footer from "../Footer/Footer";
-
+import styles from "../../assets/style/styles.module.css"
 const Home = () => {
   return (
     <>
@@ -24,42 +24,9 @@ const Home = () => {
           <div className="flex w-full justify-center gap-6">
             <div className="w-1/5 bg-btn-color flex flex-col items-center">
               <img src="https://images.vivino.com/thumbs/nC9V6L2mQQSq0s-wZLcaxw_pb_x300.png" alt="" />
-              <h1>Name's wine</h1>
-              <p>★★★★★</p>
-              <p>$ 100</p>
-              <button className="">Add to Cart</button>
-            </div>
-            <div className="w-1/5 bg-btn-color flex flex-col items-center">
-              <img src="https://images.vivino.com/thumbs/nC9V6L2mQQSq0s-wZLcaxw_pb_x300.png" alt="" />
-              <h1>Name's wine</h1>
-              <p>★★★★★</p>
-              <p>$ 100</p>
-              <button className="">Add to Cart</button>
-            </div>
-            <div className="w-1/5 bg-btn-color flex flex-col items-center">
-              <img src="https://images.vivino.com/thumbs/nC9V6L2mQQSq0s-wZLcaxw_pb_x300.png" alt="" />
-              <h1>Name's wine</h1>
-              <p>★★★★★</p>
-              <p>$ 100</p>
-              <button className="">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 p-4">
-          <div className="w-full flex gap-4">
-            <div className="w-1/2 h-60 bg-red-200">
-              p
-            </div>
-            <div className="w-1/2 h-60  bg-btn-color">
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque ut possimus voluptatem est veniam illo consequatur, omnis sint eum in repudiandae doloremque veritatis optio harum quos, sapiente quibusdam sed perspiciatis?</p>
-            </div>
-          </div>
-          <div className="w-full flex gap-4">
-            <div className="w-1/2 h-60  bg-btn-color">
-              p
-            </div>
-            <div className="w-1/2 h-60 bg-red-200">
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque ut possimus voluptatem est veniam illo consequatur, omnis sint eum in repudiandae doloremque veritatis optio harum quos, sapiente quibusdam sed perspiciatis?</p>
+              <button className="">TASTE IT</button>
+          
+
             </div>
           </div>
         </div>
