@@ -28,7 +28,8 @@ export default function index() {
   if (user) {
     const usuario = isUser(user) ? user[`/roles`] : [];
     console.log(usuario)
-    return handleCookieLogin() && (
+    // return handleCookieLogin() && (
+    return (
       <>
         {usuario.includes('administrador') ? (
           <>

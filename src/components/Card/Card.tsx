@@ -1,13 +1,7 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
-
-export default function Card({ wine, setSelectedProduct }) {
+export default function Card({ wine }) {
     const [isLoading, setIsLoading] = useState(true);
-    const { user } = useUser();
-    const router = useRouter();
     const stars = [];
     const wholeStars = Math.floor(wine.rating / 2);
     const halfStar = wine.rating % 2 !== 1;

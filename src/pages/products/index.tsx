@@ -46,7 +46,7 @@ export default function index({ wines, winesSearch }) {
                 <div className="w-4/5 h-full flex flex-wrap self-center justify-center gap-y-8">
                     {
                         currentItems.map((wine) => (
-                            <Card wine={wine} setSelectedProduct={undefined}></Card>
+                            <Card wine={wine}></Card>
                         ))
                     }
                 </div>

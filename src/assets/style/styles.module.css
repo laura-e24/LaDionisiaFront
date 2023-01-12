@@ -1,0 +1,9 @@
+.bgfooter {
+    background-image: url('../img/footer.svg');
+    background-size: cover;
+}
+
+.bgProduct{
+    background-image: url('../img/bgProduct.svg');
+    background-size: cover;
+}

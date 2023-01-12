@@ -93,7 +93,7 @@ const NavBar = () => {
               type="checkbox"
               onChange={() => setSearchBar(true)}
             />
-            {!searchBar && (theme === 'light' ? <SearchLogoBlack className='w-8 h-8' /> : <SearchLogoWhite className='w-8 h-8' />)
+            {!searchBar && (theme === 'light' ? <SearchLogoBlack className='w-8 h-8 ' /> : <SearchLogoWhite className='w-8 h-8' />)
             }
           </label>
           {searchBar ? (
@@ -270,7 +270,7 @@ const NavBar = () => {
                 theme === 'light' ? 'dark' : 'light'
               )}
             />
-            {theme === 'light' ? <Day className="w-8 h-8" /> : <Night className="w-8 h-8" />}
+            {theme === 'light' ? <Day className="w-8 h-8 " /> : <Night className="w-8 h-8" />}
           </label>
         </span>
       </div>
