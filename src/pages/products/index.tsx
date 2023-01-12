@@ -2,18 +2,41 @@ import { useState } from "react";
 import NavBar from "../../components/Navbar/NavBar";
 import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
-import axios from "axios";
+import { useAppDispatch } from "../../app/store";
+import { useSelector } from "react-redux";
+import { getAllWines, selectAllWines, selectAllWinesStatus } from "../../features/products/productsSlice";
+import { useEffect } from "react";
+import { StateGeneric } from "../../utils/general";
+import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
 
-export default function index({ wines, winesSearch }) {
+export default function index() {
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+  const wines = useSelector(selectAllWines)
+  const winesStatus = useSelector(selectAllWinesStatus)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (router.isReady) {
+        if (winesStatus === StateGeneric.IDLE) {
+          await dispatch(getAllWines());
+        }
+      }
+    }
+    fetchData()
+  }, [])
+
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 24;
+    const itemsPerPage = 21;
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = winesSearch ? winesSearch.slice(indexOfFirstItem, indexOfLastItem) : wines.slice(indexOfFirstItem, indexOfLastItem);
     const onPageChange = (event) => {
         setCurrentPage(Number(event.target.id));
     };
+
     // console.log()
     return (
         <>
@@ -54,24 +77,4 @@ export default function index({ wines, winesSearch }) {
             <Footer></Footer>
         </>
     )
-}
-export async function getServerSideProps({ req, res }) {
-    res.setHeader(
-        'Cache-Control',
-        'public, s-maxage=10, stale-while-revalidate=59'
-    )
-    const { url } = req
-    // console.log(search)
-    const response = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/`)
-    const responseSearch = await axios.get(`${process.env.RESTURL_PRODUCTS}${url}`)
-    const wines = response.data
-    responseSearch.status === 404
-    // console.log(responseSearch.data)
-    const winesSearch = responseSearch.data
-    return {
-        props: {
-            wines,
-            winesSearch
-        },
-    }
 }

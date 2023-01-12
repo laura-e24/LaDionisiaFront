@@ -1,7 +1,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+
+
+import { useRouter } from "next/router";
+import axios from "axios";
+import { useAppDispatch } from "../../app/store";
+import { updateWine } from "../../features/products/productsSlice";
 import styles from "../../assets/style/styles.module.css"
 export default function Card({ wine }) {
+  const dispatch = useAppDispatch()
+
     const [isLoading, setIsLoading] = useState(true);
     // const stars = [];
     // const wholeStars = Math.floor(wine.rating / 2);
@@ -19,6 +28,24 @@ export default function Card({ wine }) {
     if (isLoading) {
         return null;
     }
+
+  const disableProduct = async () => {
+    const product = {
+      id: wine.id,
+      disabled: true
+    }
+    const result = await dispatch(updateWine(product))
+    if (updateWine.fulfilled.match(result)) alert('Product Deleted')
+    console.log(result)
+  }
+
+    const handleClick = () => disableProduct();
+    
+    function handleEditProduct(product) {
+        setSelectedProduct(product);
+        document.body.classList.add('modal-open');
+    }
+
     return (
         <>
             <div className="w-4/5" key={wine.id}>
@@ -33,6 +60,11 @@ export default function Card({ wine }) {
                         <div className={`flex  w-96 h-96 justify-center items-center ${styles.bgProduct}`}>
                             <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
                             <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
+
+
+   
+   
+
                         </div>
                     </div>
                 </div>

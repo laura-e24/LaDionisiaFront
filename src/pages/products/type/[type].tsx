@@ -3,16 +3,41 @@ import Card from "../../../components/Card/Card"
 import NavBar from "../../../components/Navbar/NavBar"
 import Pagination from "../../../components/Pagination"
 import Footer from "../../../components/Footer/Footer";
-import axios from "axios";
-export default function Reds({ wines }) {
+import { useAppDispatch } from "../../../app/store";
+import { useSelector } from "react-redux";
+import { getAllWineTypes, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
+import { StateGeneric } from "../../../utils/general";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
+export default function Reds({}) {
+
+  const router = useRouter()
+  const { type } = router.query;
+  const dispatch = useAppDispatch()
+  const wines = useSelector(selectAllWineTypes)
+  const winesStatus = useSelector(selectAllWineTypesStatus)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (router.isReady) {
+        if (winesStatus === StateGeneric.IDLE)
+          await dispatch(getAllWineTypes(type.toString()));
+      }
+    }
+    fetchData()
+  }, [type])
+
     const [currentPage, setCurrentPage] = useState(1);
+
     const itemsPerPage = 24
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = wines.slice(indexOfFirstItem, indexOfLastItem);
     const onPageChange = (event) => {
-        setCurrentPage(Number(event.target.id));
+      setCurrentPage(Number(event.target.id));
     };
+
     return (
         <>
             <NavBar></NavBar>
@@ -48,32 +73,8 @@ export default function Reds({ wines }) {
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-
-            />
-            <Footer></Footer>
-        </>
-
-    )
-}
-export async function getStaticPaths() {
-    const res = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/`)
-    const paths = res.data.map(({ type }) => ({
-        params: { type: `${type}` }
-    }))
-    return {
-        paths,
-        fallback: false
-    }
-}
-
-
-export async function getStaticProps({ params }) {
-    const response = await axios.get(`${process.env.RESTURL_PRODUCTS}/products/wineTypes/` + params.type)
-    const wines = response.data
-    return {
-        props: {
-            wines,
-        },
-
-    }
+ />
+      <Footer />
+    </>
+  )
 }

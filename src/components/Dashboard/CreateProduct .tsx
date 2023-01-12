@@ -1,8 +1,14 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useAppDispatch } from '../../app/store';
+import { createWine } from '../../features/products/productsSlice';
+import { IProduct } from '../../utils/types';
+
+
 
 const CreateProduct = ({ handleCloseModal }) => {
+ const dispatch = useAppDispatch()
     const [input, setInput] = useState({
         wine: "",
         winery: "",
@@ -21,18 +27,11 @@ const CreateProduct = ({ handleCloseModal }) => {
         price: 0
     })
     const router = useRouter();
-    async function createProduct(input) {
-        try {
-            const response = await axios.post('http://localhost:3001/products', input);
-            // La creación del producto se ha realizado con éxito
-            response.status === 200 && alert('Product Created')
-            console.log(response)
-        } catch (error) {
-            // Ha ocurrido un error al crear el producto
-            alert('Something was wrong')
-            console.log(error)
-        }
-    }
+      const createProduct = async (product: IProduct) => {
+    const result = await dispatch(createWine(product))
+    if (createWine.fulfilled.match(result)) alert('Product Created')
+    console.log(result)
+  }
     const handleOnSubmit = (e) => {
         e.preventDefault();
         createProduct(input)
@@ -191,5 +190,6 @@ const CreateProduct = ({ handleCloseModal }) => {
             </div>
         </>
     )
+
 }
 export default CreateProduct;

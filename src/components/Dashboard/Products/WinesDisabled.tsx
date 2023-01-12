@@ -33,7 +33,7 @@ export default function WinesDisabled({ winesDisabled }) {
         setSelectedProduct(null);
         document.body.classList.remove('modalU-open');
     }
-    console.log(winesDisabled)
+
     return (
         <>
             <div className="w-full h-full flex flex-wrap self-center justify-center divide-x-2 gap-y-8">

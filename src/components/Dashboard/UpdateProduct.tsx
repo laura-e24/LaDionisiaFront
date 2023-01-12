@@ -1,22 +1,28 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useAppDispatch } from '../../app/store';
+import { updateWine } from '../../features/products/productsSlice';
+import { IProduct } from '../../utils/types';
 const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
-    const [input, setInput] = useState({
+
+  const dispatch = useAppDispatch()
+
+     const [input, setInput] = useState({
         ...selectedProduct,
         disabled: selectedProduct.disabled === true ? true : false,
         featured: selectedProduct.disabled === true ? true : false,
         onSale: selectedProduct.disabled === true ? true : false,
     })
+
     const router = useRouter();
 
-    async function updateProduct(product) {
-        const response = await axios.put(`${process.env.RESTURL_PRODUCTS}/products/${product.id}`, product);
-        // console.log(response.status);
-        response.status = 200 && handleCloseModal()
-        alert('this is ok!')
-        router.push("/dashboard/products");
+    const updateProduct = async (product: IProduct) => {
+      const result = await dispatch(updateWine(product))
+      if (updateWine.fulfilled.match(result)) alert('Product Updated')
+      console.log(result)
     }
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
         updateProduct(input)
@@ -26,8 +32,7 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
         setInput({ ...input, [name]: value });
         if (name === "disabled" || name === "featured" || name === "onSale") setInput({ ...input, [name]: input[name] === false ? true : false });
     }
-    // console.log(input)
-    // console.log(selectedProduct)
+
     return (
         <>
             <div className="my-6 justify-center items-start flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">

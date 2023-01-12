@@ -3,8 +3,13 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useAppDispatch } from "../../app/store";
+import { updateWine } from "../../features/products/productsSlice";
+import { IProduct } from "../../utils/types";
 
 export default function Card({ wine, handleEditProduct }) {
+  const dispatch = useAppDispatch()
+
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
     const { user } = useUser();
@@ -17,18 +22,21 @@ export default function Card({ wine, handleEditProduct }) {
     if (isLoading) {
         return null;
     }
-    async function updateProduct(productId, data) {
-        const response = await axios.put(`${process.env.RESTURL_PRODUCTS}/products/${productId}`, data);
-        if (response.status === 200) {
-            alert('producto eliminado')
-            router.push("/dashboard/products");
-        } else {
-            console.log('error')
-        }
+
+    const disableProduct = async () => {
+      const product = {
+        id: wine.id,
+        disabled: true
+      }
+      const result = await dispatch(updateWine(product))
+      if (updateWine.fulfilled.match(result)) alert('Product Deleted')
+      console.log(result)
     }
-    function disableProduct() {
-        updateProduct(wine.id, { disabled: true });
-    }
+
+    // function disableProduct() {
+    //     updateProduct(wine.id, { disabled: true });
+    // }
+
     // en caso de que queramos eliminar el producto ya definitivamente:
     function deleteProduct() {
         alert('Se eliminaria el producto ya definitivamente')
