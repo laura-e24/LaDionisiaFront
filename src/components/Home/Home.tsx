@@ -2,10 +2,15 @@ import Link   from "next/link";
 import NavBar from "../Navbar/NavBar";
 import Footer from "../Footer/Footer";
 import Modal  from "../Modal";
+import Logo from "../../assets/img/logoD.svg"
 
 const Home = () => {
   return (
     <>
+
+  <img src="assets/logo.svg" className="w-28 h-28 absolute left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"/>
+
+
     <div className="
       relative 
       flex 
