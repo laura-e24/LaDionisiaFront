@@ -1,29 +1,10 @@
 .bgfooter {
-    background-image: url('../img/footer.svg');
-    background-size: cover;
+    background-color: #e5dfd8;
+    background-image: url('../img/footer2.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+
 }
 
-.bgProduct{
-    background-image: url('../img/bgProduct.svg');
-    background-size: cover;
-}
-.bgPinks{
-    background-image: url('../img/PINKS.svg');
-    background-size: cover;
-}
-.bgWhites{
-    background-image: url('../img/WHITES.svg');
-    background-size: cover;
-}
-.bgDessert{
-    background-image: url('../img/DESSERT.svg');
-    background-size: cover;
-}
-.bgReds{
-    background-image: url('../img/TINTO.svg');
-    background-size: cover;
-}
-.bgSpark{
-    background-image: url('../img/SPARKLIN.svg');
-    background-size: cover;
-}
+
