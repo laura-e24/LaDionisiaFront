@@ -1,8 +1,8 @@
 import Link   from "next/link";
 import NavBar from "../Navbar/NavBar";
 import Footer from "../Footer/Footer";
-
-const Home = () => {
+const 
+Home = () => {
   return (
   <>
   <img src="assets/logo.svg" className="w-28 h-28 absolute left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"/>
@@ -88,7 +88,6 @@ const Home = () => {
       </div>
       <img className="mt-12" src="assets/main.png"/>
       <img className="mt-4 pb-8" src="assets/main2.png"/>
-
     </div>
     <Footer></Footer>
 </>
