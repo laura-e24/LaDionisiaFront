@@ -1,7 +1,30 @@
-import UpdateProduct from "../../../components/dashboard/UpdateProduct"
-import Navbar from "../../../components/dashboard/Navbar";
+import Navbar from "../../../components/Dashboard/Navbar";
+import { useAppDispatch } from "../../../app/store";
+import { useSelector } from "react-redux";
+import { getOneWine, selectOneWine, selectOneWineStatus } from "../../../features/products/productsSlice";
+import { EStateGeneric } from "../../../utils/general";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-export default function Product({ wine }) {
+export default function Product() {
+ 
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+  const wine = useSelector(selectOneWine)
+  const wineStatus = useSelector(selectOneWineStatus)
+  const { id } = router.query
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (router.isReady) {
+        if (wineStatus === EStateGeneric.IDLE) {
+          await dispatch(getOneWine(id?.toString()));
+        }
+      }
+    }
+    fetchData()
+  }, [id])
+
   return (
     <div>
       <Navbar></Navbar>
@@ -21,10 +44,12 @@ export default function Product({ wine }) {
             <span className="fa fa-star"></span>
             <span className="fa fa-star"></span>
           </div>
-          <h5>{wine.description}</h5>
+          <h5>
+          {wine.description}
+          </h5>
           <p>cantidad</p>
           <div className="mb-3 pt-0">
-            <input type="text" placeholder="1" className=" text-center shrink w-10 h-14px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full" />
+            <input type="text" placeholder="1" className=" text-center shrink w-10 h-14px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring" />
 
             <button className="w-80 flex flex-col items-center text-center8 bg-btn-color text-white py-4 px-8 hover:bg-red-600" type="button"
             >
@@ -44,7 +69,7 @@ export default function Product({ wine }) {
         <h1 className="font-bold mt-10 mb-5r" >RESEÑAS Y PUNTUACIONES</h1>
         <h2 className="font-bold mt-10 mb-5">Escribi una reseña</h2>
         <div className="mb-3 pt-0">
-          <input type="text" placeholder="Escribir..." className="shrink w-66 px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full" />
+          <input type="text" placeholder="Escribir..." className="shrink w-66 px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full" />
         </div>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
@@ -67,29 +92,4 @@ export default function Product({ wine }) {
     </div>
 
   )
-}
-export async function getStaticPaths() {
-  try {
-    const res = await fetch('http://localhost:3001/products')
-    const data = await res.json()
-    const paths = data.map(({ id }) => ({
-      params: { id: `${id}` }
-    }))
-    return {
-      paths,
-      fallback: false
-    }
-  } catch (error) {
-    console.log(error.message)
-  }
-}
-
-export async function getStaticProps({ params }) {
-  const response = await fetch('http://localhost:3001/products/' + params.id)
-  const wine = await response.json()
-  return {
-    props: {
-      wine,
-    },
-  }
 }

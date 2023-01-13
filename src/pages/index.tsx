@@ -1,19 +1,21 @@
 import Head from 'next/head'
-import Home from '../components/Home'
+import Home from '../components/Home/Home'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
-
+function isUser(obj: any): obj is { '/roles': string[] } {
+  return '/roles' in obj;
+}
 
 export default function index() {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
   // console.log(user);
   const handleCookieLogin = async () => {
-    const res = await axios.post("/api/login", user);
-    // console.log(res);
+    const res = await axios.post(`/api/login`, user);
+    console.log(res);
     if (user) {
-      const response = await axios.post("http://localhost:3001/users/register", user);
+      const response = await axios.post(`${process.env.RESTURL_PRODUCTS}/users/register`, user);
       console.log(response.data);
     }
     if (res.status === 200 && res.data.message === "Successful login: admin" || res.data.message === "Successful login: user") {
@@ -23,9 +25,11 @@ export default function index() {
   if (isLoading) return <div>...loading</div>
   if (error) return <div>{error.message}</div>
   if (user) {
-    return handleCookieLogin() && (
+    const usuario = isUser(user) ? user[`/roles`] : [];
+    // return handleCookieLogin() && (
+    return (
       <>
-        {user[`/roles`].includes('administrador') ? (
+        {usuario.includes('administrador') ? (
           <>
             <Head>
               <title>La Dionisia - Tienda de vinos</title>
@@ -57,7 +61,7 @@ export default function index() {
           <title>La Dionisia - Tienda de vinos</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
+        <main className='main h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
           <Home />
           {/* guest */}
         </main>
