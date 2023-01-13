@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
 import { getAllWinesByContry, selectAllWinesByContry, selectAllWinesContryStatus } from "../../../features/products/productsSlice";
 import { useEffect } from "react";
-import { StateGeneric } from "../../../utils/general";
+import { EStateGeneric } from "../../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../../components/Footer/Footer";
 const Filter = () => {
@@ -18,7 +18,7 @@ const Filter = () => {
     useEffect(() => {
       const fetchData = async () => {
         if (router.isReady) {
-          if (winesContryStatus === StateGeneric.IDLE) {
+          if (winesContryStatus === EStateGeneric.IDLE) {
             await dispatch(getAllWinesByContry(filter.toString()));
           }
         }

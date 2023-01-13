@@ -92,11 +92,11 @@ interface ProductsState {
   disabledWines: IProduct[],
   wineTypes: IProduct[],
   wine: IProduct,
-  allWinesStatus: StateGeneric,
-  allWinesContryStatus: StateGeneric,
-  allDisabledWinesStatus: StateGeneric,
-  allWineTypesStatus: StateGeneric,
-  oneWineStatus: StateGeneric
+  allWinesStatus: EStateGeneric,
+  allWinesContryStatus: EStateGeneric,
+  allDisabledWinesStatus: EStateGeneric,
+  allWineTypesStatus: EStateGeneric,
+  oneWineStatus: EStateGeneric
 }
 
 const initialState = {
@@ -105,11 +105,11 @@ const initialState = {
   winesContry: [],
   disabledWines: [],
   wineTypes: [],
-  allWinesStatus: StateGeneric.IDLE,
-  allWinesContryStatus: StateGeneric.IDLE,
-  allDisabledWinesStatus: StateGeneric.IDLE,
-  allWineTypesStatus: StateGeneric.IDLE,
-  oneWineStatus: StateGeneric.IDLE,
+  allWinesStatus: EStateGeneric.IDLE,
+  allWinesContryStatus: EStateGeneric.IDLE,
+  allDisabledWinesStatus: EStateGeneric.IDLE,
+  allWineTypesStatus: EStateGeneric.IDLE,
+  oneWineStatus: EStateGeneric.IDLE,
 } as ProductsState
 
 const productsSlice = createSlice({
@@ -204,13 +204,13 @@ const productsSlice = createSlice({
 
     builder.addCase(getAllWinesByContry.fulfilled, (state, action) => {
       state.winesContry = action.payload;
-      state.allWinesContryStatus = StateGeneric.SUCCEEDED;
+      state.allWinesContryStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getAllWinesByContry.pending, (state, action) => {
-      state.allWinesContryStatus = StateGeneric.PENDING;
+      state.allWinesContryStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getAllWinesByContry.rejected, (state, action) => {
-      state.allWinesContryStatus = StateGeneric.FAILED;
+      state.allWinesContryStatus = EStateGeneric.FAILED;
     })
   },
 })
