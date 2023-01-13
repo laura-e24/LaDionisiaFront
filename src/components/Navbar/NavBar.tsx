@@ -65,10 +65,10 @@ const NavBar = () => {
     dispatch(filterByScore(e.target.value))
   }
   // console.log(search)
-
   return (
     <>
-      <nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-2">
+      <Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2"></Logo>
+      <nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-10 mb-14">
         <Link href='/'>
           <a className="w-24  h-6 inline-block text-center align-sub">
             Home
@@ -133,7 +133,6 @@ const NavBar = () => {
             Contact
           </a>
         </Link>
-
         <div className="inline-block float-right border-none">
           <label className="inline-block w-8">
             <input
@@ -435,13 +434,12 @@ const NavBar = () => {
             {theme === 'light' ? <Day className="w-8 h-8 " /> : <Night className="w-8 h-8" />}
           </label>
         </div>
-
-
-
-
       </nav>
-      {/* <Logo className="w-28 h-28 fixed left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"></Logo> */}
 
+
+{/*
+<Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"></Logo>
+*/}
 
 
 
