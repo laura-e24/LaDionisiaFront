@@ -92,6 +92,8 @@ const Home = () => {
         </Link>
       </div>
       <img className="mt-12" src="assets/main.png"/>
+      <img className="mt-4 pb-8" src="assets/main2.png"/>
+
     </div>
     <Footer></Footer>
 </>
