@@ -63,7 +63,7 @@ export default function index() {
           <title>La Dionisia - Tienda de vinos</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
+        <main className='main h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
           <Home />
           {/* guest */}
         </main>
