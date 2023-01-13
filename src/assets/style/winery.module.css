@@ -1,0 +1,13 @@
+.menu {
+    cursor: pointer;
+    position: relative;
+}
+
+.sub {
+    display: none;
+}
+
+.menu:hover .sub {
+    display: flex;
+    position: absolute;
+}

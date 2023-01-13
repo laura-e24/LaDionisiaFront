@@ -41,7 +41,7 @@ export default function Product() {
         <div className="w-full h-full flex justify-center">
           <div className={`flex w-96 h-96 justify-center items-center ${styles.bgProduct}`}>
             <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
-            <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
+            {/* <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" /> */}
           </div>
         </div>
       </div>
