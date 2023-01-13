@@ -93,7 +93,7 @@ const NavBar = () => {
     </label>
     {searchBar ? (
     <div className="inline-block">
-      <form className="gap-2 p-2" onSubmit={(e) => { handleWinesByName(e) }}>
+      <form className="gap-2 p-2">
         <input placeholder="Type something here..." type="text" className="rounded focus:outline-none focus:ring focus:ring-violet-300" onChange={(e) => { handleInputName(e) }}></input>
         <button type='submit' className="p-2 rounded border border-gray-300"> Search</button>
       </form>
