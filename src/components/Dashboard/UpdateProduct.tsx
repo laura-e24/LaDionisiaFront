@@ -130,12 +130,12 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
                                 label='Stock'
                                 name='stock'
                               />
-                               <div className='col-span-2'>
+                               {/* <div className='col-span-2'>
                                 <FileCustomField
                                   label='Image'
                                   name='image'
                                 />
-                              </div>
+                              </div> */}
                               <div className='col-span-2 flex mt-auto mb-1 justify-between'>
                                 <CustomCheckbox
                                   label='Disabled'
