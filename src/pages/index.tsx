@@ -24,10 +24,8 @@ export default function index() {
   }
   if (isLoading) return <div>...loading</div>
   if (error) return <div>{error.message}</div>
-  console.log(user)
   if (user) {
     const usuario = isUser(user) ? user[`/roles`] : [];
-    console.log(usuario)
     // return handleCookieLogin() && (
     return (
       <>

@@ -8,6 +8,7 @@ import GenericButton from '../GenericButton';
 import { EGenericButtonType } from '../../utils/general';
 import CustomSelect from '../CustomSelect';
 import * as Yup from "yup";
+import CustomTextArea from '../CustomTextArea';
 
 const validationSchema = Yup.object().shape({
   wine: Yup.string().required('Wine name is required.'),
@@ -15,7 +16,7 @@ const validationSchema = Yup.object().shape({
   rating: Yup.number().required('Rating is required'),
   country: Yup.string().required('Country is required.'),
   region: Yup.string().required('Region is required.'),
-  image: Yup.string().required('Image is required.'),
+  image: Yup.string(),
   description: Yup.string(),
   type: Yup.string().required('Type is required.'),
   year: Yup.number().required('Year is required'),
@@ -69,7 +70,7 @@ const CreateProduct = ({ handleCloseModal }) => {
             }}
           >
             {({}) => (
-              <Form className="flex flex-wrap gap-4 bg-white shadow-md rounded px-6 pt-6 pb-8 dark:bg-black justify-center">
+              <Form className="grid grid-cols-4 gap-4 bg-white shadow-md rounded px-6 pt-6 pb-8 dark:bg-black">
                 <CustomField
                   label='Name'
                   name='wine'
@@ -83,20 +84,12 @@ const CreateProduct = ({ handleCloseModal }) => {
                   name='year'
                 />
                 <CustomField
-                  label='Description'
-                  name='description'
-                />
-                <CustomField
                   label='Country'
                   name='country'
                 />
                 <CustomField
                   label='Region'
                   name='region'
-                />
-                <CustomField
-                  label='Total Sales'
-                  name='totalSalesCurrent'
                 />
                 <CustomField
                   label='Total Sales'
@@ -123,23 +116,33 @@ const CreateProduct = ({ handleCloseModal }) => {
                   label='Stock'
                   name='stock'
                 />
-                <FileCustomField
-                  label='Image'
-                  name='image'
-                />
-                <CustomCheckbox
-                  label='Disabled'
-                  name='disabled'
-                />
-                <CustomCheckbox
-                  label='Featured'
-                  name='featured'
-                />
-                 <CustomCheckbox
-                  label='On Sale'
-                  name='onSale'
-                />
-                <div className="flex items-center justify-around p-6 border-t border-slate-200 w-full">
+                <div className='col-span-2'>
+                  <FileCustomField
+                    label='Image'
+                    name='image'
+                  />
+                </div>
+                <div className='col-span-2 flex mt-auto mb-1 justify-between'>
+                  <CustomCheckbox
+                    label='Disabled'
+                    name='disabled'
+                  />
+                  <CustomCheckbox
+                    label='Featured'
+                    name='featured'
+                  />
+                  <CustomCheckbox
+                    label='On Sale'
+                    name='onSale'
+                  />
+                </div>
+                <div className='col-span-2'>
+                  <CustomTextArea 
+                    label='Description'
+                    name='description'
+                  />
+                </div>
+                <div className="col-span-4 flex justify-around p-6 border-t border-slate-200 w-full">
                   <GenericButton 
                     label='Cerrar'
                     buttonType={EGenericButtonType.CLOSE}

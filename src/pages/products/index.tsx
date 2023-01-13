@@ -60,11 +60,11 @@ export default function index() {
                     </div>
                 </div>
                 <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
-                    {
-                        currentItems.map((wine) => (
-                            <Card wine={wine}></Card>
-                        ))
-                    }
+                  {
+                    currentItems.map((wine) => (
+                      <Card key={wine.id} wine={wine}></Card>
+                    ))
+                  }
                 </div>
             </div>
             <Pagination
@@ -74,7 +74,7 @@ export default function index() {
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
             />
-            <Footer></Footer>
+            <Footer />
         </>
     )
 }

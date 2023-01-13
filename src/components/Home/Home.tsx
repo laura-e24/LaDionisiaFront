@@ -1,5 +1,4 @@
 import NavBar from "../Navbar/NavBar";
-import Modal from "../Modal";
 import Footer from "../Footer/Footer";
 import styles from "../../assets/style/styles.module.css"
 import WineLet from "../../assets/img/wineHome.svg"

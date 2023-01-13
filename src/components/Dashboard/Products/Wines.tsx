@@ -33,13 +33,13 @@ export default function Wines({ wines }) {
     setSelectedProduct(null);
     document.body.classList.remove('modalU-open');
   }
-  console.log(wines)
+
   return (
     <>
       <div className="w-full h-full flex flex-wrap self-center justify-center divide-x-2 gap-y-8">
         {
           currentItems.map((wine) => (
-            <Card wine={wine} handleEditProduct={handleEditProduct} ></Card>
+            <Card key={wine.id} wine={wine} handleEditProduct={handleEditProduct} ></Card>
           ))
         }
         {selectedProduct && (
