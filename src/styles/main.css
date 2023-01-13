@@ -5,7 +5,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-
 * {
   box-sizing: border-box;
 }
@@ -13,7 +12,19 @@
 html, body {
   margin: 0;
   background-color:#ebe9e9;
+  scroll-behavior: smooth;
+	scrollbar-width: thin;
+	scrollbar-color: light;
+  user-select: none;
+  -moz-user-select: none;
+-webkit-user-select: none;
+   -ms-user-select: none;
 }
+
+body::-webkit-scrollbar{
+    display: none;
+  }
+
 
 .nav a {font-family:Verdana, Geneva, Tahoma, sans-serif}
 .nav a:hover {
