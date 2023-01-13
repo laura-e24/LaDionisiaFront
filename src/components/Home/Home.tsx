@@ -55,31 +55,31 @@ const Home = () => {
         justify-around 
         items-center 
         mt-8">
-        <Link href='/products/rose'>
+        <Link href='/products/type/rose'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/rose.png"/>
             Rose
           </a>
         </Link>
-        <Link href='/products/white'>
+        <Link href='/products/type/whites'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/white.png"/>
             White
           </a>
         </Link>
-        <Link href='/products/red'>
+        <Link href='/products/type/reds'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/red.png"/>
             Red
           </a>
         </Link>
-        <Link href='/products/sparkling'>
+        <Link href='/products/type/sparkling'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/sparkling.png"/>
             Sparkling
           </a>
         </Link>
-        <Link href='/products/dessert'>
+        <Link href='/products/type/dessert'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/dessert.png"/>
              Dessert
