@@ -66,7 +66,7 @@ const NavBar = () => {
 
   return (
 <>
-<nav className="bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-2">
+<nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-2">
   <Link href='/'>
     <a className="w-24  h-6 inline-block text-center align-sub">
       Home

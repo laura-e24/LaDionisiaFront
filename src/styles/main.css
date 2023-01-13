@@ -13,5 +13,9 @@
 html, body {
   margin: 0;
   background-color:#ebe9e9;
+}
+
+.nav a:hover {
+background:#a3a3a3
 
 }
