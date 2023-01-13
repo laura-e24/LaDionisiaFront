@@ -14,6 +14,7 @@ module.exports = {
         'font-color': '#2A2824',
         'bg-body': '#EBE9E9',
         'price-color': '#B1AA95',
+        'pagination-color': '#E0D7C9',
       },
       fontFamily: {
         'montserrat': ['Montserrat'],

@@ -1,48 +1,94 @@
+import Link   from "next/link";
 import NavBar from "../Navbar/NavBar";
 import Footer from "../Footer/Footer";
-import styles from "../../assets/style/styles.module.css"
-import WineLet from "../../assets/img/wineHome.svg"
-import HomePr from "../../assets/img/HomeProv.svg"
-import BgProd from "../../assets/img/bgProduct.svg"
+import Modal  from "../Modal";
+
 const Home = () => {
   return (
     <>
-
-      <div className="bg-bg-body min-h-screen">
-        <NavBar></NavBar>
-        <div className="w-full flex flex-col items-center gap-6 py-6">
-          <HomePr />
-          <div className="w-11/12 h-1/2 flex flex-col justify-center items-center">
-          </div>
-          <div className="w-full flex justify-around items-center">
-            <a href="/products/type/reds" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgReds}`}></a>
-            <a href="/products/type/whites" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgWhites}`}></a>
-            <a href="/products/type/rose" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgPinks}`}></a>
-            <a href="/products/type/sparkling" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgSpark}`}></a>
-            <a href="/products/type/dessert" className={`flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600 bg-cover bg-no-repeat bg-center ${styles.bgDessert}`}></a>
-          </div>
-          <div className="w-full flex justify-around items-center">
-            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >REDS</p>
-            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >WHITES</p>
-            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >PINKS</p>
-            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >SPARKLING</p>
-            <p className="flex items-center justify-center w-32 h-32 rounded-full text-lg font-montserrat text-gray-600" >DESSERT</p>
-          </div>
-          <div className="bg-bg-body min-h-screen">
-            <div className="flex h-full w-6/6 self-center justify-self-end">
-              <WineLet /> <BgProd />
-
-
-            </div>
-          </div>
-          <button className="p-2 border border-gray-600 w-2/10 self-center justify-self-end text-gray-600 mt-8">TASTE IT</button>
-          <button className="p-2 border border-gray-600 w-2/10 self-center justify-self-end text-gray-600 mt-8">EXPLORE MORE</button>
-
-        </div>
+    <div className="
+      relative 
+      flex 
+      items-center 
+      justify-center 
+      h-screen 
+      mb-12 
+      overflow-hidden">
+      <video autoPlay loop muted className="
+        absolute 
+        z-10 
+        w-auto 
+        min-w-full 
+        min-h-full 
+        max-w-none">
+          <source src="assets/video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+       </video>
+      <div className="
+        absolute
+        text-white 
+        left-1/2 
+        -translate-x-1/2
+        bottom-4
+        opacity-50	
+        z-10
+        ">
+        <a href="#top">
+        <img width="75px" src="assets/scrolldown.gif"/>
+        </a>
       </div>
-      <Footer></Footer>
-
-    </>
-  );
-}
+    </div>
+    <a name="top"></a>
+    <div className="
+      pt-12 
+      mb-12 
+      m-auto
+      min-h-screen
+      max-w-screen-xl
+      bg-bg-body 
+      ">
+      <NavBar></NavBar>
+      <img src="assets/homeprov.png"/>
+      <div className="
+        w-full 
+        flex 
+        justify-around 
+        items-center 
+        mt-8">
+        <Link href='/products/rose'>
+          <a className="text-center font-montserrat text-gray-600">
+            <img className="w-32 h-32 mb-2" src="assets/rose.png"/>
+            Rose
+          </a>
+        </Link>
+        <Link href='/products/white'>
+          <a className="text-center font-montserrat text-gray-600">
+            <img className="w-32 h-32 mb-2" src="assets/white.png"/>
+            White
+          </a>
+        </Link>
+        <Link href='/products/red'>
+          <a className="text-center font-montserrat text-gray-600">
+            <img className="w-32 h-32 mb-2" src="assets/red.png"/>
+            Red
+          </a>
+        </Link>
+        <Link href='/products/sparkling'>
+          <a className="text-center font-montserrat text-gray-600">
+            <img className="w-32 h-32 mb-2" src="assets/sparkling.png"/>
+            Sparkling
+          </a>
+        </Link>
+        <Link href='/products/dessert'>
+          <a className="text-center font-montserrat text-gray-600">
+            <img className="w-32 h-32 mb-2" src="assets/dessert.png"/>
+             Dessert
+          </a>
+        </Link>
+      </div>
+      <img className="mt-12" src="assets/main.png"/>
+    </div>
+    <Footer></Footer>
+</>
+)}
 export default Home;
