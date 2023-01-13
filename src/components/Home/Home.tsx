@@ -5,7 +5,8 @@ import Modal  from "../Modals/LegalAgeModal";
 
 const Home = () => {
   return (
-    <>
+  <>
+  <img src="assets/logo.svg" className="w-28 h-28 absolute left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"/>
     <div className="
       relative 
       flex 
@@ -39,6 +40,7 @@ const Home = () => {
       </div>
     </div>
     <a id="top"></a>
+    <a id="top"></a>
     <div className="
       pt-12 
       mb-12 
@@ -55,31 +57,31 @@ const Home = () => {
         justify-around 
         items-center 
         mt-8">
-        <Link href='/products/rose'>
+        <Link href='/products/type/rose'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/rose.png"/>
             Rose
           </a>
         </Link>
-        <Link href='/products/white'>
+        <Link href='/products/type/whites'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/white.png"/>
             White
           </a>
         </Link>
-        <Link href='/products/red'>
+        <Link href='/products/type/reds'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/red.png"/>
             Red
           </a>
         </Link>
-        <Link href='/products/sparkling'>
+        <Link href='/products/type/sparkling'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/sparkling.png"/>
             Sparkling
           </a>
         </Link>
-        <Link href='/products/dessert'>
+        <Link href='/products/type/dessert'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/dessert.png"/>
              Dessert
@@ -87,6 +89,7 @@ const Home = () => {
         </Link>
       </div>
       <img className="mt-12" src="assets/main.png"/>
+      <img className="mt-4 pb-8" src="assets/main2.png"/>
     </div>
     <Footer></Footer>
 </>
