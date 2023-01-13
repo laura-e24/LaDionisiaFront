@@ -62,7 +62,9 @@ const NavBar = () => {
 
   return (
 <>
-<nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-2">
+
+<Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2"></Logo>
+<nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-10 mb-14">
   <Link href='/'>
     <a className="w-24  h-6 inline-block text-center align-sub">
       Home
@@ -385,8 +387,10 @@ const NavBar = () => {
 
 
 </nav>
-<Logo className="w-28 h-28 fixed left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"></Logo>
 
+{/*
+<Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"></Logo>
+*/}
 
 
 
