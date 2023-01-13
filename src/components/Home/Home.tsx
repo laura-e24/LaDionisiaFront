@@ -38,7 +38,7 @@ const Home = () => {
         </a>
       </div>
     </div>
-    <a name="top"></a>
+    <a id="top"></a>
     <div className="
       pt-12 
       mb-12 
