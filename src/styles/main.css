@@ -31,3 +31,47 @@ body::-webkit-scrollbar{
 background:#a3a3a3
 }
 .footer{font-family:Verdana, Geneva, Tahoma, sans-serif}
+
+.footlink:hover{
+  color:#4b5563;
+} 
+
+.footlink {
+  width: 180px;
+  display: inline-block;
+  padding-left:0px;
+  cursor: pointer;
+  position:relative;
+  text-decoration:none;
+  color:#696865;
+
+}
+
+.spanLeft{
+  position: absolute;
+  left:-7px;
+  opacity:0;
+  transition:0.25s;
+  color:#a3a3a3
+}
+
+.spanRight{
+  position: absolute;
+  right:-7px;
+  opacity:0;
+  transition:0.25s;
+  color:#a3a3a3
+}
+
+.footlink:hover .spanLeft{
+  position: absolute;
+  left:-20px;
+  opacity:1;
+}
+
+.footlink:hover .spanRight{
+  position: absolute;
+  right:-20px;
+  opacity:1;
+}
+
