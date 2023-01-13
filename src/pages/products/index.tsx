@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
 import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesContryStatus } from "../../features/products/productsSlice";
 import { useEffect } from "react";
-import { StateGeneric } from "../../utils/general";
+import { EStateGeneric } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
 
@@ -65,12 +65,13 @@ export default function index() {
                         <a href="/products/type/dessert" className="flex items-center justify-center w-32 h-32 rounded-full text-black py- px-8 bg-btn-color text-center bg-[url('https://www.bordeaux.com/wp-content/uploads/2017/06/red.jpg')] bg-cover bg-no-repeat bg-center"></a>DESSERT
                     </div>
                 </div>
-                <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8 flex-row odd:flex-row-reverse">
-                    {
-                        currentItems.map((wine) => (
-                            <Card wine={wine}></Card>
-                        ))
-                    }
+                <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
+                  {
+                    currentItems.map((wine) => (
+                      <Card key={wine.id} wine={wine}></Card>
+                    ))
+                  }
+
                 </div>
             </div>
             <Pagination
@@ -80,7 +81,7 @@ export default function index() {
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
             />
-            <Footer></Footer>
+            <Footer />
         </>
     )
 }

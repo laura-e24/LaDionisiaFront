@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Modal = () => {
+const LegalAgeModal = () => {
   const [showModal, setShowModal] = useState(true);
     return (
         <>
@@ -21,7 +21,7 @@ const Modal = () => {
                                 {/*body*/}
                                 <div className="relative p-3 flex">
                                     <p className="my-2 text-slate-500 text-lg">
-                                        Debes ser mayor de 18 años para ingresar | Entrada permitida para maiores de 18 anos | To enter, you must be + 18 years old.
+                                        Debes ser mayor de 18 años para ingresar | Entrada permitida para maiores de 18 años | To enter, you must be + 18 years old.
                                     </p>
                                     <div className="flex items-center justify-end px-6 border-t border-solid border-slate-200 rounded-b">
                                         <button
@@ -42,4 +42,4 @@ const Modal = () => {
         </>
     )
 }
-export default Modal;
+export default LegalAgeModal;

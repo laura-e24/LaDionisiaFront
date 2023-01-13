@@ -1,14 +1,14 @@
 import { Field, useField } from "formik";
 import _ from "lodash";
 
-const CustomField = ({
-  label = "",
+const CustomSelect = ({
+  label,
   name,
   placeholder = "Escriba...",
-  type = "text",
   required = true,
-  value = "",
+  children,
   onChange = (e) => {},
+  value = "",
   ...FormikBag
 }) => {
   const [field, meta, helpers] = useField({ ...FormikBag, name });
@@ -25,14 +25,8 @@ const CustomField = ({
       " bg-transparent focus:border-gray-500 ";
 
   return (
-    <Field
-      autoComplete="off"
-      name={name}
-      type={type}
-      value={FormikBag.value}
-      lang="es"
-    >
-      {({ field, form: { setFieldValue } }) => (
+    <Field name={name} value={FormikBag.value}>
+      {({ field, form: { touched, errors, setFieldValue } }) => (
         <div>
           {label && (
             <label
@@ -42,21 +36,29 @@ const CustomField = ({
               {label}
             </label>
           )}
-          <input
-            {...field}
-            className={className}
-            type={type}
-            name={name}
-            placeholder={placeholder}
-            onChange={(e: React.ChangeEvent<any>) => {
-              setFieldValue(field.name, e.target.value);
-              onChange(e.target.value);
-            }}
-          />
+          <div className="w-full">
+            <select
+              {...field}
+              className={className}
+              // {...(FormikBag.defaultValue
+              //   ? { defaultValue: FormikBag.defaultValue }
+              //   : {})
+              // }
+              defaultValue='select'
+              name={name}
+              placeholder={placeholder}
+              onChange={(e: React.ChangeEvent<any>) => {
+                setFieldValue(field.name, e.target.value);
+                onChange(e.target.value);
+              }}
+            >
+              {children}
+            </select>
+          </div>
         </div>
       )}
     </Field>
   );
 }
  
-export default CustomField;
+export default CustomSelect;

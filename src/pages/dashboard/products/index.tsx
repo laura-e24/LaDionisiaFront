@@ -10,7 +10,7 @@ import WinesDisabled from "../../../components/Dashboard/Products/WinesDisabled"
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
 import { getAllDisabledWines, getAllWines, selectAllDisabedWinesStatus, selectAllDisabledWines, selectAllWines, selectAllWinesStatus } from "../../../features/products/productsSlice";
-import { StateGeneric } from "../../../utils/general";
+import { EStateGeneric } from "../../../utils/general";
 
 export default function Products() {
   const router = useRouter()
@@ -23,10 +23,10 @@ export default function Products() {
   useEffect(() => {
     const fetchData = async () => {
       if (router.isReady) {
-        if (winesStatus === StateGeneric.IDLE) {
+        if (winesStatus === EStateGeneric.IDLE) {
           await dispatch(getAllWines());
         }
-        if (winesDisabledStatus === StateGeneric.IDLE) {
+        if (winesDisabledStatus === EStateGeneric.IDLE) {
           await dispatch(getAllDisabledWines());
         }
       }

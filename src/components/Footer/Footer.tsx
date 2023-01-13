@@ -10,6 +10,7 @@ export default function Footer() {
         return null;
     }
     return (
+
         <footer className={`h-min w-full ${styles.bgfooter} p-14 flex footer`}>
 
           <Logo className="w-28 h-28"/>

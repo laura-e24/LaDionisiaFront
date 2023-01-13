@@ -1,7 +1,7 @@
 import { Field, useField } from "formik";
 import _ from "lodash";
 
-const CustomField = ({
+const CustomTextArea = ({
   label = "",
   name,
   placeholder = "Escriba...",
@@ -12,7 +12,7 @@ const CustomField = ({
   ...FormikBag
 }) => {
   const [field, meta, helpers] = useField({ ...FormikBag, name });
-  let className = `shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none 
+  let className = `h-44 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none 
     focus:shadow-outline placeholder-gray-500 placeholder-opacity-20`;
 
 
@@ -37,12 +37,12 @@ const CustomField = ({
           {label && (
             <label
               htmlFor={name}
-              className="block text-sm font-bold mb-2"
+              className="block text-sm font-bold mb-2 h-"
             >
               {label}
             </label>
           )}
-          <input
+          <textarea
             {...field}
             className={className}
             type={type}
@@ -52,11 +52,11 @@ const CustomField = ({
               setFieldValue(field.name, e.target.value);
               onChange(e.target.value);
             }}
-          />
+          ></textarea>
         </div>
       )}
     </Field>
   );
 }
  
-export default CustomField;
+export default CustomTextArea;
