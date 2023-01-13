@@ -61,13 +61,13 @@ const Home = () => {
             Rose
           </a>
         </Link>
-        <Link href='/products/type/white'>
+        <Link href='/products/type/whites'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/white.png"/>
             White
           </a>
         </Link>
-        <Link href='/products/type/red'>
+        <Link href='/products/type/reds'>
           <a className="text-center font-montserrat text-gray-600">
             <img className="w-32 h-32 mb-2" src="assets/red.png"/>
             Red
