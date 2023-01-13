@@ -1,7 +1,7 @@
 import Link   from "next/link";
 import NavBar from "../Navbar/NavBar";
 import Footer from "../Footer/Footer";
-import Modal  from "../Modal";
+import Modal  from "../Modals/LegalAgeModal";
 
 const Home = () => {
   return (
@@ -38,7 +38,7 @@ const Home = () => {
         </a>
       </div>
     </div>
-    <a name="top"></a>
+    <a id="top"></a>
     <div className="
       pt-12 
       mb-12 
