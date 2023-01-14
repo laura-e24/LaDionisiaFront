@@ -9,6 +9,7 @@ import { EGenericButtonType } from '../../utils/general';
 import CustomSelect from '../CustomSelect';
 import * as Yup from "yup";
 import CustomTextArea from '../CustomTextArea';
+import {useRef, useState} from "react"
 
 const validationSchema = Yup.object().shape({
   wine: Yup.string().required('Wine name is required.'),
@@ -26,6 +27,8 @@ const validationSchema = Yup.object().shape({
 })
 
 const CreateProduct = ({ handleCloseModal }) => {
+  const ref = useRef(null)
+  const [file, setFile] = useState( '' )
   const dispatch = useAppDispatch()
   const initialValues = {
     wine: "",
@@ -45,6 +48,9 @@ const CreateProduct = ({ handleCloseModal }) => {
     price: 0
   }
 
+
+  const handleChangeImage = (e) => setFile(ref.current?.files[0])
+
   return (
     <div className="my-6 justify-center items-start flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="relative w-2/4 mt-2 mx-auto max-w-6xl">
@@ -62,11 +68,18 @@ const CreateProduct = ({ handleCloseModal }) => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={async (values, actions) => {
-              const result = await dispatch(createWine(values))
-              if (createWine.fulfilled.match(result)) alert('Product Created')
+              const formData= new FormData()
+              formData.append('image', file)
+              const result = await dispatch(createWine({
+                ...values,
+                image: file
+              }))
+              if (createWine.fulfilled.match(result)) {
+                alert('Product Created')
+                actions.resetForm()
+              }
               
               console.log(result)
-              actions.resetForm()
             }}
           >
             {({}) => (
@@ -117,10 +130,14 @@ const CreateProduct = ({ handleCloseModal }) => {
                   name='stock'
                 />
                 <div className='col-span-2'>
-                  <FileCustomField
-                    label='Image'
-                    name='image'
+                  <input
+                    ref={ref}
+                    onChange={handleChangeImage}
+                    type="file"
                   />
+                  {/* <button type="button" onClick={() => ref.current?.click()}>
+                    SUbir
+                  </button> */}
                 </div>
                 <div className='col-span-2 flex mt-auto mb-1 justify-between'>
                   <CustomCheckbox
