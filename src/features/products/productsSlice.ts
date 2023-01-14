@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { EStateGeneric, rateGen } from "../../utils/general";
 import { IProduct } from "../../utils/types";
-import { createOneProduct, getAllDisabledProducts, getAllProducts, getAllProductTypes, getOneProductById, getAllProductsByContry, updateOneProduct } from "./productsApi";
+import { createOneProduct, getAllDisabledProducts, getAllProducts, getAllProductTypes, getOneProductById, getAllProductsByContry, updateOneProduct, getAllProductsByRegion } from "./productsApi";
 
 export const getAllWines = createAsyncThunk(
   'products/getAllWines',
@@ -85,15 +85,28 @@ export const getAllWinesByContry = createAsyncThunk(
     }
   }
 )
+export const getAllWinesByRegion = createAsyncThunk(
+  'products/getAllWinesByRegion',
+  async (region: string, { rejectWithValue }) => {
+    try {
+      const response = await getAllProductsByRegion(region)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
 
 interface ProductsState {
   wines: IProduct[],
   winesCountry: IProduct[],
+  regions: string[],
   disabledWines: IProduct[],
   wineTypes: IProduct[],
   wine: IProduct,
+  winesFilters: IProduct[],
   currentWines: IProduct[],
-  filter: string,
+  filters: string[],
   allWinesStatus: EStateGeneric,
   allWinesCountryStatus: EStateGeneric,
   allDisabledWinesStatus: EStateGeneric,
@@ -105,10 +118,12 @@ const initialState = {
   wines: [],
   wine: {},
   winesCountry: [],
+  regions: [],
+  winesFilters: [],
   currentWines: [],
   disabledWines: [],
   wineTypes: [],
-  filter: '',
+  filters: [],
   allWinesStatus: EStateGeneric.IDLE,
   allWinesCountryStatus: EStateGeneric.IDLE,
   allDisabledWinesStatus: EStateGeneric.IDLE,
@@ -122,55 +137,195 @@ const productsSlice = createSlice({
   reducers: {
     // standard reducer logic, with auto-generated action types per reducer
     filterByScore: (state, action) => {
+      state.filters.forEach(e => {
+        switch (e) {
+          // case '100':
+          //   var filter = state.winesCountry.filter(wine => rateGen(wine.rating) === 100)
+          //   return {
+          //     ...state,
+          //     winesFilters: filter,
+          //     wines: filter
+          //   }
+          // case '99-97':
+          //   var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 100 && rateGen(wine.rating) >= 97)
+          //   return {
+          //     ...state,
+          //     winesFilters: filter,
+          //     wines: filter
+          //   }
+          case '96-94':
+            var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 97 && rateGen(wine.rating) >= 94)
+            return {
+              ...state,
+              winesFilters: filter,
+              wines: filter
+            }
+          // case '93-91':
+          //   var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 94 && rateGen(wine.rating) >= 91)
+          //   return {
+          //     ...state,
+          //     winesFilters: filter,
+          //     wines: filter
+          //   }
+          // case '90-under':
+          //   var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 91)
+          //   return {
+          //     ...state,
+          //     winesFilters: filter,
+          //     wines: filter
+          //   }
+          default:
+            return {
+              ...state,
+              winesFilters: state.winesCountry,
+            }
+        }
+      })
+      // switch (action.payload) {
+      //   case '100':
+      //     var filter = state.winesCountry.filter(wine => rateGen(wine.rating) === 100)
+      //     return {
+      //       ...state,
+      //       winesFilters: filter,
+      //       wines: filter
+      //     }
+      //   case '99-97':
+      //     var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 100 && rateGen(wine.rating) >= 97)
+      //     return {
+      //       ...state,
+      //       winesFilters: filter,
+      //       wines: filter
+      //     }
+      //   case '96-94':
+      //     var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 97 && rateGen(wine.rating) >= 94)
+      //     return {
+      //       ...state,
+      //       winesFilters: filter,
+      //       wines: filter
+      //     }
+      //   case '93-91':
+      //     var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 94 && rateGen(wine.rating) >= 91)
+      //     return {
+      //       ...state,
+      //       winesFilters: filter,
+      //       wines: filter
+      //     }
+      //   case '90-under':
+      //     var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 91)
+      //     return {
+      //       ...state,
+      //       winesFilters: filter,
+      //       wines: filter
+      //     }
+      //   default:
+      //     return {
+      //       ...state,
+      //       winesFilters: state.winesCountry,
+      //     }
+      // }
+    },
+    filterByRegion: (state, action) => {
+      const regionExite = state.regions.includes(action.payload)
+      // const regionExite = state.regions.includes(action.payload)
       switch (action.payload) {
-        case '100':
-          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) === 100)
+        case action.payload:
+          var filter = state.winesCountry.filter(wine => wine.region === action.payload)
           return {
             ...state,
-            winesCountry: filter
-          }
-        case '99-97':
-          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 100 && rateGen(wine.rating) >= 97)
-          return {
-            ...state,
-            winesCountry: filter
-          }
-        case '96-94':
-          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 97 && rateGen(wine.rating) >= 94)
-          return {
-            ...state,
-            winesCountry: filter
-          }
-        case '93-91':
-          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 94 && rateGen(wine.rating) >= 91)
-          return {
-            ...state,
-            winesCountry: filter
-          }
-        case '90-under':
-          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 91)
-          return {
-            ...state,
-            winesCountry: filter
+            winesFilters: filter,
+            wines: filter
           }
         default:
-          state.winesCountry
+          return {
+            ...state,
+            winesFilters: state.winesCountry,
+          }
       }
-      // if (action.payload === '100') {
-      //   const filter = state.winesCountry.filter(wine => wine.rating === 10)
-      //   return {
-      //     ...state,
-      //     winesCountry: filter
-      //   }
-      // }
-      state.winesCountry.push(action.payload)
+    },
+    filterByVintage: (state, action) => {
+      switch (action.payload) {
+        case '2010-Present':
+          var filter = state.winesCountry.filter(wine => wine.year > 2009)
+          return {
+            ...state,
+            winesFilters: filter,
+            wines: filter
+          }
+        case '2000-2009':
+          var filter = state.winesCountry.filter(wine => wine.year > 1999 && wine.year < 2010)
+          return {
+            ...state,
+            winesFilters: filter,
+            wines: filter
+          }
+        case '1990-1999':
+          var filter = state.winesCountry.filter(wine => wine.year > 1989 && wine.year < 2000)
+          return {
+            ...state,
+            winesFilters: filter,
+            wines: filter
+          }
+        case '1980-1989':
+          var filter = state.winesCountry.filter(wine => wine.year > 1979 && wine.year < 1990)
+          return {
+            ...state,
+            winesFilters: filter,
+            wines: filter
+          }
+        case '1970-1979':
+          var filter = state.winesCountry.filter(wine => wine.year > 1969 && wine.year < 1980)
+          return {
+            ...state,
+            winesFilters: filter,
+            wines: filter
+          }
+        case '1960-1969':
+          var filter = state.winesCountry.filter(wine => wine.year > 1959 && wine.year < 1970)
+          return {
+            ...state,
+            winesFilters: filter,
+            wines: filter
+          }
+        case '1959-older':
+          var filter = state.winesCountry.filter(wine => wine.year < 1959)
+          return {
+            ...state,
+            winesFilters: filter,
+            wines: filter
+          }
+        default:
+          return {
+            ...state,
+            winesFilters: state.winesCountry,
+          }
+      }
+    },
+    getRegiones: (state, action) => {
+      state.winesCountry.filter(wine => {
+        if (!state.regions.includes(wine.region)) {
+          state.regions = [...state.regions, wine.region]
+        }
+      })
     },
     setCurrentWines: (state, action) => {
       state.currentWines = action.payload;
       console.log('reducer')
     },
+    setFilters: (state, action) => {
+      if (state.filters.includes(action.payload)) {
+        const newFilters = state.filters.filter(filter => filter !== action.payload)
+        state.filters = [...newFilters]
+
+      } else {
+        state.filters = [...state.filters, action.payload];
+      }
+      console.log(state.filters)
+    },
     cleanUpState: (state) => {
       state.currentWines = [];
+    },
+    cleanUpStateFilters: (state) => {
+      state.filters = [];
     },
   },
   extraReducers: (builder) => {
@@ -259,12 +414,26 @@ const productsSlice = createSlice({
 
     builder.addCase(getAllWinesByContry.fulfilled, (state, action) => {
       state.winesCountry = action.payload;
+      state.winesFilters = action.payload;
       state.allWinesCountryStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getAllWinesByContry.pending, (state, action) => {
       state.allWinesCountryStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getAllWinesByContry.rejected, (state, action) => {
+      state.allWinesCountryStatus = EStateGeneric.FAILED;
+    })
+
+
+
+    builder.addCase(getAllWinesByRegion.fulfilled, (state, action) => {
+      state.winesCountry = action.payload;
+      state.allWinesCountryStatus = EStateGeneric.SUCCEEDED;
+    })
+    builder.addCase(getAllWinesByRegion.pending, (state, action) => {
+      state.allWinesCountryStatus = EStateGeneric.PENDING;
+    })
+    builder.addCase(getAllWinesByRegion.rejected, (state, action) => {
       state.allWinesCountryStatus = EStateGeneric.FAILED;
     })
   },
@@ -277,13 +446,22 @@ export const selectAllDisabledWines = (state) => state.products.disabledWines;
 export const selectAllWineTypes = (state) => state.products.wineTypes;
 export const selectOneWine = (state) => state.products.wine;
 export const selectAllWinesByContry = (state) => state.products.winesCountry;
+export const selectAllWinesFilters = (state) => state.products.winesFilters;
 export const selectCurrentWines = (state) => state.products.currentWines;
 export const selectCountryFilter = (state) => state.products.filter;
+export const selectAllFilters = (state) => state.products.filters;
+
+export const selectAllRegions = (state) => state.products.regions;
 
 export const {
   filterByScore,
+  filterByRegion,
+  filterByVintage,
   setCurrentWines,
-  cleanUpState
+  setFilters,
+  cleanUpState,
+  cleanUpStateFilters,
+  getRegiones
 } = productsSlice.actions;
 
 export const selectAllWinesStatus = (state) => state.products.allWinesStatus;

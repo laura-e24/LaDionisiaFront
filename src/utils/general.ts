@@ -24,3 +24,6 @@ export const rateGen = (rating) => {
   )
   return Math.floor(seed * (max - min + 1) + min)
 }
+export const filtersWines = (filters: string[]) => {
+
+}

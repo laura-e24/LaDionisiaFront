@@ -16,7 +16,7 @@ import PersonLogoWhite from "../../assets/img/PersonWhite.svg"
 import CartLogoWhite from "../../assets/img/CartWhite.svg"
 import CartLogoBlack from "../../assets/img/CartBlack.svg"
 import { useAppDispatch } from "../../app/store"
-import { filterByScore, selectCountryFilter } from "../../features/products/productsSlice"
+import { filterByScore, filterByRegion, filterByVintage, selectCountryFilter, setFilters, selectAllFilters, selectAllRegions } from "../../features/products/productsSlice"
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import styles from "../../assets/style/winery.module.css"
@@ -31,13 +31,15 @@ const NavBar = () => {
   const [search, setSearch] = useState('')
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
+  const regions = useSelector(selectAllRegions)
   const router = useRouter();
   const dispatch = useAppDispatch()
-  const filter = useSelector(selectCountryFilter)
+  const filters = useSelector(selectAllFilters)
   useEffect(() => {
     setMounted(true)
     setSearchBar(false)
   }, [])
+
   const handleCookieLogout = async () => {
     try {
       const res = await axios.get("/api/logout");
@@ -54,9 +56,15 @@ const NavBar = () => {
   if (!mounted) {
     return null
   }
-  function handleFilterByScore(e){
-    dispatch(filterByScore(e.target.value))
+  function handleFilters(e) {
+    const { value } = e.target;
+    dispatch(setFilters(value));
+    console.log(filters)
+    // dispatch(filterByScore(value));
+    dispatch(filterByVintage(value));
+    // dispatch(filterByRegion(value));
   }
+
   const list = [
     'France',
     'Argentina',
@@ -67,6 +75,7 @@ const NavBar = () => {
     'Australia',
     'United States'
   ]
+  // console.log(regions)
 
   return (
     <>
@@ -82,18 +91,9 @@ const NavBar = () => {
               Winery
               <div className={`${styles.sub} bg-pagination-color p-6 w-max`}>
                 <ul className="w-2/4 mx-8">
-                  {/* <label>COUNTRY</label>
-                  <li><label>France</label><input type="checkbox" name="France" onChange={(e) => handleCategoryFilterClick(e)} /></li>
-                  <li><label>Argentina</label><input type="checkbox" name="Argentina" onChange={(e) => handleCategoryFilterClick(e)} /></li>
-                  <li><label>Spain</label><input type="checkbox" name="Spain" onChange={(e) => handleCategoryFilterClick(e)} /></li>
-                  <li><label>United States</label><input type="checkbox" name="United States" onChange={(e) => handleCategoryFilterClick(e)} /></li>
-                  <li><label>Italy</label><input type="checkbox" name="Italy" onChange={(e) => handleCategoryFilterClick(e)} /></li>
-                  <li><label>Portugal</label><input type="checkbox" name="Portugal" onChange={(e) => handleCategoryFilterClick(e)} /></li>
-                  <li><label>South Africa</label><input type="checkbox" name="South Africa" onChange={(e) => handleCategoryFilterClick(e)} /></li>
-                  <li><label>Australia</label><input type="checkbox" name="Australia" onChange={(e) => handleCategoryFilterClick(e)} /></li> */}
                   {list.map((country, i) => (
                     <li key={i}>
-                      <Link href={`/products/filters/${country}`}>{country}</Link>
+                      <a href={`/products/filters/${country}`}>{country}</a>
                     </li>
                   ))}
                   <li>
@@ -104,36 +104,32 @@ const NavBar = () => {
                 </ul>
                 <ul className="w-1/3 mx-8">
                   <label>REGION</label>
-                  <li><a href="#">filter 1</a></li>
-                  <li><a href="#">filter 2</a></li>
-                  <li><a href="#">filter 3</a></li>
-                  <li><a href="#">filter 4</a></li>
-                  <li><a href="#">filter 5</a></li>
-                  <li><a href="#">filter 6</a></li>
-                  <li><a href="#">filter 7</a></li>
-                  <li><a href="#">filter 8</a></li>
-                  <li><a href="#">filter 9</a></li>
-                  <li><a href="#">ALL</a></li>
+                  {regions.map((region, index) => (
+                    <li key={index}>
+                      <input type="checkbox" value={region} onChange={handleFilters} />
+                      {region}
+                    </li>
+                  ))}
                 </ul>
                 <ul className="w-1/3 mx-8">
                   <label>VINTAGE</label>
-                  <li><a href="#">2010 - Present</a></li>
-                  <li><a href="#">France</a></li>
-                  <li><a href="#">Germany</a></li>
-                  <li><a href="#">Italy</a></li>
-                  <li><a href="#">Uruguay</a></li>
-                  <li><a href="#">Usa</a></li>
-                  <li><a href="#">ALL</a></li>
+                  <li><input type="checkbox" value="2010-Present" onChange={handleFilters} />2010 - Present</li>
+                  <li><input type="checkbox" value="2000-2009" onChange={handleFilters} />2000 and 2009</li>
+                  <li><input type="checkbox" value="1990-1999" onChange={handleFilters} />1990 and 1999</li>
+                  <li><input type="checkbox" value="1980-1989" onChange={handleFilters} />1980 and 1989</li>
+                  <li><input type="checkbox" value="1970-1979" onChange={handleFilters} />1970 and 1979</li>
+                  <li><input type="checkbox" value="1960-1969" onChange={handleFilters} />1960 and 1969</li>
+                  <li><input type="checkbox" value="1959-older" onChange={handleFilters} />1959 and Older</li>
+                  <li><input type="checkbox" value="all-vintage" onChange={handleFilters} />ALL</li>
                 </ul>
                 <ul className="w-1/3 mx-8">
                   <label>SCORE</label>
-                  <li><button onClick={handleFilterByScore}>100</button></li>
-                  <li><button onClick={handleFilterByScore}>99 - 97</button></li>
-                  <li><button onClick={handleFilterByScore}>96 - 94</button></li>
-                  <li><button onClick={handleFilterByScore}>93 - 91</button></li>
-                  <li><button onClick={handleFilterByScore}>90 - Under</button></li>
-                  <li><button onClick={handleFilterByScore}>New Wines</button></li>
-                  <li><button onClick={handleFilterByScore}>ALL</button></li>
+                  <li><input type="checkbox" value="100" onChange={handleFilters} />100</li>
+                  <li><input type="checkbox" value="99-97" onChange={handleFilters} />99 - 97</li>
+                  <li><input type="checkbox" value="96-94" onChange={handleFilters} />96 - 94</li>
+                  <li><input type="checkbox" value="93-91" onChange={handleFilters} />93 - 91</li>
+                  <li><input type="checkbox" value="90-under" onChange={handleFilters} />90 - Under</li>
+                  <li><input type="checkbox" value="all" onChange={handleFilters} />ALL</li>
                 </ul>
               </div>
             </div>

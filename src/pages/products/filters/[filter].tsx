@@ -4,54 +4,44 @@ import Pagination from "../../../components/Pagination";
 import Card from "../../../components/Card/Card";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, cleanUpState } from "../../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, cleanUpState, selectAllWinesFilters, getRegiones, filterByScore, selectAllFilters } from "../../../features/products/productsSlice";
 import { useEffect } from "react";
-import { EStateGeneric } from "../../../utils/general";
+import { EStateGeneric, rateGen } from "../../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../../components/Footer/Footer";
 
-export default function index() {
+export default function index({ }) {
+  const filters = useSelector(selectAllFilters)
   const router = useRouter()
+  const { filter } = router.query;
   const dispatch = useAppDispatch()
+  const winesCountry = useSelector(selectAllWinesFilters)
+  // const winesPrueba = useSelector(state => dispatch(filterByScore(filters)))
+  const winesCountryStatus = useSelector(selectAllWinesCountryStatus)
   const wines = useSelector(selectAllWines)
-  const winesCountry = useSelector(selectAllWinesByContry)
- 
   const currentWines = useSelector(selectCurrentWines)
   const winesStatus = useSelector(selectAllWinesStatus)
-  const winesCountryStatus = useSelector(selectAllWinesCountryStatus)
-  const { filter } = router.query;
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 21;
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const [currentItems, setCurrentItems] = useState(wines.slice(indexOfFirstItem, indexOfLastItem))
+  const currentItems = winesCountry.slice(indexOfFirstItem, indexOfLastItem)
   const onPageChange = (event) => {
     setCurrentPage(Number(event.target.id));
   };
-
   useEffect(() => {
     const fetchData = async () => {
       if (router.isReady) {
-          if (winesCountryStatus === EStateGeneric.IDLE) {
-            await dispatch(getAllWinesByContry(filter.toString()));
-          }
+        if (winesCountryStatus === EStateGeneric.IDLE) {
+          await dispatch(getAllWinesByContry(filter.toString()));
+          await dispatch(getRegiones(filter.toString()));
+        }
       }
     }
     fetchData()
-  }, [filter, winesCountryStatus])
+  }, [filter])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (winesCountryStatus === EStateGeneric.SUCCEEDED) {
-        dispatch(setCurrentWines(winesCountry.slice(indexOfFirstItem, indexOfLastItem)));
-      }
-    }
-    fetchData()
-  }, [winesCountry])
-
-
+  // console.log(winesPrueba)
   return (
     <>
       <NavBar></NavBar>
@@ -73,17 +63,24 @@ export default function index() {
             <a href="/products/type/dessert" className="flex items-center justify-center w-32 h-32 rounded-full text-black py- px-8 bg-btn-color text-center bg-[url('https://www.bordeaux.com/wp-content/uploads/2017/06/red.jpg')] bg-cover bg-no-repeat bg-center"></a>DESSERT
           </div>
         </div>
-        <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
-          {
-            currentWines.map((wine) => (
-              <Card key={wine.id} wine={wine}></Card>
-            ))
-          }
-        </div>
+        {winesCountry.length &&
+          <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
+            {
+              currentItems.map((wine) => (
+                <Card key={wine.id} wine={wine}></Card>
+              ))
+            }
+          </div>
+        }
+        {!winesCountry.length &&
+          <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
+            <h1 className="w-96 h-96">PRODUCTS NOT FOUND</h1>
+          </div>
+        }
       </div>
       <Pagination
         onPageChange={onPageChange}
-        wines={currentWines}
+        wines={winesCountry}
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
