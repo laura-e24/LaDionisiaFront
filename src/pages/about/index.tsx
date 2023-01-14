@@ -91,7 +91,10 @@ const About = () => {
           </p>
           </div>
         </div>
+<<<<<<< Updated upstream
       </div>
+=======
+>>>>>>> Stashed changes
      </div>
     <Footer></Footer>
     </>
