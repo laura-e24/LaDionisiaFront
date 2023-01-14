@@ -88,12 +88,14 @@ export const getAllWinesByContry = createAsyncThunk(
 
 interface ProductsState {
   wines: IProduct[],
-  winesContry: IProduct[],
+  winesCountry: IProduct[],
   disabledWines: IProduct[],
   wineTypes: IProduct[],
   wine: IProduct,
+  currentWines: IProduct[],
+  filter: string,
   allWinesStatus: EStateGeneric,
-  allWinesContryStatus: EStateGeneric,
+  allWinesCountryStatus: EStateGeneric,
   allDisabledWinesStatus: EStateGeneric,
   allWineTypesStatus: EStateGeneric,
   oneWineStatus: EStateGeneric
@@ -102,11 +104,13 @@ interface ProductsState {
 const initialState = {
   wines: [],
   wine: {},
-  winesContry: [],
+  winesCountry: [],
+  currentWines: [],
   disabledWines: [],
   wineTypes: [],
+  filter: '',
   allWinesStatus: EStateGeneric.IDLE,
-  allWinesContryStatus: EStateGeneric.IDLE,
+  allWinesCountryStatus: EStateGeneric.IDLE,
   allDisabledWinesStatus: EStateGeneric.IDLE,
   allWineTypesStatus: EStateGeneric.IDLE,
   oneWineStatus: EStateGeneric.IDLE,
@@ -120,47 +124,54 @@ const productsSlice = createSlice({
     filterByScore: (state, action) => {
       switch (action.payload) {
         case '100':
-          var filter = state.winesContry.filter(wine => rateGen(wine.rating) === 100)
+          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) === 100)
           return {
             ...state,
-            winesContry: filter
+            winesCountry: filter
           }
         case '99-97':
-          var filter = state.winesContry.filter(wine => rateGen(wine.rating) < 100 && rateGen(wine.rating) >= 97)
+          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 100 && rateGen(wine.rating) >= 97)
           return {
             ...state,
-            winesContry: filter
+            winesCountry: filter
           }
         case '96-94':
-          var filter = state.winesContry.filter(wine => rateGen(wine.rating) < 97 && rateGen(wine.rating) >= 94)
+          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 97 && rateGen(wine.rating) >= 94)
           return {
             ...state,
-            winesContry: filter
+            winesCountry: filter
           }
         case '93-91':
-          var filter = state.winesContry.filter(wine => rateGen(wine.rating) < 94 && rateGen(wine.rating) >= 91)
+          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 94 && rateGen(wine.rating) >= 91)
           return {
             ...state,
-            winesContry: filter
+            winesCountry: filter
           }
         case '90-under':
-          var filter = state.winesContry.filter(wine => rateGen(wine.rating) < 91)
+          var filter = state.winesCountry.filter(wine => rateGen(wine.rating) < 91)
           return {
             ...state,
-            winesContry: filter
+            winesCountry: filter
           }
         default:
-          state.winesContry
+          state.winesCountry
       }
       // if (action.payload === '100') {
-      //   const filter = state.winesContry.filter(wine => wine.rating === 10)
+      //   const filter = state.winesCountry.filter(wine => wine.rating === 10)
       //   return {
       //     ...state,
-      //     winesContry: filter
+      //     winesCountry: filter
       //   }
       // }
-      state.winesContry.push(action.payload)
-    }
+      state.winesCountry.push(action.payload)
+    },
+    setCurrentWines: (state, action) => {
+      state.currentWines = action.payload;
+      console.log('reducer')
+    },
+    cleanUpState: (state) => {
+      state.currentWines = [];
+    },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -247,14 +258,14 @@ const productsSlice = createSlice({
 
 
     builder.addCase(getAllWinesByContry.fulfilled, (state, action) => {
-      state.winesContry = action.payload;
-      state.allWinesContryStatus = EStateGeneric.SUCCEEDED;
+      state.winesCountry = action.payload;
+      state.allWinesCountryStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getAllWinesByContry.pending, (state, action) => {
-      state.allWinesContryStatus = EStateGeneric.PENDING;
+      state.allWinesCountryStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getAllWinesByContry.rejected, (state, action) => {
-      state.allWinesContryStatus = EStateGeneric.FAILED;
+      state.allWinesCountryStatus = EStateGeneric.FAILED;
     })
   },
 })
@@ -265,14 +276,18 @@ export const selectAllWines = (state) => state.products.wines;
 export const selectAllDisabledWines = (state) => state.products.disabledWines;
 export const selectAllWineTypes = (state) => state.products.wineTypes;
 export const selectOneWine = (state) => state.products.wine;
-export const selectAllWinesByContry = (state) => state.products.winesContry;
+export const selectAllWinesByContry = (state) => state.products.winesCountry;
+export const selectCurrentWines = (state) => state.products.currentWines;
+export const selectCountryFilter = (state) => state.products.filter;
 
 export const {
-  filterByScore
+  filterByScore,
+  setCurrentWines,
+  cleanUpState
 } = productsSlice.actions;
 
 export const selectAllWinesStatus = (state) => state.products.allWinesStatus;
-export const selectAllWinesContryStatus = (state) => state.products.allWinesContryStatus;
+export const selectAllWinesCountryStatus = (state) => state.products.allWinesCountryStatus;
 export const selectAllDisabedWinesStatus = (state) => state.products.allDisabledWinesStatus;
 export const selectAllWineTypesStatus = (state) => state.products.allWineTypesStatus;
 export const selectOneWineStatus = (state) => state.products.oneWineStatus;

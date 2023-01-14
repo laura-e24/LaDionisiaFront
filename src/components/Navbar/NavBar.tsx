@@ -16,10 +16,11 @@ import PersonLogoWhite from "../../assets/img/PersonWhite.svg"
 import CartLogoWhite from "../../assets/img/CartWhite.svg"
 import CartLogoBlack from "../../assets/img/CartBlack.svg"
 import { useAppDispatch } from "../../app/store"
-import { filterByScore } from "../../features/products/productsSlice"
+import { filterByScore, selectCountryFilter } from "../../features/products/productsSlice"
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import styles from "../../assets/style/winery.module.css"
+import { useSelector } from "react-redux";
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -32,6 +33,7 @@ const NavBar = () => {
   const { user } = useUser();
   const router = useRouter();
   const dispatch = useAppDispatch()
+  const filter = useSelector(selectCountryFilter)
   useEffect(() => {
     setMounted(true)
     setSearchBar(false)
@@ -52,19 +54,19 @@ const NavBar = () => {
   if (!mounted) {
     return null
   }
-
-  function handleCategoryFilterClick(event) {
-    const { name } = event.target;
-    router.push({
-      pathname: `/products`,
-      // pathname: `/products/filters/${name}`,
-      query: { filter: name },
-    });
-  }
   function handleFilterByScore(e){
     dispatch(filterByScore(e.target.value))
   }
-  // console.log(search)
+  const list = [
+    'France',
+    'Argentina',
+    'Portugal',
+    'South Africa',
+    'Spain',
+    'Italy',
+    'Australia',
+    'United States'
+  ]
 
   return (
     <>
@@ -75,12 +77,12 @@ const NavBar = () => {
           </a>
         </Link>
         <span>
-          <a className="w-24 h-6 inline-block text-center align-sub">
-            <p className={`${styles.menu} px-2`}>
+          <div className="w-24 h-6 inline-block text-center align-sub">
+            <div className={`${styles.menu} px-2`}>
               Winery
               <div className={`${styles.sub} bg-pagination-color p-6 w-max`}>
                 <ul className="w-2/4 mx-8">
-                  <label>COUNTRY</label>
+                  {/* <label>COUNTRY</label>
                   <li><label>France</label><input type="checkbox" name="France" onChange={(e) => handleCategoryFilterClick(e)} /></li>
                   <li><label>Argentina</label><input type="checkbox" name="Argentina" onChange={(e) => handleCategoryFilterClick(e)} /></li>
                   <li><label>Spain</label><input type="checkbox" name="Spain" onChange={(e) => handleCategoryFilterClick(e)} /></li>
@@ -88,8 +90,17 @@ const NavBar = () => {
                   <li><label>Italy</label><input type="checkbox" name="Italy" onChange={(e) => handleCategoryFilterClick(e)} /></li>
                   <li><label>Portugal</label><input type="checkbox" name="Portugal" onChange={(e) => handleCategoryFilterClick(e)} /></li>
                   <li><label>South Africa</label><input type="checkbox" name="South Africa" onChange={(e) => handleCategoryFilterClick(e)} /></li>
-                  <li><label>Australia</label><input type="checkbox" name="Australia" onChange={(e) => handleCategoryFilterClick(e)} /></li>
-                  <li><a href="/products">ALL</a></li>
+                  <li><label>Australia</label><input type="checkbox" name="Australia" onChange={(e) => handleCategoryFilterClick(e)} /></li> */}
+                  {list.map((country, i) => (
+                    <li key={i}>
+                      <Link href={`/products/filters/${country}`}>{country}</Link>
+                    </li>
+                  ))}
+                  <li>
+                    <Link href='/products'>
+                      ALL
+                    </Link>
+                  </li>
                 </ul>
                 <ul className="w-1/3 mx-8">
                   <label>REGION</label>
@@ -125,8 +136,8 @@ const NavBar = () => {
                   <li><button onClick={handleFilterByScore}>ALL</button></li>
                 </ul>
               </div>
-            </p>
-          </a>
+            </div>
+          </div>
         </span>
         <Link href='/'>
           <a className="w-24  h-6 inline-block text-center align-sub">

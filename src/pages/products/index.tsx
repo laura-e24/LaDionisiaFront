@@ -4,7 +4,7 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesContryStatus } from "../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric } from "../../utils/general";
 import { useRouter } from "next/router";
@@ -14,10 +14,13 @@ export default function index() {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const wines = useSelector(selectAllWines)
-  const winesContry = useSelector(selectAllWinesByContry)
+  const winesCountry = useSelector(selectAllWinesByContry)
+  const globalFilter = useSelector(selectCountryFilter)
+  const currentWines = useSelector(selectCurrentWines)
   const winesStatus = useSelector(selectAllWinesStatus)
-  const winesContryStatus = useSelector(selectAllWinesContryStatus)
+  const winesCountryStatus = useSelector(selectAllWinesCountryStatus)
   const { filter } = router.query;
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 21;
 
@@ -30,29 +33,24 @@ export default function index() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (router.isReady) {
-        if (winesStatus === EStateGeneric.IDLE) {
-          await dispatch(getAllWines());
-        }
+      if (router.isReady) {  
+          if (winesStatus === EStateGeneric.IDLE) {
+            await dispatch(getAllWines());
+            
+          }
       }
     }
     fetchData()
-  }, [])
+  }, [filter, winesStatus])
 
   useEffect(() => {
     const fetchData = async () => {
-      if (router.isReady) {
-        if (winesContryStatus === EStateGeneric.IDLE && filter) {
-          await dispatch(getAllWinesByContry(filter.toString()));
-          setCurrentItems(winesContry.slice(indexOfFirstItem, indexOfLastItem))
-        }
-      }
+          dispatch(setCurrentWines(wines.slice(indexOfFirstItem, indexOfLastItem)));
     }
     fetchData()
-  }, [filter])
-  console.log(winesContryStatus)
-  console.log(currentItems)
-  console.log(filter)
+  }, [wines])
+
+
   return (
     <>
       <NavBar></NavBar>
@@ -76,7 +74,7 @@ export default function index() {
         </div>
         <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
           {
-            currentItems.map((wine) => (
+            currentWines.map((wine) => (
               <Card key={wine.id} wine={wine}></Card>
             ))
           }
@@ -84,7 +82,7 @@ export default function index() {
       </div>
       <Pagination
         onPageChange={onPageChange}
-        wines={winesContry.length ? winesContry : wines}
+        wines={currentWines}
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
