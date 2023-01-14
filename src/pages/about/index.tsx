@@ -18,6 +18,7 @@ const About = () => {
       <NavBar></NavBar>
       <img src="assets/img.jpg"/>
       <div className="flex flex-col space-y-4 ...">
+        <div>
         <h1 className="px-20 h-1/2 flex flex-col justify font-montserrat text-gray-600 text-3xl" >ABOUT US</h1>
           <p className="px-20 h-1/2 flex flex-col justify text-justify font-montserrat text-gray-600 text-xl">
             What do we believe? The wine is for all. You don't have to be a connoisseur to be able to enjoy it. We want everyone to approach this great drink without fear, without prejudice.  
@@ -27,7 +28,24 @@ const About = () => {
             Dionisia is a young company, with a different and innovative concept in the wine market. We are versatile independent professionals, lovers of wine and our own, who work to make the best of the products of our land known. Our company is from Argentina, it has a wide spectrum of associated wineries and of course its best wine production available to our customers.
             Our company's mission is to generate a commercialization that meets what our clients are looking for at this time in the field of wine and related products in Argentina. We are certain that our work team is highly trained, proactive, and capable of guiding our clients to meet our products. We aim to be the best option for the sale of wines and the like; demonstrate that our service is exceptional, personalized and of the highest level; stand out as a modern alternative that does not lose elegance or quality. We propose to innovate in the area that we appreciate so much; be versatile and adapt to the demands of our customers; as well as being dynamic and original when we present our products.
           </p>
-          <h1 className="px-20 h-1/2 flex flex-col justify font-montserrat text-gray-600 text-3xl" >OUR TEAM</h1>
+        </div>
+        <div>
+          <summary className="px-20 
+          h-1/2 flex 
+          flex-col 
+          justify 
+          font-montserrat 
+          text-gray-600 
+          text-3xl" >TECHNOLOGIES</summary>
+        </div>
+        <div>
+          <h1 className="px-20 
+          h-1/2 flex 
+          flex-col 
+          justify 
+          font-montserrat 
+          text-gray-600 
+          text-3xl" >OUR TEAM</h1>
           <div className="w-full
           flex
           justify-around
@@ -73,6 +91,7 @@ const About = () => {
           </p>
           </div>
         </div>
+      </div>
      </div>
     <Footer></Footer>
     </>
