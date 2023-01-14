@@ -2,7 +2,7 @@ import NavBar from '../../components/Navbar/NavBar'
 import Footer from '../../components/Footer/Footer'
 import Link from 'next/link'
  
-const About = () => {
+const Privacy = () => {
   return (
     <>
     <a id="top"></a>
@@ -18,7 +18,7 @@ const About = () => {
       space-y-16  
       ">
       <NavBar></NavBar>
-      <img src="assets/img.jpg"/>
+      <img src="assets/copas.jpg"/>
       <div className="
       flex 
       flex-col 
@@ -88,7 +88,6 @@ const About = () => {
 }
  
  
-export default About
- 
+export default Privacy
  
 
