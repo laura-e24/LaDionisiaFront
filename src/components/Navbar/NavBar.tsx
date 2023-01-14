@@ -15,6 +15,8 @@ import PersonLogoBlack from "../../assets/img/PersonBlack.svg"
 import PersonLogoWhite from "../../assets/img/PersonWhite.svg"
 import CartLogoWhite from "../../assets/img/CartWhite.svg"
 import CartLogoBlack from "../../assets/img/CartBlack.svg"
+import { useAppDispatch } from "../../app/store"
+import { filterByScore } from "../../features/products/productsSlice"
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import styles from "../../assets/style/winery.module.css"
@@ -29,6 +31,7 @@ const NavBar = () => {
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
   const router = useRouter();
+  const dispatch = useAppDispatch()
   useEffect(() => {
     setMounted(true)
     setSearchBar(false)
@@ -53,58 +56,107 @@ const NavBar = () => {
   function handleCategoryFilterClick(event) {
     const { name } = event.target;
     router.push({
-      // pathname: `/products`,
-      pathname: `/products/filters/${name}`,
+      pathname: `/products`,
+      // pathname: `/products/filters/${name}`,
       query: { filter: name },
     });
   }
+  function handleFilterByScore(e){
+    dispatch(filterByScore(e.target.value))
+  }
   // console.log(search)
-
   return (
-<>
-
-<Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2"></Logo>
-<nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-10 mb-14">
-  <Link href='/'>
-    <a className="w-24  h-6 inline-block text-center align-sub">
-      Home
-    </a>
-  </Link>
-  <Link href='/'>
-    <a className="w-24 h-6 inline-block text-center align-sub">
-      Winery
-    </a>
-  </Link>
-  <Link href='/'>
-    <a className="w-24  h-6 inline-block text-center align-sub">
-      Contact
-    </a>
-  </Link>
-
-  <div className="inline-block float-right border-none">
-    <label className="inline-block w-8">
-    <input
-      className='hidden'
-      checked={theme !== 'light'}
-      name="darkMode"
-      type="checkbox"
-      onChange={() => setSearchBar(true)}
-    />
-    {!searchBar && (theme === 'light' ? <SearchLogoBlack className='w-8 h-8 ' /> : <SearchLogoWhite className='w-8 h-8' />)
-    }
-    </label>
-    {searchBar ? (
-    <div className="inline-block">
-      <form className="gap-2 p-2">
-        <input placeholder="Type something here..." type="text" className="rounded focus:outline-none focus:ring focus:ring-violet-300" onChange={(e) => { handleInputName(e) }}></input>
-        <button type='submit' className="p-2 rounded border border-gray-300"> Search</button>
-      </form>
-    </div>
-    ) : null
-    }
-    <Menu as="div" className="relative inline-block text-left">
-     <div>
-      <Menu.Button className="
+    <>
+      <Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2"></Logo>
+      <nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-10 mb-14">
+        <Link href='/'>
+          <a className="w-24  h-6 inline-block text-center align-sub">
+            Home
+          </a>
+        </Link>
+        <span>
+          <a className="w-24 h-6 inline-block text-center align-sub">
+            <p className={`${styles.menu} px-2`}>
+              Winery
+              <div className={`${styles.sub} bg-pagination-color p-6 w-max`}>
+                <ul className="w-2/4 mx-8">
+                  <label>COUNTRY</label>
+                  <li><label>France</label><input type="checkbox" name="France" onChange={(e) => handleCategoryFilterClick(e)} /></li>
+                  <li><label>Argentina</label><input type="checkbox" name="Argentina" onChange={(e) => handleCategoryFilterClick(e)} /></li>
+                  <li><label>Spain</label><input type="checkbox" name="Spain" onChange={(e) => handleCategoryFilterClick(e)} /></li>
+                  <li><label>United States</label><input type="checkbox" name="United States" onChange={(e) => handleCategoryFilterClick(e)} /></li>
+                  <li><label>Italy</label><input type="checkbox" name="Italy" onChange={(e) => handleCategoryFilterClick(e)} /></li>
+                  <li><label>Portugal</label><input type="checkbox" name="Portugal" onChange={(e) => handleCategoryFilterClick(e)} /></li>
+                  <li><label>South Africa</label><input type="checkbox" name="South Africa" onChange={(e) => handleCategoryFilterClick(e)} /></li>
+                  <li><label>Australia</label><input type="checkbox" name="Australia" onChange={(e) => handleCategoryFilterClick(e)} /></li>
+                  <li><a href="/products">ALL</a></li>
+                </ul>
+                <ul className="w-1/3 mx-8">
+                  <label>REGION</label>
+                  <li><a href="#">filter 1</a></li>
+                  <li><a href="#">filter 2</a></li>
+                  <li><a href="#">filter 3</a></li>
+                  <li><a href="#">filter 4</a></li>
+                  <li><a href="#">filter 5</a></li>
+                  <li><a href="#">filter 6</a></li>
+                  <li><a href="#">filter 7</a></li>
+                  <li><a href="#">filter 8</a></li>
+                  <li><a href="#">filter 9</a></li>
+                  <li><a href="#">ALL</a></li>
+                </ul>
+                <ul className="w-1/3 mx-8">
+                  <label>VINTAGE</label>
+                  <li><a href="#">2010 - Present</a></li>
+                  <li><a href="#">France</a></li>
+                  <li><a href="#">Germany</a></li>
+                  <li><a href="#">Italy</a></li>
+                  <li><a href="#">Uruguay</a></li>
+                  <li><a href="#">Usa</a></li>
+                  <li><a href="#">ALL</a></li>
+                </ul>
+                <ul className="w-1/3 mx-8">
+                  <label>SCORE</label>
+                  <li><button onClick={handleFilterByScore}>100</button></li>
+                  <li><button onClick={handleFilterByScore}>99 - 97</button></li>
+                  <li><button onClick={handleFilterByScore}>96 - 94</button></li>
+                  <li><button onClick={handleFilterByScore}>93 - 91</button></li>
+                  <li><button onClick={handleFilterByScore}>90 - Under</button></li>
+                  <li><button onClick={handleFilterByScore}>New Wines</button></li>
+                  <li><button onClick={handleFilterByScore}>ALL</button></li>
+                </ul>
+              </div>
+            </p>
+          </a>
+        </span>
+        <Link href='/'>
+          <a className="w-24  h-6 inline-block text-center align-sub">
+            Contact
+          </a>
+        </Link>
+        <div className="inline-block float-right border-none">
+          <label className="inline-block w-8">
+            <input
+              className='hidden'
+              checked={theme !== 'light'}
+              name="darkMode"
+              type="checkbox"
+              onChange={() => setSearchBar(true)}
+            />
+            {!searchBar && (theme === 'light' ? <SearchLogoBlack className='w-8 h-8 ' /> : <SearchLogoWhite className='w-8 h-8' />)
+            }
+          </label>
+          {searchBar ? (
+            <div className="inline-block">
+              <form className="gap-2 p-2">
+                <input placeholder="Type something here..." type="text" className="rounded focus:outline-none focus:ring focus:ring-violet-300" onChange={(e) => { handleInputName(e) }}></input>
+                <button type='submit' className="p-2 rounded border border-gray-300"> Search</button>
+              </form>
+            </div>
+          ) : null
+          }
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button className="
        w-8
        inline-block
        justify-center 
@@ -118,81 +170,81 @@ const NavBar = () => {
        focus:ring-offset-2 
        focus:ring-offset-gray-100 
        dark:bg-black">
-       {theme === 'light' ? <HeartLogoBlack className='w-8 h-8' /> : <HeartLogoWhite className='w-8 h-8' />}
-      </Menu.Button>
-     </div>
-     <Transition
-       as={Fragment}
-       enter="transition ease-out duration-100"
-       enterFrom="transform opacity-0 scale-95"
-       enterTo="transform opacity-100 scale-100"
-       leave="transition ease-in duration-75"
-       leaveFrom="transform opacity-100 scale-100"
-       leaveTo="transform opacity-0 scale-95"
-      >
-      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-      <div className="py-1">
-      <Menu.Item>
-        {({ active }) => (
-        <a
-          href="#"
-          className={classNames(
-          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                   'block px-4 py-2 text-sm'
-          )}
-        >
-         Account settings
-        </a>
-        )}
-      </Menu.Item>
-      <Menu.Item>
-        {({ active }) => (
-        <a
-          href="#"
-          className={classNames(
-          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                   'block px-4 py-2 text-sm'
-          )}
-        >
-         Support
-        </a>
-        )}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <a
-              href="#"
-              className={classNames(
-              active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                       'block px-4 py-2 text-sm'
-              )}
+                {theme === 'light' ? <HeartLogoBlack className='w-8 h-8' /> : <HeartLogoWhite className='w-8 h-8' />}
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
             >
-            License
-            </a>
-          )}
-        </Menu.Item>
-        <form method="POST" action="#">
-          <Menu.Item>
-            {({ active }) => (
-            <button
-              type="submit"
-              className={classNames(
-              active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                       'block w-full px-4 py-2 text-left text-sm'
-              )}
-            >
-            Sign out
-            </button>
-            )}
-          </Menu.Item>
-        </form>
-      </div>
-      </Menu.Items>
-     </Transition>
-    </Menu>
-    <Menu as="div" className="relative inline-block text-left">
-  <div>
-  <Menu.Button className="
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Account settings
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Support
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        License
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <form method="POST" action="#">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          type="submit"
+                          className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block w-full px-4 py-2 text-left text-sm'
+                          )}
+                        >
+                          Sign out
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </form>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button className="
    w-8
    inline-block
    justify-center 
@@ -206,77 +258,77 @@ const NavBar = () => {
    focus:ring-offset-2 
    focus:ring-offset-gray-100 
    dark:bg-black">
-      {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
-  </Menu.Button>
-</div>
-<Transition
-  as={Fragment}
-  enter="transition ease-out duration-100"
-  enterFrom="transform opacity-0 scale-95"
-  enterTo="transform opacity-100 scale-100"
-  leave="transition ease-in duration-75"
-  leaveFrom="transform opacity-100 scale-100"
-  leaveTo="transform opacity-0 scale-95"
->
-<Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-  <div className="py-1">
-    <Menu.Item>
-      {({ active }) => (
-        <a
-          href="#"
-          className={classNames(
-            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-            'block px-4 py-2 text-sm'
-          )}
-        >
-          Account settings
-        </a>
-      )}
-    </Menu.Item>
-    <Menu.Item>
-      {({ active }) => (
-        <a
-          href="#"
-          className={classNames(
-            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-            'block px-4 py-2 text-sm'
-          )}
-        >
-          Support
-        </a>
-      )}
-    </Menu.Item>
-    <Menu.Item>
-      {({ active }) => (
-        <a
-          href="#"
-          className={classNames(
-            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-            'block px-4 py-2 text-sm'
-          )}
-        >
-          License
-        </a>
-      )}
-      </Menu.Item>
-      <form method="POST" action="#">
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                type="submit"
-                className={classNames(
-                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                  'block w-full px-4 py-2 text-left text-sm'
-                )}
-              >
-                Sign out
-              </button>
-            )}
-          </Menu.Item>
-      </form>
-    </div>
-    </Menu.Items>
-  </Transition>
+                {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Account settings
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        Support
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href="#"
+                        className={classNames(
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          'block px-4 py-2 text-sm'
+                        )}
+                      >
+                        License
+                      </a>
+                    )}
+                  </Menu.Item>
+                  <form method="POST" action="#">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          type="submit"
+                          className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block w-full px-4 py-2 text-left text-sm'
+                          )}
+                        >
+                          Sign out
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </form>
+                </div>
+              </Menu.Items>
+            </Transition>
           </Menu>
           <Menu as="div" className="relative inline-block text-left">
             <div>
@@ -334,19 +386,19 @@ const NavBar = () => {
                     )}
                   </Menu.Item>
                   {!user &&
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="/api/auth/login"
-                        className={classNames(
-                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}
-                      >
-                        Login
-                      </a>
-                    )}
-                  </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <a
+                          href="/api/auth/login"
+                          className={classNames(
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block px-4 py-2 text-sm'
+                          )}
+                        >
+                          Login
+                        </a>
+                      )}
+                    </Menu.Item>
                   }
                   {user &&
                     <Menu.Item>
@@ -381,12 +433,9 @@ const NavBar = () => {
             />
             {theme === 'light' ? <Day className="w-8 h-8 " /> : <Night className="w-8 h-8" />}
           </label>
-      </div>
+        </div>
+      </nav>
 
-
-
-
-</nav>
 
 {/*
 <Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"></Logo>
@@ -397,9 +446,9 @@ const NavBar = () => {
 
 
 
-</>
+    </>
 
- )
+  )
 }
 
 export default NavBar;
