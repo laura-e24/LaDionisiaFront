@@ -65,9 +65,11 @@ const Home = () => {
     flex 
     justify-around 
     items-center 
-    mt-8">
+    mt-8
+    wine-types
+  ">
     <Link href='/products/type/rose'>
-      <a className="text-center font-montserrat text-gray-600">
+      <a className="rose text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/rose.png" layout='fill'/>
         </div>
@@ -75,7 +77,7 @@ const Home = () => {
       </a>
     </Link>
     <Link href='/products/type/whites'>
-      <a className="text-center font-montserrat text-gray-600">
+      <a className="white text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/white.png" layout='fill'/>
         </div>
@@ -83,7 +85,7 @@ const Home = () => {
       </a>
     </Link>
     <Link href='/products/type/reds'>
-      <a className="text-center font-montserrat text-gray-600">
+      <a className="red text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/red.png" layout='fill'/>
         </div>
@@ -91,7 +93,7 @@ const Home = () => {
       </a>
     </Link>
     <Link href='/products/type/sparkling'>
-      <a className="text-center font-montserrat text-gray-600">
+      <a className="sparkling text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/sparkling.png" layout='fill'/>
         </div>
@@ -99,7 +101,7 @@ const Home = () => {
       </a>
     </Link>
     <Link href='/products/type/dessert'>
-      <a className="text-center font-montserrat text-gray-600">
+      <a className="dessert text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/dessert.png" layout='fill'/>
         </div>
@@ -107,8 +109,8 @@ const Home = () => {
       </a>
     </Link>
   </div>
-  <img className="mt-12" src="assets/main.png"/>
-  <img className="mt-4 pb-8" src="assets/main2.png"/>
+  <img className="mt-12 main-home1" src="assets/main.png"/>
+  <img className="mt-4  main-home2 pb-8" src="assets/main2.png"/>
 </div>
 <Footer></Footer>
 </>

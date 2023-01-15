@@ -24,7 +24,6 @@ html, body {
 }
 
 #contact,.main-body{scroll-behavior: auto!important}
-.video-logo{cursor:pointer}
 
 .bg-footer {
   background-color: #e5dfd8;
@@ -43,7 +42,7 @@ details > summary:first-of-type {
 }
 
 .wine-search input {border:2px solid #a3a3a3; border-radius: 7px; padding:0 4px; outline: none; width:250px}
-.wine-search button {margin-left:2px;border:2px solid #a3a3a3; border-radius: 7px; padding:0 3px;color:#4b5563}
+.wine-search button {margin-left:2px;border:2px solid #a3a3a3; border-radius: 7px; padding:0 3px;color:#87837d}
 
 
 .nav a {font-family:Verdana, Geneva, Tahoma, sans-serif}
@@ -94,4 +93,41 @@ background:#a3a3a3
   right:-20px;
   opacity:1;
 }
+
+.main-home1:hover{
+  background-color: #e4ded6;
+}
+
+.main-home2:hover{
+  background-color: #ada89c;
+}
+
+.main-home1:hover,
+.main-home2:hover,
+.video-logo{cursor:pointer}
+
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+.wine-types{letter-spacing: 1px;font-size: 1.125rem}
+     .rose:hover {color:#b96969; text-transform: uppercase; letter-spacing: 0px;}
+    .white:hover {color:#a2ae8e; text-transform: uppercase; letter-spacing: 0px;}
+      .red:hover {color:#6f0407; text-transform: uppercase; letter-spacing: 0px;}
+.sparkling:hover {color:#d2ae25; text-transform: uppercase; letter-spacing: 0px;}
+  .dessert:hover {color:#b90114; text-transform: uppercase; letter-spacing: 0px;}
+  
+     .rose:hover img,
+    .white:hover img,
+      .red:hover img,
+.sparkling:hover img
+{
+  transform:rotate(-64deg)
+}
+
 
