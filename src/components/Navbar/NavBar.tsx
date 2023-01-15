@@ -1,5 +1,42 @@
-import { useTheme } from "next-themes"
 import Link from "next/link";
+import Image from 'next/image'
+const NavBar = () => {
+return (
+<>
+<div className="w-28 h-28 absolute left-1/2 -translate-x-1/2">
+  <Image layout="fill" src="/assets/logonav.svg"/>
+</div>
+<nav className="
+  nav 
+  bg-bg-body 
+  h-8 
+  w-2/5
+  divide-x-2 
+  divide-neutral-400 
+  mt-10 
+  mb-14">
+  <Link href='/#passion-for-wine'>
+    <a className="w-24  h-6 inline-block text-center align-sub">
+      Home
+    </a>
+  </Link>
+  <Link href='/#passion-for-wine'>
+    <a className="w-24  h-6 inline-block text-center align-sub">
+      Winery
+    </a>
+  </Link>
+    <a href='#contact' className="w-24  h-6 inline-block text-center align-sub">
+      Contact
+    </a>
+</nav>
+</>
+)
+}
+
+export default NavBar;
+
+/*
+import { useTheme } from "next-themes"
 import { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
@@ -69,7 +106,7 @@ const NavBar = () => {
     <>
       <Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2"></Logo>
       <nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-10 mb-14">
-        <Link href='/'>
+        <Link href='/#passion-for-wine'>
           <a className="w-24  h-6 inline-block text-center align-sub">
             Home
           </a>
@@ -437,9 +474,8 @@ const NavBar = () => {
       </nav>
 
 
-{/*
-<Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"></Logo>
-*/}
+//<Logo className="w-28 h-28 absolute left-1/2 -translate-x-1/2 top-4 z-50 drop-shadow-lg"></Logo>
+
 
 
 
@@ -453,7 +489,7 @@ const NavBar = () => {
 
 export default NavBar;
 
-/*
+
  <Logo className="w-28 h-28"></Logo>
 <nav className="w-full items-center p-2 bg-bg-body">
       <ul className="w-1/6 flex inline-flex justify-between divide-x-2 divide-black">
@@ -787,5 +823,5 @@ export default NavBar;
         </span>
       </div>
     </nav>
-              */
+*/
 

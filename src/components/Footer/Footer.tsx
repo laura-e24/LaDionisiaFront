@@ -43,7 +43,7 @@ export default function Footer() {
                 </p>
               </div>
 <div>
-<h1 className="text-xl text-gray-600 pb-2">Contact</h1>
+<h1 id="contact" className="text-xl text-gray-600 pb-2">Contact</h1>
           <p className="text-gray-600  pb-2">
             <a className="footlink" href="mailto:ladionisia@mail.com">
             <span className="spanLeft">[</span>

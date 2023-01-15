@@ -6,7 +6,7 @@
 
 * {
   box-sizing: border-box;
-  }
+}
 html, body {
              margin: 0;
             padding: 0;
@@ -17,13 +17,16 @@ html, body {
    -moz-user-select: none;
 -webkit-user-select: none;
     -ms-user-select: none;
+    scroll-behavior: smooth;
 } body {
-  scroll-behavior: auto;
 } body::-webkit-scrollbar{
     display: none;
 }
 
-.smooth { scroll-behavior: smooth}
+#contact,.main-body{scroll-behavior: auto!important}
+.video-logo{cursor:pointer}
+
+
 
 
 
