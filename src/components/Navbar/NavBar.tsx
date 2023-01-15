@@ -30,7 +30,7 @@ const NavBar = () => {
   const [searchBar, setSearchBar] = useState(false)
   const [search, setSearch] = useState('')
   const router = useRouter();
-  
+
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
   const { filter } = router.query;
@@ -57,10 +57,10 @@ const NavBar = () => {
   }
 
   if (!mounted) return null
-  
+
   function handleFilters(e) {
-    const { value } = e.target;
-    dispatch(setFilters(value));
+    const { value, name } = e.target;
+    dispatch(setFilters({ [name]: value }));
   }
 
   const scores = [
@@ -90,7 +90,7 @@ const NavBar = () => {
     'Australia',
     'United States'
   ]
-console.log(filters)
+  // console.log(filters)
   return (
     <>
       <nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-2">
@@ -118,39 +118,39 @@ console.log(filters)
                 </ul>
                 <ul className="w-1/3 mx-8">
                   <label>REGION</label>
+                  <li>
+                    <a href={`/products/filters/${filter}`}>ALL</a>
+                  </li>
                   {regions.map((region, index) => (
                     <li key={index}>
                       <input type="radio" name="region" value={region} onChange={handleFilters} />
                       {region}
                     </li>
                   ))}
-                  <li>
-                    <a href={`/products/filters/${filter}`}>ALL</a>
-                  </li>
                 </ul>
                 <ul className="w-1/3 mx-8">
                   <label>VINTAGE</label>
-                  {vintage.map((v, index)=> (
+                  <li>
+                    <input type="radio" name="vintage" value="all-vintage" onChange={handleFilters} />ALL
+                  </li>
+                  {vintage.map((v, index) => (
                     <li key={index}>
                       <input type="radio" name="vintage" value={v} onChange={handleFilters} />
-                        {v}
+                      {v}
                     </li>
                   ))}
-                  <a href={`/products/filters/${filter}`}>
-                    ALL
-                  </a>
                 </ul>
                 <ul className="w-1/3 mx-8">
                   <label>SCORE</label>
-                  {scores.map((s, index)=> (
+                  <li>
+                    <input type="radio" name="score" value="all-score" onChange={handleFilters} />ALL
+                  </li>
+                  {scores.map((s, index) => (
                     <li key={index}>
                       <input type="radio" name="score" value={s} onChange={handleFilters} />
-                        {s}
+                      {s}
                     </li>
                   ))}
-                  <a href={`/products/filters/${filter}`}>
-                    ALL
-                  </a>
                 </ul>
               </div>
             </div>

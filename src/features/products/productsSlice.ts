@@ -312,15 +312,14 @@ const productsSlice = createSlice({
       console.log('reducer')
     },
     setFilters: (state, action) => {
-      console.log(action.payload)
-
-      if (state.filters.includes(action.payload)) {
-        const newFilters = state.filters.filter(filter => filter !== action.payload)
-        state.filters = [...newFilters]
-
+      const objToReplace = state.filters.find(item => Object.keys(item).includes(Object.keys(action.payload)[0]));
+      const index = state.filters.indexOf(objToReplace);
+      if (index !== -1) {
+        state.filters.splice(index, 1, action.payload);
       } else {
-        state.filters = state.filters.concat(action.payload)
+        state.filters.push(action.payload);
       }
+      console.log(state.filters)
     },
     cleanUpState: (state) => {
       state.currentWines = [];

@@ -24,16 +24,16 @@ export const rateGen = (rating) => {
     )
   return Math.floor(seed * (max - min + 1) + min)
 }
-export function filterWines(wines, filters: string[]) {
+export function filterWines(wines, filters) {
   return wines.filter(wine => {
     return filters.filter(filter => {
-      return wine.region === filter || filterByVintage(wine, filter) || filterByScore(wine, filter);
+      return wine.region === filter.region || filterByVintage(wine, filter) || filterByScore(wine, filter);
     }).length === filters.length;
   });
 }
 
 const filterByVintage = (wine, filter) => {
-  switch (filter) {
+  switch (filter.vintage) {
     case '2010-Present':
       return wine.year > 2009
     case '2000-2009':
@@ -54,7 +54,7 @@ const filterByVintage = (wine, filter) => {
 }
 
 const filterByScore = (wine, filter) => {
-  switch (filter) {
+  switch (filter.score) {
     case '100':
       return rateGen(wine.rating) === 100
     case '99-97':
