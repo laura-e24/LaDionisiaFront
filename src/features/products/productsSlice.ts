@@ -312,14 +312,15 @@ const productsSlice = createSlice({
       console.log('reducer')
     },
     setFilters: (state, action) => {
+      console.log(action.payload)
+
       if (state.filters.includes(action.payload)) {
         const newFilters = state.filters.filter(filter => filter !== action.payload)
         state.filters = [...newFilters]
 
       } else {
-        state.filters = [...state.filters, action.payload];
+        state.filters = state.filters.concat(action.payload)
       }
-      console.log(state.filters)
     },
     cleanUpState: (state) => {
       state.currentWines = [];

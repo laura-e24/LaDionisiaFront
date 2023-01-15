@@ -29,11 +29,12 @@ const NavBar = () => {
   const [mounted, setMounted] = useState(false);
   const [searchBar, setSearchBar] = useState(false)
   const [search, setSearch] = useState('')
+  const router = useRouter();
   
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
+  const { filter } = router.query;
   const regions = useSelector(selectAllRegions)
-  const router = useRouter();
   const dispatch = useAppDispatch()
   const filters = useSelector(selectAllFilters)
   useEffect(() => {
@@ -55,19 +56,31 @@ const NavBar = () => {
     setSearch(e.target.value)
   }
 
-  if (!mounted) {
-    return null
-  }
+  if (!mounted) return null
+  
   function handleFilters(e) {
     const { value } = e.target;
     dispatch(setFilters(value));
-    console.log(filters)
-    // dispatch(filterByScore(value));
-    // dispatch(filterByVintage(value));
-    // dispatch(filterByRegion(value));
   }
 
-  const list = [
+  const scores = [
+    "100",
+    "99-97",
+    "96-94",
+    "93-91",
+    "90-under"
+  ]
+
+  const vintage = [
+    "2010-Present",
+    "2000-2009",
+    "1980-1989",
+    "1970-1979",
+    "1960-1969",
+    "1959-older",
+  ]
+
+  const countries = [
     'France',
     'Argentina',
     'Portugal',
@@ -77,8 +90,7 @@ const NavBar = () => {
     'Australia',
     'United States'
   ]
-  // console.log(regions)
-
+console.log(filters)
   return (
     <>
       <nav className="nav bg-bg-body h-8 divide-x-2 divide-neutral-400 mt-2">
@@ -93,7 +105,7 @@ const NavBar = () => {
               Winery
               <div className={`${styles.sub} bg-pagination-color p-6 w-max`}>
                 <ul className="w-2/4 mx-8">
-                  {list.map((country, i) => (
+                  {countries.map((country, i) => (
                     <li key={i}>
                       <a href={`/products/filters/${country}`}>{country}</a>
                     </li>
@@ -108,30 +120,37 @@ const NavBar = () => {
                   <label>REGION</label>
                   {regions.map((region, index) => (
                     <li key={index}>
-                      <input type="checkbox" value={region} onChange={handleFilters} />
+                      <input type="radio" name="region" value={region} onChange={handleFilters} />
                       {region}
                     </li>
                   ))}
+                  <li>
+                    <a href={`/products/filters/${filter}`}>ALL</a>
+                  </li>
                 </ul>
                 <ul className="w-1/3 mx-8">
                   <label>VINTAGE</label>
-                  <li><input type="checkbox" value="2010-Present" onChange={handleFilters} />2010 - Present</li>
-                  <li><input type="checkbox" value="2000-2009" onChange={handleFilters} />2000 and 2009</li>
-                  <li><input type="checkbox" value="1990-1999" onChange={handleFilters} />1990 and 1999</li>
-                  <li><input type="checkbox" value="1980-1989" onChange={handleFilters} />1980 and 1989</li>
-                  <li><input type="checkbox" value="1970-1979" onChange={handleFilters} />1970 and 1979</li>
-                  <li><input type="checkbox" value="1960-1969" onChange={handleFilters} />1960 and 1969</li>
-                  <li><input type="checkbox" value="1959-older" onChange={handleFilters} />1959 and Older</li>
-                  <li><input type="checkbox" value="all-vintage" onChange={handleFilters} />ALL</li>
+                  {vintage.map((v, index)=> (
+                    <li key={index}>
+                      <input type="radio" name="vintage" value={v} onChange={handleFilters} />
+                        {v}
+                    </li>
+                  ))}
+                  <a href={`/products/filters/${filter}`}>
+                    ALL
+                  </a>
                 </ul>
                 <ul className="w-1/3 mx-8">
                   <label>SCORE</label>
-                  <li><input type="checkbox" value="100" onChange={handleFilters} />100</li>
-                  <li><input type="checkbox" value="99-97" onChange={handleFilters} />99 - 97</li>
-                  <li><input type="checkbox" value="96-94" onChange={handleFilters} />96 - 94</li>
-                  <li><input type="checkbox" value="93-91" onChange={handleFilters} />93 - 91</li>
-                  <li><input type="checkbox" value="90-under" onChange={handleFilters} />90 - Under</li>
-                  <li><input type="checkbox" value="all-score" onChange={handleFilters} />ALL</li>
+                  {scores.map((s, index)=> (
+                    <li key={index}>
+                      <input type="radio" name="score" value={s} onChange={handleFilters} />
+                        {s}
+                    </li>
+                  ))}
+                  <a href={`/products/filters/${filter}`}>
+                    ALL
+                  </a>
                 </ul>
               </div>
             </div>
