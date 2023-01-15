@@ -133,7 +133,7 @@ return (
           <a href="#">06</a>
           <a href="#">ALL</a>
         </div>
-          <b>[ <a href="#">Show All</a> ]</b>
+          <b>«<a href="#">Show All</a>»</b>
       </div>
     </details>
   </a>

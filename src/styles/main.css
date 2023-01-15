@@ -178,21 +178,21 @@ padding-bottom:0px;
 
 .submenu {
   position:absolute;
-  border:3px solid #a3a3a3;
+  border:2px solid #a3a3a3;
   margin-left: -2px;
-  margin-top: -1px;
+  margin-top: 7px;
   width:480px;
-  height:650px;
-  background-color:#d3cdc3;
- padding:14px 8px
+  height:644px;
+  background-color:#ebe9e9;
+ padding:14px 8px;
+ border-radius: 7px;;
 }
-.submenu h3 {font-weight: 700;margin-top: 6px;}
+.submenu h3 {font-weight: 700;margin-top: 9px;color:#87837d}
 
 .submenu a {padding:4px}
 
 .submenu a:hover{
-  color:#c3661f;
-  opacity:1;
+  background-color:#a3a3a3 ;
 }
 
 .wine-types-submenu a { min-width:70px;display: inline-block;}
