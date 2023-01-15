@@ -30,7 +30,7 @@ html, body {
   background-image: url('/assets/footer2.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 40%;
+  background-size: 70%;
   opacity: .8;
 }
 
@@ -127,14 +127,9 @@ img {
 {
   transform:rotate(-64deg)
 }
-/*
-.nav a:hover {
-  background:#a3a3a3
-  }
-*/
+
 .nav a {
-  --c: #a3a3a3; /* the color */
-  
+  --c: #a3a3a3; 
   color: #222;
   background: 
     linear-gradient(90deg,#fff 50%,var(--c) 0) calc(100% - var(--_p,0%))/200% 100%,

@@ -32,21 +32,22 @@ const About = () => {
   <h1 className="font-montserrat text-gray-600 text-3xl mt-8" >OUR TEAM</h1>
 
   <div className=" 
-          flex 
-          justify-around 
-          items-center 
-          mt-8">
-          {members?.map((e)=>{
-          return(
-            <MembersCard
-              name={e.name}
-              image={e.image}
-              github={e.github}
-              linkedin={e.linkedin}
-            />
-          )
-          })}
-          </div>
+    mt-8
+    grid 
+    grid-cols-4 
+    gap-4
+  ">
+   {members?.map((e)=>{
+     return(
+      <MembersCard
+        name={e.name}
+        image={e.image}
+        github={e.github}
+        linkedin={e.linkedin}
+      />
+     )
+    })}
+  </div>
 </div>
 <Footer></Footer>
 </>

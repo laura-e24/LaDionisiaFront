@@ -12,11 +12,16 @@ export default function Footer() {
     }
     return (
 <>
-<footer className="bg-footer h-min w-full p-14 flex footer">
+
+
+<footer className="bg-footer h-min w-full p-14 flex footer 
+max-w-screen-xl
+m-auto
+">
+
   <div className="          
     max-w-screen-xl
     grid place-items-center
-    w-1/3
     ">
     <div className="w-28 h-28 relative opacity-70">
       <Image layout="fill" src="/assets/logonav.svg"/>
