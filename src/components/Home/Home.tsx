@@ -58,7 +58,6 @@ const Home = () => {
   bg-bg-body 
   ">
   <NavBar></NavBar>
-  <a id="top"></a>
   <img src="assets/homeprov.png"/>
   <div className="
     w-full 
