@@ -63,6 +63,7 @@ export default function index({ }) {
             <a href="/products/type/dessert" className="flex items-center justify-center w-32 h-32 rounded-full text-black py- px-8 bg-btn-color text-center bg-[url('https://www.bordeaux.com/wp-content/uploads/2017/06/red.jpg')] bg-cover bg-no-repeat bg-center"></a>DESSERT
           </div>
         </div>
+        {winesCountry && winesCountry[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
         {filteredWines.length &&
           <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
             {

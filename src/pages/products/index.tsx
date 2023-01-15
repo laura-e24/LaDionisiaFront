@@ -21,6 +21,7 @@ export default function index() {
   const itemsPerPage = 21;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // console.log(wines[0].error)
   const currentItems = wines.slice(indexOfFirstItem, indexOfLastItem)
   const [filteredWines, setFilteredWines] = useState(wines);
   const onPageChange = (event) => {
@@ -29,25 +30,15 @@ export default function index() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (router.isReady) {  
-          if (winesStatus === EStateGeneric.IDLE) {
-            await dispatch(getAllWines());
-            
-          }
+      if (router.isReady) {
+        if (winesStatus === EStateGeneric.IDLE) {
+          await dispatch(getAllWines());
+        }
       }
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
   }, [winesStatus, filters, wines])
-
-  useEffect(() => {
-    const fetchData = async () => {
-          dispatch(setCurrentWines(wines.slice(indexOfFirstItem, indexOfLastItem)));
-    }
-    fetchData()
-  }, [wines])
-
-
   return (
     <>
       <NavBar></NavBar>
@@ -69,13 +60,16 @@ export default function index() {
             <a href="/products/type/dessert" className="flex items-center justify-center w-32 h-32 rounded-full text-black py- px-8 bg-btn-color text-center bg-[url('https://www.bordeaux.com/wp-content/uploads/2017/06/red.jpg')] bg-cover bg-no-repeat bg-center"></a>DESSERT
           </div>
         </div>
-        <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
-          {
-            currentItems.map((wine) => (
-              <Card key={wine.id} wine={wine}></Card>
-            ))
-          }
-        </div>
+        {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+        {wines && !wines[0]?.error && filteredWines.length &&
+          <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
+            {
+              currentItems.map((wine) => (
+                <Card key={wine.id} wine={wine}></Card>
+              ))
+            }
+          </div>
+        }
       </div>
       <Pagination
         onPageChange={onPageChange}

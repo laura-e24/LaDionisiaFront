@@ -16,7 +16,7 @@ import PersonLogoWhite from "../../assets/img/PersonWhite.svg"
 import CartLogoWhite from "../../assets/img/CartWhite.svg"
 import CartLogoBlack from "../../assets/img/CartBlack.svg"
 import { useAppDispatch } from "../../app/store"
-import { filterByScore, filterByRegion, filterByVintage, selectCountryFilter, setFilters, selectAllFilters, selectAllRegions } from "../../features/products/productsSlice"
+import { filterByScore, filterByRegion, filterByVintage, selectCountryFilter, setFilters, selectAllFilters, selectAllRegions, getAllWinesByName } from "../../features/products/productsSlice"
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import styles from "../../assets/style/winery.module.css"
@@ -52,6 +52,12 @@ const NavBar = () => {
       console.error(error.message);
     }
   };
+  function getWinesByName(e) {
+    e.preventDefault(e)
+    dispatch(getAllWinesByName(search))
+    // router.push("/products");
+    setSearch('')
+  }
   function handleInputName(e) {
     setSearch(e.target.value)
   }
@@ -176,8 +182,8 @@ const NavBar = () => {
           </label>
           {searchBar ? (
             <div className="inline-block">
-              <form className="gap-2 p-2">
-                <input placeholder="Type something here..." type="text" className="rounded focus:outline-none focus:ring focus:ring-violet-300" onChange={(e) => { handleInputName(e) }}></input>
+              <form className="gap-2 p-2" onSubmit={(e) => { getWinesByName(e) }}>
+                <input placeholder="Type something here..." type="text" className="rounded focus:outline-none focus:ring focus:ring-violet-300" onChange={(e) => { handleInputName(e) }} value={search}></input>
                 <button type='submit' className="p-2 rounded border border-gray-300"> Search</button>
               </form>
             </div>
@@ -564,7 +570,7 @@ export default NavBar;
           {searchBar ? (
             <div className="flex">
               <form className="flex gap-2 p-2">
-                <input placeholder="Type something here..." type="text" className="rounded focus:outline-none focus:ring focus:ring-violet-300" onChange={(e) => { handleInputName(e) }}></input>
+                <input placeholder="Type something here..." type="text" className="rounded focus:outline-none focus:ring focus:ring-violet-300" onChange={(e) => { getWinesByName(e) }}></input>
                 <button type='submit' className="p-2 rounded border border-gray-300"> Search</button>
               </form>
             </div>

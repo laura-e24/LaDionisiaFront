@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { EStateGeneric, rateGen } from "../../utils/general";
 import { IProduct } from "../../utils/types";
-import { createOneProduct, getAllDisabledProducts, getAllProducts, getAllProductTypes, getOneProductById, getAllProductsByContry, updateOneProduct, getAllProductsByRegion } from "./productsApi";
+import { createOneProduct, getAllDisabledProducts, getAllProducts, getAllProductTypes, getOneProductById, getAllProductsByContry, updateOneProduct, getAllProductsByRegion, getAllProductsByName } from "./productsApi";
 
 export const getAllWines = createAsyncThunk(
   'products/getAllWines',
@@ -93,6 +93,19 @@ export const getAllWinesByRegion = createAsyncThunk(
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data)
+    }
+  }
+)
+export const getAllWinesByName = createAsyncThunk(
+  'products/getAllWinesByName',
+  async (name: string, { rejectWithValue }) => {
+    try {
+      const response = await getAllProductsByName(name)
+      return response.data
+    } catch (error) {
+      console.log(error.response.data)
+      return [{error: error.response.data}]
+      // return rejectWithValue(error.response.data)
     }
   }
 )
@@ -319,7 +332,6 @@ const productsSlice = createSlice({
       } else {
         state.filters.push(action.payload);
       }
-      console.log(state.filters)
     },
     cleanUpState: (state) => {
       state.currentWines = [];
@@ -426,6 +438,27 @@ const productsSlice = createSlice({
 
 
 
+    builder.addCase(getAllWinesByName.fulfilled, (state, action) => {
+      state.wines = action.payload;
+      state.winesCountry = action.payload;
+      state.wineTypes = action.payload;
+      state.allWinesStatus = EStateGeneric.SUCCEEDED;
+      state.allWinesCountryStatus = EStateGeneric.SUCCEEDED;
+      state.allWineTypesStatus = EStateGeneric.SUCCEEDED;
+    })
+    builder.addCase(getAllWinesByName.pending, (state, action) => {
+      state.allWinesStatus = EStateGeneric.PENDING;
+      state.allWinesCountryStatus = EStateGeneric.PENDING;
+      state.allWineTypesStatus = EStateGeneric.PENDING;
+    })
+    builder.addCase(getAllWinesByName.rejected, (state, action) => {
+      state.allWinesStatus = EStateGeneric.FAILED;
+      state.allWinesCountryStatus = EStateGeneric.FAILED;
+      state.allWineTypesStatus = EStateGeneric.FAILED;
+    })
+
+
+    
     builder.addCase(getAllWinesByRegion.fulfilled, (state, action) => {
       state.winesCountry = action.payload;
       state.allWinesCountryStatus = EStateGeneric.SUCCEEDED;
