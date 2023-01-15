@@ -29,6 +29,7 @@ const NavBar = () => {
   const [mounted, setMounted] = useState(false);
   const [searchBar, setSearchBar] = useState(false)
   const [search, setSearch] = useState('')
+  
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
   const regions = useSelector(selectAllRegions)
@@ -53,6 +54,7 @@ const NavBar = () => {
   function handleInputName(e) {
     setSearch(e.target.value)
   }
+
   if (!mounted) {
     return null
   }
@@ -61,7 +63,7 @@ const NavBar = () => {
     dispatch(setFilters(value));
     console.log(filters)
     // dispatch(filterByScore(value));
-    dispatch(filterByVintage(value));
+    // dispatch(filterByVintage(value));
     // dispatch(filterByRegion(value));
   }
 
@@ -129,7 +131,7 @@ const NavBar = () => {
                   <li><input type="checkbox" value="96-94" onChange={handleFilters} />96 - 94</li>
                   <li><input type="checkbox" value="93-91" onChange={handleFilters} />93 - 91</li>
                   <li><input type="checkbox" value="90-under" onChange={handleFilters} />90 - Under</li>
-                  <li><input type="checkbox" value="all" onChange={handleFilters} />ALL</li>
+                  <li><input type="checkbox" value="all-score" onChange={handleFilters} />ALL</li>
                 </ul>
               </div>
             </div>

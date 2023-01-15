@@ -4,29 +4,25 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter } from "../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters } from "../../features/products/productsSlice";
 import { useEffect } from "react";
-import { EStateGeneric } from "../../utils/general";
+import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
 
 export default function index() {
+  const filters = useSelector(selectAllFilters)
   const router = useRouter()
   const dispatch = useAppDispatch()
   const wines = useSelector(selectAllWines)
-  const winesCountry = useSelector(selectAllWinesByContry)
-  const globalFilter = useSelector(selectCountryFilter)
-  const currentWines = useSelector(selectCurrentWines)
   const winesStatus = useSelector(selectAllWinesStatus)
   const winesCountryStatus = useSelector(selectAllWinesCountryStatus)
-  const { filter } = router.query;
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 21;
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const [currentItems, setCurrentItems] = useState(wines.slice(indexOfFirstItem, indexOfLastItem))
+  const currentItems = wines.slice(indexOfFirstItem, indexOfLastItem)
+  const [filteredWines, setFilteredWines] = useState(wines);
   const onPageChange = (event) => {
     setCurrentPage(Number(event.target.id));
   };
@@ -41,7 +37,8 @@ export default function index() {
       }
     }
     fetchData()
-  }, [filter, winesStatus])
+    setFilteredWines(filterWines(wines, filters));
+  }, [winesStatus, filters, wines])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +71,7 @@ export default function index() {
         </div>
         <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
           {
-            currentWines.map((wine) => (
+            currentItems.map((wine) => (
               <Card key={wine.id} wine={wine}></Card>
             ))
           }
@@ -82,7 +79,7 @@ export default function index() {
       </div>
       <Pagination
         onPageChange={onPageChange}
-        wines={currentWines}
+        wines={filteredWines}
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

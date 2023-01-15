@@ -4,9 +4,9 @@ import Pagination from "../../../components/Pagination";
 import Card from "../../../components/Card/Card";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, cleanUpState, selectAllWinesFilters, getRegiones, filterByScore, selectAllFilters } from "../../../features/products/productsSlice";
+import { selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, cleanUpState, selectAllWinesFilters, getRegiones, filterByScore, selectAllFilters } from "../../../features/products/productsSlice";
 import { useEffect } from "react";
-import { EStateGeneric, rateGen } from "../../../utils/general";
+import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../../components/Footer/Footer";
 
@@ -15,17 +15,17 @@ export default function index({ }) {
   const router = useRouter()
   const { filter } = router.query;
   const dispatch = useAppDispatch()
-  const winesCountry = useSelector(selectAllWinesFilters)
-  // const winesPrueba = useSelector(state => dispatch(filterByScore(filters)))
+  const winesCountry = useSelector(selectAllWinesByContry)
   const winesCountryStatus = useSelector(selectAllWinesCountryStatus)
   const wines = useSelector(selectAllWines)
   const currentWines = useSelector(selectCurrentWines)
   const winesStatus = useSelector(selectAllWinesStatus)
   const [currentPage, setCurrentPage] = useState(1);
+  const [filteredWines, setFilteredWines] = useState(winesCountry);
   const itemsPerPage = 21;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = winesCountry.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = filteredWines.slice(indexOfFirstItem, indexOfLastItem)
   const onPageChange = (event) => {
     setCurrentPage(Number(event.target.id));
   };
@@ -39,9 +39,9 @@ export default function index({ }) {
       }
     }
     fetchData()
-  }, [filter])
+    setFilteredWines(filterWines(winesCountry, filters));
+  }, [filter, winesCountry, filters])
 
-  // console.log(winesPrueba)
   return (
     <>
       <NavBar></NavBar>
@@ -63,7 +63,7 @@ export default function index({ }) {
             <a href="/products/type/dessert" className="flex items-center justify-center w-32 h-32 rounded-full text-black py- px-8 bg-btn-color text-center bg-[url('https://www.bordeaux.com/wp-content/uploads/2017/06/red.jpg')] bg-cover bg-no-repeat bg-center"></a>DESSERT
           </div>
         </div>
-        {winesCountry.length &&
+        {filteredWines.length &&
           <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
             {
               currentItems.map((wine) => (
@@ -72,7 +72,7 @@ export default function index({ }) {
             }
           </div>
         }
-        {!winesCountry.length &&
+        {!filteredWines.length &&
           <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
             <h1 className="w-96 h-96">PRODUCTS NOT FOUND</h1>
           </div>
@@ -80,7 +80,7 @@ export default function index({ }) {
       </div>
       <Pagination
         onPageChange={onPageChange}
-        wines={winesCountry}
+        wines={filteredWines}
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
