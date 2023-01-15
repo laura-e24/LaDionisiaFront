@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { EStateGeneric, rateGen } from "../../utils/general";
-import { IProduct } from "../../utils/types";
+import { IProduct, IProductCart } from "../../utils/types";
 import { createOneProduct, getAllDisabledProducts, getAllProducts, getAllProductTypes, getOneProductById, getAllProductsByContry, updateOneProduct } from "./productsApi";
 
 export const getAllWines = createAsyncThunk(
@@ -160,7 +160,7 @@ const productsSlice = createSlice({
       //   }
       // }
       state.winesContry.push(action.payload)
-    }
+    },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -266,10 +266,11 @@ export const selectAllDisabledWines = (state) => state.products.disabledWines;
 export const selectAllWineTypes = (state) => state.products.wineTypes;
 export const selectOneWine = (state) => state.products.wine;
 export const selectAllWinesByContry = (state) => state.products.winesContry;
+export const selectCart = (state) => state.products.cart;
+
 
 export const {
-  filterByScore
-} = productsSlice.actions;
+  filterByScore} = productsSlice.actions;
 
 export const selectAllWinesStatus = (state) => state.products.allWinesStatus;
 export const selectAllWinesContryStatus = (state) => state.products.allWinesContryStatus;

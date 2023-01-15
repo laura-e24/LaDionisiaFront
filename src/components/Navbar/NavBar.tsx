@@ -1,6 +1,7 @@
 import { useTheme } from "next-themes"
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
@@ -17,9 +18,11 @@ import CartLogoWhite from "../../assets/img/CartWhite.svg"
 import CartLogoBlack from "../../assets/img/CartBlack.svg"
 import { useAppDispatch } from "../../app/store"
 import { filterByScore } from "../../features/products/productsSlice"
+import { displayCart, selectDisplay } from "../../features/products/cartSlice"
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import styles from "../../assets/style/winery.module.css"
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -31,6 +34,7 @@ const NavBar = () => {
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
   const router = useRouter();
+  const display = useSelector(selectDisplay)
   const dispatch = useAppDispatch()
   useEffect(() => {
     setMounted(true)
@@ -244,20 +248,22 @@ const NavBar = () => {
           </Menu>
           <Menu as="div" className="relative inline-block text-left">
             <div>
-              <Menu.Button className="
-   w-8
-   inline-block
-   justify-center 
-   font-medium 
-   text-gray-700 
-   shadow-sm 
-   hover:bg-gray-50 
-   focus:outline-none 
-   focus:ring-2 
-   focus:ring-indigo-500 
-   focus:ring-offset-2 
-   focus:ring-offset-gray-100 
-   dark:bg-black">
+              <Menu.Button
+                onClick={() => dispatch(displayCart(!display))}
+               className="
+                  w-8
+                  inline-block
+                  justify-center 
+                  font-medium 
+                  text-gray-700 
+                  shadow-sm 
+                  hover:bg-gray-50 
+                  focus:outline-none 
+                  focus:ring-2 
+                  focus:ring-indigo-500 
+                  focus:ring-offset-2 
+                  focus:ring-offset-gray-100 
+                  dark:bg-black">
                 {theme === 'light' ? <CartLogoBlack className='w-8 h-8' /> : <CartLogoWhite className='w-8 h-8' />}
               </Menu.Button>
             </div>
