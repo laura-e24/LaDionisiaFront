@@ -7,6 +7,36 @@ return (
   <Image layout="fill" src="/assets/logonav.svg"/>
 </div>
 <nav className="
+  float-right   
+  mt-10 
+  bg-bg-body 
+  h-8 
+  w-2/5
+">
+  <details className="float-right ml-2">
+    <summary>
+      <div className="w-7 h-7 mt-1 relative">
+      <Image layout="fill" src="/assets/search.svg"/>
+      </div>
+    </summary>
+    <form className="wine-search  float-right -mt-7 pl-8">
+     <input className="" type="search" name="q" placeholder="Search Wines"/>
+     <button>GO</button>
+    </form>
+  </details>
+
+
+  <div className="w-7 h-7 mt-1 ml-2 relative float-right">
+    <Image layout="fill" src="/assets/cart.svg"/>
+  </div>
+  <div className="w-7 h-7 mt-1 ml-2 relative float-right">
+    <Image layout="fill" src="/assets/person.svg"/>
+  </div>
+  <div className="w-7 h-7 mt-1 relative float-right">
+    <Image layout="fill" src="/assets/heart.svg"/>
+  </div>
+</nav>
+<nav className="
   nav 
   bg-bg-body 
   h-8 
@@ -41,17 +71,6 @@ import { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
-import Logo from "../../assets/img/logoD.svg"
-import Night from "../../assets/img/night.svg"
-import Day from "../../assets/img/day.svg"
-import HeartLogoWhite from "../../assets/img/HeartWhite.svg"
-import HeartLogoBlack from "../../assets/img/HeartBlack.svg"
-import SearchLogoWhite from "../../assets/img/SearchWhite.svg"
-import SearchLogoBlack from "../../assets/img/SearchBlack.svg"
-import PersonLogoBlack from "../../assets/img/PersonBlack.svg"
-import PersonLogoWhite from "../../assets/img/PersonWhite.svg"
-import CartLogoWhite from "../../assets/img/CartWhite.svg"
-import CartLogoBlack from "../../assets/img/CartBlack.svg"
 import { useAppDispatch } from "../../app/store"
 import { filterByScore } from "../../features/products/productsSlice"
 import { Fragment } from 'react'

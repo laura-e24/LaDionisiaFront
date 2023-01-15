@@ -26,9 +26,24 @@ html, body {
 #contact,.main-body{scroll-behavior: auto!important}
 .video-logo{cursor:pointer}
 
+.bg-footer {
+  background-color: #e5dfd8;
+  background-image: url('/assets/footer2.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 40%;
+  opacity: .8;
+}
 
+details summary::-webkit-details-marker {
+  display:none;
+}
+details > summary:first-of-type {
+  list-style-type: none;
+}
 
-
+.wine-search input {border:2px solid #a3a3a3; border-radius: 7px; padding:0 4px; outline: none; width:250px}
+.wine-search button {margin-left:2px;border:2px solid #a3a3a3; border-radius: 7px; padding:0 3px;color:#4b5563}
 
 
 .nav a {font-family:Verdana, Geneva, Tahoma, sans-serif}
