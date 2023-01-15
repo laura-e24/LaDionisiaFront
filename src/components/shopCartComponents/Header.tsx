@@ -32,7 +32,7 @@ const Header = ({allProducts, setAllProducts, total, setTotal, countProducts, se
 						/>
 					</svg>
 					<div className='count-products'>
-						<span id='contador-productos'>99</span>
+						<span id='contador-productos'>{countProducts}</span>
 					</div>
 				</div>
 

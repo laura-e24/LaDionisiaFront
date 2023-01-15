@@ -1,6 +1,6 @@
 import { data } from "../../DataExampleForCart/data"
 
-const ProductList = ({ allProducts, setAllProducts, total, setTotal, countProducts, setCountProducts }) => {
+const ProductList = ({ allProducts, setAllProducts, countProducts, setCountProducts, total, setTotal }) => {
     const onAddProduct = (product) => { 
         if(allProducts.find(item => item.id === product.id)){
             const products = allProducts.map(item => 
@@ -8,10 +8,12 @@ const ProductList = ({ allProducts, setAllProducts, total, setTotal, countProduc
                 ? {...item, quantity: item.quantity + 1 }
                 : item
                 )
-
+                setTotal(total + product.price)
+                setCountProducts(countProducts + product.quantity)
                 return setAllProducts([...products])
         }
-
+        setTotal(total + product.price)
+        setCountProducts(countProducts + product.quantity)
         setAllProducts([...allProducts, product])
     }
 
