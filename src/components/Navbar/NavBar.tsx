@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from 'next/image'
+
 const NavBar = () => {
 return (
 <>
@@ -24,8 +25,6 @@ return (
      <button>GO</button>
     </form>
   </details>
-
-
   <div className="w-7 h-7 mt-1 ml-2 relative float-right">
     <Image layout="fill" src="/assets/cart.svg"/>
   </div>
@@ -46,24 +45,102 @@ return (
   mt-10 
   mb-14">
   <Link href='/#passion-for-wine'>
-    <a className="w-24  h-6 inline-block text-center align-sub">
+    <a className="menu w-24  h-6 inline-block text-center align-sub">
       Home
     </a>
   </Link>
-  <Link href='/#passion-for-wine'>
-    <a className="w-24  h-6 inline-block text-center align-sub">
+    <a className="menu w-24  h-6 inline-block text-center align-sub">
+
+    <details>
+      <summary>
       Winery
+      </summary>
+      <div className="submenu">
+
+<h3>Country</h3>
+<div className="columns-3 text-left mt-2 mb-4 pl-3">
+<a href="#">Argentina</a>
+<br/><a href="#">Australia</a>
+<br/><a href="#">Austria</a>
+<br/><a href="#">Brazil</a>
+<br/><a href="#">Canada</a>
+<br/><a href="#">Chile</a>
+<br/><a href="#">France</a>
+<br/><a href="#">Georgia</a>
+<br/><a href="#">Germany</a>
+<br/><a href="#">Greece</a>
+<br/><a href="#">Hungary</a>
+<br/><a href="#">Israel</a>
+<br/><a href="#">Italy</a>
+<br/><a href="#">Moldova</a>
+<br/><a href="#">New Zealand</a>
+<br/><a href="#">Portugal</a>
+<br/><a href="#">Romania</a>
+<br/><a href="#">Slovenia</a>
+<br/><a href="#">South Africa</a>
+<br/><a href="#">Spain</a>
+<br/><a href="#">Switzerland</a>
+<br/><a href="#">Turkey</a>
+<br/><a href="#">United States</a>
+<br/><a href="#">Uruguay</a>
+</div>
+<h3>Vintage</h3>
+<div className="columns-3 text-left mt-2 mb-2">
+<a href="#">2020-2023</a>
+<br/><a href="#">2010-2019</a>
+<br/><a href="#">2000-2009</a>
+<br/><a href="#">1990-1999</a>
+<br/><a href="#">1980-1989</a>
+<br/><a href="#">1970-1979</a>
+<br/><a href="#">1960-1969</a>
+<br/><a href="#">1950-1959</a>
+<br/><a href="#">1940-older</a>
+</div>
+
+<h3>Price</h3>
+<div className="columns-4 text-left mt-2 mb-2">
+<a href="#">$101-$200</a><br/>
+<a href="#">$50 - $100</a><br/>
+<a href="#">$30-49</a><br/>
+<a href="#">$20-29</a><br/>
+<a href="#">$16-19</a><br/>
+<a href="#">$10-15</a><br/>
+<a href="#">$6 - $9</a><br/>
+<a href="#">ALL</a><br/>
+</div>
+<h3>Type</h3>
+<div className="wine-types-submenu text-center mt-2 mb-2">
+<a href="#">Red</a>
+<a href="#">White</a>
+<a href="#">Rose</a>
+<a href="#">Sparkling</a> 
+<a href="#">Dessert</a>
+<a href="#">ALL</a>
+</div>
+
+<h3>Score</h3>
+<div className="wine-types-submenu text-center mt-2 mb-2">
+<a href="#">10</a>
+<a href="#">09</a>
+<a href="#">08</a>
+<a href="#">07</a>
+<a href="#">06</a>
+<a href="#">ALL</a>
+</div>
+<b>[ <a href="#">Show All</a> ]</b>
+
+      </div>
+    </details>
+
+
     </a>
-  </Link>
-    <a href='#contact' className="w-24  h-6 inline-block text-center align-sub">
+    <a href='#contact' className="menu w-24  h-6 inline-block text-center align-sub">
       Contact
     </a>
 </nav>
 </>
 )
-}
-
-export default NavBar;
+}; export default NavBar;
 
 /*
 import { useTheme } from "next-themes"

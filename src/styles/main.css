@@ -128,7 +128,7 @@ img {
   transform:rotate(-64deg)
 }
 
-.nav a {
+.menu {
   --c: #a3a3a3; 
   color: #222;
   background: 
@@ -139,9 +139,29 @@ img {
   transition: 0.5s;
 }
 
-.nav a:hover {
+.menu:hover {
   --_p: 100%
 }
 
 
 
+.submenu {
+  position:absolute;
+  border:3px solid #a3a3a3;
+  margin-left: -2px;
+  margin-top: -1px;
+  width:480px;
+  height:650px;
+  background-color:#d3cdc3;
+ padding:14px 8px
+}
+.submenu h3 {font-weight: 700;margin-top: 6px;}
+
+.submenu a {padding:4px}
+
+.submenu a:hover{
+  color:#c3661f;
+  opacity:1;
+}
+
+.wine-types-submenu a { min-width:70px;display: inline-block;}
