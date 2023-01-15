@@ -140,7 +140,17 @@ export default function index() {
     // console.log()
     return (
         <>
-            <NavBar></NavBar>
+<div className="
+  main-body  
+  pt-12 
+  mb-12 
+  m-auto
+  min-h-screen
+  max-w-screen-xl
+  bg-bg-body 
+  ">
+  <NavBar></NavBar>
+  </div>
             <div className="flex flex-col p-4 bg-bg-body">
                 <div className="w-full flex justify-around items-center">
                     <div className="flex flex-col items-center">
@@ -174,6 +184,8 @@ export default function index() {
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
             />
+
+
             <Footer></Footer>
         </>
     )
