@@ -2,28 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 * {
   box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  background-color:#ebe9e9;
-  scroll-behavior: smooth;
-	scrollbar-width: thin;
-	scrollbar-color: light;
-  user-select: none;
-  -moz-user-select: none;
--webkit-user-select: none;
-   -ms-user-select: none;
-}
-
-body::-webkit-scrollbar{
-    display: none;
   }
+html, body {
+             margin: 0;
+            padding: 0;
+ -ms-overflow-style: none;
+    scrollbar-width: none; 
+   background-color:#ebe9e9;
+        user-select: none;
+   -moz-user-select: none;
+-webkit-user-select: none;
+    -ms-user-select: none;
+} body {
+  scroll-behavior: auto;
+} body::-webkit-scrollbar{
+    display: none;
+}
+
+.smooth { scroll-behavior: smooth}
+
+
 
 
 .nav a {font-family:Verdana, Geneva, Tahoma, sans-serif}

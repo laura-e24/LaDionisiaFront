@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import Link   from "next/link";
+
 import NavBar from "../Navbar/NavBar";
 import Footer from "../Footer/Footer";
 import Modal  from "../Modals/LegalAgeModal";
@@ -26,6 +28,7 @@ const Home = () => {
           Your browser does not support the video tag.
        </video>
       <div className="
+        smooth
         absolute
         text-white 
         left-1/2 
@@ -34,13 +37,11 @@ const Home = () => {
         opacity-50	
         z-10
         ">
-        <a href="#top">
+        <a href="#passion-for-wine">
         <img width="75px" src="assets/scrolldown.gif"/>
         </a>
       </div>
     </div>
-    <a id="top"></a>
-    <a id="top"></a>
     <div className="
       pt-12 
       mb-12 
@@ -49,7 +50,9 @@ const Home = () => {
       max-w-screen-xl
       bg-bg-body 
       ">
+      <a id="passion-for-wine"></a>
       <NavBar></NavBar>
+      <a id="top"></a>
       <img src="assets/homeprov.png"/>
       <div className="
         w-full 
@@ -59,32 +62,42 @@ const Home = () => {
         mt-8">
         <Link href='/products/type/rose'>
           <a className="text-center font-montserrat text-gray-600">
-            <img className="w-32 h-32 mb-2" src="assets/rose.png"/>
+          <div className='w-32 h-32 relative mb-2'>
+            <Image src="/assets/rose.png" layout='fill'/>
+          </div>
             Rose
           </a>
         </Link>
         <Link href='/products/type/whites'>
           <a className="text-center font-montserrat text-gray-600">
-            <img className="w-32 h-32 mb-2" src="assets/white.png"/>
+          <div className='w-32 h-32 relative mb-2'>
+            <Image src="/assets/white.png" layout='fill'/>
+          </div>
             White
           </a>
         </Link>
         <Link href='/products/type/reds'>
           <a className="text-center font-montserrat text-gray-600">
-            <img className="w-32 h-32 mb-2" src="assets/red.png"/>
+          <div className='w-32 h-32 relative mb-2'>
+            <Image src="/assets/red.png" layout='fill'/>
+          </div>
             Red
           </a>
         </Link>
         <Link href='/products/type/sparkling'>
           <a className="text-center font-montserrat text-gray-600">
-            <img className="w-32 h-32 mb-2" src="assets/sparkling.png"/>
+          <div className='w-32 h-32 relative mb-2'>
+            <Image src="/assets/sparkling.png" layout='fill'/>
+          </div>
             Sparkling
           </a>
         </Link>
         <Link href='/products/type/dessert'>
           <a className="text-center font-montserrat text-gray-600">
-            <img className="w-32 h-32 mb-2" src="assets/dessert.png"/>
-             Dessert
+            <div className='w-32 h-32 relative mb-2'>
+              <Image src="/assets/dessert.png" layout='fill'/>
+            </div>
+            Dessert
           </a>
         </Link>
       </div>
