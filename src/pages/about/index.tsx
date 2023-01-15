@@ -1,6 +1,6 @@
 import members from '../../components/componentsAbout/membersInfo'
 import MembersCard from '../../components/componentsAbout/membersCards'
-import NavBar from "../../components/Navbar/NavBar.tsx";
+import NavBar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
 
 const About = () => {
