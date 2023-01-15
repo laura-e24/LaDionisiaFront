@@ -46,9 +46,7 @@ details > summary:first-of-type {
 
 
 .nav a {font-family:Verdana, Geneva, Tahoma, sans-serif}
-.nav a:hover {
-background:#a3a3a3
-}
+
 .footer{font-family:Verdana, Geneva, Tahoma, sans-serif}
 
 .footlink:hover{
@@ -129,5 +127,26 @@ img {
 {
   transform:rotate(-64deg)
 }
+/*
+.nav a:hover {
+  background:#a3a3a3
+  }
+*/
+.nav a {
+  --c: #a3a3a3; /* the color */
+  
+  color: #222;
+  background: 
+    linear-gradient(90deg,#fff 50%,var(--c) 0) calc(100% - var(--_p,0%))/200% 100%,
+    linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) 100% no-repeat;
+  -webkit-background-clip: text,padding-box;
+          background-clip: text,padding-box;
+  transition: 0.5s;
+}
+
+.nav a:hover {
+  --_p: 100%
+}
+
 
 

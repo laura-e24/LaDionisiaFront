@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import Image from 'next/image'
+import Image from 'next/image';
+import Link from "next/link";
 
 export default function Footer() {
     const [hasMounted, setHasMounted] = useState(false);
@@ -25,11 +26,14 @@ export default function Footer() {
     <div className="grid grid-cols-2 gap-14">
       <div>
         <p className="text-gray-600 pb-1">
-          <a className="footlink" href="/about">  
+
+        <Link href='/about'>
+          <a className="footlink">  
             <span className="spanLeft">[</span>
             ABOUT
             <span className="spanRight">]</span>
           </a>
+        </Link>
         </p>
         <p className="text-gray-600 pb-1">
           <a className="footlink" href="/shipping">
