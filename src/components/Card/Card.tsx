@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAppDispatch } from "../../app/store";
 import styles from "../../assets/style/styles.module.css"
+import { addNewProduct } from "../../features/products/cartSlice";
+
+
 export default function Card({ wine }) {
+  const dispatch = useAppDispatch()
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         setIsLoading(false);
@@ -17,7 +22,7 @@ export default function Card({ wine }) {
                         <span className="text-xl font-montserrat text-price-color w-full">{wine.winery} - {wine.year}</span>
                         <p className="text-5xl font-montserrat text-font-color" ><b>{wine.wine}</b></p>
                         <p className="text-2xl font-montserrat text-gray-600"><span className="text-price-color">$ {wine.price ? wine.price : 100}</span></p>
-                        <a className="text-black border border-gray-600 w-28 h-12 p-4" href={`/products/${wine.id}`}>TASTE IT</a>
+                        <button className="text-black border border-gray-600 w-28 h-12 p-4" onClick={() => dispatch(addNewProduct(wine))}>TASTE IT</button>
                     </div>
                     <div className="w-full h-full flex justify-center">
                         <div className={`flex  w-96 h-96 justify-center items-center ${styles.bgProduct}`}>

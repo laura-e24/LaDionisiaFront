@@ -8,10 +8,15 @@ import { useAppDispatch } from "../../app/store"
 import { setFilters, selectAllRegions, getAllWinesByName } from "../../features/products/productsSlice"
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import Header from "../shopCartComponents/Header";
+import { selectCart } from "../../features/products/cartSlice";
+
+
 const NavBar = () => {
   const [mounted, setMounted] = useState(false);
   const [search, setSearch] = useState('')
   const router = useRouter();
+  const cart = useSelector(selectCart)
   const { user } = useUser()
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -100,7 +105,14 @@ const NavBar = () => {
           </form>
         </details>
         <div className="w-7 h-7 mt-1 ml-2 relative float-right">
-          <Image layout="fill" src="/assets/cart.svg" />
+          <details>
+            <summary>
+              <Image layout="fill" src="/assets/cart.svg" />
+            </summary>
+            <div className="submenucart z-50">
+              {cart && cart.length ? <Header wines={cart}/> : <h1>your cart is empty</h1>}
+            </div>
+          </details>
         </div>
         <details className="ml-2 float-right">
           <summary>
