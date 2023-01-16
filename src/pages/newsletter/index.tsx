@@ -31,7 +31,7 @@ const Newsletter = () => {
       <label htmlFor="email">
          Send us your email, we'll make sure you never miss a thing!
        </label>
-       <input type="email" required="required" placeholder="enter your email here" />
+       <input type="email" required placeholder="enter your email here" />
        <input type="submit" value="subscribe now" />
     </form>
 
