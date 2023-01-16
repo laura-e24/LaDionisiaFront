@@ -63,8 +63,17 @@ export default function Products() {
     router.push("/dashboard/products")
   }
 
+  
   return (
-    <>
+    <div className="
+    main-body  
+    pt-12 
+    mb-12 
+    m-auto
+    min-h-screen
+    max-w-screen-xl
+    bg-bg-body 
+    ">
       <NavBar />
       <div className="w-full flex">
         <Sidebar />
@@ -80,6 +89,6 @@ export default function Products() {
           <Footer />
         </div>
       </div>
-    </>
+    </div>
   )
 }

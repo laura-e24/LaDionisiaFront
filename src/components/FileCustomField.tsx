@@ -1,5 +1,6 @@
 import { Field, useField } from "formik";
 import _ from "lodash";
+import { useState } from "react";
 
 const FileCustomField = ({
   label = "",
@@ -7,7 +8,6 @@ const FileCustomField = ({
   placeholder = "Escriba...",
   type = "text",
   required = true,
-  value = "",
   onChange = (e) => {},
   ...FormikBag
 }) => {
@@ -24,12 +24,13 @@ const FileCustomField = ({
   // else
   //   className +=
   //     " bg-transparent focus:border-gray-500 ";
+  // const [file, setFile] = useState({ name: '' })
+  // const handleChangeImage = (e) => setFile(e.target.files[0])
+
 
   return (
     <Field
       name={name}
-      type='file'
-      value={FormikBag.value}
     >
       {({ field, form: { setFieldValue } }) => (
         <div>
@@ -46,10 +47,9 @@ const FileCustomField = ({
             className={className}
             type='file'
             name={name}
-            placeholder={placeholder}
             onChange={(e: React.ChangeEvent<any>) => {
-              setFieldValue(field.name, e.target.value);
-              onChange(e.target.value);
+              setFieldValue(field.name, e.currentTarget.files[0]);
+              // onChange(e.target.files[0]);
             }}
           />
         </div>

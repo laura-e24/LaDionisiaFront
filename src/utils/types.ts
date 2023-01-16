@@ -33,3 +33,8 @@ export interface IProduct {
   totalSalesCurrent?: number;
   stock?: number;
 }
+export interface IProductCart {
+  id: number;
+  product: IProduct;
+  quantity: number;
+}

@@ -22,7 +22,10 @@ const GenericModal = ({ display, setDisplay, title = '', message, onClickAccept 
               <GenericButton 
                 label="Yes, disable"
                 size="sm"
-                onClick={() => setDisplay(false)}
+                onClick={() => {
+                  onClickAccept()
+                  setDisplay(false)
+                }}
                 buttonType={EGenericButtonType.CLOSE}
               />
             </div>

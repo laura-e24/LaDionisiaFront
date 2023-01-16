@@ -12,7 +12,15 @@ export default function Dashboard() {
     return null;
   }
   return (
-    <>
+    <div className="
+    main-body  
+    pt-12 
+    mb-12 
+    m-auto
+    min-h-screen
+    max-w-screen-xl
+    bg-bg-body 
+    ">
       <NavBar></NavBar>
       <div className="h-screen w-full flex">
         <Sidebar></Sidebar>
@@ -21,6 +29,6 @@ export default function Dashboard() {
           <Footer></Footer>
         </div>
       </div>
-    </>
+    </div>
   )
 }
