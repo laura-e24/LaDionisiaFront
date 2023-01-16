@@ -99,7 +99,7 @@ const Home = () => {
           </a>
         </div>
         <a className="mt-12" href="/products/2889"><img className="main-home1" src="assets/main.png"/></a>
-        <img className="mt-4  main-home2 pb-8" src="assets/main2.png" />
+        <a className="mt-4 pb-8" href="/newsletter"><img className=" main-home2" src="assets/main2.png" /></a>
       </div>
       <Footer></Footer>
     </>
