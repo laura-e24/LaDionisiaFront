@@ -2,7 +2,6 @@ import { useAppDispatch } from '../../app/store';
 import { createWine } from '../../features/products/productsSlice';
 import { Formik, Form } from "formik"
 import CustomField from '../CustomField';
-import FileCustomField from '../FileCustomField';
 import CustomCheckbox from '../CustomCheckbox';
 import GenericButton from '../GenericButton';
 import { EGenericButtonType } from '../../utils/general';
@@ -130,14 +129,14 @@ const CreateProduct = ({ handleCloseModal }) => {
                   name='stock'
                 />
                 <div className='col-span-2'>
+                  <label className="block text-sm font-bold mb-2">
+                    Image
+                  </label>
                   <input
                     ref={ref}
                     onChange={handleChangeImage}
                     type="file"
                   />
-                  {/* <button type="button" onClick={() => ref.current?.click()}>
-                    SUbir
-                  </button> */}
                 </div>
                 <div className='col-span-2 flex mt-auto mb-1 justify-between'>
                   <CustomCheckbox

@@ -40,7 +40,9 @@ export default function Card({ wine, handleEditProduct }) {
         // updateProduct(wine.id, { disabled: true });
     }
     if (user) {
+
         const usuario = isUser(user) ? user[`/roles`] : [];
+
         return (
             <>
                 <div className="flex flex-col items-center w-4/12 text-center relative" key={wine.id}>
@@ -79,7 +81,7 @@ export default function Card({ wine, handleEditProduct }) {
                     )}
                     <Link href={`/dashboard/products/${wine.id}`}>
                         <div className="flex flex-col items-center text-center ">
-                            <img src={wine.image} alt={wine} className="object-scale-down" />
+                            <img src={wine.image} alt={wine} className="object-scale-down" style={{ maxHeight: 300 }} />
                             <h1 className="h-12">{wine.wine}</h1>
                             <h2>$ 100</h2>
                             <button className="bg-btn-color text-white py-4 px-8 hover:bg-red-600">Add to Cart</button>
