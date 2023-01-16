@@ -28,7 +28,15 @@ export default function Product() {
 
 
   return (
-    <div className="bg-bg-body min-h-screen">
+    <div className="
+    main-body  
+    pt-12 
+    mb-12 
+    m-auto
+    min-h-screen
+    max-w-screen-xl
+    bg-bg-body 
+    ">
       <Navbar></Navbar>
       <div className="w-full grid grid-cols-2 p-8">
         <div className="flex flex-col pl-16">

@@ -138,7 +138,7 @@ const NavBar = () => {
             <summary>
               Winery
             </summary>
-            <div className="submenu">
+            <div className="submenu z-50">
               <h3>Country</h3>
               <div className="columns-3 text-left mt-2 mb-4 pl-3">
                 <a href="/products/filters/Argentina">Argentina</a>
@@ -173,7 +173,8 @@ const NavBar = () => {
                     </li>
                   ))} */}
               </div>
-              <h3>Vintage</h3>
+              <b>«<a href="/products">Show All</a>»</b>
+              {/* <h3>Vintage</h3>
               <div className="columns-3 text-left mt-2 mb-2">
                 <input type="radio" name="score" value="all-score" onChange={handleFilters} />ALL
                 {vintage.map((v, index) => (
@@ -182,7 +183,7 @@ const NavBar = () => {
                     {v}
                   </>
                 ))}
-                {/* <a href="#">2020-2023</a>
+                 <a href="#">2020-2023</a>
                   <br /><a href="#">2010-2019</a>
                   <br /><a href="#">2000-2009</a>
                   <br /><a href="#">1990-1999</a>
@@ -190,7 +191,7 @@ const NavBar = () => {
                   <br /><a href="#">1970-1979</a>
                   <br /><a href="#">1960-1969</a>
                   <br /><a href="#">1950-1959</a>
-                  <br /><a href="#">1940-older</a> */}
+                  <br /><a href="#">1940-older</a> 
               </div>
               <h3>Price</h3>
               <div className="columns-4 text-left mt-2 mb-2">
@@ -221,14 +222,14 @@ const NavBar = () => {
                     {s}
                   </>
                 ))}
-                {/* <a href="#">10</a>
+                <a href="#">10</a>
                   <a href="#">09</a>
                   <a href="#">08</a>
                   <a href="#">07</a>
                   <a href="#">06</a>
                   <a href="#">ALL</a>
-                <b>«<a href="#">Show All</a>»</b> */}
-              </div>
+                <b>«<a href="#">Show All</a>»</b>
+              </div> */}
             </div>
           </details>
         </a>
