@@ -109,8 +109,8 @@ const NavBar = () => {
             <summary>
               <Image layout="fill" src="/assets/cart.svg" />
             </summary>
-            <div className="submenucart z-50">
-              {cart && cart.length ? <Header wines={cart}/> : <h1>your cart is empty</h1>}
+            <div className="">
+              {<Header wines={cart}/>}
             </div>
           </details>
         </div>

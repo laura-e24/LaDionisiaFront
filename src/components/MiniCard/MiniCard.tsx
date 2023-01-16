@@ -31,35 +31,36 @@ export default function MiniCard({ wine }) {
     if (isLoading) {
         return null;
     }
+
     return (
         <>
-            <div className="w-4/5" key={wine.id}>
-                <div className="grid grid-cols-2">
-                <div className="w-full h-full flex justify-center">
-                        <div className={`flex  w-96 h-96 justify-center items-center`}>
-                            <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
-                            {/* <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" /> */}
-                            <p className="text-5xl font-montserrat text-font-color" ><b>{wine.wine}</b></p>
+            <div className=" flex p-8" >
+               
+              
+                        <div className="flex">
+                            <img src={wine.image} alt={wine.wine} height={20} width={40} />
+                            <span className="inline-flex ml-8">
+                            <p className="my-auto whitespace-nowrap text-xl font-bold"><b>{wine.wine}</b></p>
+                            <span className="inline-flex ml-10 my-auto space-x-6 text-lg">
+                              <p className="">{wine.quantity}</p>
+                              <button className="text-xl p-2 my-auto " onClick={counterLess}>
+                                -
+                              </button>
+                              <p>{wineCounter}</p> 
+                              <button className="text-xl p-2 my-auto " onClick={counterPlus}>
+                                  +
+                              </button>
+                            </span>
+                            <p className="my-auto">${SubtotalPrice}</p>
+                            <button className="p-3">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                              </svg>
+                            </button> 
+                          </span>
                         </div>
-                    </div>
-                    <button onClick={counterLess}>
-                        -
-                    </button>
-                    <div>
-                        {wineCounter}
-                    </div>
-                    <button onClick={counterPlus}>
-                        +
-                    </button>
-                    <div className="grid grid-rows-4 p-6 items-center">
-                        <p>${SubtotalPrice}</p>
-                    </div>
-                    <button>
-                        Basurero
-                    </button>
-                    
                 </div>
-            </div>
+           
         </>
     )
 }
