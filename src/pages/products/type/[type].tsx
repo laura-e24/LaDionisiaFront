@@ -28,7 +28,7 @@ export default function Reds({ }) {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
-  }, [type, wines ,filters])
+  }, [type, wines, filters])
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -41,7 +41,15 @@ export default function Reds({ }) {
   };
 
   return (
-    <>
+    <div className="
+    main-body  
+    pt-12 
+    mb-12 
+    m-auto
+    min-h-screen
+    max-w-screen-xl
+    bg-bg-body 
+    ">
       <NavBar></NavBar>
       <div className="flex flex-col p-4 bg-bg-body">
         <div className="w-full flex justify-around items-center">
@@ -80,6 +88,6 @@ export default function Reds({ }) {
         setCurrentPage={setCurrentPage}
       />
       <Footer />
-    </>
+    </div>
   )
 }

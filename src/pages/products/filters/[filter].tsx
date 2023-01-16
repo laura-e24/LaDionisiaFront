@@ -43,7 +43,15 @@ export default function index({ }) {
   }, [filter, winesCountry, filters])
 
   return (
-    <>
+    <div className="
+    main-body  
+    pt-12 
+    mb-12 
+    m-auto
+    min-h-screen
+    max-w-screen-xl
+    bg-bg-body 
+    ">
       <NavBar></NavBar>
       <div className="flex flex-col p-4 bg-bg-body">
         <div className="w-full flex justify-around items-center">
@@ -87,7 +95,7 @@ export default function index({ }) {
         setCurrentPage={setCurrentPage}
       />
       <Footer />
-    </>
+    </div>
   )
 }
 

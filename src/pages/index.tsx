@@ -14,10 +14,10 @@ export default function index() {
   const handleCookieLogin = async () => {
     const res = await axios.post(`/api/login`, user);
     console.log(res);
-    if (user) {
-      const response = await axios.post(`${process.env.RESTURL_PRODUCTS}/users/register`, user);
-      console.log(response.data);
-    }
+    // if (user) {
+    //   const response = await axios.post(`${process.env.RESTURL_PRODUCTS}/users/register`, user);
+    //   console.log(response.data);
+    // }
     if (res.status === 200 && res.data.message === "Successful login: admin" || res.data.message === "Successful login: user") {
       router.push("/");
     }
@@ -26,8 +26,8 @@ export default function index() {
   if (error) return <div>{error.message}</div>
   if (user) {
     const usuario = isUser(user) ? user[`/roles`] : [];
-    // return handleCookieLogin() && (
-    return (
+    return handleCookieLogin() && (
+    // return (
       <>
         {usuario.includes('administrador') ? (
           <>
