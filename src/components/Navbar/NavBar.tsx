@@ -128,9 +128,11 @@ const NavBar = () => {
             {!user && <a href="/api/auth/login">Login</a>}
           </div>
         </details>
+{/* 
         <div className="w-7 h-7 mt-1 relative float-right">
           <Image layout="fill" src="/assets/heart.svg" />
         </div>
+*/}
       </nav>
       <nav className="
   nav 
