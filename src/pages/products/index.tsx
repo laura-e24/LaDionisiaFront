@@ -1,9 +1,11 @@
+
 import { useState } from "react";
 import NavBar from "../../components/Navbar/NavBar";
 import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
+
 import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
@@ -13,6 +15,7 @@ import Image from "next/image";
 
 export default function index() {
   const filters = useSelector(selectAllFilters)
+
   const router = useRouter()
   const dispatch = useAppDispatch()
   const wines = useSelector(selectAllWines)
@@ -28,7 +31,6 @@ export default function index() {
   const onPageChange = (event) => {
     setCurrentPage(Number(event.target.id));
   };
-
   useEffect(() => {
     const fetchData = async () => {
       if (router.isReady) {

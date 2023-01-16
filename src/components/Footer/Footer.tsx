@@ -13,7 +13,6 @@ export default function Footer() {
     return (
 <>
 
-
 <footer className="bg-footer h-min w-full p-14 flex footer 
 max-w-screen-xl
 m-auto

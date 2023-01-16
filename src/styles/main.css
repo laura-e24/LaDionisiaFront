@@ -8,6 +8,7 @@
   box-sizing: border-box;
 }
 html, body {
+
              margin: 0;
             padding: 0;
  -ms-overflow-style: none;
@@ -43,6 +44,7 @@ details > summary:first-of-type {
 
 .wine-search input {border:2px solid #a3a3a3; border-radius: 7px; padding:0 4px; outline: none; width:250px}
 .wine-search button {margin-left:2px;border:2px solid #a3a3a3; border-radius: 7px; padding:0 3px;color:#87837d}
+
 
 
 .nav a {font-family:Verdana, Geneva, Tahoma, sans-serif}
@@ -85,6 +87,7 @@ details > summary:first-of-type {
   left:-20px;
   opacity:1;
 }
+
 
 .footlink:hover .spanRight{
   position: absolute;

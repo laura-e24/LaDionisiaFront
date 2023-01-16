@@ -46,6 +46,7 @@ const NavBar = () => {
     const { value, name } = e.target;
     dispatch(setFilters({ [name]: value }));
   }
+
   const scores = [
     "100",
     "99-97",
@@ -130,6 +131,7 @@ const NavBar = () => {
   mb-14">
         <Link href='/#passion-for-wine'>
           <a className="menu w-24  h-6 inline-block text-center align-sub">
+
             Home
           </a>
         </Link>
@@ -237,6 +239,7 @@ const NavBar = () => {
           Contact
         </a>
       </nav>
+
 
     </>
 
