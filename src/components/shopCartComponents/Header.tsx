@@ -7,6 +7,7 @@ import { selectCart, removeProduct, removeAllProducts, selectDisplay } from "../
 const Header = ({ total, setTotal, countProducts, setCountProducts}) => {
 
 	const [active, setActive] = useState(false)
+	const [TotalPrice, setTotalPrice] = useState(0)
 	const dispatch = useAppDispatch()
 	const display = useSelector(selectDisplay)
 	const cart = useSelector(selectCart)
@@ -92,7 +93,7 @@ console.log(cart)
 
 						<div className='cart-total'>
 							<h3>Total:</h3>
-							<span className='total-pagar'>${total}</span>
+							<span className='total-pagar'>${TotalPrice}</span>
 						</div>
 
 						<button className='btn-clear-all' onClick={() => dispatch(removeAllProducts())}>
