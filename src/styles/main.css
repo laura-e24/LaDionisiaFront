@@ -2,34 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 * {
   box-sizing: border-box;
 }
-
 html, body {
-  margin: 0;
-  background-color:#ebe9e9;
-  scroll-behavior: smooth;
-	scrollbar-width: thin;
-	scrollbar-color: light;
-  user-select: none;
-  -moz-user-select: none;
+
+             margin: 0;
+            padding: 0;
+ -ms-overflow-style: none;
+    scrollbar-width: none; 
+   background-color:#ebe9e9;
+        user-select: none;
+   -moz-user-select: none;
 -webkit-user-select: none;
-   -ms-user-select: none;
+    -ms-user-select: none;
+    scroll-behavior: smooth;
+} body {
+} body::-webkit-scrollbar{
+    display: none;
 }
 
-body::-webkit-scrollbar{
-    display: none;
-  }
+#contact,.main-body{scroll-behavior: auto!important}
+
+.bg-footer {
+  background-color: #e5dfd8;
+  background-image: url('/assets/footer2.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  opacity: .8;
+}
+
+details summary::-webkit-details-marker {
+  display:none;
+}
+details > summary:first-of-type {
+  list-style-type: none;
+}
+
+.wine-search input {border:2px solid #a3a3a3; border-radius: 7px; padding:0 4px; outline: none; width:250px}
+.wine-search button {margin-left:2px;border:2px solid #a3a3a3; border-radius: 7px; padding:0 3px;color:#87837d}
+
 
 
 .nav a {font-family:Verdana, Geneva, Tahoma, sans-serif}
-.nav a:hover {
-background:#a3a3a3
-}
+
 .footer{font-family:Verdana, Geneva, Tahoma, sans-serif}
 
 .footlink:hover{
@@ -69,9 +88,114 @@ background:#a3a3a3
   opacity:1;
 }
 
+
 .footlink:hover .spanRight{
   position: absolute;
   right:-20px;
   opacity:1;
 }
 
+.main-home1:hover{
+  background-color: #e4ded6;
+}
+
+.main-home2:hover{
+  background-color: #ada89c;
+}
+
+.main-home1:hover,
+.main-home2:hover,
+.video-logo{cursor:pointer}
+
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+.wine-types{letter-spacing: 1px;font-size: 1.125rem}
+     .rose:hover {color:#b96969; text-transform: uppercase; letter-spacing: 0px;}
+    .white:hover {color:#a2ae8e; text-transform: uppercase; letter-spacing: 0px;}
+      .red:hover {color:#6f0407; text-transform: uppercase; letter-spacing: 0px;}
+.sparkling:hover {color:#d2ae25; text-transform: uppercase; letter-spacing: 0px;}
+  .dessert:hover {color:#b90114; text-transform: uppercase; letter-spacing: 0px;}
+  
+     .rose:hover img,
+    .white:hover img,
+      .red:hover img,
+.sparkling:hover img
+{
+  transform:rotate(-64deg)
+}
+
+.menu {
+  --c: #a3a3a3; 
+  color: #222;
+  background: 
+    linear-gradient(90deg,#fff 50%,var(--c) 0) calc(100% - var(--_p,0%))/200% 100%,
+    linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) 100% no-repeat;
+  -webkit-background-clip: text,padding-box;
+          background-clip: text,padding-box;
+  transition: 0.5s;
+}
+
+.menu:hover {
+  --_p: 100%
+}
+
+
+
+.usermenu
+{
+  margin-top:6px;
+  position:absolute;
+  border:2px solid #a3a3a3;
+  background-color:#ebe9e9;
+  width:78px;
+  height:104px;
+  border-radius: 7px;
+}
+
+.usermenu a{
+width:74px;
+padding-left:5px;
+display:inline-block;
+padding-bottom:2px;
+height:25px;
+}
+
+.usermenu a:hover{
+  background-color:#a3a3a3 ;
+}
+.usermenu a:first-of-type:hover
+{
+  padding-top:0px;
+}
+.usermenu a:last-of-type:hover
+{
+padding-bottom:0px;
+}
+
+.submenu {
+  position:absolute;
+  border:2px solid #a3a3a3;
+  margin-left: -2px;
+  margin-top: 7px;
+  width:480px;
+  /* height:644px; */
+  background-color:#ebe9e9;
+ padding:14px 8px;
+ border-radius: 7px;;
+}
+.submenu h3 {font-weight: 700;margin-top: 9px;color:#87837d}
+
+.submenu a {padding:4px}
+
+.submenu a:hover{
+  background-color:#a3a3a3 ;
+}
+
+.wine-types-submenu a { min-width:70px;display: inline-block;}
