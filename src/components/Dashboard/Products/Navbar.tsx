@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 export default function Navbar({ handleNewProduct, ViewProducts, ViewProductsDisabled }) {
     const { theme } = useTheme();
     return (
-        <nav className="w-full flex justify-between items-center p-2 bg-stone-900/50 my-2">
+        <nav className="w-full flex justify-between items-center p-2 bg-pagination-color my-2">
             <ul className="w-full flex inline-flex">
                 <li className="px-2">
                     <button className="flex items-center" onClick={() => ViewProducts()}> {

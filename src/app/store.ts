@@ -4,7 +4,7 @@ import { rootReducer } from './rootReducer'
 
 export const store = configureStore({
   reducer: rootReducer,
-  devTools: true
+  devTools: false
 })
 
 // Infer the RootState and AppDispatch types from the store itself

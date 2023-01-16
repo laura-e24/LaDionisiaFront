@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '../../app/store';
 import { updateWine } from '../../features/products/productsSlice';
 import { Formik, Form } from "formik"
@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
   rating: Yup.number().required('Rating is required'),
   country: Yup.string().required('Country is required.'),
   region: Yup.string().required('Region is required.'),
-  image: Yup.string().required('Image is required.'),
+  image: Yup.string(),
   description: Yup.string(),
   type: Yup.string().required('Type is required.'),
   year: Yup.number().required('Year is required'),
@@ -29,7 +29,8 @@ const validationSchema = Yup.object().shape({
 const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
 
   const dispatch = useAppDispatch()
-
+  const ref = useRef(null)
+  const [file, setFile] = useState( '' )
   const [initialValues, setInitialValues] = useState({
     wine: "",
     winery: "",
@@ -57,6 +58,7 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
       price: 0
     })
   }, [selectedProduct.id])
+    const handleChangeImage = (e) => setFile(ref.current?.files[0])
 
     return (
         <>
@@ -76,14 +78,20 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
                           initialValues={initialValues}
                           validationSchema={validationSchema}
                           onSubmit={async (values, actions) => {
-                            const result = await dispatch(updateWine(values))
+                            const formData= new FormData()
+                            formData.append('image', file)
+
+                            const result = await dispatch(updateWine({
+                              ...values,
+                              image: file
+                            }))
                             if (updateWine.fulfilled.match(result)) alert('Product Updated')
                             
                             console.log(result)
                             actions.resetForm()
                           }}
                         >
-                          {({}) => (
+                          {({ values }) => (
                             <Form className="grid grid-cols-4 gap-4 bg-white shadow-md rounded px-6 pt-6 pb-8 dark:bg-black">
                               <CustomField
                                 label='Name'
@@ -130,12 +138,16 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
                                 label='Stock'
                                 name='stock'
                               />
-                               {/* <div className='col-span-2'>
-                                <FileCustomField
-                                  label='Image'
-                                  name='image'
+                              <div className='col-span-2'>
+                                <label className="block text-sm font-bold mb-2">
+                                  Image
+                                </label>
+                                <input
+                                  ref={ref}
+                                  onChange={handleChangeImage}
+                                  type="file"
                                 />
-                              </div> */}
+                              </div>
                               <div className='col-span-2 flex mt-auto mb-1 justify-between'>
                                 <CustomCheckbox
                                   label='Disabled'
