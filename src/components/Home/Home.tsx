@@ -67,46 +67,36 @@ const Home = () => {
     mt-8
     wine-types
   ">
-    <Link href='/products/type/rose'>
-      <a className="rose text-center font-montserrat text-gray-600">
+      <a href='/products/type/rose' className="rose text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/rose.png" layout='fill'/>
         </div>
         Rose
       </a>
-    </Link>
-    <Link href='/products/type/whites'>
-      <a className="white text-center font-montserrat text-gray-600">
+      <a href='/products/type/whites' className="white text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/white.png" layout='fill'/>
         </div>
         White
       </a>
-    </Link>
-    <Link href='/products/type/reds'>
-      <a className="red text-center font-montserrat text-gray-600">
+      <a href='/products/type/reds' className="red text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/red.png" layout='fill'/>
         </div>
         Red
       </a>
-    </Link>
-    <Link href='/products/type/sparkling'>
-      <a className="sparkling text-center font-montserrat text-gray-600">
+      <a href='/products/type/sparkling' className="sparkling text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/sparkling.png" layout='fill'/>
         </div>
         Sparkling
       </a>
-    </Link>
-    <Link href='/products/type/dessert'>
-      <a className="dessert text-center font-montserrat text-gray-600">
+      <a  href='/products/type/dessert' className="dessert text-center font-montserrat text-gray-600">
         <div className='w-32 h-32 relative mb-2'>
           <Image src="/assets/dessert.png" layout='fill'/>
         </div>
         Dessert
       </a>
-    </Link>
   </div>
   <img className="mt-12 main-home1" src="assets/main.png"/>
   <img className="mt-4  main-home2 pb-8" src="assets/main2.png"/>

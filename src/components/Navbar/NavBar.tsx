@@ -1,7 +1,58 @@
-import Link from "next/link";
+import Link from 'next/link'
 import Image from 'next/image'
 
+import { useEffect, useState } from "react";
+import { filterByScore, filterByRegion, filterByVintage, selectCountryFilter, setFilters, selectAllFilters, selectAllRegions, getAllWinesByName } from "../../features/products/productsSlice";
+import { useAppDispatch } from "../../app/store"
+
+//import axios from 'axios';
+//import { Fragment } from 'react'
+import { useSelector } from "react-redux";
+
+import { useRouter } from 'next/router'
+
+
 const NavBar = () => {
+
+const [search, setSearch] = useState('')
+const dispatch = useAppDispatch()
+const router = useRouter();
+//const { filter } = router.query;
+//const regions = useSelector(selectAllRegions)
+//const { user } = useUser();
+
+const filters = useSelector(selectAllFilters)
+const [mounted, setMounted] = useState(false);
+
+useEffect(() => {
+  setMounted(true)
+}, [])
+if (!mounted) return null
+
+function handleFilters(e) {
+  const { value, name } = e.target;
+  dispatch(setFilters({ [name]: value }));
+}
+
+function handleInputName(e) {
+  setSearch(e.target.value)
+}
+
+function getWinesByName(e) {
+  e.preventDefault(e)
+  router.push ({
+      pathname: `/products`
+    },
+    undefined,
+    {shallow: true}
+);
+
+
+
+  dispatch(getAllWinesByName(search))
+  setSearch('')
+}
+
 return (
 <>
 <div className="w-28 h-28 absolute left-1/2 -translate-x-1/2">
@@ -20,8 +71,8 @@ return (
         <Image layout="fill" src="/assets/search.svg"/>
       </div>
     </summary>
-    <form className="wine-search  float-right -mt-7 pl-8">
-     <input className="" type="search" name="q" placeholder="Search Wines"/>
+    <form className="wine-search  float-right -mt-7 pl-8" onSubmit={(e) => { getWinesByName(e) }}>
+     <input type="search"  onChange={(e) => { handleInputName(e) }} value={search} placeholder="Search Wines"/>
      <button>GO</button>
     </form>
   </details>
@@ -117,11 +168,11 @@ return (
         </div>
         <h3>Type</h3>
         <div className="wine-types-submenu text-center mt-2 mb-2">
-          <a href="#">Red</a>
-          <a href="#">White</a>
-          <a href="#">Rose</a>
-          <a href="#">Sparkling</a> 
-          <a href="#">Dessert</a>
+          <a href="/products/type/reds">Red</a>
+          <a href="/products/type/whites">White</a>
+          <a href="/products/type/rose">Rose</a>
+          <a href="/products/type/sparkling">Sparkling</a>
+          <a href="/products/type/dessert">Dessert</a>
           <a href="#">ALL</a>
         </div>
         <h3>Score</h3>

@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 function isUser(obj: any): obj is { '/roles': string[] } {
   return '/roles' in obj;
 }
-
 export default function index() {
   const { user, error, isLoading } = useUser();
   const router = useRouter();
@@ -32,7 +31,7 @@ export default function index() {
         {usuario.includes('administrador') ? (
           <>
             <Head>
-              <title>La Dionisia - Tienda de vinos</title>
+              <title>La Dionisia - Wine Store</title>
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
@@ -43,7 +42,7 @@ export default function index() {
         ) : (
           <>
             <Head>
-              <title>La Dionisia - Tienda de vinos</title>
+              <title>La Dionisia - Wine Store</title>
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className='h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
@@ -58,20 +57,16 @@ export default function index() {
     return (
       <div>
         <Head>
-          <title>La Dionisia - Tienda de vinos</title>
+          <title>La Dionisia - Wine Store</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className='main h-screen bg-white dark:bg-[#121212] text-black dark:text-white '>
           <Home />
           {/* guest */}
         </main>
-
-
         <footer>
-
         </footer>
       </div>
     )
   }
-
 }
