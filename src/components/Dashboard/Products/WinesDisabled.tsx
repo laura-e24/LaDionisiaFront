@@ -39,7 +39,7 @@ export default function WinesDisabled({ winesDisabled }) {
             <div className="w-full h-full flex flex-wrap self-center justify-center divide-x-2 gap-y-8">
                 {
                     currentItems.map((wine) => (
-                        <Card wine={wine} handleEditProduct={handleEditProduct}></Card>
+                        <Card key={wine.id} wine={wine} handleEditProduct={handleEditProduct}></Card>
                     ))
                 }
                 {selectedProduct && (
