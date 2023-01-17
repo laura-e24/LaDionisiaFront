@@ -47,12 +47,14 @@ const Header = ({ wines }) => {
 //       </div>
 //     </>;
 //   }
-const send = async () => {                                                      //aca debe ir el email de usuario loggeado
+const send = async () => {                                                      
   const response = await axios.post(`http://localhost:3001/sendEmail`, 
+            //aca debe ir el email de usuario loggeado
   {userEmail: 'grosservonsirius@gmail.com',
   products: wines})
   .then(()=>console.log(wines))
 }
+
   return (
     <div className="absolute z-50 rounded-2xl shadow-md bg-white py-4" style={{minWidth: 500, top: 60, right: -300, zIndex: 999}}>
       {wines.length ? (
