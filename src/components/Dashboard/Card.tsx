@@ -93,6 +93,7 @@ export default function Card({ wine, handleEditProduct }) {
                   setDisplay={setDisplayModalConfirmDelete}
                   title='Disable product'
                   onClickAccept={disableProduct}
+                  acceptBtnLabel="Yes, disable"
                   message={`You're about to disable the product "${wine.wine}", are you sure you want to continue? 
                     You can later enable it again in the "Disabled products" section above.
                   `}

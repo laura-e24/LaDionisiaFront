@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { EStateGeneric } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
-import styles from "../../assets/style/styles.module.css"
 
 export default function Product() {
   const router = useRouter()
@@ -47,7 +46,7 @@ export default function Product() {
           <button className="p-2 border border-gray-600 w-2/12 self-center justify-self-end text-gray-600 mt-8">TASTE IT</button>
         </div>
         <div className="w-full h-full flex justify-center">
-          <div className={`flex w-96 h-96 justify-center items-center ${styles.bgProduct}`}>
+          <div className={`flex w-96 h-96 justify-center items-center bgProduct`}>
             <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
             {/* <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" /> */}
           </div>
