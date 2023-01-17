@@ -352,6 +352,7 @@ const productsSlice = createSlice({
       } else {
         state.filters.push(action.payload);
       }
+      console.log(state.filters)
     },
     cleanUpState: (state) => {
       state.currentWines = [];

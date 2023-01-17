@@ -21,7 +21,7 @@ html, body {
     scroll-behavior: smooth;
 } body {
 } body::-webkit-scrollbar{
-    display: none;
+    /* display: none; */
 }
 
 #contact,.main-body{scroll-behavior: auto!important}
