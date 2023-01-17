@@ -5,7 +5,7 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../../app/store"
-import { setFilters, selectAllRegions, getAllWinesByName } from "../../features/products/productsSlice"
+import { setFilters, selectAllRegions, getAllWinesByName, orderByName } from "../../features/products/productsSlice"
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import Header from "../shopCartComponents/Header";
@@ -45,6 +45,11 @@ const NavBar = () => {
   }
   function handleInputName(e) {
     setSearch(e.target.value)
+  }
+  function handleSort(e) {
+    dispatch(orderByName(e.target.value))
+    // <button value="atoz" onClick={e => handleSort(e)}>A - Z </button>
+    // <button value="ztoa" onClick={e => handleSort(e)}>Z - A</button>
   }
   if (!mounted) return null
   function handleFilters(e) {
@@ -110,7 +115,7 @@ const NavBar = () => {
               <Image layout="fill" src="/assets/cart.svg" />
             </summary>
             <div className="">
-              {<Header wines={cart}/>}
+              {<Header wines={cart} />}
             </div>
           </details>
         </div>
@@ -128,7 +133,7 @@ const NavBar = () => {
             {!user && <a href="/api/auth/login">Login</a>}
           </div>
         </details>
-{/* 
+        {/* 
         <div className="w-7 h-7 mt-1 relative float-right">
           <Image layout="fill" src="/assets/heart.svg" />
         </div>
