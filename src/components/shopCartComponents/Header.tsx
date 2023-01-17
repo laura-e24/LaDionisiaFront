@@ -47,11 +47,14 @@ const Header = ({ wines }) => {
 //       </div>
 //     </>;
 //   }
-const send = async () => {
-  const response = await axios.post(`http://localhost:3001/sendEmail`, 'sixtoorden@gmail.com')
-  console.log(response)
-  alert('enviado')
+const send = async () => {                                                      
+  const response = await axios.post(`http://localhost:3001/sendEmail`, 
+            //aca debe ir el email de usuario loggeado
+  {userEmail: 'grosservonsirius@gmail.com',
+  products: wines})
+  .then(()=>console.log(wines))
 }
+
   return (
     <div className="absolute z-50 rounded-2xl shadow-md bg-white py-4" style={{minWidth: 500, top: 60, right: -300, zIndex: 999}}>
       {wines.length ? (
@@ -64,7 +67,7 @@ const send = async () => {
           <div className="flex w-full justify-around border-t border-gray-300 border-opacity-75  pt-3">
           <button
             className="btn-clear-all"
-            onClick={async () => await send()}
+            onClick={() => send()}
           >
             Pagar
           </button>
