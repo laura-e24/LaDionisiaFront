@@ -12,6 +12,7 @@ import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
 import Image from "next/image";
+import Filters from "../../components/Filters/Filters";
 
 export default function index() {
   const filters = useSelector(selectAllFilters)
@@ -26,8 +27,8 @@ export default function index() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   // console.log(wines[0].error)
-  const currentItems = wines.slice(indexOfFirstItem, indexOfLastItem)
   const [filteredWines, setFilteredWines] = useState(wines);
+  const currentItems = filteredWines.slice(indexOfFirstItem, indexOfLastItem)
   const onPageChange = (event) => {
     setCurrentPage(Number(event.target.id));
   };
@@ -94,7 +95,8 @@ export default function index() {
           </a>
         </div>
         {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
-        {wines && !wines[0]?.error && filteredWines.length &&
+        <Filters/>
+        {wines && !wines[0]?.error && filteredWines.length > 0 &&
           <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
             {
               currentItems.map((wine) => (

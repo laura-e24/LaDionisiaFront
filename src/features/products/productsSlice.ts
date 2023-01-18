@@ -104,7 +104,7 @@ export const getAllWinesByName = createAsyncThunk(
       return response.data
     } catch (error) {
       console.log(error.response.data)
-      return [{error: error.response.data}]
+      return [{ error: error.response.data }]
       // return rejectWithValue(error.response.data)
     }
   }
@@ -320,6 +320,26 @@ const productsSlice = createSlice({
         }
       })
     },
+    orderByName: (state, action) => {
+      const array = state.wineTypes.length > 0 ? [...state.wineTypes] :
+        (state.winesFilters.length > 0 ? [...state.winesFilters] :
+          (state.winesCountry.length > 0 ? [...state.winesCountry] :
+            [...state.wines]));
+      const winesOrderByName = action.payload === 'atoz' ? array.sort((a, b) => {
+        if (a.wine.toLowerCase() > b.wine.toLowerCase()) return 1
+        else return -1
+      }) : array.sort((a, b) => {
+        if (a.wine.toLowerCase() < b.wine.toLowerCase()) return 1
+        else return -1
+      })
+      return {
+        ...state,
+        wines: winesOrderByName,
+        winesCountry: winesOrderByName,
+        winesFilters: winesOrderByName,
+        wineTypes: winesOrderByName
+      }
+    },
     setCurrentWines: (state, action) => {
       state.currentWines = action.payload;
       console.log('reducer')
@@ -332,6 +352,7 @@ const productsSlice = createSlice({
       } else {
         state.filters.push(action.payload);
       }
+      console.log(state.filters)
     },
     cleanUpState: (state) => {
       state.currentWines = [];
@@ -458,7 +479,7 @@ const productsSlice = createSlice({
     })
 
 
-    
+
     builder.addCase(getAllWinesByRegion.fulfilled, (state, action) => {
       state.winesCountry = action.payload;
       state.allWinesCountryStatus = EStateGeneric.SUCCEEDED;
@@ -490,6 +511,7 @@ export const {
   filterByScore,
   filterByRegion,
   filterByVintage,
+  orderByName,
   setCurrentWines,
   setFilters,
   cleanUpState,

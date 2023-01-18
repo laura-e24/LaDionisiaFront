@@ -10,6 +10,7 @@ import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Image from "next/image";
+import Filters from "../../../components/Filters/Filters";
 
 export default function Reds({ }) {
   const router = useRouter()
@@ -93,7 +94,8 @@ export default function Reds({ }) {
           </a>
         </div>
         {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
-        {filteredWines.length &&
+        <Filters/>
+        {filteredWines.length > 0 &&
           <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
             {
               currentItems.map((wine) => (

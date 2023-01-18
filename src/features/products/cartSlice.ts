@@ -1,26 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { EStateGeneric, rateGen } from "../../utils/general";
-import { IProduct, IProductCart } from "../../utils/types";
-const productHardCoded = {
-  "id": 12,
-  "wine": "Estiba Reservada",
-  "winery": "Catena Zapata",
-  "type": "reds",
-  "year": 1994,
-  "country": "Argentina",
-  "region": "Agrelo",
-  "rating": 9,
-  "image": "https://images.vivino.com/thumbs/Yt464jw0QS-ugF7ZQEbE2Q_pb_x300.png",
-  "description": "The wineries Catena Zapata are located in the valleys of the Agrelo suitable for the cultivation of wine Estiba Reservada, producing privileged fruits for the elaboration of a good wine reds . Made in Argentina (DRINKING ALCOHOLIC BEVERAGES IN EXCESS IS HARMFUL)",
-  "disabled": false,
-  "featured": false,
-  "onSale": false,
-  "totalSalesCurrent": null,
-  "stock": null,
-  "createdAt": "2023-01-12T18:58:32.235Z",
-  "updatedAt": "2023-01-12T18:58:32.235Z",
-  "deletedAt": null
-}
+import { createSlice } from "@reduxjs/toolkit";
+import { IProductCart } from "../../utils/types";
+
 interface CartState {
   cart: IProductCart[],
   display: boolean,
@@ -40,20 +20,54 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     // standard reducer logic, with auto-generated action types per reducer
-    removeProduct: (state, action) => {
+    minusOneProduct: (state, action) => {
       state.cart = state.cart.map(c => {
-        if (c.id === action.payload.id) 
-        return { ...c,  ...action.payload }
+        if (c.id === action.payload && c.quantity > 0) {
+          return {
+            ...c,
+            quantity: c.quantity - 1
+          }
+        }
+        else return c
+      })
+    },
+    plusOneProduct: (state, action) => {
+      state.cart = state.cart.map(c => {
+        if (c.id === action.payload) {
+          return {
+            ...c,
+            quantity: c.quantity + 1
+          }
+        }
+        else return c
       })
     },
     addNewProduct: (state, action) => {
-      state.cart = state.cart.concat(action.payload)
-      console.log(state.cart)
+      const product = action.payload
+      const productExists = !!state.cart.find(c => c.id === product.id)
+      
+      if (productExists) {
+        state.cart = state.cart.map(c => {
+          if (c.id === action.payload.id) {
+            return {
+              ...c,
+              quantity: c.quantity + 1
+            }
+          }
+          else return c
+        })
+      }
+      else {
+        state.cart = state.cart.concat({ id: product.id, product, quantity: 1 })
+      }
     },
-    displayCart: (state, action) => {
+    minusAllProducts: (state,action) => {
+      state.cart = state.cart.filter(c => c.id !== action.payload)
+    },
+    displayCart: (state) => {
       state.display = !state.display
     },
-    removeAllProducts: (state) => {
+    clearCart: (state) => {
       state.cart = []
     },
     totalPrice: (state, action) => {
@@ -78,8 +92,10 @@ export const selectDisplay = (state) => state.cart.display;
 
 
 export const {
-  removeProduct,
+  minusOneProduct,
+  plusOneProduct,
   addNewProduct,
   displayCart,
-  removeAllProducts
+  minusAllProducts,
+  clearCart
 } = cartSlice.actions;

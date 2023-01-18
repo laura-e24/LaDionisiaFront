@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
-import styles from "../../assets/style/styles.module.css";
-import { addNewProduct } from "../../features/products/cartSlice";
+import { addNewProduct, selectDisplay, displayCart } from "../../features/products/cartSlice";
 
 export default function Card({ wine }) {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
+  const display = useSelector(selectDisplay)
   useEffect(() => {
     setIsLoading(false);
   }, []);
@@ -35,15 +36,18 @@ export default function Card({ wine }) {
             </p>
             {/* <a className="text-black border border-gray-600 w-28 h-12 p-4" href={`/products/${wine.id}`}>TASTE IT</a> */}
             <button
-              className="text-black border border-gray-600 inline-flex ml-0 p-4"
-              onClick={() => dispatch(addNewProduct(wine))}
+              className="text-black border border-gray-600 w-fit p-4"
+              onClick={() => {
+                dispatch(addNewProduct(wine))
+                if (!display) dispatch(displayCart())
+              }}
             >
               ADD TO CART
             </button>
           </div>
           <div className="w-full h-full flex justify-center">
             <div
-              className={`flex  w-96 h-96 justify-center items-center ${styles.bgProduct}`}
+              className={`flex  w-96 h-96 justify-center items-center bgProduct`}
             >
               {/* <Link href={`/products/${wine.id}`}> */}
               <img
