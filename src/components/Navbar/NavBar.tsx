@@ -5,17 +5,19 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../../app/store"
-import { setFilters, selectAllRegions, getAllWinesByName, orderByName } from "../../features/products/productsSlice"
+import { setFilters, getAllWinesByName } from "../../features/products/productsSlice"
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import Header from "../shopCartComponents/Header";
-import { selectCart } from "../../features/products/cartSlice";
 import { persistor } from '../../app/store';
+import Cart from "../Cart/Cart";
+import { selectCart, selectDisplay, displayCart } from "../../features/products/cartSlice";
+
 
 const NavBar = () => {
   const [mounted, setMounted] = useState(false);
   const [search, setSearch] = useState('')
   const router = useRouter();
+  const display = useSelector(selectDisplay)
   const cart = useSelector(selectCart)
   const { user } = useUser()
   const dispatch = useAppDispatch()
@@ -56,7 +58,39 @@ const NavBar = () => {
   }
 
   if (!mounted) return null
+  function handleFilters(e) {
+    const { value, name } = e.target;
+    dispatch(setFilters({ [name]: value }));
+  }
 
+  const scores = [
+    "100",
+    "99-97",
+    "96-94",
+    "93-91",
+    "90-under"
+  ]
+
+  const vintage = [
+    "2010-Present",
+    "2000-2009",
+    "1980-1989",
+    "1970-1979",
+    "1960-1969",
+    "1959-older",
+  ]
+
+  const countries = [
+    'France',
+    'Argentina',
+    'Portugal',
+    'South Africa',
+    'Spain',
+    'Italy',
+    'Australia',
+    'United States',
+  ]
+  // console.log(filters)
   return (
     <>
 
@@ -82,14 +116,8 @@ const NavBar = () => {
           </form>
         </details>
         <div className="w-7 h-7 mt-1 ml-2 relative float-right">
-          <details>
-            <summary>
-              <Image layout="fill" src="/assets/cart.svg" />
-            </summary>
-            <div className="">
-              {<Header wines={cart} />}
-            </div>
-          </details>
+          <Image onClick={() => dispatch(displayCart())} layout="fill" src="/assets/cart.svg" />
+          <Cart wines={cart}/>
         </div>
         <details className="ml-2 float-right">
           <summary>

@@ -1,11 +1,11 @@
 import { EGenericButtonType } from "../../utils/general";
 import GenericButton from "../GenericButton";
 
-const GenericModal = ({ display, setDisplay, title = '', message, onClickAccept }) => {
+const GenericModal = ({ display, setDisplay, title = '', message, onClickAccept, acceptBtnLabel }) => {
   return (
     <>
       {display && (
-        <div className="backdrop-blur-sm bg-black flex fixed w-screen h-screen inset-0 z-50 bg-opacity-30">
+        <div className="backdrop-blur-sm bg-black flex fixed w-screen h-screen inset-0 bg-opacity-30" style={{ zIndex: 999 }}>
           <div className="bg-white max-w-[50%] mx-auto my-auto rounded p-10">
             <h3 className="text-lg text-semibold uppercase text-gray-500 text-center">
               {title}
@@ -20,7 +20,7 @@ const GenericModal = ({ display, setDisplay, title = '', message, onClickAccept 
                 onClick={() => setDisplay(false)}
               />
               <GenericButton 
-                label="Yes, disable"
+                label={acceptBtnLabel}
                 size="sm"
                 onClick={() => {
                   onClickAccept()
