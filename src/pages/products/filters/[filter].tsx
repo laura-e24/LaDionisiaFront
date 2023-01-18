@@ -95,8 +95,8 @@ export default function index({ }) {
             Dessert
           </a>
         </div>
-        {winesCountry && winesCountry[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
         <Filters/>
+        {winesCountry && winesCountry[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
         {filteredWines.length > 0 &&
           <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
             {

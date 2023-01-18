@@ -93,8 +93,8 @@ export default function Reds({ }) {
             Dessert
           </a>
         </div>
-        {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
         <Filters/>
+        {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
         {filteredWines.length > 0 &&
           <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
             {
@@ -102,6 +102,11 @@ export default function Reds({ }) {
                 <Card wine={wine}></Card>
               ))
             }
+          </div>
+        }
+        {!filteredWines.length &&
+          <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
+            <h1 className="w-96 h-96">PRODUCTS NOT FOUND</h1>
           </div>
         }
       </div>

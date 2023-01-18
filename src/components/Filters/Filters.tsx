@@ -38,20 +38,21 @@ const Filters = () => {
                 <option className="" value="atoz">A - Z</option>
                 <option className="" value="ztoa">Z - A</option>
             </select>
-            <select name="price" className="bg-transparent" >
+            <select name="price" className="bg-transparent" onChange={handleFilters}>
                 <option disabled selected>Price</option>
-                <option>$101-$200</option>
-                <option>$50 - $100</option>
-                <option>$30-49</option>
-                <option>$20-29</option>
-                <option>$16-19</option>
-                <option>$10-15</option>
-                <option>$6 - $9</option>
-                <option>ALL</option>
+                <option value="all-price">ALL</option>
+                <option value="100-200">$100 - $200</option>
+                <option value="50-99">$50 - $99</option>
+                <option value="30-49">$30 - 49</option>
+                <option value="20-29">$20 - 29</option>
+                <option value="16-19">$16 - 19</option>
+                <option value="10-15">$10 - 15</option>
+                <option value="6-9">$6 - $9</option>
             </select>
             {regions.length > 0 &&
                 <select className="bg-transparent" name="region" onChange={handleFilters}>
                     <option disabled selected>Regiones</option>
+                    <option value="all-region">ALL</option>
                     {regions.map((region, index) => (
                         <option key={index} value={region}>
                             {region}
