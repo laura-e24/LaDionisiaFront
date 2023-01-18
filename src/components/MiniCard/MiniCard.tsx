@@ -1,29 +1,30 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import styles from "../../assets/style/styles.module.css"
-
+import FAIcon from "../FAIcon";
+import {
+  selectCart,
+  minusOneProduct,
+  plusOneProduct,
+  minusAllProducts,
+  selectDisplay,
+} from "../../features/products/cartSlice";
+import { useAppDispatch } from "../../app/store";
+import GenericModal from "../Modals/GenericModal";
 
 
 export default function MiniCard({ wine }) {
     const [isLoading, setIsLoading] = useState(true);
     const [wineCounter, setWineCounter] = useState(1);
-    const [SubtotalPrice, setSubtotalPrice] = useState(0);
+    const [subtotalPrice, setSubtotalPrice] = useState(0);
+  const [modalConfirmClear, setModalConfirmClear] = useState(false);
 
+    const dispatch = useAppDispatch()
 
-    const subtotalCalculation = ()=> {
-        setSubtotalPrice(wineCounter * 100)
-    }
+    const subtotalCalculation = (quantity, price) => quantity * price
 
-    const counterPlus = ()=> {
-        setWineCounter(wineCounter +1)
-        setSubtotalPrice(wineCounter * 100)
-    }
-
-
-    const counterLess = () => {
-        setWineCounter( wineCounter -1 )
-        setSubtotalPrice(wineCounter * 100)
-    }
+    const counterPlus = () => dispatch(plusOneProduct(wine.id))
+    const counterLess = () => dispatch(minusOneProduct(wine.id))
+    const removeAllProducts = () => dispatch(minusAllProducts(wine.id))
 
     useEffect(() => {
         setIsLoading(false);
@@ -33,34 +34,42 @@ export default function MiniCard({ wine }) {
     }
 
     return (
-        <>
-            <div className=" flex p-8" >
-               
-              
-                        <div className="flex">
-                            <img src={wine.image} alt={wine.wine} height={20} width={40} />
-                            <span className="inline-flex ml-8">
-                            <p className="my-auto whitespace-nowrap text-xl font-bold"><b>{wine.wine}</b></p>
-                            <span className="inline-flex ml-10 my-auto space-x-6 text-lg">
-                              <p className="">{wine.quantity}</p>
-                              <button className="text-xl p-2 my-auto " onClick={counterLess}>
-                                -
-                              </button>
-                              <p>{wineCounter}</p> 
-                              <button className="text-xl p-2 my-auto " onClick={counterPlus}>
-                                  +
-                              </button>
-                            </span>
-                            <p className="my-auto">${SubtotalPrice}</p>
-                            <button className="p-3">
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                              </svg>
-                            </button> 
-                          </span>
-                        </div>
-                </div>
-           
-        </>
-    )
+    <>
+    <div className="flex">
+      <img src={wine.product.image} alt={wine.product.wine} height={25} width={45} />
+      <span className="block">
+        <p className="my-auto text-2xl font-bold px-6 font-poppins">
+          {wine.product.wine}
+        </p>
+        <p className="my-auto text-2xl font-bold px-6">
+          {wine.product.winery}
+        </p>
+      </span>
+      <span className="flex my-auto space-x-4">
+        <button 
+          className="p-2 border rounded-full border-gray-400" 
+          onClick={() => wine.quantity > 1  ?  counterLess() :  setModalConfirmClear(true)}
+        >
+          <FAIcon className="pt-1 text-gray-400" size="md" name="minus" />
+        </button>
+        <p className="my-auto text-2xl font-medium">{wine.quantity}</p> 
+        <button className="text-xl p-2 my-auto border rounded-full border-gray-400" onClick={counterPlus}>
+          <FAIcon className="pt-1 text-gray-400" size="md" name="plus" />
+        </button>
+        <p className="my-auto text-2xl font-medium px-4">${subtotalCalculation(wine.quantity, wine.product.price)}</p>
+        <button className="p-2 border rounded-full border-red-600" onClick={() => setModalConfirmClear(true)}>
+          <FAIcon className="pt-1 text-red-600" size="md" name="trash" />
+        </button>
+      </span>
+    </div>
+    <GenericModal
+      display={modalConfirmClear}
+      setDisplay={setModalConfirmClear}
+      title='Remove products'
+      onClickAccept={() => removeAllProducts()}
+      acceptBtnLabel="Yes"
+      message={`Are you sure you want to remove all "${wine.product.wine}" from your cart?`}
+    />
+    </>
+  )
 }

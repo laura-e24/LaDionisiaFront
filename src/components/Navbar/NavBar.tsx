@@ -5,23 +5,33 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../../app/store"
-import { setFilters, selectAllRegions, getAllWinesByName } from "../../features/products/productsSlice"
+import { setFilters, getAllWinesByName } from "../../features/products/productsSlice"
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import Header from "../shopCartComponents/Header";
-import { selectCart } from "../../features/products/cartSlice";
+import { persistor } from '../../app/store';
+import Cart from "../Cart/Cart";
+import { selectCart, selectDisplay, displayCart } from "../../features/products/cartSlice";
 
 
 const NavBar = () => {
   const [mounted, setMounted] = useState(false);
   const [search, setSearch] = useState('')
   const router = useRouter();
+  const display = useSelector(selectDisplay)
   const cart = useSelector(selectCart)
   const { user } = useUser()
   const dispatch = useAppDispatch()
   useEffect(() => {
     setMounted(true)
+    const unsubscribe = persistor.subscribe(() => {
+      console.log('Local storage updated with latest state: ', cart);
+    });
+
+    return () => {
+      unsubscribe();
+    }
   }, [])
+
   const handleCookieLogout = async () => {
     try {
       const res = await axios.get("/api/logout");
@@ -46,6 +56,7 @@ const NavBar = () => {
   function handleInputName(e) {
     setSearch(e.target.value)
   }
+
   if (!mounted) return null
   function handleFilters(e) {
     const { value, name } = e.target;
@@ -105,14 +116,8 @@ const NavBar = () => {
           </form>
         </details>
         <div className="w-7 h-7 mt-1 ml-2 relative float-right">
-          <details>
-            <summary>
-              <Image layout="fill" src="/assets/cart.svg" />
-            </summary>
-            <div className="">
-              {<Header wines={cart}/>}
-            </div>
-          </details>
+          <Image onClick={() => dispatch(displayCart())} layout="fill" src="/assets/cart.svg" />
+          <Cart wines={cart}/>
         </div>
         <details className="ml-2 float-right">
           <summary>
@@ -124,11 +129,11 @@ const NavBar = () => {
             <a href="#">Settings</a><br />
             <a href="#">Support</a><br />
             <a href="#">License</a><br />
-            {user && <a href="/api/auth/logout">Logout</a>}
+            {user && <a href="/api/auth/logout" onClick={handleCookieLogout}>Logout</a>}
             {!user && <a href="/api/auth/login">Login</a>}
           </div>
         </details>
-{/* 
+        {/* 
         <div className="w-7 h-7 mt-1 relative float-right">
           <Image layout="fill" src="/assets/heart.svg" />
         </div>
@@ -181,71 +186,8 @@ const NavBar = () => {
                 <br /><a href="/products/filters/Turkey">Turkey</a>
                 <br /><a href="/products/filters/United States">United States</a>
                 <br /><a href="/products/filters/Uruguay">Uruguay</a>
-                {/* En un futuro se usara */}
-                {/* {regions.map((region, index) => (
-                    <li key={index}>
-                      <input type="radio" name="region" value={region} onChange={handleFilters} />
-                      {region}
-                    </li>
-                  ))} */}
               </div>
               <b>«<a href="/products">Show All</a>»</b>
-              {/* <h3>Vintage</h3>
-              <div className="columns-3 text-left mt-2 mb-2">
-                <input type="radio" name="score" value="all-score" onChange={handleFilters} />ALL
-                {vintage.map((v, index) => (
-                  <>
-                    <input type="radio" name="vintage" value={v} onChange={handleFilters} key={index} />
-                    {v}
-                  </>
-                ))}
-                 <a href="#">2020-2023</a>
-                  <br /><a href="#">2010-2019</a>
-                  <br /><a href="#">2000-2009</a>
-                  <br /><a href="#">1990-1999</a>
-                  <br /><a href="#">1980-1989</a>
-                  <br /><a href="#">1970-1979</a>
-                  <br /><a href="#">1960-1969</a>
-                  <br /><a href="#">1950-1959</a>
-                  <br /><a href="#">1940-older</a> 
-              </div>
-              <h3>Price</h3>
-              <div className="columns-4 text-left mt-2 mb-2">
-                <a href="#">$101-$200</a><br />
-                <a href="#">$50 - $100</a><br />
-                <a href="#">$30-49</a><br />
-                <a href="#">$20-29</a><br />
-                <a href="#">$16-19</a><br />
-                <a href="#">$10-15</a><br />
-                <a href="#">$6 - $9</a><br />
-                <a href="#">ALL</a><br />
-              </div>
-              <h3>Type</h3>
-              <div className="wine-types-submenu text-center mt-2 mb-2">
-                <a href="/products/type/reds">Red</a>
-                <a href="/products/type/whites">White</a>
-                <a href="/products/type/rose">Rose</a>
-                <a href="/products/type/sparkling">Sparkling</a>
-                <a href="/products/type/dessert">Dessert</a>
-                <a href="#">ALL</a>
-              </div>
-              <h3>Score</h3>
-              <div className="wine-types-submenu text-center mt-2 mb-2">
-                <input type="radio" name="score" value="all-score" onChange={handleFilters} />ALL
-                {scores.map((s, index) => (
-                  <>
-                    <input type="radio" name="score" value={s} onChange={handleFilters} key={index} />
-                    {s}
-                  </>
-                ))}
-                <a href="#">10</a>
-                  <a href="#">09</a>
-                  <a href="#">08</a>
-                  <a href="#">07</a>
-                  <a href="#">06</a>
-                  <a href="#">ALL</a>
-                <b>«<a href="#">Show All</a>»</b>
-              </div> */}
             </div>
           </details>
         </a>
