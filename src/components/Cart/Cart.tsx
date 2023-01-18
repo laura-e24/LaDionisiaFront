@@ -18,7 +18,7 @@ const Cart = ({ wines }) => {
   const [modalConfirmClear, setModalConfirmClear] = useState(false);
   const clearAllCart = () => dispatch(clearCart())
 
-  const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * 100), 0)
+  const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.product.price), 0)
   if (display)
   return (
     <>

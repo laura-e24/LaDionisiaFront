@@ -56,7 +56,7 @@ export default function MiniCard({ wine }) {
         <button className="text-xl p-2 my-auto border rounded-full border-gray-400" onClick={counterPlus}>
           <FAIcon className="pt-1 text-gray-400" size="md" name="plus" />
         </button>
-        <p className="my-auto text-2xl font-medium px-4">${subtotalCalculation(wine.quantity, 100)}</p>
+        <p className="my-auto text-2xl font-medium px-4">${subtotalCalculation(wine.quantity, wine.product.price)}</p>
         <button className="p-2 border rounded-full border-red-600" onClick={() => setModalConfirmClear(true)}>
           <FAIcon className="pt-1 text-red-600" size="md" name="trash" />
         </button>
