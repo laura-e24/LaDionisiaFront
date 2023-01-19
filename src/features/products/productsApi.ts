@@ -11,13 +11,13 @@ export const getAllProductsByName = (name: string) => axios(`${process.env.RESTU
 //http://localhost:3001/sendEmail
 
 export const createOneProduct = (product: IProduct) => axios.post(
-  `${process.env.RESTURL_PRODUCTS}/products`, 
-  product, 
+  `${process.env.RESTURL_PRODUCTS}/products`,
+  product,
   { headers: { 'Content-Type': 'multipart/form-data' } }
 )
 
 export const updateOneProduct = (product: IProduct) => axios.put(
-  `${process.env.RESTURL_PRODUCTS }/products/${product.id}`, 
-  product, 
+  `${process.env.RESTURL_PRODUCTS}/products/${product.id}`,
+  product,
   { headers: { 'Content-Type': 'multipart/form-data' } }
 )

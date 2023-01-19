@@ -7,6 +7,7 @@ import { EStateGeneric, rateGen } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
 import Link from "next/link";
+import Comments from "../../components/Comments/Comments";
 
 export default function Product() {
   const router = useRouter()
@@ -56,6 +57,7 @@ export default function Product() {
           </div>
         </div>
       </div>
+      <Comments/>
       <Footer></Footer>
     </div>
   )
