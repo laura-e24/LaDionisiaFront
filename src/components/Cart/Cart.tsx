@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import {
@@ -10,9 +10,6 @@ import {
 import FAIcon from "../FAIcon";
 import MiniCard from "../MiniCard/MiniCard";
 import GenericModal from "../Modals/GenericModal";
-import axios from "axios"
-import { Form, Formik } from "formik";
-import CustomField from "../CustomField";
 import Router  from "next/router";
 
 const Cart = ({ wines }) => {
@@ -41,32 +38,6 @@ const Cart = ({ wines }) => {
                   {wines.map((e, index) => <MiniCard key={index} wine={e} />)}
                 </div>
               </div>
-              {/* <div className="w-1/2 bg-default border border-black rounded-3xl py-6 px-10">
-                <Formik initialValues={{}} onSubmit={() => {}}>
-                  {() => (
-                    <Form className="grid grid-flow-row gap-6 w-full">
-                      <CustomField label="Name on card" name="name" />
-                      <CustomField label="Card number" name="card" />
-                      <div className="grid grid-cols-2 gap-6 border-b border-black pb-10">
-                        <CustomField label="Expiration date" name="expDate" />
-                        <CustomField label="CVV" name="cvv" />
-                      </div>
-                      <span className="flex">
-                        <p>Subtotal</p>
-                        <p>$200</p>
-                      </span>
-                      <span className="flex">
-                        <p>Shipping</p>
-                        <p>$4</p>
-                      </span>
-                      <span className="flex">
-                        <p>Total</p>
-                        <p>$204</p>
-                      </span>
-                    </Form>
-                  )}
-                </Formik>
-              </div> */}
               <div className="w-full mt-6">
                 {/* <button
                   className="text-xl font-bold bg-[#3D3A35] rounded-lg py-6 px-16"
@@ -76,7 +47,10 @@ const Cart = ({ wines }) => {
                 </button> */}
                 <button
                   className="text-xl py-6 px-4 bg-[#3D3A35] rounded-2xl w-full flex justify-between"
-                  onClick={() => Router.push('/products/checkout')}
+                  onClick={() => {
+                    Router.push('/products/checkout')
+                    dispatch(displayCart())
+                  }}
                 >
                   <p className="text-2xl font-medium  text-gray-400">${totalPrice}</p>
                   <span className="flex">
