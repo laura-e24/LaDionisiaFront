@@ -28,12 +28,21 @@ const Cart = ({ wines }) => {
           {!!wines.length ? (
             <>
               <div className="w-full">
-                <span className="flex border-b border-tertiary pb-4 mb-4">
-                  <button className="my-auto" onClick={() => dispatch(displayCart())}>
-                    <FAIcon size="lg" type="solid" name="angle-left" />
+                <div className="w-full flex justify-between pb-4 border-b border-tertiary">
+                  <span className="flex mb-4">
+                    <button className="my-auto" onClick={() => dispatch(displayCart())}>
+                      <FAIcon className="text-black" size="lg" type="solid" name="angle-left" />
+                    </button>
+                    <p className="font-bold text-2xl ml-2 text-black">Shopping cart</p>
+                  </span>
+                  <button 
+                    type="button"
+                    onClick={() => setModalConfirmClear(true)}
+                    className="font-semibold text-xl text-gray-500 hover:underline"
+                  >
+                    Clear cart
                   </button>
-                  <p className="font-bold text-2xl ml-2 text-black">Shopping cart</p>
-                </span>
+                </div>
                 <div className="space-y-8">
                   {wines.map((e, index) => <MiniCard key={index} wine={e} />)}
                 </div>
@@ -61,7 +70,7 @@ const Cart = ({ wines }) => {
                 
               </div>
             </>
-          ) : <div className="text-center font-semibold">
+          ) : <div className="text-center font-semibold text-black">
             <p className="pt-2 pb-3 font-bold text-xl">Your cart is empty.</p>
             <p onClick={() => dispatch(displayCart())} className="hover:underline pt-2 border-t border-gray-300 mx-10 cursor-pointer">Close</p>
           </div>}

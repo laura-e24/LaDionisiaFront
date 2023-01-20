@@ -12,7 +12,7 @@ const CustomField = ({
   ...FormikBag
 }) => {
   const [field, meta, helpers] = useField({ ...FormikBag, name });
-  let className = `shadow appearance-none border rounded-lg w-full py-3 px-3 leading-tight focus:outline-none 
+  let className = `text-white shadow appearance-none border rounded-lg w-full py-3 px-3 leading-tight focus:outline-none 
     focus:shadow-outline placeholder-gray-100`;
 
 
