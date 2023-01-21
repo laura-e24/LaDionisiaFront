@@ -6,7 +6,7 @@ import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
 
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters } from "../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
@@ -94,8 +94,8 @@ export default function index() {
             Dessert
           </a>
         </div>
+        <Filters />
         {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
-        <Filters/>
         {wines && !wines[0]?.error && filteredWines.length > 0 &&
           <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
             {
@@ -103,6 +103,11 @@ export default function index() {
                 <Card key={wine.id} wine={wine}></Card>
               ))
             }
+          </div>
+        }
+        {!filteredWines.length &&
+          <div className="w-full h-full flex flex-wrap self-center justify-center gap-y-8">
+            <h1 className="w-96 h-96">PRODUCTS NOT FOUND</h1>
           </div>
         }
       </div>

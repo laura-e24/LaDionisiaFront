@@ -19,7 +19,7 @@ export default function Card({ wine }) {
       <div className="w-4/5" key={wine.id}>
         <div className="grid grid-cols-2">
           <div className="grid grid-rows-4 p-6 items-center">
-            <Link href={`/products/${wine.id}`}>
+            <a href={`/products/${wine.id}`}>
               <div>
                 <span className="text-xl font-montserrat text-price-color w-full">
                   {wine.winery} - {wine.year}
@@ -28,7 +28,7 @@ export default function Card({ wine }) {
                   <b>{wine.wine}</b>
                 </p>
               </div>
-            </Link>
+            </a>
             <p className="text-2xl font-montserrat text-gray-600">
               <span className="text-price-color">
                 $ {wine.price ? wine.price : 100}

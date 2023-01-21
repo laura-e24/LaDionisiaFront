@@ -27,9 +27,17 @@ export const rateGen = (rating) => {
 export function filterWines(wines, filters) {
   return wines.filter(wine => {
     return filters.filter(filter => {
-      return wine.region === filter.region || filterByVintage(wine, filter) || filterByScore(wine, filter);
+      return filterByRegion(wine, filter) || filterByVintage(wine, filter) || filterByScore(wine, filter) || filterByPrice(wine, filter);
     }).length === filters.length;
   });
+}
+const filterByRegion = (wine, filter) => {
+  switch (filter.region) {
+    case 'all-region':
+      return wine.region
+    case filter.region:
+      return wine.region === filter.region
+  }
 }
 
 const filterByVintage = (wine, filter) => {
@@ -67,5 +75,25 @@ const filterByScore = (wine, filter) => {
       return rateGen(wine.rating) < 91
     case 'all-score':
       return rateGen(wine.rating)
+  }
+}
+const filterByPrice = (wine, filter) => {
+  switch (filter.price) {
+    case '100-200':
+      return wine.price < 201 && wine.price >= 100
+    case '50-99':
+      return wine.price < 100 && wine.price >= 50
+    case '30-49':
+      return wine.price < 50 && wine.price >= 30
+    case '20-29':
+      return wine.price < 30 && wine.price >= 20
+    case '16-19':
+      return wine.price < 20 && wine.price >= 16
+    case '10-15':
+      return wine.price < 16 && wine.price >= 10
+    case '6-9':
+      return wine.price < 10 && wine.price >= 6
+    case 'all-price':
+      return wine.price
   }
 }

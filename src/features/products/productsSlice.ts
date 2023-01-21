@@ -360,6 +360,9 @@ const productsSlice = createSlice({
     cleanUpStateFilters: (state) => {
       state.filters = [];
     },
+    clearOneWine:(state) => {
+      state.wine={}
+    }
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -516,6 +519,7 @@ export const {
   setFilters,
   cleanUpState,
   cleanUpStateFilters,
+  clearOneWine,
   getRegiones
 } = productsSlice.actions;
 
