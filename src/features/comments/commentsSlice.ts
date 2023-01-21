@@ -1,4 +1,4 @@
-import { getAllCommentsProduct, createCommentProduct, disableComment, updateComment, getOneCommentProduct, reportComment, getAllUsersDB } from "./commentsApi";
+import { getAllCommentsProduct, createCommentProduct, disableComment, updateComment, getOneCommentProduct, reportComment, getAllUsersApi, getAllCommentsDisabled } from "./commentsApi";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { EStateGeneric } from "../../utils/general";
 interface Comment {
@@ -17,11 +17,22 @@ export const getAllComments = createAsyncThunk(
         }
     }
 )
+export const getAllCommentsDisables = createAsyncThunk(
+    'comments/getAllCommentsDisables',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await getAllCommentsDisabled()
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
 export const getAllUsers = createAsyncThunk(
     'comments/getAllUsers',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await getAllUsersDB()
+            const response = await getAllUsersApi()
             return response.data
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -87,8 +98,10 @@ export const getOneComment = createAsyncThunk(
 
 const initialState = {
     comments: [],
+    commentsDisabled: [],
     users: [],
     allCommentsStatus: EStateGeneric.IDLE,
+    allCommentsDisabledStatus: EStateGeneric.IDLE,
     allUsersStatus: EStateGeneric.IDLE,
 }
 
@@ -106,6 +119,18 @@ const commentsSlice = createSlice({
         })
         builder.addCase(getAllComments.rejected, (state, _action) => {
             state.allCommentsStatus = EStateGeneric.FAILED;
+        })
+
+        
+        builder.addCase(getAllCommentsDisables.fulfilled, (state, action) => {
+            state.commentsDisabled = action.payload;
+            state.allCommentsDisabledStatus = EStateGeneric.SUCCEEDED;
+        })
+        builder.addCase(getAllCommentsDisables.pending, (state, _action) => {
+            state.allCommentsDisabledStatus = EStateGeneric.PENDING;
+        })
+        builder.addCase(getAllCommentsDisables.rejected, (state, _action) => {
+            state.allCommentsDisabledStatus = EStateGeneric.FAILED;
         })
 
 
@@ -184,5 +209,7 @@ export default commentsSlice.reducer
 
 export const selectAllComments = (state) => state.comments.comments;
 export const selectAllCommentsStatus = (state) => state.comments.allCommentsStatus;
+export const selectAllCommentsDisabled = (state) => state.comments.commentsDisabled;
+export const selectAllCommentsDisabledStatus = (state) => state.comments.allCommentsStatus;
 export const selectAllUsers = (state) => state.comments.users;
-export const selectAllUsersStatus = (state) => state.comments.allUsersStatus;
+export const AllUsersStatus = (state) => state.comments.allUsersStatus;

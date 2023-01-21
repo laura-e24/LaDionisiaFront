@@ -25,7 +25,6 @@ const EditComment = ({ comment }) => {
         e.preventDefault()
         dispatch(updateCommentUser(input));
         alert('Comment Created')
-        
     }
     function handleChange(e) {
         setInput({

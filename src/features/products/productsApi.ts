@@ -21,3 +21,10 @@ export const updateOneProduct = (product: IProduct) => axios.put(
   product,
   { headers: { 'Content-Type': 'multipart/form-data' } }
 )
+
+//↓↓↓↓↓↓↓↓↓↓↓↓↓↓ todo lo relacionado a fovorites ↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+export const getAllFavoritesApi = (userId) => axios(`${process.env.RESTURL_PRODUCTS}/users/favorite/${userId}`)
+export const postFavorite = (userId, productId) => axios.patch(`${process.env.RESTURL_PRODUCTS}/users/favorite/${userId}?productId=${productId}`) 
+export const deleteFavoriteApi = (userId, productId) => axios.delete(`${process.env.RESTURL_PRODUCTS}/users/favorite/${userId}?productId=${productId}`) 
+export const deleteAllFavoritesApi = (userId) => axios.patch(`${process.env.RESTURL_PRODUCTS}/users/favorites/delete/${userId}`) 
