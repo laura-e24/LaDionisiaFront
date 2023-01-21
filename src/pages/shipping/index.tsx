@@ -5,7 +5,6 @@ import Link   from 'next/link'
 const Shipping = () => {
   return (
 <>
-<a id="passion-for-wine"></a>
 <div className="
   main-body  
   pt-12 

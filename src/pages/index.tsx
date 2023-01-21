@@ -65,10 +65,7 @@ export default function index() {
           <Home />
           {/* guest */}
         </main>
-
-
         <footer>
-
         </footer>
       </div>
     )

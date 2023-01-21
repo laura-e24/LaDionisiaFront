@@ -6,14 +6,11 @@ import Footer from "../../components/Footer/Footer";
 const About = () => {
   return (
 <>
-<a id="passion-for-wine"></a>
-
 <div className="
   main-body  
   pt-12 
   mb-12 
   m-auto
-  min-h-screen
   max-w-screen-xl
   bg-bg-body 
   ">
