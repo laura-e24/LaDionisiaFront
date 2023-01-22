@@ -10,6 +10,7 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import Filters from "../../components/Filters/Filters";
 
+<title>Favorite</title>
 export default function index() {
     const filters = useSelector(selectAllFilters)
   
