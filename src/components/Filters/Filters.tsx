@@ -32,7 +32,6 @@ const Filters = () => {
 
     return (
         <div className="w-full inline-flex justify-around text-gray-600 pt-6">
-            <label>Shop by: </label>
             <select onChange={e => handleSort(e)} className="bg-transparent">
                 <option disabled selected>Sort</option>
                 <option className="" value="atoz">A - Z</option>

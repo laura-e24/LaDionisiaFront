@@ -47,7 +47,7 @@ export default function Reds({ }) {
 <div className="
  main-body  
  pt-12 
- mb-12 
+ mb-8
  m-auto
  max-w-screen-xl
  bg-bg-body 
@@ -121,8 +121,8 @@ export default function Reds({ }) {
     itemsPerPage={itemsPerPage}
     currentPage={currentPage}
     setCurrentPage={setCurrentPage}
-/>
+/><Footer/>
 </div>
-<Footer/></>
+</>
   )
 }

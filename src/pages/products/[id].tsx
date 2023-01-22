@@ -63,7 +63,7 @@ export default function Product() {
       <div className="
     main-body  
     pt-12 
-    mb-12 
+    mb-8
     m-auto
     max-w-screen-xl
     bg-bg-body 
@@ -89,7 +89,7 @@ export default function Product() {
           <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
         </div>
         <Comments />
+        <Footer/>
       </div>
-      <Footer></Footer>
     </>)
 }

@@ -208,7 +208,7 @@ const NavBar = () => {
           <a id="gohome" onClick={goHome} href='/home' className="menu w-24  h-6 inline-block text-center align-sub">
           Home
           </a>
-        <a className="menu w-24  h-6 inline-block text-center align-sub">
+        <div className="menu w-24  h-6 inline-block text-center align-sub">
           <details>
             <summary>
               Winery
@@ -244,7 +244,7 @@ const NavBar = () => {
               <b>«<a href="/products">Show All</a>»</b>
             </div>
           </details>
-        </a>
+        </div>
         <a onClick={goContact} href='#contact' className="menu w-24  h-6 inline-block text-center align-sub">
           Contact
         </a>

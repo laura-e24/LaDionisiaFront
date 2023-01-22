@@ -24,7 +24,7 @@ const Users = () => {
     <div className="
     main-body  
     pt-12 
-    mb-12 
+    mb-8
     m-auto
     min-h-screen
     max-w-screen-xl

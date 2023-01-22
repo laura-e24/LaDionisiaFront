@@ -10,7 +10,7 @@ const HomePage = () => {
 <div id="passion-for-wine" className="
   main-body
   pt-12 
-  mb-12 
+  mb-8
   m-auto
   max-w-screen-xl
   bg-bg-body 
@@ -68,8 +68,8 @@ const HomePage = () => {
   </div>
   <a id="home-main-1" href="/products/2889"></a>
   <a id="home-main-2" href="/newsletter"></a>
+  <Footer/>
 </div>
-<Footer></Footer>
 </>
 )}
 export default HomePage;
