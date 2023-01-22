@@ -1,14 +1,16 @@
+import axios from "axios";
 import { Formik, Form } from "formik";
 import Router from "next/router";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../app/store";
-import CustomField from "../../components/CustomField";
-import FAIcon from "../../components/FAIcon";
-import MiniCard from "../../components/MiniCard/MiniCard";
-import GenericModal from "../../components/Modals/GenericModal";
-import NavBar from "../../components/Navbar/NavBar"
-import { clearCart, minusAllProducts, minusOneProduct, plusOneProduct, selectCart } from "../../features/products/cartSlice";
+import { useAppDispatch } from "../../../app/store";
+import CustomField from "../../../components/CustomField";
+import FAIcon from "../../../components/FAIcon";
+import MiniCard from "../../../components/MiniCard/MiniCard";
+import GenericModal from "../../../components/Modals/GenericModal";
+import NavBar from "../../../components/Navbar/NavBar"
+import StripeComponent from "../../../components/stripe/StripeComponent";
+import { clearCart, minusAllProducts, minusOneProduct, plusOneProduct, selectCart } from "../../../features/products/cartSlice";
 
 const Checkout = () => {
   const cart = useSelector(selectCart);
@@ -17,15 +19,7 @@ const Checkout = () => {
   const [modalConfirmClear, setModalConfirmClear] = useState(false);
   const [productToRemove, setProductToRemove] = useState({ id: null, wine: '', year: '' });
 
-  // const send = async () => {
-  //   const response = await axios.post(`http://localhost:3001/sendEmail`,
-  //     //aca debe ir el email de usuario loggeado
-  //     {
-  //       userEmail: 'grosservonsirius@gmail.com',
-  //       products: wines
-  //     })
-  //     .then(() => console.log(wines))
-  // }
+
   
   const subtotalCalculation = (quantity, price) => quantity * price
   const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.product.price), 0)
@@ -95,64 +89,34 @@ const Checkout = () => {
           </div>
           ))}
         </div>
-        <div className="  bg-default border border-black rounded-3xl py-6 px-10">
+        <div className="w-2/5 bg-default border border-black rounded-3xl py-6 px-10">
           <h3 className="font-bold text-3xl w-full my-auto pb-4 border-b border-tertiary">Card details</h3>
-          <h3 className="font-semibold text-xl mt-4">Card type</h3>
+          {/* <h3 className="font-semibold text-xl mt-4">Card type</h3>
           <div className="flex w-full justify-around py-4">
             <img width={150} src='/assets/visa.svg' />
             <img width={100} src='/assets/mastercard.svg' />
-          </div>
-          <Formik initialValues={{}} onSubmit={() => {}}>
-            {() => (
-              <Form className="grid grid-flow-row gap-6 w-full">
-                <CustomField label="Name on card" name="name" />
-                <CustomField label="Card number" name="card" />
-                <div className="grid grid-cols-2 gap-6 border-b border-black pb-10">
-                  <CustomField label="Expiration date" name="expDate" />
-                  <CustomField label="CVV" name="cvv" />
-                </div>
-                <span className="flex font-semibold text-2xl justify-between">
-                  <p>Subtotal</p>
-                  <p className="text-gray-700">$200</p>
-                </span>
-                <span className="flex font-semibold text-2xl justify-between">
-                  <p>Shipping</p>
-                  <p className="text-gray-700">$4</p>
-                </span>
-                <span className="flex font-semibold text-2xl justify-between">
-                  <p>Total</p>
-                  <p className="text-gray-700">${totalPrice}</p>
-                </span>
-                <button
-                  className="py-6 px-4 bg-[#3D3A35] rounded-2xl w-full"
-                  onClick={() => {}}
-                  type="button"
-                >
-                  <p className="text-2xl text-center text-white">Pay</p>
-                </button>
-              </Form>
-            )}
-          </Formik>
+          </div> */}
+          <StripeComponent totalPrice={totalPrice} />
         </div>
       </div>
      </div>
-  </div>
-  <GenericModal
-    display={modalConfirmRemoveAll}
-    setDisplay={setModalConfirmRemoveAll}
-    title='Remove products'
-    onClickAccept={() => removeAllProducts(productToRemove.id)}
-    acceptBtnLabel="Yes"
-    message={`Are you sure you want to remove all "${productToRemove.wine + `(${productToRemove.year})`}" from your cart?`}
-  />
-  <GenericModal
-    display={modalConfirmClear}
-    setDisplay={setModalConfirmClear}
-    title='Clear cart'
-    onClickAccept={() => clearAllCart()}
-    acceptBtnLabel="Yes"
-    message={`Are you sure you want to clear your cart? This will remove ALL productos from it.`}
-  />
+    </div>
+    <GenericModal
+      display={modalConfirmRemoveAll}
+      setDisplay={setModalConfirmRemoveAll}
+      title='Remove products'
+      onClickAccept={() => removeAllProducts(productToRemove.id)}
+      acceptBtnLabel="Yes"
+      message={`Are you sure you want to remove all "${productToRemove.wine + `(${productToRemove.year})`}" from your cart?`}
+    />
+    <GenericModal
+      display={modalConfirmClear}
+      setDisplay={setModalConfirmClear}
+      title='Clear cart'
+      onClickAccept={() => clearAllCart()}
+      acceptBtnLabel="Yes"
+      message={`Are you sure you want to clear your cart? This will remove ALL productos from it.`}
+    />
   </>
   )
 }

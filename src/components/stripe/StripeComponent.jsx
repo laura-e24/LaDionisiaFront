@@ -1,18 +1,18 @@
-import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-import CheckoutForm from "../../components/stripe/CheckoutForm";
+import CheckoutForm from "./CheckoutForm";
+import { useState, useEffect } from "react";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-export default function Stripe() {
-  const [clientSecret, setClientSecret] = React.useState("");
+const StripeComponent = ({ totalPrice }) => {
+  const [clientSecret, setClientSecret] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch("/api/stripe", {
       method: "POST",
@@ -25,6 +25,29 @@ export default function Stripe() {
 
   const appearance = {
     theme: 'stripe',
+
+    variables: {
+      colorPrimary: '#0570de',
+      colorBackground: '#3D3A35',
+      colorText: '#ffff',
+      colorDanger: '#df1b41',
+      fontFamily: 'Montserrat, sans-serif',
+      spacingUnit: '4px',
+      borderRadius: '8px',
+      fontSizeSm: '1.25rem',
+      // See all possible variables below
+    },
+    rules: {
+      '.Label': {
+        color: 'black',
+        fontWeight: 700,
+        marginBottom: '6px'
+      },
+      '.Input': {
+        padding: '12px'
+      }
+      // See all supported class names and selector syntax below
+    }
   };
   const options = {
     clientSecret,
@@ -32,13 +55,14 @@ export default function Stripe() {
   };
 
   return (
-    <div className="Stripe">
+    <div className="Stripe mt-6">
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm totalPrice={totalPrice} />
         </Elements>
       )}
-      <p>HOLA MUNDO</p>
     </div>
   );
 }
+ 
+export default StripeComponent;
