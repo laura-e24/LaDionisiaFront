@@ -6,6 +6,7 @@ import Footer from "../../components/Footer/Footer";
 const About = () => {
   return (
 <>
+<title>La Dionisia - About</title>
 <div className="
   main-about
   main-body  
@@ -35,9 +36,9 @@ const About = () => {
     pb-16
     grid 
   ">
-   {members?.map((e)=>{
+   {members?.map((e,index)=>{
      return(
-      <MembersCard
+      <MembersCard key={index}
         name={e.name}
         image={e.image}
         github={e.github}

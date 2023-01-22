@@ -1,11 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import { rootReducer } from './rootReducer'
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer ,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/integration/react'
 
 const persistConfig = {
   key: 'root',
+  version: 1,
   storage,
   whitelist: ['cart']
 }
@@ -13,10 +22,16 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-  reducer: persistedReducer,
-  devTools: false,
+reducer: persistedReducer,
+devTools: false,
+middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 })
-export const persistor = persistStore(store)
+export let persistor = persistStore(store)
 // Infer the RootState and AppDispatch types from the store itself
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
