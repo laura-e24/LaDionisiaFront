@@ -11,6 +11,8 @@ import FAIcon from "../FAIcon";
 import MiniCard from "../MiniCard/MiniCard";
 import GenericModal from "../Modals/GenericModal";
 import axios from "axios"
+import PaypalCheckoutButton from "../PaypalCheckoutButton";
+
 
 const Cart = ({ wines }) => {
   const dispatch = useAppDispatch();
@@ -20,15 +22,17 @@ const Cart = ({ wines }) => {
   const clearAllCart = () => dispatch(clearCart())
 
   const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.product.price), 0)
-  const send = async () => {
-    const response = await axios.post(`http://localhost:3001/sendEmail`,
-      //aca debe ir el email de usuario loggeado
-      {
-        userEmail: 'grosservonsirius@gmail.com',
-        products: wines
-      })
-      .then(() => console.log(wines))
-  }
+
+  // const send = async () => {
+  //   const response = await axios.post(`http://localhost:3001/sendEmail`,
+  //     //aca debe ir el email de usuario loggeado
+  //     {
+  //       userEmail: 'grosservonsirius@gmail.com',
+  //       products: wines
+  //     })
+  //     .then(() => console.log(wines))
+  // }
+
   if (display)
     return (
       <>
@@ -48,10 +52,10 @@ const Cart = ({ wines }) => {
                 </button>
                 <button
                   className="text-xl font-bold"
-                  onClick={() => send()}
                 >
                   Go to checkout
-                </button>
+                </button> */
+
                 <span className="text-xl font-bold">Total:&nbsp; &nbsp;</span>
                 <span className="text-xl font-bold">${totalPrice}</span>
               </div>
