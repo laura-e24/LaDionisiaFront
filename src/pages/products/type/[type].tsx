@@ -107,7 +107,7 @@ export default function Reds({ }) {
     <>
     {
       currentItems.map((wine) => (
-        <Card wine={wine}></Card>
+        <Card key={wine.id} wine={wine}></Card>
       ))
     }
     </>

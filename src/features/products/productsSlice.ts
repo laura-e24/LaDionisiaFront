@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { EStateGeneric, rateGen } from "../../utils/general";
 import { IProduct } from "../../utils/types";
-import { createOneProduct, getAllDisabledProducts, getAllProducts, getAllProductTypes, getOneProductById, getAllProductsByContry, updateOneProduct, getAllProductsByRegion, getAllProductsByName, postFavorite, getAllFavoritesApi, deleteFavoriteApi, deleteAllFavoritesApi } from "./productsApi";
+import { createOneProduct, getAllDisabledProducts, getAllProducts, getAllProductTypes, getOneProductById, getAllProductsByContry, updateOneProduct, getAllProductsByRegion, getAllProductsByName, postFavorite, getAllFavoritesApi, deleteFavoriteApi, deleteAllFavoritesApi, deleteOneProduct } from "./productsApi";
 
 export const getAllWines = createAsyncThunk(
   'products/getAllWines',
@@ -135,6 +135,19 @@ export const createFavorite = createAsyncThunk(
   }
 )
 
+export const deleteWine = createAsyncThunk(
+  'products/deleteWine',
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await deleteOneProduct(id)
+      return response.data
+    } catch (error) {
+      console.log(error.response)
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
+
 
 export const deleteFavorite = createAsyncThunk(
   'products/deleteFavorite',
@@ -212,6 +225,10 @@ const productsSlice = createSlice({
           state.regions = [...state.regions, wine.region]
         }
       })
+      state.regions.sort((a, b) => {
+        if (a.toLowerCase() > b.toLowerCase()) return 1
+        else return -1
+      })
     },
     orderByName: (state, action) => {
       const array = state.wineTypes.length > 0 ? [...state.wineTypes] :
@@ -261,20 +278,20 @@ const productsSlice = createSlice({
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getAllWines.fulfilled, (state, action) => {
       state.wines = action.payload;
-      state.allFavoritesStatus = EStateGeneric.SUCCEEDED;
+      state.allWinesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getAllWines.pending, (state, action) => {
-      state.allFavoritesStatus = EStateGeneric.PENDING;
+      state.allWinesStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getAllWines.rejected, (state, action) => {
-      state.allFavoritesStatus = EStateGeneric.FAILED;
+      state.allWinesStatus = EStateGeneric.FAILED;
     })
 
 
 
     builder.addCase(getAllDisabledWines.fulfilled, (state, action) => {
       state.disabledWines = action.payload;
-      state.allWinesStatus = EStateGeneric.SUCCEEDED;
+      state.allDisabledWinesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getAllDisabledWines.pending, (state, action) => {
       state.allDisabledWinesStatus = EStateGeneric.PENDING;
@@ -341,6 +358,22 @@ const productsSlice = createSlice({
 
 
 
+    builder.addCase(deleteWine.fulfilled, (state, action) => {
+      state.disabledWines = state.disabledWines.map(w => {
+        if (w.id !== action.payload.id)
+          return w
+      });
+      state.allDisabledWinesStatus = EStateGeneric.SUCCEEDED;
+
+    })
+    builder.addCase(deleteWine.pending, (state, _action) => {
+      state.allDisabledWinesStatus = EStateGeneric.PENDING;
+    })
+    builder.addCase(deleteWine.rejected, (state, _action) => {
+      state.allDisabledWinesStatus = EStateGeneric.FAILED;
+    })
+
+
     builder.addCase(getAllWinesByContry.fulfilled, (state, action) => {
       state.winesCountry = action.payload;
       state.winesFilters = action.payload;
@@ -390,13 +423,13 @@ const productsSlice = createSlice({
 
     builder.addCase(getAllFavorites.fulfilled, (state, action) => {
       state.favorites = action.payload;
-      state.allWinesStatus = EStateGeneric.SUCCEEDED;
+      state.allFavoritesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getAllFavorites.pending, (state, action) => {
-      state.allWinesStatus = EStateGeneric.PENDING;
+      state.allFavoritesStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getAllFavorites.rejected, (state, action) => {
-      state.allWinesStatus = EStateGeneric.FAILED;
+      state.allFavoritesStatus = EStateGeneric.FAILED;
     })
 
 
@@ -413,7 +446,10 @@ const productsSlice = createSlice({
 
 
     builder.addCase(deleteFavorite.fulfilled, (state, action) => {
-      state.favorites = state.favorites.concat(action.payload);
+      state.favorites = state.favorites.map(w => {
+        if (w.id !== action.payload.id)
+          return w
+      });
       state.allFavoritesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(deleteFavorite.pending, (state, action) => {

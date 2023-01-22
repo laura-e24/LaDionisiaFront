@@ -35,7 +35,7 @@ export default function Wines({ wines }) {
   }
   return (
     <>
-      <div className="w-full h-full flex flex-wrap self-center justify-center divide-x-2 gap-y-8">
+      <div className="w-full h-full flex flex-wrap self-center justify-center">
         {
           currentItems.map((wine) => (
             <Card key={wine.id} wine={wine} handleEditProduct={handleEditProduct} ></Card>

@@ -8,7 +8,7 @@ import { EGenericButtonType } from '../../utils/general';
 import CustomSelect from '../CustomSelect';
 import * as Yup from "yup";
 import CustomTextArea from '../CustomTextArea';
-import {useRef, useState} from "react"
+import { useRef, useState } from "react"
 
 const validationSchema = Yup.object().shape({
   wine: Yup.string().required('Wine name is required.'),
@@ -27,7 +27,8 @@ const validationSchema = Yup.object().shape({
 
 const CreateProduct = ({ handleCloseModal }) => {
   const ref = useRef(null)
-  const [file, setFile] = useState( '' )
+  const [file, setFile] = useState('')
+  const [pathImage, setPathImage] = useState(null)
   const dispatch = useAppDispatch()
   const initialValues = {
     wine: "",
@@ -39,7 +40,7 @@ const CreateProduct = ({ handleCloseModal }) => {
     description: "",
     type: "",
     year: 0,
-    disabled: true,
+    disabled: false,
     featured: false,
     onSale: false,
     totalSalesCurrent: 0,
@@ -48,8 +49,16 @@ const CreateProduct = ({ handleCloseModal }) => {
   }
 
 
-  const handleChangeImage = (e) => setFile(ref.current?.files[0])
+  const handleChangeImage = (e) => {
+    setFile(ref.current?.files[0])
+    const file01 = ref.current?.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file01)
+    reader.onload = function load() {
+      setPathImage(reader.result)
+    }
 
+  }
   return (
     <div className="my-6 justify-center items-start flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="relative w-2/4 mt-2 mx-auto max-w-6xl">
@@ -67,7 +76,7 @@ const CreateProduct = ({ handleCloseModal }) => {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={async (values, actions) => {
-              const formData= new FormData()
+              const formData = new FormData()
               formData.append('image', file)
               const result = await dispatch(createWine({
                 ...values,
@@ -77,11 +86,11 @@ const CreateProduct = ({ handleCloseModal }) => {
                 alert('Product Created')
                 actions.resetForm()
               }
-              
+
               console.log(result)
             }}
           >
-            {({}) => (
+            {({ }) => (
               <Form className="grid grid-cols-4 gap-4 bg-white shadow-md rounded px-6 pt-6 pb-8 dark:bg-black">
                 <CustomField
                   label='Name'
@@ -132,6 +141,7 @@ const CreateProduct = ({ handleCloseModal }) => {
                   <label className="block text-sm font-bold mb-2">
                     Image
                   </label>
+                  {pathImage && <img className='h-40' src={pathImage} alt="" />}
                   <input
                     ref={ref}
                     onChange={handleChangeImage}
@@ -153,18 +163,18 @@ const CreateProduct = ({ handleCloseModal }) => {
                   />
                 </div>
                 <div className='col-span-2'>
-                  <CustomTextArea 
+                  <CustomTextArea
                     label='Description'
                     name='description'
                   />
                 </div>
                 <div className="col-span-4 flex justify-around p-6 border-t border-slate-200 w-full">
-                  <GenericButton 
+                  <GenericButton
                     label='Cerrar'
                     buttonType={EGenericButtonType.CLOSE}
                     onClick={handleCloseModal}
                   />
-                  <GenericButton 
+                  <GenericButton
                     label='Aceptar'
                     buttonType={EGenericButtonType.PRIMARY}
                     type='submit'
