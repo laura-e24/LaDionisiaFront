@@ -35,8 +35,8 @@ export default function Card({ wine }) {
   }
   return (
     <>
-      <div key={wine.id} className="w-2/3 float-right pt-4">
-        <p className="text-xl font-montserrat text-price-color">{wine.winery} - {wine.year}</p>
+      <div key={wine.id} className="wine-card w-2/3 float-right pt-4">
+        <p className="text-xl font-montserrat text-price-color wine-winery">{wine.winery} - {wine.year}</p>
         <p className="wine-name font-montserrat text-font-color" ><b>{wine.wine}</b></p>
         <p className="font-montserrat text-gray-600 pt-4 pb-4 price">
           <span className="text-price-color">
@@ -56,7 +56,7 @@ export default function Card({ wine }) {
             className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
         </a>
       </div>
-      <div className="w-1/3 h-96 flex justify-center items-center bg-product">
+      <div className="w-1/3 h-96 flex justify-center items-center bg-product wine-bootle">
         <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
       </div>
     </>

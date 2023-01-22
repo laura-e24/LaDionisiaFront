@@ -349,6 +349,16 @@ footer .container {
    { display: none 
    }
 
+   .price {    font-size: 185%!important;    margin-top: -10px!important;   }
+   .wine-winery{font-size:110%!important}
+   .wine-name {font-size: 130%!important; line-height:120%!important;height:80px;overflow: hidden; vertical-align: middle; display: table-cell;text-overflow: ellipsis;}
+   .wine-description {font-size: 90%!important; word-spacing: -3px; line-height: 105%!important; height:92px; overflow: hidden;  padding-bottom: 12px;  }
+   .wine-bootle{margin-top: -26px!important}
+   .wine-button{margin-left:32px;margin-top:-4px}
+   .wine-card {padding-bottom: 4px!important}
+   #filter-price{width:60px}
+   #filter-vintage{width:74px}
+   #filter-score{width:60px}
 }
 
 

@@ -37,7 +37,7 @@ const Filters = () => {
                 <option className="" value="atoz">A - Z</option>
                 <option className="" value="ztoa">Z - A</option>
             </select>
-            <select name="price" className="bg-transparent" onChange={handleFilters}>
+            <select id="filter-price" name="price" className="bg-transparent" onChange={handleFilters}>
                 <option disabled selected>Price</option>
                 <option value="all-price">ALL</option>
                 <option value="100-200">$100 - $200</option>
@@ -59,7 +59,7 @@ const Filters = () => {
                     ))}
                 </select>
             }
-            <select name="vintage" className="bg-transparent" onChange={handleFilters} >
+            <select id="filter-vintage" name="vintage" className="bg-transparent" onChange={handleFilters} >
                 <option disabled selected>Vintage</option>
                 <option value="all-vintage">ALL</option>
                 {vintage.map((v, index) => (
@@ -68,7 +68,7 @@ const Filters = () => {
                     </option>
                 ))}
             </select>
-            <select name="score" className="bg-transparent" onChange={handleFilters}>
+            <select id="filter-score" name="score" className="bg-transparent" onChange={handleFilters}>
                 <option disabled selected>Score</option>
                 <option value="all-score">ALL</option>
                 {scores.map((score, index) => (
