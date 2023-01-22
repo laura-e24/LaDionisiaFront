@@ -2,13 +2,15 @@ import NavBar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { getAllFavorites, createFavorite, deleteFavorite ,deleteAllFavorites,selectAllFilters, getAllWines, selectAllWines, selectAllWinesStatus,selectAllWinesCountryStatus } from "../../features/products/productsSlice";
+import { getAllFavorites, createFavorite, deleteFavorite ,deleteAllFavorites,selectAllFilters, getAllWines, selectAllWines, selectAllWinesStatus,selectAllWinesCountryStatus, selectAllFavorites, selectAllFavoritesStatus } from "../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import Filters from "../../components/Filters/Filters";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { selectAllUsers } from "../../features/comments/commentsSlice";
 
 <title>Favorite</title>
 export default function index() {
@@ -16,28 +18,31 @@ export default function index() {
   
     const router = useRouter()
     const dispatch = useAppDispatch()
-    const wines = useSelector(selectAllWines)
-    const winesStatus = useSelector(selectAllWinesStatus)
-    const winesCountryStatus = useSelector(selectAllWinesCountryStatus)
+    const favorites = useSelector(selectAllFavorites)
+    const favoritesStatus = useSelector(selectAllFavoritesStatus)
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 21;
+    const { user } = useUser()
+    const users = useSelector(selectAllUsers)
+    const userExistente = users.find(u => u.email === user?.email)
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const [filteredWines, setFilteredWines] = useState(wines);
+    const [filteredWines, setFilteredWines] = useState(favorites);
     const currentItems = filteredWines.slice(indexOfFirstItem, indexOfLastItem)
     const onPageChange = (event) => {
       setCurrentPage(Number(event.target.id));
     };
     useEffect(() => {
-      const fetchData = async (userId) => {
+      const fetchData = async () => {
         if (router.isReady) {
-          if (winesStatus === EStateGeneric.IDLE) {
-            await dispatch(getAllFavorites(userId));
+          if (favoritesStatus === EStateGeneric.IDLE) {
+            await dispatch(getAllFavorites(userExistente.id));
           }
         }
       }
-      setFilteredWines(filterWines(wines, filters));
-    }, [winesStatus, filters, wines])
+      setFilteredWines(filterWines(favorites, filters));
+    }, [favoritesStatus, filters, favorites])
+    console.log(favorites)
     return (
   
   <>
@@ -60,8 +65,8 @@ export default function index() {
       
     </div>
     <Filters />
-    {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
-    {wines && !wines[0]?.error && filteredWines.length > 0 &&
+    {favorites && favorites[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+    {favorites && !favorites[0]?.error && filteredWines.length > 0 &&
       <>
         {
           currentItems.map((wine) => (

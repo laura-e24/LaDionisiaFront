@@ -180,9 +180,6 @@ const NavBar = () => {
           <Image  layout="fill" src="/assets/heart.svg" />
         </div>
         </a>
-      
-        
-
       </nav>
 
       <a id="goMobile" onClick={goMobile} href='/home' className="menu w-24  h-6 inline-block text-center align-sub">
