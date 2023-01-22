@@ -1,7 +1,7 @@
 import Navbar from "../../components/Navbar/NavBar";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { clearOneWine, createFavorite, deleteAllFavorites, getOneWine, selectOneWine, selectOneWineStatus } from "../../features/products/productsSlice";
+import { clearOneWine, createFavorite, deleteAllFavorites, getOneWine, selectOneWine, selectOneWineStatus, } from "../../features/products/productsSlice";
 import { useEffect, useState } from "react";
 import { EStateGeneric } from "../../utils/general";
 import { useRouter } from "next/router";
@@ -84,6 +84,9 @@ export default function Product() {
             <WineDescription text={wine.description} />
           </p>
           <button className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
+          <button onClick={añadirfavoritos} className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">
+            ❤
+          </button>
         </div>
         <div className="w-1/3 h-96 flex justify-center items-center bg-product">
           <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
