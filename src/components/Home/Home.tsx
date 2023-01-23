@@ -116,7 +116,7 @@ const Home = () => {
       </div>
     </a>
   </div>
-  <a id="home-main-1" href="/products/2889" alt="wine list"></a>
+  <a id="home-main-1" href="/products/2889" title="wine list"></a>
   <a id="home-main-2" href="/newsletter"></a>
   <Footer/>
 </div>
