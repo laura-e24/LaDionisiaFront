@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>La Dionisia - Wines</title>
       </Head>
       <body className="body">
         <Main/>
