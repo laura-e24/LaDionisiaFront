@@ -135,7 +135,7 @@ const NavBar = () => {
   return (
   <>
     <div id="navbar" className="w-28 h-28 absolute left-1/2 -translate-x-1/2">
-      <Image layout="fill" src="/assets/logonav.svg" />
+      <Image layout="fill" src="/assets/logonav.svg" alt="La Dionisia Logo"/>
     </div>
     <nav className="
       float-right   
@@ -185,13 +185,11 @@ const NavBar = () => {
         MENU
       </a>
       <div id="portableMenu">
-        <a id="gohome"     onClick={goHome}      href='/home'>Home</a>
+        <a id="gohome2"     onClick={goHome}      href='/home'>Home</a>
         <a id="goproducts" onClick={goProducts}  href='/products'>Products</a>
         <a id="gocontacts" onClick={goContact}   href='#contact'>Contact</a>
         <a id="closecell"  onClick={closeMobile} href="#">Return</a>
       </div>
-
-
       <nav className="
   nav 
   bg-bg-body 
@@ -201,13 +199,10 @@ const NavBar = () => {
   divide-neutral-400 
   mt-10 
   mb-14">
-
-  
-
           <a id="gohome" onClick={goHome} href='/home' className="menu w-24  h-6 inline-block text-center align-sub">
           Home
           </a>
-        <a className="menu w-24  h-6 inline-block text-center align-sub">
+        <div className="menu w-24  h-6 inline-block text-center align-sub">
           <details>
             <summary>
               Winery
@@ -243,15 +238,12 @@ const NavBar = () => {
               <b>«<a href="/products">Show All</a>»</b>
             </div>
           </details>
-        </a>
+        </div>
         <a onClick={goContact} href='#contact' className="menu w-24  h-6 inline-block text-center align-sub">
           Contact
         </a>
       </nav>
-
-
     </>
-
   )
 }
 

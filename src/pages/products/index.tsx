@@ -49,7 +49,7 @@ export default function index() {
 <div className="
  main-body  
  pt-12 
- mb-12 
+ mb-8
  m-auto
  max-w-screen-xl
  bg-bg-body 
@@ -72,10 +72,10 @@ export default function index() {
     </a>
     <a href='/products/type/whites'>
       <div className="white text-center font-montserrat text-gray-600">
-          <div className='w-32 h-32 relative mb-2'>
-            <Image src="/assets/white.png" layout='fill'/>
-          </div>
-          White
+        <div className='w-32 h-32 relative mb-2'>
+          <Image src="/assets/white.png" layout='fill' />
+        </div>
+        White
       </div>
     </a>
     <a href='/products/type/reds'>
@@ -126,6 +126,6 @@ export default function index() {
     currentPage={currentPage}
     setCurrentPage={setCurrentPage}
   />
-</div>
 <Footer/>
+</div>
 </>)};
