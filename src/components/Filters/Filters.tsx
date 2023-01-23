@@ -1,3 +1,5 @@
+/* eslint-disable react/no-direct-mutation-state */
+
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import { orderByName, selectAllRegions, setFilters } from "../../features/products/productsSlice";
@@ -28,7 +30,6 @@ const Filters = () => {
         "93-91",
         "90-under"
     ]
-
 
     return (
         <div className="w-full inline-flex justify-around text-gray-600 pt-6">

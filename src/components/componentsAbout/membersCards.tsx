@@ -1,8 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGithub, faLinkedin} from '@fortawesome/free-brands-svg-icons'
-import Image  from 'next/image'
+import React from 'react'
+import Image from 'next/image'
 export default function MembersCard({name, image, github,linkedin }){
-
 return(
 <><div className="flex items-center pl-7 pr-7 member-card">
   <img src= {image} className="

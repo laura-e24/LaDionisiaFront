@@ -26,6 +26,7 @@ const Home = () => {
         localStorage.setItem('age', '18+')
   }
   useEffect(() => {
+  //  console.warn = () => {};
     const  legalAge = localStorage.getItem('age')
    if   ( !legalAge ) {
       let  modalAge = document.getElementById('modal-age')
@@ -46,7 +47,7 @@ const Home = () => {
     }
   })
   return (
-<>
+<><title>La Dionisia - Wines</title>
 <a onClick={goHome} href='#passion-for-wine' className="videologo top-4 w-28 h-28 absolute left-1/2 -translate-x-1/2 z-50">
   <img src="assets/logo.svg"/>
 </a>
@@ -115,7 +116,7 @@ const Home = () => {
       </div>
     </a>
   </div>
-  <a id="home-main-1" href="/products/2889"></a>
+  <a id="home-main-1" href="/products/2889" alt="wine list"></a>
   <a id="home-main-2" href="/newsletter"></a>
   <Footer/>
 </div>
