@@ -64,17 +64,17 @@ const filterByVintage = (wine, filter) => {
 const filterByScore = (wine, filter) => {
   switch (filter.score) {
     case '100':
-      return rateGen(wine.rating) === 100
+      return wine.rating === 100
     case '99-97':
-      return rateGen(wine.rating) < 100 && rateGen(wine.rating) >= 97
+      return wine.rating < 100 && wine.rating >= 97
     case '96-94':
-      return rateGen(wine.rating) < 97 && rateGen(wine.rating) >= 94
+      return wine.rating < 97 && wine.rating >= 94
     case '93-91':
-      return rateGen(wine.rating) < 94 && rateGen(wine.rating) >= 91
+      return wine.rating < 94 && wine.rating >= 91
     case '90-under':
-      return rateGen(wine.rating) < 91
+      return wine.rating < 91
     case 'all-score':
-      return rateGen(wine.rating)
+      return wine.rating
   }
 }
 const filterByPrice = (wine, filter) => {

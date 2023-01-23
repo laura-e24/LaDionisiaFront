@@ -68,7 +68,6 @@ export default function Products() {
     <div className="
     main-body  
     pt-12 
-    mb-12 
     m-auto
     min-h-screen
     max-w-screen-xl

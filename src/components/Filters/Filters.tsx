@@ -50,8 +50,8 @@ const Filters = () => {
                 <option value="6-9">$6 - $9</option>
             </select>
             {regions.length > 0 &&
-                <select className="bg-transparent" name="region" onChange={handleFilters}>
-                    <option disabled selected>Regiones</option>
+                <select id="region" className="bg-transparent" name="region" onChange={handleFilters}>
+                    <option disabled selected>Regions</option>
                     <option value="all-region">ALL</option>
                     {regions.map((region, index) => (
                         <option key={index} value={region}>
