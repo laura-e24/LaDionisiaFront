@@ -5,11 +5,21 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import { addNewProduct, selectDisplay, displayCart } from "../../features/products/cartSlice";
+import { createFavorite } from "../../features/products/productsSlice";
+import { selectAllUsers } from "../../features/comments/commentsSlice";
+import { useRouter } from "next/router";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Card({ wine }) {
+  const { user } = useUser();
+  const router = useRouter()
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const display = useSelector(selectDisplay)
+  const users = useSelector(selectAllUsers)
+  const { id } = router.query
+  const userExistente = users.find(u => u.email === user?.email)
+  const currentUser = userExistente?.id
 
   const Price = ({ amount }) => {
     let price = (amount < 1) ? 100 : amount
@@ -33,6 +43,10 @@ export default function Card({ wine }) {
   if (isLoading) {
     return null;
   }
+  const productCurrent = id?.toString()
+  function añadirfavoritos() {
+    dispatch(createFavorite({ userId: currentUser, productId: productCurrent }))
+  }
   return (
     <>
       <div key={wine.id} className="w-2/3 float-right pt-4">
@@ -55,6 +69,9 @@ export default function Card({ wine }) {
             }}
             className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
         </a>
+        <button onClick={añadirfavoritos} className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">
+          ❤
+        </button>
       </div>
       <div className="w-1/3 h-96 flex justify-center items-center bg-product">
         <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />

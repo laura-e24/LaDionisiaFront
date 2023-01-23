@@ -287,7 +287,11 @@ const productsSlice = createSlice({
     clearOneWine: (state) => {
       state.wine = {}
     },
-    getFavorites: (state, action) => {
+    setFavorites: (state, action) => {
+      state.favorites = state.favorites.filter(w => {
+        if (w.id !== action.payload.id)
+          return w
+      });
     }
   },
   extraReducers: (builder) => {
@@ -476,10 +480,7 @@ const productsSlice = createSlice({
 
 
     builder.addCase(deleteFavorite.fulfilled, (state, action) => {
-      state.favorites = state.favorites.map(w => {
-        if (w.id !== action.payload.id)
-          return w
-      });
+      
       state.allFavoritesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(deleteFavorite.pending, (state, action) => {
@@ -525,7 +526,8 @@ export const {
   cleanUpState,
   cleanUpStateFilters,
   clearOneWine,
-  getRegiones
+  getRegiones,
+  setFavorites
 } = productsSlice.actions;
 
 export const selectAllWinesStatus = (state) => state.products.allWinesStatus;
