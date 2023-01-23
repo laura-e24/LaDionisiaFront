@@ -122,6 +122,18 @@ export const getAllFavorites = createAsyncThunk(
   }
 )
 
+export const getFavorite = createAsyncThunk(
+  'products/getFavorite',
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await getOneProductById(id)
+      return response.data
+    } catch (error) {
+      console.log(error.response)
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
 export const createFavorite = createAsyncThunk(
   'products/createFavorite',
   async ({ userId, productId }: { userId: any, productId: any }, { rejectWithValue }) => {
@@ -191,6 +203,7 @@ interface ProductsState {
   allDisabledWinesStatus: EStateGeneric,
   allWineTypesStatus: EStateGeneric,
   oneWineStatus: EStateGeneric,
+  oneFavoriteStatus: EStateGeneric,
   favorites: IProduct[],
   allFavoritesStatus: EStateGeneric,
 }
@@ -210,6 +223,7 @@ const initialState = {
   allDisabledWinesStatus: EStateGeneric.IDLE,
   allWineTypesStatus: EStateGeneric.IDLE,
   oneWineStatus: EStateGeneric.IDLE,
+  oneFavoriteStatus: EStateGeneric.IDLE,
   favorites: [],
   allFavoritesStatus: EStateGeneric.IDLE,
 } as ProductsState
@@ -272,6 +286,8 @@ const productsSlice = createSlice({
     },
     clearOneWine: (state) => {
       state.wine = {}
+    },
+    getFavorites: (state, action) => {
     }
   },
   extraReducers: (builder) => {
@@ -324,6 +340,18 @@ const productsSlice = createSlice({
     })
     builder.addCase(getOneWine.rejected, (state, action) => {
       state.oneWineStatus = EStateGeneric.FAILED;
+    })
+
+
+    builder.addCase(getFavorite.fulfilled, (state, action) => {
+      state.favorites = state.favorites.concat(action.payload);
+      state.oneFavoriteStatus = EStateGeneric.SUCCEEDED;
+    })
+    builder.addCase(getFavorite.pending, (state, action) => {
+      state.oneFavoriteStatus = EStateGeneric.PENDING;
+    })
+    builder.addCase(getFavorite.rejected, (state, action) => {
+      state.oneFavoriteStatus = EStateGeneric.FAILED;
     })
 
 
@@ -434,7 +462,6 @@ const productsSlice = createSlice({
 
 
     builder.addCase(createFavorite.fulfilled, (state, action) => {
-      state.favorites = state.favorites.concat(action.payload);
       state.allFavoritesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(createFavorite.pending, (state, action) => {
@@ -503,4 +530,5 @@ export const selectAllWinesCountryStatus = (state) => state.products.allWinesCou
 export const selectAllDisabedWinesStatus = (state) => state.products.allDisabledWinesStatus;
 export const selectAllWineTypesStatus = (state) => state.products.allWineTypesStatus;
 export const selectOneWineStatus = (state) => state.products.oneWineStatus;
+export const selectOneFavoriteStatus = (state) => state.products.oneFavoriteStatus;
 export const selectAllFavoritesStatus = (state) => state.products.allFavoritesStatus;
