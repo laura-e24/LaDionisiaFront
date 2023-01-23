@@ -124,8 +124,8 @@ export default function index({ }) {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-    </div>
 <Footer />    
+    </div>
 </>    
   )
 }
