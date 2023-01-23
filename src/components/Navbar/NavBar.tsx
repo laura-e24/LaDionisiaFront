@@ -204,7 +204,7 @@ const NavBar = () => {
           </a>
         <div className="menu w-24  h-6 inline-block text-center align-sub">
           <details>
-            <summary>
+            <summary className="menu-winery">
               Winery
             </summary>
             <div className="submenu z-50">
