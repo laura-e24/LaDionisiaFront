@@ -43,7 +43,7 @@ export default function Product() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      <Footer/>
     </div>
   )
 }

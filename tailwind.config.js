@@ -23,13 +23,6 @@ module.exports = {
         'price-color': '#B1AA95',
         'pagination-color': '#E0D7C9',
       },
-      fontFamily: {
-        'poppins': ['Poppins', 'sans-serif'],
-        'nunito': ['Nunito']
-      },
-      backgroundImage: {
-        'footer': "url('/src/assets/img/footer.png')",
-      }
     },
   },
   plugins: [],

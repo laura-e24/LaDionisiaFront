@@ -11,7 +11,6 @@ import { persistor } from '../../app/store';
 import Cart from "../Cart/Cart";
 import { selectCart, selectDisplay, displayCart } from "../../features/products/cartSlice";
 
-
 const NavBar = () => {
   const [mounted, setMounted] = useState(false);
   const [search, setSearch] = useState('')
@@ -89,31 +88,74 @@ const NavBar = () => {
     'Australia',
     'United States',
   ]
-  // console.log(filters)
-  return (
-    <>
 
-      <div className="w-28 h-28 absolute left-1/2 -translate-x-1/2">
-        <Image layout="fill" src="/assets/logonav.svg" />
-      </div>
-      <nav className="
-  float-right   
-  mt-10 
-  bg-bg-body 
-  h-8 
-  w-2/5
-">
-        <details className="float-right ml-2">
-          <summary>
-            <div className="w-7 h-7 mt-1 relative">
-              <Image layout="fill" src="/assets/search.svg" />
-            </div>
-          </summary>
+  const goContact = (e) => {
+    e.preventDefault()
+    let menu = document.getElementById('portableMenu')
+        menu.style.display='none'
+    document
+    .querySelector('#contact')
+    .scrollIntoView({block: "start", behavior: "smooth"})
+  }
+
+  const goHome = (e) => {
+    if ( e.target.href == window.location || e.target.href === window.location+'home') {
+      e.preventDefault()
+      let menu = document.getElementById('portableMenu')
+          menu.style.display='none'
+    }
+  }
+
+  const goMobile = (e) => {
+    e.preventDefault()
+    let menu = document.getElementById('portableMenu')
+    document
+    .querySelector('#portableMenu')
+    .scrollIntoView({block: "start", behavior: "smooth"})
+    menu.style.display='block'
+  }
+
+  const closeMobile = (e) => {
+    e.preventDefault()
+    let menu = document.getElementById('portableMenu')
+        menu.style.display='none'
+  }
+
+  const goProducts = (e) => {
+    let menu = document.getElementById('portableMenu')
+        menu.style.display='none'
+        if ( e.target.href == window.location) {
+          e.preventDefault()
+        }
+  }
+
+
+
+
+  return (
+  <>
+    <div id="navbar" className="w-28 h-28 absolute left-1/2 -translate-x-1/2">
+      <Image layout="fill" src="/assets/logonav.svg" alt="La Dionisia Logo"/>
+    </div>
+    <nav className="
+      float-right   
+      mt-10 
+      bg-bg-body 
+      h-8 
+      w-2/5
+      nav-icons
+    ">
+      <details className="float-right ml-2">
+        <summary>
+          <div className="w-7 h-7 mt-1 relative">
+            <Image layout="fill" src="/assets/search.svg" />
+          </div>
+        </summary>
           <form className="wine-search  float-right -mt-7 pl-8" onSubmit={(e) => { getWinesByName(e) }}>
             <input type="search" onChange={(e) => { handleInputName(e) }} value={search} placeholder="Search Wines" />
             <button>GO</button>
           </form>
-        </details>
+      </details>
         <div className="w-7 h-7 mt-1 ml-2 relative float-right">
           <Image onClick={() => dispatch(displayCart())} layout="fill" src="/assets/cart.svg" />
           <Cart wines={cart}/>
@@ -132,12 +174,22 @@ const NavBar = () => {
             {!user && <a href="/api/auth/login">Login</a>}
           </div>
         </details>
-        {/* 
+        <a href='/favorite'>
         <div className="w-7 h-7 mt-1 relative float-right">
-          <Image layout="fill" src="/assets/heart.svg" />
+          <Image  layout="fill" src="/assets/heart.svg" />
         </div>
-*/}
+        </a>
       </nav>
+
+      <a id="goMobile" onClick={goMobile} href='/home' className="menu w-24  h-6 inline-block text-center align-sub">
+        MENU
+      </a>
+      <div id="portableMenu">
+        <a id="gohome2"     onClick={goHome}      href='/home'>Home</a>
+        <a id="goproducts" onClick={goProducts}  href='/products'>Products</a>
+        <a id="gocontacts" onClick={goContact}   href='#contact'>Contact</a>
+        <a id="closecell"  onClick={closeMobile} href="#">Return</a>
+      </div>
       <nav className="
   nav 
   bg-bg-body 
@@ -147,13 +199,10 @@ const NavBar = () => {
   divide-neutral-400 
   mt-10 
   mb-14">
-        <Link href='/#passion-for-wine'>
-          <a className="menu w-24  h-6 inline-block text-center align-sub">
-
-            Home
+          <a id="gohome" onClick={goHome} href='/home' className="menu w-24  h-6 inline-block text-center align-sub">
+          Home
           </a>
-        </Link>
-        <a className="menu w-24  h-6 inline-block text-center align-sub">
+        <div className="menu w-24  h-6 inline-block text-center align-sub">
           <details>
             <summary>
               Winery
@@ -189,15 +238,12 @@ const NavBar = () => {
               <b>«<a href="/products">Show All</a>»</b>
             </div>
           </details>
-        </a>
-        <a href='#contact' className="menu w-24  h-6 inline-block text-center align-sub">
+        </div>
+        <a onClick={goContact} href='#contact' className="menu w-24  h-6 inline-block text-center align-sub">
           Contact
         </a>
       </nav>
-
-
     </>
-
   )
 }
 
