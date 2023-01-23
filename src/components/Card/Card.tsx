@@ -51,7 +51,6 @@ export default function Card({ wine }) {
           <button
             onClick={() => {
               dispatch(addNewProduct(wine))
-              if (!display) dispatch(displayCart())
             }}
             className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
         </a>
