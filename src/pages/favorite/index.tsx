@@ -10,7 +10,7 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import Filters from "../../components/Filters/Filters";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { selectAllUsers } from "../../features/comments/commentsSlice";
+import { getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
 
 <title>Favorite</title>
 export default function index() {
@@ -34,12 +34,13 @@ export default function index() {
     };
     useEffect(() => {
       const fetchData = async () => {
-        if (router.isReady) {
+        if (router.isReady) {  await dispatch(getAllUsers());
           if (favoritesStatus === EStateGeneric.IDLE) {
-            await dispatch(getAllFavorites(userExistente.id));
+           /*  await dispatch(getAllFavorites(userExistente.id)); */
           }
         }
       }
+      fetchData()
       setFilteredWines(filterWines(favorites, filters));
     }, [favoritesStatus, filters, favorites])
     console.log(userExistente)
