@@ -344,14 +344,17 @@ const productsSlice = createSlice({
 
 
     builder.addCase(getFavorite.fulfilled, (state, action) => {
-      state.favorites = state.favorites.concat(action.payload);
-      state.oneFavoriteStatus = EStateGeneric.SUCCEEDED;
+      // state.favorites = state.favorites.concat(action.payload);
+      if (state.favorites && !state.favorites.includes(action.payload)) {
+        state.favorites = state.favorites.concat(action.payload);
+      }
+      state.allFavoritesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(getFavorite.pending, (state, action) => {
-      state.oneFavoriteStatus = EStateGeneric.PENDING;
+      state.allFavoritesStatus = EStateGeneric.PENDING;
     })
     builder.addCase(getFavorite.rejected, (state, action) => {
-      state.oneFavoriteStatus = EStateGeneric.FAILED;
+      state.allFavoritesStatus = EStateGeneric.FAILED;
     })
 
 

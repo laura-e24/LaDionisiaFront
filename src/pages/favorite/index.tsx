@@ -103,7 +103,7 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import Filters from "../../components/Filters/Filters";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
+import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
 
 <title>Favorite</title>
 export default function index() {
@@ -113,6 +113,7 @@ export default function index() {
   const dispatch = useAppDispatch()
   const favorites = useSelector(selectAllFavorites)
   const favoritesStatus = useSelector(selectAllFavoritesStatus)
+  const usersStatus = useSelector(AllUsersStatus)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 21;
   const { user } = useUser()
@@ -128,9 +129,13 @@ export default function index() {
   useEffect(() => {
     const fetchData = async () => {
       if (router.isReady) {
-        if (favoritesStatus === EStateGeneric.IDLE) {
-          // await dispatch(getAllFavorites(userExistente.id));
+        if (usersStatus === EStateGeneric.IDLE) {
           await dispatch(getAllUsers());
+          userExistente?.favorites.map(async element => {
+            await dispatch(getFavorite(element.toString()))
+          })
+        }
+        if (favoritesStatus === EStateGeneric.IDLE) {
           userExistente?.favorites.map(async element => {
             await dispatch(getFavorite(element.toString()))
           })
@@ -141,8 +146,6 @@ export default function index() {
     fetchData()
     setFilteredWines(filterWines(favorites, filters));
   }, [favoritesStatus, filters, favorites, users])
-  console.log(userExistente)
-  console.log(favorites)
   return (
 
     <>
