@@ -12,6 +12,8 @@ import MiniCard from "../MiniCard/MiniCard";
 import GenericModal from "../Modals/GenericModal";
 import Router  from "next/router";
 
+
+
 const Cart = ({ wines }) => {
   const dispatch = useAppDispatch();
   const display = useSelector(selectDisplay);
@@ -20,7 +22,7 @@ const Cart = ({ wines }) => {
   const clearAllCart = () => dispatch(clearCart())
 
   const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.product.price), 0)
-  
+
   if (display)
     return (
       <>
@@ -55,6 +57,7 @@ const Cart = ({ wines }) => {
                   Clear cart
                 </button> */}
                 <button
+
                   className="text-xl py-6 px-4 bg-[#3D3A35] rounded-2xl w-full flex justify-between"
                   onClick={() => {
                     Router.push('/products/checkout')
@@ -68,6 +71,15 @@ const Cart = ({ wines }) => {
                   </span>
                 </button>
                 
+//guille
+                  className="text-xl font-bold"
+                >
+                  Go to checkout
+                </button> */
+
+                <span className="text-xl font-bold">Total:&nbsp; &nbsp;</span>
+                <span className="text-xl font-bold">${totalPrice}</span>
+
               </div>
             </>
           ) : <div className="text-center font-semibold text-black">
