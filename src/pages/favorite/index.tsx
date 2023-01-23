@@ -14,7 +14,6 @@ import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comm
 
 <title>Favorite</title>
 export default function index() {
-  const fav = localStorage.getItem('favs')
   const filters = useSelector(selectAllFilters)
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true);
@@ -36,7 +35,6 @@ export default function index() {
   };
   useEffect(() => {
     const fetchData = async () => {
-      if(!fav)
       if (router.isReady) {
         if (usersStatus === EStateGeneric.IDLE) {
           await dispatch(getAllUsers());
@@ -59,17 +57,20 @@ export default function index() {
     return null;
   }
   console.log(favorites)
-  return (
 
+  return (
     <>
-      <div className="
-   main-body  
-   pt-12 
-   mb-12 
-   m-auto
-   max-w-screen-xl
-   bg-bg-body 
-   "><NavBar></NavBar>
+        <div className="
+      main-body  
+      pt-12 
+      mb-12 
+      m-auto
+      max-w-screen-xl
+      bg-bg-body 
+      "><NavBar></NavBar>
+      <img src="assets/favorites.jpg"/>
+
+      <h1 className="font-montserrat text-gray-600 text-3xl mt-8" >YOUR FAVORITES</h1>
         <div className="
       w-full 
       flex 
@@ -78,7 +79,6 @@ export default function index() {
       mt-8
       wine-types
     ">
-
         </div>
         {favorites && favorites[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
         {favorites && !favorites[0]?.error && filteredWines.length > 0 &&
@@ -93,7 +93,7 @@ export default function index() {
         {!filteredWines.length &&
           <>
             <h1>YOU DON'T HAVE FAVORITES</h1>
-            {userExistente?.favorites.map((e,index) => (<p key={index}>{e}</p>))}
+            {userExistente?.favorites.map((e, index) => (<p key={index}>{e}</p>))}
           </>
         }
         <Pagination

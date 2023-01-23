@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import { addNewProduct, selectDisplay, displayCart } from "../../features/products/cartSlice";
-import { createFavorite } from "../../features/products/productsSlice";
-import { selectAllUsers } from "../../features/comments/commentsSlice";
+import { createFavorite, getFavorite } from "../../features/products/productsSlice";
+import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
 import { useRouter } from "next/router";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { EStateGeneric } from "../../utils/general";
 
 export default function Card({ wine }) {
   const { user } = useUser();
@@ -16,11 +17,24 @@ export default function Card({ wine }) {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const display = useSelector(selectDisplay)
+  const usersStatus = useSelector(AllUsersStatus)
   const users = useSelector(selectAllUsers)
-  const { id } = router.query
   const userExistente = users.find(u => u.email === user?.email)
   const currentUser = userExistente?.id
+  const productCurrent = wine.id?.toString()
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (router.isReady) {
+        if (usersStatus === EStateGeneric.IDLE) {
+          await dispatch(getAllUsers());
+        }      
+      }
+    }
+    fetchData()
+  }, [users])
+  
   const Price = ({ amount }) => {
     let price = (amount < 1) ? 100 : amount
     let entero = Math.trunc(price);
@@ -36,17 +50,17 @@ export default function Card({ wine }) {
     desc[1] = (desc[1] == "") ? "" : "(" + desc[1]
     return (<>{texto}<small>{desc[1]}</small></>);
   }
-
+  function añadirfavoritos() {
+    dispatch(createFavorite({ userId: currentUser, productId: productCurrent }))
+    alert('Agregado')
+  }
   useEffect(() => {
     setIsLoading(false);
   }, []);
   if (isLoading) {
     return null;
   }
-  const productCurrent = id?.toString()
-  function añadirfavoritos() {
-    dispatch(createFavorite({ userId: currentUser, productId: productCurrent }))
-  }
+  
   return (
     <>
       <div key={wine.id} className="w-2/3 float-right pt-4">
