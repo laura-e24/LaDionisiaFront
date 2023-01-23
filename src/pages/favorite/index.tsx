@@ -42,7 +42,7 @@ export default function index() {
       }
       setFilteredWines(filterWines(favorites, filters));
     }, [favoritesStatus, filters, favorites])
-    console.log(favorites)
+    console.log(userExistente)
     return (
   
   <>
