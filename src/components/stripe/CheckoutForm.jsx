@@ -1,6 +1,7 @@
 import React from "react";
 import {
   PaymentElement,
+  LinkAuthenticationElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
@@ -69,14 +70,14 @@ export default function CheckoutForm({ totalPrice }) {
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
-    // if (error.type === "card_error" || error.type === "validation_error") {
-    //   setMessage(error.message);
-    // } else {
-    //   setMessage("An unexpected error occurred.");
-    // }
+    if (error.type === "card_error" || error.type === "validation_error") {
+      setMessage(error.message);
+    } else {
+      setMessage("An unexpected error occurred.");
+    }
 
     setIsLoading(false);
-    console.log(message)
+    alert(error.message)
   };
 
   const paymentElementOptions = {
