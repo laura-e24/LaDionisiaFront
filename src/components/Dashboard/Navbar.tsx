@@ -1,4 +1,3 @@
-import { useTheme } from "next-themes"
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
@@ -7,7 +6,6 @@ import { useRouter } from "next/router";
 
 const NavBar = () => {
   const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme();
   const { user, error, isLoading } = useUser();
   const router = useRouter();
 
@@ -58,20 +56,6 @@ const NavBar = () => {
       )}
       <span className="block">
         Carrito
-      </span>
-      <span className='block justify-center'>
-        <label>
-          Modo Oscuro
-        </label>
-        <input
-          className='ml-2'
-          checked={theme !== 'light'}
-          name="darkMode"
-          type="checkbox"
-          onChange={() => setTheme(
-            theme === 'light' ? 'dark' : 'light'
-          )}
-        />
       </span>
     </nav>
   )
