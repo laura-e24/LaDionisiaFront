@@ -4,7 +4,9 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import { PaypalCheckotButton } from '../PaypalCheckoutButton'
 import GenericButton from "../GenericButton";
+
 
 export default function CheckoutForm({ totalPrice }) {
   const stripe = useStripe();
@@ -71,14 +73,12 @@ export default function CheckoutForm({ totalPrice }) {
     // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
-      setErrorModal(true)
-    } else {
+      }
+      else {
       setMessage("An unexpected error occurred.");
       setErrorModal(true)
     }
-
     setIsLoading(false);
-    console.log(message)
   };
 
   const paymentElementOptions = {
@@ -111,10 +111,12 @@ export default function CheckoutForm({ totalPrice }) {
         <span id="button-text">
           {isLoading ? 
           <div className="spinner text-2xl text-center text-white" id="spinner">Please wait...</div> 
-          :  <p className="text-2xl text-center text-white">Pay now</p>}
+          :  <p className="text-2xl text-center text-white">Pay now</p>
+          }
         </span>
       </button>
     </form>
+
     {errorModal && (
         <div className="backdrop-blur-sm bg-black flex fixed w-screen h-screen inset-0 bg-opacity-30" style={{ zIndex: 999 }}>
           <div className="bg-white max-w-[50%] mx-auto my-auto rounded p-10">
