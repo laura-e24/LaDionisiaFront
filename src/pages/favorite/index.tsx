@@ -131,13 +131,10 @@ export default function index() {
       if (router.isReady) {
         if (usersStatus === EStateGeneric.IDLE) {
           await dispatch(getAllUsers());
-          userExistente?.favorites.map(async element => {
-            await dispatch(getFavorite(element.toString()))
-          })
         }
         if (favoritesStatus === EStateGeneric.IDLE) {
           userExistente?.favorites.map(async element => {
-            await dispatch(getFavorite(element.toString()))
+            await dispatch(getFavorite(element?.toString()))
           })
         }
       }
