@@ -118,7 +118,9 @@ const Home = () => {
         </div>
         <a id="home-main-1" href="/products/2889" title="wine list"></a>
         <a id="home-main-2" href="/newsletter"></a>
-        <div id="modal-age"></div>
+        <div id="modal-age">
+          You must be of legal drinking age to access this Site. <button onClick={goAge}>Accept</button>
+        </div>
         <Footer />
       </div>
     </>)
