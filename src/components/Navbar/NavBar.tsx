@@ -1,4 +1,3 @@
-import { useTheme } from "next-themes"
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
