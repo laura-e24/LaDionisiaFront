@@ -9,7 +9,7 @@ const NewsletterReceived = () => {
 <div className="
   main-body  
   pt-12 
-  mb-12 
+  mb-8
   m-auto
   min-h-screen
   max-w-screen-xl
@@ -30,8 +30,8 @@ const NewsletterReceived = () => {
    <p  className="font-montserrat text-gray-600 text-xl text-justify mt-6 mb-7">
    In the meantime, I’d love to hear from you about why you’ve subscribed to our list, and what you’re interested in learning about. So long as you reply to this email, I promise I will too.
    </p>
+   <Footer/>
 </div>
-<Footer></Footer>
 </>
 )}
 export default NewsletterReceived;

@@ -4,12 +4,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../app/store";
-import { updateWine } from "../../features/products/productsSlice";
+import { deleteWine, getAllDisabledWines, getAllWines, selectAllDisabedWinesStatus, updateWine } from "../../features/products/productsSlice";
 import GenericModal from "../Modals/GenericModal";
+import { EStateGeneric } from "../../utils/general";
+import { useSelector } from "react-redux";
 
 export default function Card({ wine, handleEditProduct }) {
   const dispatch = useAppDispatch()
+  const winesDisabledStatus = useSelector(selectAllDisabedWinesStatus)
   const [displayModalConfirmDelete, setDisplayModalConfirmDelete] = useState(false);
+  const [displayModalConfirmDeleteDisabled, setDisplayModalConfirmDeleteDisabled] = useState(false);
+  const router = useRouter()
 
 
     const [isLoading, setIsLoading] = useState(true);
@@ -31,14 +36,15 @@ export default function Card({ wine, handleEditProduct }) {
         image: ""
       }
       const result = await dispatch(updateWine(product))
-      if (updateWine.fulfilled.match(result)) alert('Product Deleted')
+      if (updateWine.fulfilled.match(result)) /* alert('Product Deleted') */
       console.log(result)
     }
 
     // en caso de que queramos eliminar el producto ya definitivamente:
-    function deleteProduct() {
-        alert('Se eliminaria el producto ya definitivamente')
-        // updateProduct(wine.id, { disabled: true });
+    async function deleteProduct() {
+      const result = await dispatch(deleteWine(wine.id))
+      if (deleteWine.fulfilled.match(result)) /* alert('Product Deleted for ever') */
+      console.log(result)
     }
     if (user) {
 
@@ -58,7 +64,7 @@ export default function Card({ wine, handleEditProduct }) {
                                 <div className="absolute right-0 top-0">
                                   <button 
                                     className="inline-flex items-center justify-center w-8 h-8 mr-2 text-pink-100 transition-colors duration-150 bg-red-600 hover:bg-red-700 rounded-lg focus:shadow-outline" 
-                                    onClick={() => deleteProduct()}
+                                    onClick={() =>  setDisplayModalConfirmDelete(true)}
                                   >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -70,7 +76,7 @@ export default function Card({ wine, handleEditProduct }) {
                               <div className="absolute right-0 top-0">
                                 <button 
                                   className="inline-flex items-center justify-center w-8 h-8 mr-2 text-pink-100 transition-colors duration-150 bg-red-600 hover:bg-red-700 rounded-lg focus:shadow-outline" 
-                                  onClick={() =>  setDisplayModalConfirmDelete(true)}
+                                  onClick={() =>  setDisplayModalConfirmDeleteDisabled(true)}
                                 >
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -84,19 +90,28 @@ export default function Card({ wine, handleEditProduct }) {
                         <div className="flex flex-col items-center text-center ">
                             <img src={wine.image} alt={wine} className="object-scale-down" style={{ maxHeight: 300 }} />
                             <h1 className="h-12">{wine.wine}</h1>
-                            <h2>$ 100</h2>
+                            <h2>${wine.price}</h2>
                             <button className="bg-btn-color text-white py-4 px-8 hover:bg-red-600">Add to Cart</button>
                         </div>
                     </Link>
                 </div>
                 <GenericModal 
-                  display={displayModalConfirmDelete}
-                  setDisplay={setDisplayModalConfirmDelete}
+                  display={displayModalConfirmDeleteDisabled}
+                  setDisplay={setDisplayModalConfirmDeleteDisabled}
                   title='Disable product'
                   onClickAccept={disableProduct}
                   acceptBtnLabel="Yes, disable"
                   message={`You're about to disable the product "${wine.wine}", are you sure you want to continue? 
                     You can later enable it again in the "Disabled products" section above.
+                  `}
+                />
+                <GenericModal 
+                  display={displayModalConfirmDelete}
+                  setDisplay={setDisplayModalConfirmDelete}
+                  title='Delete product'
+                  onClickAccept={deleteProduct}
+                  acceptBtnLabel="Yes, delete"
+                  message={`You're about to delete the product "${wine.wine}", are you sure you want to continue? 
                   `}
                 />
             </>

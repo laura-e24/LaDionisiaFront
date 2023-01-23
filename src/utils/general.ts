@@ -27,9 +27,17 @@ export const rateGen = (rating) => {
 export function filterWines(wines, filters) {
   return wines.filter(wine => {
     return filters.filter(filter => {
-      return wine.region === filter.region || filterByVintage(wine, filter) || filterByScore(wine, filter);
+      return filterByRegion(wine, filter) || filterByVintage(wine, filter) || filterByScore(wine, filter) || filterByPrice(wine, filter);
     }).length === filters.length;
   });
+}
+const filterByRegion = (wine, filter) => {
+  switch (filter.region) {
+    case 'all-region':
+      return wine.region
+    case filter.region:
+      return wine.region === filter.region
+  }
 }
 
 const filterByVintage = (wine, filter) => {
@@ -56,16 +64,36 @@ const filterByVintage = (wine, filter) => {
 const filterByScore = (wine, filter) => {
   switch (filter.score) {
     case '100':
-      return rateGen(wine.rating) === 100
+      return wine.rating === 100
     case '99-97':
-      return rateGen(wine.rating) < 100 && rateGen(wine.rating) >= 97
+      return wine.rating < 100 && wine.rating >= 97
     case '96-94':
-      return rateGen(wine.rating) < 97 && rateGen(wine.rating) >= 94
+      return wine.rating < 97 && wine.rating >= 94
     case '93-91':
-      return rateGen(wine.rating) < 94 && rateGen(wine.rating) >= 91
+      return wine.rating < 94 && wine.rating >= 91
     case '90-under':
-      return rateGen(wine.rating) < 91
+      return wine.rating < 91
     case 'all-score':
-      return rateGen(wine.rating)
+      return wine.rating
+  }
+}
+const filterByPrice = (wine, filter) => {
+  switch (filter.price) {
+    case '100-200':
+      return wine.price < 201 && wine.price >= 100
+    case '50-99':
+      return wine.price < 100 && wine.price >= 50
+    case '30-49':
+      return wine.price < 50 && wine.price >= 30
+    case '20-29':
+      return wine.price < 30 && wine.price >= 20
+    case '16-19':
+      return wine.price < 20 && wine.price >= 16
+    case '10-15':
+      return wine.price < 16 && wine.price >= 10
+    case '6-9':
+      return wine.price < 10 && wine.price >= 6
+    case 'all-price':
+      return wine.price
   }
 }

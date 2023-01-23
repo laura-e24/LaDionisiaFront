@@ -1,3 +1,5 @@
+/* eslint-disable react/no-direct-mutation-state */
+
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import { orderByName, selectAllRegions, setFilters } from "../../features/products/productsSlice";
@@ -29,29 +31,28 @@ const Filters = () => {
         "90-under"
     ]
 
-
     return (
         <div className="w-full inline-flex justify-around text-gray-600 pt-6">
-            <label>Shop by: </label>
             <select onChange={e => handleSort(e)} className="bg-transparent">
                 <option disabled selected>Sort</option>
                 <option className="" value="atoz">A - Z</option>
                 <option className="" value="ztoa">Z - A</option>
             </select>
-            <select name="price" className="bg-transparent" >
+            <select id="filter-price" name="price" className="bg-transparent" onChange={handleFilters}>
                 <option disabled selected>Price</option>
-                <option>$101-$200</option>
-                <option>$50 - $100</option>
-                <option>$30-49</option>
-                <option>$20-29</option>
-                <option>$16-19</option>
-                <option>$10-15</option>
-                <option>$6 - $9</option>
-                <option>ALL</option>
+                <option value="all-price">ALL</option>
+                <option value="100-200">$100 - $200</option>
+                <option value="50-99">$50 - $99</option>
+                <option value="30-49">$30 - 49</option>
+                <option value="20-29">$20 - 29</option>
+                <option value="16-19">$16 - 19</option>
+                <option value="10-15">$10 - 15</option>
+                <option value="6-9">$6 - $9</option>
             </select>
             {regions.length > 0 &&
-                <select className="bg-transparent" name="region" onChange={handleFilters}>
-                    <option disabled selected>Regiones</option>
+                <select id="region" className="bg-transparent" name="region" onChange={handleFilters}>
+                    <option disabled selected>Regions</option>
+                    <option value="all-region">ALL</option>
                     {regions.map((region, index) => (
                         <option key={index} value={region}>
                             {region}
@@ -59,7 +60,7 @@ const Filters = () => {
                     ))}
                 </select>
             }
-            <select name="vintage" className="bg-transparent" onChange={handleFilters} >
+            <select id="filter-vintage" name="vintage" className="bg-transparent" onChange={handleFilters} >
                 <option disabled selected>Vintage</option>
                 <option value="all-vintage">ALL</option>
                 {vintage.map((v, index) => (
@@ -68,7 +69,7 @@ const Filters = () => {
                     </option>
                 ))}
             </select>
-            <select name="score" className="bg-transparent" onChange={handleFilters}>
+            <select id="filter-score" name="score" className="bg-transparent" onChange={handleFilters}>
                 <option disabled selected>Score</option>
                 <option value="all-score">ALL</option>
                 {scores.map((score, index) => (
