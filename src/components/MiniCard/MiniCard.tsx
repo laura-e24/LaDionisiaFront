@@ -35,32 +35,35 @@ export default function MiniCard({ wine }) {
 
     return (
     <>
-    <div className="flex">
-      <img src={wine.product.image} alt={wine.product.wine} height={25} width={45} />
-      <span className="block">
-        <p className="my-auto text-2xl font-bold px-6 font-poppins">
-          {wine.product.wine}
-        </p>
-        <p className="my-auto text-2xl font-bold px-6">
-          {wine.product.winery}
-        </p>
-      </span>
-      <span className="flex my-auto space-x-4">
-        <button 
-          className="p-2 border rounded-full border-gray-400" 
-          onClick={() => wine.quantity > 1  ?  counterLess() :  setModalConfirmClear(true)}
-        >
-          <FAIcon className="pt-1 text-gray-400" size="md" name="minus" />
+    <div className="flex bg-default border border-black rounded-3xl py-6 px-10">
+      <div className="flex w-1/2 ">
+        <img src={wine.product.image} alt={wine.product.wine} height={40} width={50} />
+        <span className="block my-auto">
+          <p className="my-auto text-2xl font-semibold px-6 font-body text-black">
+            {wine.product.wine}
+          </p>
+          <p className="my-auto text-xl font-medium px-6 font-body mt-2 text-gray-700 ">
+            {wine.product.winery} - {wine.product.year}
+          </p>
+        </span>
+      </div>
+      <div className="flex w-1/2 justify-end space-x-16">
+        <div className="flex">
+          <p className="my-auto text-3xl font-bold text-black">{wine.quantity}</p> 
+          <span className="block my-auto">
+            <button className="w-full" onClick={counterPlus}>
+              <FAIcon className="text-black active:text-gray-400" type="solid" size="md" name="caret-up" />
+            </button>
+            <button className="w-full" onClick={() => wine.quantity > 1  ?  counterLess() :  setModalConfirmClear(true)}>
+              <FAIcon className="text-black active:text-gray-400" type="solid" size="md" name="caret-down" />
+            </button>
+          </span>
+        </div>
+        <p className="my-auto text-2xl font-semibold px-4 text-black">${subtotalCalculation(wine.quantity, wine.product.price)}</p>
+        <button className="" onClick={() => setModalConfirmClear(true)}>
+          <FAIcon className="text-black" type="light" size="lg" name="trash-can" />
         </button>
-        <p className="my-auto text-2xl font-medium">{wine.quantity}</p> 
-        <button className="text-xl p-2 my-auto border rounded-full border-gray-400" onClick={counterPlus}>
-          <FAIcon className="pt-1 text-gray-400" size="md" name="plus" />
-        </button>
-        <p className="my-auto text-2xl font-medium px-4">${subtotalCalculation(wine.quantity, wine.product.price)}</p>
-        <button className="p-2 border rounded-full border-red-600" onClick={() => setModalConfirmClear(true)}>
-          <FAIcon className="pt-1 text-red-600" size="md" name="trash" />
-        </button>
-      </span>
+      </div>
     </div>
     <GenericModal
       display={modalConfirmClear}

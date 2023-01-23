@@ -92,6 +92,7 @@ const Comments = () => {
             userId: userExistente?.id
         })
     }
+    console.log(userExistente)
     return (
         <div className="w-full flex-inline gap-2">
             {comments.map((comment) => (

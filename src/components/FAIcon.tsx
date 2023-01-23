@@ -8,7 +8,7 @@ const FAIcon = ({
 }: {
   type?: "light" | "regular" | "solid";
   name: string;
-  size?: "xs" | "sm" | "base" | "md" | "lg";
+  size?: "xs" | "sm" | "base" | "md" | "lg" | "xl";
   className?: string;
 }) => {
   const style: CSSProperties = {
@@ -17,10 +17,16 @@ const FAIcon = ({
     width: 0,
   };
   switch (size) {
+    case "xl":
+      style.fontSize = 35;
+      style.height = 45;
+      style.width = 45;
+      break;
     case "lg":
       style.fontSize = 25;
       style.height = 33;
       style.width = 33;
+      break;
     case "md":
       style.fontSize = 22;
       style.height = 30;

@@ -1,4 +1,3 @@
-import { useTheme } from "next-themes"
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
@@ -175,11 +174,11 @@ const NavBar = () => {
             {!user && <a href="/api/auth/login">Login</a>}
           </div>
         </details>
-        {/* 
+        <a href='/favorite'>
         <div className="w-7 h-7 mt-1 relative float-right">
-          <Image layout="fill" src="/assets/heart.svg" />
+          <Image  layout="fill" src="/assets/heart.svg" />
         </div>
-*/}
+        </a>
       </nav>
 
       <a id="goMobile" onClick={goMobile} href='/home' className="menu w-24  h-6 inline-block text-center align-sub">

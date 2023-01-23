@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -6,13 +7,14 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'sans': ['Montserrat', 'Poppins', 'Nunito'],
-      'poppins': ["Poppins", "sans-serif"],
-      'nunito': ["Nunito", "sans-serif"],
+      sans: ['Montserrat'],
     },
     extend: {
       colors: {
-        'initial': '#F4EDE2',
+        'initial': '#F4EDE26B',
+        'default': '#E4DED6',
+        'secondary': '#ECE5DC',
+        'tertiary': '#D0CFCF',
         'final-color': '#980404',
         'btn-color': '#900404',
         'star-color': '#2596be',
