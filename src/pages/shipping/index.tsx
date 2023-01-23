@@ -15,7 +15,7 @@ const Shipping = () => {
   bg-bg-body 
   ">
   <NavBar></NavBar>
-  <img src="assets/copaa.jpg"/>
+  <img src="assets/copaa.webp"/>
 
   <h2 className="font-montserrat text-gray-600 text-3xl mt-12" >SHIPPING & RETURNS</h2>
   <p  className="font-montserrat text-gray-600 text-xl text-justify mt-6">
