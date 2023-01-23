@@ -70,17 +70,12 @@ const Cart = ({ wines }) => {
                     <FAIcon className="text-white" type="light" size="lg" name="arrow-right-long" />
                   </span>
                 </button>
-                
-//guille
-                  className="text-xl font-bold"
-                >
+                </div>
+                {/* <button>
                   Go to checkout
-                </button> */
-
                 <span className="text-xl font-bold">Total:&nbsp; &nbsp;</span>
                 <span className="text-xl font-bold">${totalPrice}</span>
-
-              </div>
+                </button> */}
             </>
           ) : <div className="text-center font-semibold text-black">
             <p className="pt-2 pb-3 font-bold text-xl">Your cart is empty.</p>

@@ -1,10 +1,10 @@
 import React from "react";
 import {
   PaymentElement,
-  LinkAuthenticationElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import { PaypalCheckotButton } from '../PaypalCheckoutButton'
 
 export default function CheckoutForm({ totalPrice }) {
   const stripe = useStripe();
@@ -84,6 +84,7 @@ export default function CheckoutForm({ totalPrice }) {
     layout: "tabs",
   };
   return (
+    <div>
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <div className="border-t border-black pt-6 my-6">
@@ -108,9 +109,11 @@ export default function CheckoutForm({ totalPrice }) {
         <span id="button-text">
           {isLoading ? 
           <div className="spinner text-2xl text-center text-white" id="spinner">Please wait...</div> 
-          :  <p className="text-2xl text-center text-white">Pay now</p>}
+          :  <p className="text-2xl text-center text-white">Pay now</p>
+          }
         </span>
       </button>
     </form>
+    </div>
   );
 }

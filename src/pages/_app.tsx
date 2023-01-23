@@ -12,11 +12,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <PayPalScriptProvider options={{"client-id": "AblxtD2reevwavlznLk2dExX_F3G60DiWyMnPPNo-3GtZDwSrkOyNoePfb8hHEGD7vTKUurvreqcI31Y"}}>
         <PersistGate loading={null} persistor={persistor}>
-          <ThemeProvider enableSystem={false} attribute="class">
             <UserProvider>
               <Component {...pageProps} />
             </UserProvider>
-          </ThemeProvider>
         </PersistGate>
       </PayPalScriptProvider>
     </Provider>
