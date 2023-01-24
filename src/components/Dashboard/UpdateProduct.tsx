@@ -155,7 +155,6 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
                       name='description'
                     />
                   </div>
-                  
                   <div className='col-span-2 pt-4 ml-8'>
                     <label className="block text-xl font-bold mb-2 font-sans">
                       Image
@@ -171,7 +170,6 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
                           reader.readAsDataURL(file01)
                           reader.onload = function load() {
                             setPathImage(reader.result)
-                            setFieldValue('image', reader.result)
                           }
                         }}
                         type="file"

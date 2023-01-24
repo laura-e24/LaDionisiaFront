@@ -4,14 +4,15 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../../app/store"
-import { setFilters, getAllWinesByName } from "../../features/products/productsSlice"
+import { getAllWinesByName } from "../../features/products/productsSlice"
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { persistor } from '../../app/store';
 import Cart from "../Cart/Cart";
 import { selectCart, selectDisplay, displayCart } from "../../features/products/cartSlice";
+import { setMaxPageNumLim, setMinPageNumLim } from "../../features/generalSlice";
 
-const NavBar = () => {
+const NavBar = ({ setCurrentPage }: any) => {
   const [mounted, setMounted] = useState(false);
   const [search, setSearch] = useState('')
   const router = useRouter();
@@ -49,6 +50,9 @@ const NavBar = () => {
       undefined,
       { shallow: true }
     );
+    setCurrentPage(1)
+    dispatch(setMaxPageNumLim(10))
+    dispatch(setMinPageNumLim(0));
     setSearch('')
   }
   function handleInputName(e) {
@@ -56,38 +60,6 @@ const NavBar = () => {
   }
 
   if (!mounted) return null
-  function handleFilters(e) {
-    const { value, name } = e.target;
-    dispatch(setFilters({ [name]: value }));
-  }
-
-  const scores = [
-    "100",
-    "99-97",
-    "96-94",
-    "93-91",
-    "90-under"
-  ]
-
-  const vintage = [
-    "2010-Present",
-    "2000-2009",
-    "1980-1989",
-    "1970-1979",
-    "1960-1969",
-    "1959-older",
-  ]
-
-  const countries = [
-    'France',
-    'Argentina',
-    'Portugal',
-    'South Africa',
-    'Spain',
-    'Italy',
-    'Australia',
-    'United States',
-  ]
 
   const goContact = (e) => {
     e.preventDefault()

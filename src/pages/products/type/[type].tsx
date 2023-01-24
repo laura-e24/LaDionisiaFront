@@ -5,19 +5,20 @@ import Pagination from "../../../components/Pagination"
 import Footer from "../../../components/Footer/Footer";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWineTypes, selectAllFilters, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
+import { getAllWineTypes, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Image from "next/image";
 import Filters from "../../../components/Filters/Filters";
+import { selectFilters } from "../../../features/generalSlice";
 
 export default function Reds({ }) {
   const router = useRouter()
   const { type } = router.query;
   const dispatch = useAppDispatch()
   const wines = useSelector(selectAllWineTypes)
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
   const winesStatus = useSelector(selectAllWineTypesStatus)
   const [filteredWines, setFilteredWines] = useState(wines);
 
@@ -51,7 +52,7 @@ export default function Reds({ }) {
  m-auto
  max-w-screen-xl
  bg-bg-body 
- "><NavBar></NavBar>
+ "><NavBar setCurrentPage={setCurrentPage}></NavBar>
   <div className="
     w-full 
     flex 
@@ -101,7 +102,7 @@ export default function Reds({ }) {
       </div>
     </a>
   </div>
-  <Filters />
+  <Filters setCurrentPage={setCurrentPage} />
   {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
   {filteredWines.length > 0 &&
     <>
