@@ -2,13 +2,12 @@ import NavBar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { getAllFavorites, createFavorite, deleteFavorite, deleteAllFavorites, selectAllFilters, getAllWines, selectAllWines, selectAllWinesStatus, selectAllWinesCountryStatus, selectAllFavorites, selectAllFavoritesStatus, getOneWine, getFavorite, selectOneWineStatus, selectOneWine, clearOneWine } from "../../features/products/productsSlice";
+import { selectAllFilters, selectAllFavorites, selectAllFavoritesStatus, getFavorite } from "../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Pagination from "../../components/Pagination";
 import CardFavorite from "../../components/Card/CardFavorite";
-import Filters from "../../components/Filters/Filters";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
 
@@ -60,7 +59,7 @@ export default function index() {
 
   return (
     <>
-        <div className="
+      <div className="
       main-body  
       pt-12 
       mb-12 
@@ -69,7 +68,6 @@ export default function index() {
       bg-bg-body 
       "><NavBar></NavBar>
       <img src="assets/favorites.jpg"/>
-
       <h1 className="font-montserrat text-gray-600 text-3xl mt-8" >YOUR FAVORITES</h1>
         <div className="
       w-full 
