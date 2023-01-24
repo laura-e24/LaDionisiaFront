@@ -5,7 +5,7 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-
+import NotFound from "../../components/componentsErrors/notFound";
 import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
@@ -104,7 +104,9 @@ export default function index() {
     </a>
   </div>
   <Filters />
-  {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+  {wines && wines[0]?.error && (<div className="text-center">
+          <NotFound></NotFound>
+        </div>)}
   {wines && !wines[0]?.error && filteredWines.length > 0 &&
     <>
       {
@@ -116,7 +118,7 @@ export default function index() {
   }
   {!filteredWines.length &&
     <>
-      <h1>PRODUCTS NOT FOUND</h1>
+    <NotFound/>
     </>
   }
   <Pagination

@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Image from "next/image";
 import Filters from "../../../components/Filters/Filters";
+import NotFound from "../../../components/componentsErrors/notFound";
 
 export default function Reds({ }) {
   const router = useRouter()
@@ -102,7 +103,9 @@ export default function Reds({ }) {
     </a>
   </div>
   <Filters />
-  {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+  {wines && wines[0]?.error && (<div className="text-center">
+          <NotFound></NotFound>
+        </div>)}
   {filteredWines.length > 0 &&
     <>
     {
@@ -113,7 +116,7 @@ export default function Reds({ }) {
     </>
   }
   {!filteredWines.length &&
-      <h1>PRODUCTS NOT FOUND</h1>
+      <NotFound/>
   }
 <Pagination
     onPageChange={onPageChange}

@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import Footer from "../../../components/Footer/Footer";
 import Image from "next/image";
 import Filters from "../../../components/Filters/Filters";
+import NotFound from "../../../components/componentsErrors/notFound";
 
 export default function index({ }) {
   const filters = useSelector(selectAllFilters)
@@ -104,7 +105,9 @@ export default function index({ }) {
     </a>
   </div>
   <Filters />
-  {winesCountry && winesCountry[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+  {winesCountry && winesCountry[0]?.error && (<div className="text-center">
+          <NotFound></NotFound>
+        </div>)}
         {filteredWines.length > 0 &&
         <>
             {
@@ -115,7 +118,7 @@ export default function index({ }) {
         </>    
         }
         {!filteredWines.length &&
-            <h1>PRODUCTS NOT FOUND</h1>
+           <NotFound/>
         }
       <Pagination
         onPageChange={onPageChange}
