@@ -2,9 +2,21 @@
 
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
-import { orderByName, selectAllRegions, setFilters } from "../../features/products/productsSlice";
+import { getAllWines, getWinerys, orderByName, selectAllRegions, selectAllWinerys, setFilters } from "../../features/products/productsSlice";
+import { useEffect } from "react";
 
 const Filters = () => {
+    const winerys = useSelector(selectAllWinerys)
+    useEffect(() => {
+        const fetchData = async () => {
+            await dispatch(getAllWines());
+            await dispatch(getWinerys());
+        }
+        fetchData()
+    }, [])
+    //arreglar paginado porque se rompe cuando estoy en la ultima y aplico un filtro y searchbar
+    //filtro de precio no toma los pobres 
+
     const dispatch = useAppDispatch()
     const regions = useSelector(selectAllRegions)
     function handleFilters(e) {
@@ -50,7 +62,7 @@ const Filters = () => {
                 <option value="6-9">$6 - $9</option>
             </select>
             {regions.length > 0 &&
-                <select id="region" className="bg-transparent" name="region" onChange={handleFilters}>
+                <select id="filter-region" className="bg-transparent" name="region" onChange={handleFilters}>
                     <option disabled selected>Regions</option>
                     <option value="all-region">ALL</option>
                     {regions.map((region, index) => (
@@ -60,6 +72,15 @@ const Filters = () => {
                     ))}
                 </select>
             }
+            <select id="filter-winery" className="bg-transparent" name="winery" onChange={handleFilters}>
+                <option disabled selected>Winery</option>
+                <option value="all-winery">ALL</option>
+                {winerys.map((winery, index) => (
+                    <option key={index} value={winery}>
+                        {winery}
+                    </option>
+                ))}
+            </select>
             <select id="filter-vintage" name="vintage" className="bg-transparent" onChange={handleFilters} >
                 <option disabled selected>Vintage</option>
                 <option value="all-vintage">ALL</option>
