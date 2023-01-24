@@ -114,7 +114,7 @@ const Checkout = () => {
         </div>
         <div className="w-2/5 bg-default border border-black rounded-3xl py-6 px-10">
           <h3 className="font-bold text-3xl w-full my-auto pb-4 border-b border-tertiary">Card details</h3>
-          <StripeComponent totalPrice={totalPrice} />
+          <StripeComponent cart={cart} totalPrice={totalPrice} />
         </div>
       </div>
      </div>

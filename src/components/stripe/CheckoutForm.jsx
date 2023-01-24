@@ -6,15 +6,19 @@ import {
 } from "@stripe/react-stripe-js";
 import { PaypalCheckotButton } from '../PaypalCheckoutButton'
 import GenericButton from "../GenericButton";
+import axios from "axios";
+import Router from "next/router";
 
 
-export default function CheckoutForm({ totalPrice }) {
+export default function CheckoutForm({ totalPrice, cart }) {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorModal, setErrorModal] = React.useState(false);
-
+  const billingDetails = {
+    email: 'dionisia@pihey.com',
+  };
   React.useEffect(() => {
     if (!stripe) {
       return;
@@ -47,6 +51,16 @@ export default function CheckoutForm({ totalPrice }) {
     });
   }, [stripe]);
 
+  const send = async () => {
+    const response = await axios.post(`http://localhost:3001/sendEmail`,
+      //aca debe ir el email de usuario loggeado
+      {
+        userEmail: billingDetails.email,
+        products: cart
+      })
+      return response.data
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,26 +72,35 @@ export default function CheckoutForm({ totalPrice }) {
 
     setIsLoading(true);
 
-    const { error } = await stripe.confirmPayment({
+    const { paymentIntent, error } = await stripe.confirmPayment({
       elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url:  'http://localhost:3000/products/checkout/success'
-      },
+      redirect: 'if_required',
+      // confirmParams: {
+      //   // Make sure to change this to your payment completion page
+      //   return_url:  'http://localhost:3000/products/checkout/success'
+      // },
     })
+    console.log(paymentIntent)
+    if (paymentIntent && paymentIntent.status === 'succeeded') {
+      send()
+      Router.push(`/products/checkout/success?payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}&redirect_status=succeeded`)
+    }
+    else {
+      if (error.type === "card_error" || error.type === "validation_error") {
+        setMessage(error.message);
+      }
+      else {
+        setMessage("An unexpected error occurred.");
+        setErrorModal(true)
+      }
+    }
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-      }
-      else {
-      setMessage("An unexpected error occurred.");
-      setErrorModal(true)
-    }
+    
     setIsLoading(false);
   };
 

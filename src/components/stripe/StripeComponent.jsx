@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 // This is your test publishable API key.
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-const StripeComponent = ({ totalPrice }) => {
+const StripeComponent = ({ totalPrice, cart }) => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const StripeComponent = ({ totalPrice }) => {
     <div className="Stripe mt-6">
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm totalPrice={totalPrice} />
+          <CheckoutForm cart={cart} totalPrice={totalPrice} />
         </Elements>
       )}
     </div>
