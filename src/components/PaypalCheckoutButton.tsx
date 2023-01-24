@@ -5,7 +5,7 @@ import { selectCart } from "../features/products/cartSlice"
 import { useRouter } from "next/router"
 import { bindActionCreators } from "@reduxjs/toolkit"
 
-const PaypalCheckotButton = ({wines}) => {
+const PaypalCheckotButton = ({wines, totalPrice}) => {
 
 const [ paidFor, setPaidFor ] = useState(false)
 const [ error, setError ] = useState(null)
@@ -34,8 +34,8 @@ const [ error, setError ] = useState(null)
     //     alert("some error has ocurred")
     // }
 
-    const cart = useSelector(selectCart);
-    const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.product.price), 0)
+    // const cart = useSelector(selectCart);
+    // const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.product.price), 0)
 
     let product = wines.map(w => {
         return {

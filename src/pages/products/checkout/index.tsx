@@ -9,6 +9,7 @@ import FAIcon from "../../../components/FAIcon";
 import MiniCard from "../../../components/MiniCard/MiniCard";
 import GenericModal from "../../../components/Modals/GenericModal";
 import NavBar from "../../../components/Navbar/NavBar"
+import PaypalCheckotButton from "../../../components/PaypalCheckoutButton";
 import StripeComponent from "../../../components/stripe/StripeComponent";
 import { clearCart, minusAllProducts, minusOneProduct, plusOneProduct, selectCart } from "../../../features/products/cartSlice";
 
@@ -117,6 +118,9 @@ const Checkout = () => {
           <StripeComponent cart={cart} totalPrice={totalPrice} />
         </div>
       </div>
+      <>
+          <PaypalCheckotButton wines={cart} totalPrice={totalPrice} />
+        </>
      </div>
     </div>
     <GenericModal
