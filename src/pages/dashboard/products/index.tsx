@@ -86,7 +86,6 @@ export default function Products() {
               <CreateProduct handleCloseModal={handleCloseModal} />
             </div>
           ) : null}
-          <Footer />
         </div>
       </div>
     </div>
