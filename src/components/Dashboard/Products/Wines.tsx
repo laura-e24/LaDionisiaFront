@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../Card";
 import UpdateProduct from "../UpdateProduct";
-import Pagination from "../../Pagination";
+import Pagination from "../../Pagination/Pagination";
 export const paginate = (items, pageNumber, pageSize) => {
   const startIndex = (pageNumber - 1) * pageSize;
   return items.slice(startIndex, startIndex + pageSize);

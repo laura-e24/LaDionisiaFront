@@ -11,7 +11,7 @@ return(
   object-scale-down
   member-pic
   "/>
-  <h3 className="text-lg font-montserrat text-gray-600 ">
+  <h3 className="text-lg font-poppins text-gray-600 ">
     {name}<br/>
     <a href={github} target="_blank"> <Image src="/assets/github.svg" width={17} height={17}/> </a>
     <a className="ml-2" href={linkedin} target="_blank"> <Image src="/assets/linkedin.svg" width={17} height={17}/> </a>  

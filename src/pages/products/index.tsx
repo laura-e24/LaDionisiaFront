@@ -10,8 +10,8 @@ import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
-import Image from "next/image";
 import Filters from "../../components/Filters/Filters";
+import Types from "../../components/Types/Types";
 import { selectFilters } from "../../features/generalSlice";
 import NotFound from "../../components/Errors/NotFound";
 
@@ -46,7 +46,6 @@ export default function index() {
     dispatch(setWinerys(filterWines(wines, filters)))
   }, [winesStatus, filters, wines])
   return (
-
     <>
       <div className="
  main-body  
@@ -55,56 +54,9 @@ export default function index() {
  m-auto
  max-w-screen-xl
  bg-bg-body 
- "><NavBar setCurrentPage={setCurrentPage}></NavBar>
-  <div className="
-    w-full 
-    flex 
-    justify-around 
-    items-center 
-    mt-8
-    wine-types
-  ">
-          <a href='/products/type/rose'>
-            <div className="rose text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
-                <Image src="/assets/rose.png" layout='fill' />
-              </div>
-              Rose
-            </div>
-          </a>
-          <a href='/products/type/whites'>
-            <div className="white text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
-                <Image src="/assets/white.png" layout='fill' />
-              </div>
-              White
-            </div>
-          </a>
-          <a href='/products/type/reds'>
-            <div className="red text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
-                <Image src="/assets/red.png" layout='fill' />
-              </div>
-              Red
-            </div>
-          </a>
-          <a href='/products/type/sparkling'>
-            <div className="sparkling text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
-                <Image src="/assets/sparkling.png" layout='fill' />
-              </div>
-              Sparkling
-            </div>
-          </a>
-          <a href='/products/type/dessert'>
-            <div className="dessert text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
-                <Image src="/assets/dessert.png" layout='fill' />
-              </div>
-              Dessert
-            </div>
-          </a>
-        </div>
+ ">
+ <NavBar setCurrentPage={setCurrentPage}></NavBar>
+        <Types/>
         <Filters setCurrentPage={setCurrentPage}/>
         {wines && wines[0]?.error && (<div className="text-center">
           <NotFound></NotFound>
@@ -132,3 +84,4 @@ export default function index() {
       <Footer />
     </>)
 };
+

@@ -10,6 +10,7 @@ import Pagination from "../../components/Pagination";
 import CardFavorite from "../../components/Card/CardFavorite";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
+import NotFound from "../../components/componentsErrors/notFound";
 import { selectFilters } from "../../features/generalSlice";
 import DontHaveFavorites from "../../components/Errors/DontHaveFavorites";
 import Filters from "../../components/Filters/Filters";
@@ -67,7 +68,10 @@ export default function index() {
       wine-types
     ">
         </div>
-        <Filters setCurrentPage={setCurrentPage} />
+        <Filters setCurrentPage={setCurrentPage}  />
+        {favorites && favorites[0]?.error && (<div className="text-center">
+          <NotFound></NotFound>
+        </div>)}
         {favorites && !favorites[0]?.error && filteredWines.length > 0 &&
           <>
             {
@@ -79,7 +83,8 @@ export default function index() {
         }
         {!filteredWines.length &&
           <>
-            <DontHaveFavorites />
+            <DontHaveFavorites/>
+            {userExistente?.favorites.map(e => (<p>{e}</p>))}
           </>
         }
         <Pagination
