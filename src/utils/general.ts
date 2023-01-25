@@ -71,8 +71,6 @@ const filterByScore = (wine, filter) => {
       return wine.rating < 97 && wine.rating >= 94
     case '93-91':
       return wine.rating < 94 && wine.rating >= 91
-    case '90-under':
-      return wine.rating < 91
     case 'all-score':
       return wine.rating
   }
