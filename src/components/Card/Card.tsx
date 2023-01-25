@@ -21,7 +21,6 @@ export default function Card({ wine }) {
   const users = useSelector(selectAllUsers)
   const userExistente = users.find(u => u.email === user?.email)
   const currentUser = userExistente?.id
-  const productCurrent = wine.id?.toString()
 
 
   useEffect(() => {
@@ -29,12 +28,12 @@ export default function Card({ wine }) {
       if (router.isReady) {
         if (usersStatus === EStateGeneric.IDLE) {
           await dispatch(getAllUsers());
-        }      
+        }
       }
     }
     fetchData()
   }, [users])
-  
+
   const Price = ({ amount }) => {
     let price = (amount < 1) ? 100 : amount
     let entero = Math.trunc(price);
@@ -51,7 +50,7 @@ export default function Card({ wine }) {
     return (<>{texto}<small>{desc[1]}</small></>);
   }
   function añadirfavoritos() {
-    dispatch(createFavorite({ userId: currentUser, productId: productCurrent }))
+    dispatch(createFavorite({ userId: currentUser, product: wine }))
     alert('Agregado')
   }
   useEffect(() => {
@@ -60,12 +59,14 @@ export default function Card({ wine }) {
   if (isLoading) {
     return null;
   }
-  
+
   return (
     <>
       <div key={wine.id} className="w-2/3 float-right pt-4">
         <p className="text-xl font-montserrat text-price-color">{wine.winery} - {wine.year}</p>
-        <p className="wine-name font-montserrat text-font-color" ><b>{wine.wine}</b></p>
+        <a href={`/products/${wine.id}`}>
+          <p className="wine-name font-montserrat text-font-color" ><b>{wine.wine}</b></p>
+        </a>
         <p className="font-montserrat text-gray-600 pt-4 pb-4 price">
           <span className="text-price-color">
             <Price amount={wine.price} />
@@ -75,14 +76,12 @@ export default function Card({ wine }) {
         <p className="text-lg font-montserrat text-gray-600 wine-description">
           <WineDescription text={wine.description} />
         </p>
-        <a href={`/products/${wine.id}`}>
-          <button
-            onClick={() => {
-              dispatch(addNewProduct(wine))
-              if (!display) dispatch(displayCart())
-            }}
-            className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
-        </a>
+        <button
+          onClick={() => {
+            dispatch(addNewProduct(wine))
+            if (!display) dispatch(displayCart())
+          }}
+          className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
         <button onClick={añadirfavoritos} className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">
           ❤
         </button>

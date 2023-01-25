@@ -2,7 +2,7 @@ import NavBar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { selectAllFilters, selectAllFavorites, selectAllFavoritesStatus, getFavorite } from "../../features/products/productsSlice";
+import { selectAllFilters, selectAllFavorites, selectAllFavoritesStatus, getFavorite, getFavorites } from "../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -10,12 +10,12 @@ import Pagination from "../../components/Pagination";
 import CardFavorite from "../../components/Card/CardFavorite";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
+import DontHaveFavorites from "../../components/Errors/DontHaveFavorites";
 
 <title>Favorite</title>
 export default function index() {
   const filters = useSelector(selectAllFilters)
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch()
   const favorites = useSelector(selectAllFavorites)
   const favoritesStatus = useSelector(selectAllFavoritesStatus)
@@ -39,24 +39,13 @@ export default function index() {
           await dispatch(getAllUsers());
         }
         if (favoritesStatus === EStateGeneric.IDLE) {
-          userExistente?.favorites.map(async element => {
-            await dispatch(getFavorite(element?.toString()))
-          })
-/*           setIsLoading(false);
- */        }
+          userExistente ? await dispatch(getFavorites(userExistente?.favorites)) : null
+        }
       }
     }
     fetchData()
     setFilteredWines(filterWines(favorites, filters));
-  }, [favoritesStatus, filters, favorites, users])
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-  if (isLoading) {
-    return null;
-  }
-  console.log(favorites)
-
+  }, [favoritesStatus, filters, favorites, users, userExistente])
   return (
     <>
       <div className="
@@ -67,8 +56,8 @@ export default function index() {
       max-w-screen-xl
       bg-bg-body 
       "><NavBar></NavBar>
-      <img src="assets/favorites.jpg"/>
-      <h1 className="font-montserrat text-gray-600 text-3xl mt-8" >YOUR FAVORITES</h1>
+        <img src="assets/favorites.jpg" />
+        <h1 className="font-montserrat text-gray-600 text-3xl mt-8" >YOUR FAVORITES</h1>
         <div className="
       w-full 
       flex 
@@ -78,7 +67,6 @@ export default function index() {
       wine-types
     ">
         </div>
-        {favorites && favorites[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
         {favorites && !favorites[0]?.error && filteredWines.length > 0 &&
           <>
             {
@@ -90,8 +78,7 @@ export default function index() {
         }
         {!filteredWines.length &&
           <>
-            <h1>YOU DON'T HAVE FAVORITES</h1>
-            {userExistente?.favorites.map((e, index) => (<p key={index}>{e}</p>))}
+            <DontHaveFavorites />
           </>
         }
         <Pagination

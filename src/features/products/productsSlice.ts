@@ -136,9 +136,9 @@ export const getFavorite = createAsyncThunk(
 )
 export const createFavorite = createAsyncThunk(
   'products/createFavorite',
-  async ({ userId, productId }: { userId: any, productId: any }, { rejectWithValue }) => {
+  async ({ userId, product }: { userId: any, product: IProduct }, { rejectWithValue }) => {
     try {
-      const response = await postFavorite(userId, productId)
+      const response = await postFavorite(userId, product)
       return response.data
     } catch (error) {
       console.log(error.response)
@@ -292,6 +292,9 @@ const productsSlice = createSlice({
         if (w.id !== action.payload.id)
           return w
       });
+    },
+    getFavorites: (state, action) => {
+      state.favorites = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -480,7 +483,7 @@ const productsSlice = createSlice({
 
 
     builder.addCase(deleteFavorite.fulfilled, (state, action) => {
-      
+
       state.allFavoritesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(deleteFavorite.pending, (state, action) => {
@@ -527,7 +530,8 @@ export const {
   cleanUpStateFilters,
   clearOneWine,
   getRegiones,
-  setFavorites
+  setFavorites,
+  getFavorites
 } = productsSlice.actions;
 
 export const selectAllWinesStatus = (state) => state.products.allWinesStatus;

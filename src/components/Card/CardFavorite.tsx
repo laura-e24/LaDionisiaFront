@@ -53,7 +53,9 @@ export default function CardFavorite({ wine }) {
         <>
             <div key={wine.id} className="w-2/3 float-right pt-4">
                 <p className="text-xl font-montserrat text-price-color">{wine.winery} - {wine.year}</p>
-                <p className="wine-name font-montserrat text-font-color" ><b>{wine.wine}</b></p>
+                <a href={`/products/${wine.id}`}>
+                    <p className="wine-name font-montserrat text-font-color" ><b>{wine.wine}</b></p>
+                </a>
                 <p className="font-montserrat text-gray-600 pt-4 pb-4 price">
                     <span className="text-price-color">
                         <Price amount={wine.price} />
@@ -63,14 +65,12 @@ export default function CardFavorite({ wine }) {
                 <p className="text-lg font-montserrat text-gray-600 wine-description">
                     <WineDescription text={wine.description} />
                 </p>
-                <a href={`/products/${wine.id}`}>
-                    <button
-                        onClick={() => {
-                            dispatch(addNewProduct(wine))
-                            if (!display) dispatch(displayCart())
-                        }}
-                        className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
-                </a>
+                <button
+                    onClick={() => {
+                        dispatch(addNewProduct(wine))
+                        if (!display) dispatch(displayCart())
+                    }}
+                    className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
                 <button onClick={eliminarfavoritos} className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">
                     x
                 </button>
