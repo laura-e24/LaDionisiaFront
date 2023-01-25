@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
-import Image from "next/image";
 import Filters from "../../components/Filters/Filters";
 import Types from "../../components/Types/Types";
 

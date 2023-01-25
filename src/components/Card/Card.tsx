@@ -36,15 +36,15 @@ export default function Card({ wine }) {
   return (
     <>
       <div key={wine.id} className="wine-card w-2/3 float-right pt-4">
-        <p className="text-xl font-poppins text-price-color wine-winery">{wine.winery} - {wine.year}</p>
-        <p className="wine-name font-poppins text-font-color" ><b>{wine.wine}</b></p>
+        <p className="text-xl font-bodony text-price-color wine-winery">{wine.winery} - {wine.year}</p>
+        <p className="wine-name font-playfair text-font-color" ><b>{wine.wine}</b></p>
         <p className="font-poppins text-gray-600 pt-4 pb-4 price">
           <span className="text-price-color">
             <Price amount={wine.price} />
           </span>
           <span className="w-12 text-2xl ml-2 mt-4 pts">{wine.rating}<small>&nbsp;pts.</small></span>
         </p>
-        <p className="text-lg font-poppins text-gray-600 wine-description">
+        <p className="text-lg font-bodony text-gray-600 wine-description">
           <WineDescription text={wine.description} />
         </p>
         <a href={`/products/${wine.id}`}>
@@ -53,7 +53,7 @@ export default function Card({ wine }) {
               dispatch(addNewProduct(wine))
               if (!display) dispatch(displayCart())
             }}
-            className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
+            className="wine-button p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
         </a>
       </div>
       <div className="w-1/3 h-96 flex justify-center items-center bg-product wine-bootle">

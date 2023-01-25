@@ -34,7 +34,7 @@ export default function Product() {
           <p className="text-7xl font-poppins text-font-color" ><b>{wine.wine}</b></p>
           <p className="text-2xl font-poppins text-gray-600"><span className="text-price-color">$ {wine.price ? wine.price : 100} </span>rating {wine.rating}/10</p>
           <p className="text-lg font-poppins text-gray-600">{wine.description}</p>
-          <button className="p-2 border border-gray-600 w-2/12 self-center justify-self-end text-gray-600 mt-8">TASTE IT</button>
+          <button className="p-2 border border-gray-600 rounded w-2/12 self-center justify-self-end text-gray-600 mt-8">TASTE IT</button>
         </div>
         <div className="w-full h-full flex justify-center">
           <div className={`flex w-96 h-96 justify-center items-center bgProduct`}>

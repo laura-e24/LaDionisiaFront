@@ -83,7 +83,7 @@ export default function Product() {
           <p className="text-lg font-poppins text-gray-600 wine-description">
             <WineDescription text={wine.description} />
           </p>
-          <button className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
+          <button className="wine-button p-2 rounded border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
           <button onClick={añadirfavoritos} className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">
             ❤
           </button>

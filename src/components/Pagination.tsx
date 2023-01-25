@@ -16,7 +16,7 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
                     key={number}
                     id={number}
                     onClick={onPageChange}
-                    className={currentPage == number ? "page-numbers rounded-full w-12 h-12 flex items-center justify-center text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white" : "page-numbers rounded-full w-12 h-12 flex items-center justify-center ml-0 leading-tight text-gray-500 bg-pagination-color border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"}
+                    className={currentPage==number?"page-numbers rounded-full w-12 h-12 flex items-center justify-center text-grey-600 border border-gray-300 bg-grey-50 hover:bg-grey-100 hover:text-grey-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white" : "page-numbers rounded-full w-12 h-12 flex items-center justify-center ml-0 leading-tight text-gray-500 bg-pagination-color border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"}
                 >
                     {number}
                 </li>
@@ -54,31 +54,47 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
 
     let pageIncrementBtn = null;
     if (pages.length > maxPageNumberLimit) {
-        pageIncrementBtn = <li className="
-        page-numbers
-        flex 
-        items-center 
-        justify-center
-        rounded-full 
-        bg-gray-800
-        hover:bg-gray-700 
-        hover:text-white
-        text-gray-400
-        w-12 
-        h-12
-        " onClick={handleNextbtn}> &hellip; </li>;
+        pageIncrementBtn = <li className="rounded-full 
+        w-12 h-12 
+        flex items-center 
+        justify-center 
+        leading-tight 
+        text-gray-500 
+        bg-pagination-color 
+        border border-gray-300 
+        hover:bg-gray-100 
+        hover:text-gray-700 
+        dark:bg-gray-800 
+        dark:border-gray-700 
+        dark:text-gray-400 
+        dark:hover:bg-gray-700 
+        dark:hover:text-white"onClick={handleNextbtn}> &hellip; </li>;
     }
 
     let pageDecrementBtn = null;
     if (minPageNumberLimit >= 1) {
-        pageDecrementBtn = <li className="rounded-full w-12 h-12 flex items-center justify-center ml-0 leading-tight text-gray-500 bg-pagination-color border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" onClick={handlePrevbtn}> &hellip; </li>;
+        pageDecrementBtn = <li className="rounded-full 
+        w-12 h-12 
+        flex items-center 
+        justify-center 
+        leading-tight 
+        text-gray-500 
+        bg-pagination-color 
+        border border-gray-300 
+        hover:bg-gray-100 
+        hover:text-gray-700 
+        dark:bg-gray-800 
+        dark:border-gray-700 
+        dark:text-gray-400 
+        dark:hover:bg-gray-700 
+        dark:hover:text-white" onClick={handlePrevbtn}> &hellip; </li>;
     }
 
     return (
         <>
         <div className="font-poppins">
             <ul className="
-            inline-flex -space-x-12
+            inline-flex -space-x-px 
             w-full 
             font-poppins 
             justify-between 
@@ -121,7 +137,21 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
                 }
                 <li>
                     <button
-                        className="rounded-full w-12 h-12 flex items-center justify-center leading-tight text-gray-500 bg-pagination-color border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        className="rounded-full 
+                        w-12 h-12 
+                        flex items-center 
+                        justify-center 
+                        leading-tight 
+                        text-gray-500 
+                        bg-pagination-color 
+                        border border-gray-300 
+                        hover:bg-gray-100 
+                        hover:text-gray-700 
+                        dark:bg-gray-800 
+                        dark:border-gray-700 
+                        dark:text-gray-400 
+                        dark:hover:bg-gray-700 
+                        dark:hover:text-white"
                         onClick={handleNextbtn}
                         disabled={currentPage == pages[pages.length - 1] ? true : false}
                     >→
