@@ -78,12 +78,13 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
         <>
         <div className="font-poppins">
             <ul className="
-            inline-flex -space-x-px 
+            inline-flex -space-x-12
             w-full 
             font-poppins 
             justify-between 
             py-6 bg-bg-body 
-            pl-4 pr-4">
+            pl-4 pr-4
+            ">
                 <li>
                     <button
                         className="rounded-full w-12 h-12 flex font-poppins items-center justify-center ml-0 leading-tight text-gray-500 bg-pagination-color border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"

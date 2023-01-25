@@ -11,6 +11,7 @@ const Types = () => {
     items-center 
     mt-8
     wine-types
+    mb-8
   ">
     <a href='/products/type/rose'>
       <div  className="rose text-center font-poppins text-gray-600">
