@@ -53,9 +53,8 @@ export default function Product() {
       dispatch(clearOneWine());
     }
   }, [id])
-  const productCurrent = id?.toString()
   function añadirfavoritos() {
-    dispatch(createFavorite({ userId: currentUser, productId: productCurrent }))
+    dispatch(createFavorite({ userId: currentUser, product: wine }))
   }
 
   return (
