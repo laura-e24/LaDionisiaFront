@@ -59,6 +59,7 @@ export default function Reds({ }) {
     justify-around 
     items-center 
     mt-8
+    mb-20
     wine-types
   ">
     <a href='/products/type/rose'>

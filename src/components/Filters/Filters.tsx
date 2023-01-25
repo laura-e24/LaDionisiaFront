@@ -32,14 +32,14 @@ const Filters = () => {
     ]
 
     return (
-        <div className="w-full inline-flex justify-around text-gray-600 pt-6">
-            <select onChange={e => handleSort(e)} className="bg-transparent">
-                <option disabled selected>Sort</option>
+        <div className="w-full inline-flex font-poppins justify-around font-mono text-gray-600 pt-4 pb-4 font border bg-[#B1AA95] border-t-8 ">
+            <select onChange={e => handleSort(e)} className="bg-[#F2F9F4] rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2">
+                <option disabled selected >SORT</option>
                 <option className="" value="atoz">A - Z</option>
                 <option className="" value="ztoa">Z - A</option>
             </select>
-            <select id="filter-price" name="price" className="bg-transparent" onChange={handleFilters}>
-                <option disabled selected>Price</option>
+            <select id="filter-price" name="price" className="bg-[#F2F9F4] rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" onChange={handleFilters}>
+                <option disabled selected>PRICE</option>
                 <option value="all-price">ALL</option>
                 <option value="100-200">$100 - $200</option>
                 <option value="50-99">$50 - $99</option>
@@ -50,8 +50,8 @@ const Filters = () => {
                 <option value="6-9">$6 - $9</option>
             </select>
             {regions.length > 0 &&
-                <select id="region" className="bg-transparent" name="region" onChange={handleFilters}>
-                    <option disabled selected>Regions</option>
+                <select id="region" className="bg-[#F2F9F4] font-poppins rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" name="region" onChange={handleFilters}>
+                    <option disabled selected>REGIONS</option>
                     <option value="all-region">ALL</option>
                     {regions.map((region, index) => (
                         <option key={index} value={region}>
@@ -60,8 +60,8 @@ const Filters = () => {
                     ))}
                 </select>
             }
-            <select id="filter-vintage" name="vintage" className="bg-transparent" onChange={handleFilters} >
-                <option disabled selected>Vintage</option>
+            <select id="filter-vintage" name="vintage" className="bg-[#F2F9F4] box-content rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" onChange={handleFilters} >
+                <option disabled selected>VINTAGE</option>
                 <option value="all-vintage">ALL</option>
                 {vintage.map((v, index) => (
                     <option value={v} key={index}>
@@ -69,8 +69,8 @@ const Filters = () => {
                     </option>
                 ))}
             </select>
-            <select id="filter-score" name="score" className="bg-transparent" onChange={handleFilters}>
-                <option disabled selected>Score</option>
+            <select id="filter-score" name="score" className="bg-[#F2F9F4] rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" onChange={handleFilters}>
+                <option disabled selected>SCORE</option>
                 <option value="all-score">ALL</option>
                 {scores.map((score, index) => (
                     <option value={score} key={index} >

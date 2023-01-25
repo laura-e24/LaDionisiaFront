@@ -58,26 +58,27 @@ const Home = () => {
         <img onClick={goHome} src="assets/scrolldown.gif" />
       </a>
       <div id="passion-for-wine" className="
-  main-body
-  pt-12 
-  mb-8
-  m-auto
-  max-w-screen-xl
-  bg-bg-body 
-">
+        main-body
+        pt-12 
+        mb-8
+        m-auto
+        max-w-screen-xl
+        bg-bg-body 
+      ">
         <NavBar></NavBar>
         <img src="assets/homeprov.webp" />
         <div className="
-    w-full 
-    flex 
-    justify-around 
-    items-center 
-    mt-8
-    wine-types
-  ">
+          w-full 
+          flex 
+          justify-around 
+          items-center 
+          mt-8
+          mb-32
+          wine-types
+        ">
           <a href='/products/type/rose'>
             <div className="rose text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
+              <div className='w-32 h-32 relative'>
                 <Image src="/assets/rose.png" layout='fill' />
               </div>
               Rose
@@ -85,7 +86,7 @@ const Home = () => {
           </a>
           <a href='/products/type/whites'>
             <div className="white text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
+              <div className='w-32 h-32 relative'>
                 <Image src="/assets/white.png" layout='fill' />
               </div>
               White
@@ -93,7 +94,7 @@ const Home = () => {
           </a>
           <a href='/products/type/reds'>
             <div className="red text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
+              <div className='w-32 h-32 relative'>
                 <Image src="/assets/red.png" layout='fill' />
               </div>
               Red
@@ -101,7 +102,7 @@ const Home = () => {
           </a>
           <a href='/products/type/sparkling'>
             <div className="sparkling text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
+              <div className='w-32 h-32 relative'>
                 <Image src="/assets/sparkling.png" layout='fill' />
               </div>
               Sparkling
@@ -109,7 +110,7 @@ const Home = () => {
           </a>
           <a href='/products/type/dessert'>
             <div className="dessert text-center font-montserrat text-gray-600">
-              <div className='w-32 h-32 relative mb-2'>
+              <div className='w-32 h-32 relative'>
                 <Image src="/assets/dessert.png" layout='fill' />
               </div>
               Dessert
