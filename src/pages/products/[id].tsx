@@ -55,6 +55,7 @@ export default function Product() {
   }, [id])
   function añadirfavoritos() {
     dispatch(createFavorite({ userId: currentUser, product: wine }))
+    alert("New Favorite added")
   }
 
   return (

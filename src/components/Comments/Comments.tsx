@@ -37,20 +37,20 @@ const Comments = () => {
         e.preventDefault();
         if (user) {
             try {
-                const response = await registerUser(user)
+                await registerUser(user)
             } catch (error) {
                 console.log(error.message);
             }
             if (!comment.content || !comment.rating) return alert('something went wrong')
             await dispatch(createComment({ id, comment }));
             alert('Comment Created')
-            await dispatch(getAllComments(id?.toString()));
-            router.push(`/products/${id}`);
             setComment({
                 content: "",
                 rating: 0,
                 userId: 0,
             })
+            dispatch(getAllComments(id?.toString()));
+
         }
 
     }
@@ -59,13 +59,6 @@ const Comments = () => {
         dispatch(disableCommentUser(value?.toString()));
         alert('Comment Deleted')
         dispatch(getAllComments(id?.toString()));
-        // router.push(`/products/${id}`);
-        router.push({
-            pathname: `/products/${id}`
-        },
-            undefined,
-            { shallow: true }
-        );
     }
     function reportComment(e) {
         const { value } = e.target
@@ -73,13 +66,6 @@ const Comments = () => {
         dispatch(disableCommentUser(value?.toString()));
         alert('Comment Reported')
         dispatch(getAllComments(id?.toString()));
-        // router.push(`/products/${id}`);
-        router.push({
-            pathname: `/products/${id}`
-        },
-            undefined,
-            { shallow: true }
-        );
     }
     function handleChange(e) {
         setComment({
@@ -104,25 +90,24 @@ const Comments = () => {
         return wineEmoji;
     }
     return (
-        <>
+        <div className="p-4">
             <table className="w-full border-2 border-gray-400">
                 <tr>
                     <td className="p-4">
-                        {comments.map((comment) => (
-                            <div className="mb-2 p-4 bg-gray-700/10">
+                        {comments?.map((comment) => (
+                            <div className="mb-2 p-4">
                                 <div className="flex justify-between">
                                     <p>
                                         <span className="font-bold">{comment.user?.name} </span>({comment.createdAt})
                                     </p>
                                     <span className={s.copas}>{ratingToWineEmoji(comment.rating)}</span>
                                 </div>
-
                                 <p>{comment.content}</p>
-                                <div className="flex justify-between p-2">
+                                <div className="flex p-2">
                                     {
                                         userExistente && (
-                                            <div >
-                                                <details className="ml-2 float-right">
+                                            <div className="flex justify-between">
+                                                <details className="flex flex-col ml-2">
                                                     <summary className={`${s.iconos} p-2`}>
                                                         🖊️ Edit
                                                     </summary>
@@ -145,16 +130,16 @@ const Comments = () => {
                                 <div className="mt-4">
                                     <div className={s.rating}>
                                         <button type="submit" className={s.btn}>Add a review</button>
-                                        <input value="5" type="radio" name="rating" id="rating-🍷-5" onChange={(e) => handleChange(e)} />
-                                        <label htmlFor="rating-🍷-5"></label>
-                                        <input value="4" type="radio" name="rating" id="rating-🍷-4" onChange={(e) => handleChange(e)} />
-                                        <label htmlFor="rating-🍷-4"></label>
-                                        <input value="3" type="radio" name="rating" id="rating-🍷-3" onChange={(e) => handleChange(e)} />
-                                        <label htmlFor="rating-🍷-3"></label>
-                                        <input value="2" type="radio" name="rating" id="rating-🍷-2" onChange={(e) => handleChange(e)} />
-                                        <label htmlFor="rating-🍷-2"></label>
-                                        <input value="1" type="radio" name="rating" id="rating-🍷-1" onChange={(e) => handleChange(e)} />
-                                        <label htmlFor="rating-🍷-1"></label>
+                                        <input value="5" type="radio" name="rating" id="rating-🍷5" onChange={(e) => handleChange(e)} />
+                                        <label htmlFor="rating-🍷5"></label>
+                                        <input value="4" type="radio" name="rating" id="rating-🍷4" onChange={(e) => handleChange(e)} />
+                                        <label htmlFor="rating-🍷4"></label>
+                                        <input value="3" type="radio" name="rating" id="rating-🍷3" onChange={(e) => handleChange(e)} />
+                                        <label htmlFor="rating-🍷3"></label>
+                                        <input value="2" type="radio" name="rating" id="rating-🍷2" onChange={(e) => handleChange(e)} />
+                                        <label htmlFor="rating-🍷2"></label>
+                                        <input value="1" type="radio" name="rating" id="rating-🍷1" onChange={(e) => handleChange(e)} />
+                                        <label htmlFor="rating-🍷1"></label>
                                     </div>
                                 </div>
                             </form>
@@ -162,58 +147,7 @@ const Comments = () => {
                     </td>
                 </tr>
             </table>
-            {/* <div className="flex w-full">
-                <div className="w-2/5 border-2 border-gray-400">
-
-                </div>
-                <div className="w-3/5 flex-inline gap-2 border-2 border-gray-400">
-                    {comments.map((comment) => (
-                        <div className="bg-blue-200 mb-2">
-                            <button value={comment.id} onClick={(e) => reportComment(e)}>⚠️ Report</button>
-                            <p>{comment.content}</p>
-                            <p>{comment.rating}</p>
-                            <p>{comment.createdAt}</p>
-                            {
-                                userExistente && (
-                                    <>
-                                        <button value={comment.id} onClick={(e) => deleteComment(e)}>Borrar</button>
-                                        <details className="ml-2 float-right">
-                                            <summary>
-                                                Editar
-                                            </summary>
-                                            <EditComment comment={comment} />
-                                        </details>
-                                    </>
-                                )
-                            }
-                        </div>
-
-                    ))}
-                    {
-                        user && <form className="w-2/3" onSubmit={(e) => handleNewComment(e)}>
-                            <textarea className="w-full" wrap="hard" placeholder="ADD YOUR RATING & REVIEW" value={comment.content} name="content" onChange={(e) => handleChange(e)}></textarea>
-                            <input type="number" name="rating" onChange={(e) => handleChange(e)} value={comment.rating} />
-                            <div>
-                                <div className={s.rating}>
-                                    <button type="submit" className={s.btn}>Add a review</button>
-                                    <input value="5" type="radio" name="rating-🍷" id="rating-🍷-5" />
-                                    <label htmlFor="rating-🍷-5"></label>
-                                    <input value="4" type="radio" name="rating-🍷" id="rating-🍷-4" />
-                                    <label htmlFor="rating-🍷-4"></label>
-                                    <input value="3" type="radio" name="rating-🍷" id="rating-🍷-3" />
-                                    <label htmlFor="rating-🍷-3"></label>
-                                    <input value="2" type="radio" name="rating-🍷" id="rating-🍷-2" />
-                                    <label htmlFor="rating-🍷-2"></label>
-                                    <input value="1" type="radio" name="rating-🍷" id="rating-🍷-1" />
-                                    <label htmlFor="rating-🍷-1"></label>
-                                </div>
-                            </div>
-                        </form>
-                    }
-
-                </div>
-            </div> */}
-        </>
+        </div>
     )
 }
 
