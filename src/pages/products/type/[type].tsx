@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Filters from "../../../components/Filters/Filters";
 import { selectFilters } from "../../../features/generalSlice";
+import NotFound from "../../../components/Errors/NotFound";
 
 export default function Reds({ }) {
   const router = useRouter()
@@ -31,6 +32,7 @@ export default function Reds({ }) {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
+    dispatch(setWinerys(filterWines(wines, filters)))
   }, [type, wines, filters])
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,8 +46,8 @@ export default function Reds({ }) {
   };
 
   return (
-<>
-<div className="
+    <>
+      <div className="
  main-body  
  pt-12 
  mb-8
@@ -61,69 +63,72 @@ export default function Reds({ }) {
     mt-8
     wine-types
   ">
-    <a href='/products/type/rose'>
-      <div  className="rose text-center font-montserrat text-gray-600">
-        <div className='w-32 h-32 relative mb-2'>
-          <Image src="/assets/rose.png" layout='fill' />
+          <a href='/products/type/rose'>
+            <div className="rose text-center font-montserrat text-gray-600">
+              <div className='w-32 h-32 relative mb-2'>
+                <Image src="/assets/rose.png" layout='fill' />
+              </div>
+              Rose
+            </div>
+          </a>
+          <a href='/products/type/whites'>
+            <div className="white text-center font-montserrat text-gray-600">
+              <div className='w-32 h-32 relative mb-2'>
+                <Image src="/assets/white.png" layout='fill' />
+              </div>
+              White
+            </div>
+          </a>
+          <a href='/products/type/reds'>
+            <div className="red text-center font-montserrat text-gray-600">
+              <div className='w-32 h-32 relative mb-2'>
+                <Image src="/assets/red.png" layout='fill' />
+              </div>
+              Red
+            </div>
+          </a>
+          <a href='/products/type/sparkling'>
+            <div className="sparkling text-center font-montserrat text-gray-600">
+              <div className='w-32 h-32 relative mb-2'>
+                <Image src="/assets/sparkling.png" layout='fill' />
+              </div>
+              Sparkling
+            </div>
+          </a>
+          <a href='/products/type/dessert'>
+            <div className="dessert text-center font-montserrat text-gray-600">
+              <div className='w-32 h-32 relative mb-2'>
+                <Image src="/assets/dessert.png" layout='fill' />
+              </div>
+              Dessert
+            </div>
+          </a>
         </div>
-        Rose
+        <Filters />
+        {wines && wines[0]?.error && (<div className="text-center">
+          <NotFound></NotFound>
+        </div>)}
+        {filteredWines.length > 0 &&
+          <>
+            {
+              currentItems.map((wine) => (
+                <Card key={wine.id} wine={wine}></Card>
+              ))
+            }
+          </>
+        }
+        {!filteredWines.length &&
+          <NotFound />
+        }
+        <Pagination
+          onPageChange={onPageChange}
+          wines={filteredWines}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
-    </a>
-    <a href='/products/type/whites'>
-      <div className="white text-center font-montserrat text-gray-600">
-          <div className='w-32 h-32 relative mb-2'>
-            <Image src="/assets/white.png" layout='fill'/>
-          </div>
-          White
-      </div>
-    </a>
-    <a href='/products/type/reds'>
-      <div className="red text-center font-montserrat text-gray-600">
-        <div className='w-32 h-32 relative mb-2'>
-          <Image src="/assets/red.png" layout='fill'/>
-        </div>
-        Red
-      </div>
-    </a>
-    <a href='/products/type/sparkling'>
-      <div className="sparkling text-center font-montserrat text-gray-600">
-        <div className='w-32 h-32 relative mb-2'>
-            <Image src="/assets/sparkling.png" layout='fill' />
-        </div>
-        Sparkling
-      </div>
-    </a>
-    <a href='/products/type/dessert'>
-      <div className="dessert text-center font-montserrat text-gray-600">
-        <div className='w-32 h-32 relative mb-2'>
-          <Image src="/assets/dessert.png" layout='fill' />
-        </div>
-        Dessert
-      </div>
-    </a>
-  </div>
-  <Filters setCurrentPage={setCurrentPage} />
-  {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
-  {filteredWines.length > 0 &&
-    <>
-    {
-      currentItems.map((wine) => (
-        <Card key={wine.id} wine={wine}></Card>
-      ))
-    }
+      <Footer />
     </>
-  }
-  {!filteredWines.length &&
-      <h1>PRODUCTS NOT FOUND</h1>
-  }
-<Pagination
-    onPageChange={onPageChange}
-    wines={filteredWines}
-    itemsPerPage={itemsPerPage}
-    currentPage={currentPage}
-    setCurrentPage={setCurrentPage}
-/><Footer/>
-</div>
-</>
   )
 }

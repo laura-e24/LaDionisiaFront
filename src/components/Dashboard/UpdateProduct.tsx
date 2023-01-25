@@ -79,7 +79,7 @@ const UpdateProduct = ({ handleCloseModal, selectedProduct }) => {
                 formData.append('image', file)
                 const result = await dispatch(updateWine({
                   ...values,
-                  image: file
+                  image: file || values.image
                 }))
                 if (updateWine.fulfilled.match(result)) {
                   alert('Product Updated')
