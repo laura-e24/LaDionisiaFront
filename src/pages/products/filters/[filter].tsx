@@ -57,7 +57,7 @@ export default function index({ }) {
  ">
   <NavBar setCurrentPage={setCurrentPage}></NavBar>
   <Types/>
-  <Filters />
+  <Filters setCurrentPage={setCurrentPage}/>
   {winesCountry && winesCountry[0]?.error && (<div className="text-center">
           <NotFound></NotFound>
         </div>)}

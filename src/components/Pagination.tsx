@@ -61,7 +61,7 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
     }
 
     let pageIncrementBtn = null;
-    if (pages.length > maxPageNumberLimit) {
+    if (pages.length > maxPageNumLim) {
         pageIncrementBtn = <li className="rounded-full 
         w-12 h-12 
         flex items-center 
@@ -80,7 +80,7 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
     }
 
     let pageDecrementBtn = null;
-    if (minPageNumberLimit >= 1) {
+    if (minPageNumLim >= 1) {
         pageDecrementBtn = <li className="rounded-full 
         w-12 h-12 
         flex items-center 

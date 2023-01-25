@@ -76,19 +76,20 @@ export default function Card({ wine }) {
         <p className="text-lg font-bodony text-gray-600 wine-description">
           <WineDescription text={wine.description} />
         </p>
-        <a href={`/products/${wine.id}`}>
         <button
           onClick={() => {
             dispatch(addNewProduct(wine))
             if (!display) dispatch(displayCart())
           }}
-          className=className="wine-button p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">TASTE&nbsp;IT</button>
+          className="p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">TASTE&nbsp;IT</button>
         <button onClick={añadirfavoritos} className="wine-button p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">
           ❤
         </button>
       </div>
       <div className="w-1/3 h-96 flex justify-center items-center bg-product wine-bootle">
-        <img src={wine.image} alt={wine.wine} className="object-scale-down" style={{ maxHeight: 300 }} />
+        <a href={`/products/${wine.id}`}>
+          <img src={wine.image} alt={wine.wine} className="object-scale-down" style={{ maxHeight: 300 }} />
+        </a>
       </div>
     </>
   );
