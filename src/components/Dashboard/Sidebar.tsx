@@ -20,7 +20,7 @@ const Sidebar = () => {
                     <div className="w-ful px-1 p-1">
                         <ul className="relative">
                             <li className="relative">
-                                <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="/dashboard" data-mdb-ripple="true" data-mdb-ripple-color="dark">{
+                                <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="/dashboard/dashboard" data-mdb-ripple="true" data-mdb-ripple-color="dark">{
                                     <DashboardLogoBlack className="w-10 h-10" />
                                 } Dashboard</a>
                             </li>
@@ -30,12 +30,12 @@ const Sidebar = () => {
                                 } Products</a>
                             </li>
                             <li className="relative">
-                                <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="/dashboard/products" data-mdb-ripple="true" data-mdb-ripple-color="dark"> {
+                                <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="/dashboard/users" data-mdb-ripple="true" data-mdb-ripple-color="dark"> {
                                     <UsersLogoBlack className="w-10 h-10" />
                                 } Users</a>
                             </li>
                             <li className="relative">
-                                <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="/dashboard/products" data-mdb-ripple="true" data-mdb-ripple-color="dark"> {
+                                <a className="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out" href="/dashboard/comments" data-mdb-ripple="true" data-mdb-ripple-color="dark"> {
                                    <UsersLogoBlack className="w-10 h-10" />
                                 } Comments</a>
                             </li>
