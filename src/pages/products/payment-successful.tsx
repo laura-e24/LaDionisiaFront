@@ -1,8 +1,8 @@
 import Router from "next/router";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../../app/store";
-import NavBar from "../../../components/Navbar/NavBar";
-import { clearCart } from "../../../features/products/cartSlice";
+import { useAppDispatch } from "../../app/store";
+import NavBar from "../../components/Navbar/NavBar";
+import { clearCart } from "../../features/products/cartSlice";
 
 const Success = () => {
   const { payment_intent } = Router.query
@@ -27,9 +27,9 @@ const Success = () => {
               {/* <button className="block border border-black border-opacity-75 px-10 py-6 rounded-xl" onClick={() => Router.push('/products')}>
                 Continue exploring
               </button> */}
-              <button className="block border border-black border-opacity-75 px-10 py-6 rounded-xl" onClick={() => Router.push('/')}>
+              {/* <button className="block border border-black border-opacity-75 px-10 py-6 rounded-xl" onClick={() => Router.push('/')}>
                 Go back to Home
-              </button>
+              </button> */}
             </div>
           </div>
         

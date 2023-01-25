@@ -6,12 +6,14 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../app/store";
 import CustomField from "../../../components/CustomField";
 import FAIcon from "../../../components/FAIcon";
+import GenericButton from "../../../components/GenericButton";
 import MiniCard from "../../../components/MiniCard/MiniCard";
 import GenericModal from "../../../components/Modals/GenericModal";
 import NavBar from "../../../components/Navbar/NavBar"
 import PaypalCheckotButton from "../../../components/PaypalCheckoutButton";
 import StripeComponent from "../../../components/stripe/StripeComponent";
 import { clearCart, minusAllProducts, minusOneProduct, plusOneProduct, selectCart } from "../../../features/products/cartSlice";
+import { EGenericButtonType } from "../../../utils/general";
 
 const Checkout = () => {
   const cart = useSelector(selectCart);
@@ -20,7 +22,8 @@ const Checkout = () => {
   const [modalConfirmClear, setModalConfirmClear] = useState(false);
   const [productToRemove, setProductToRemove] = useState({ id: null, wine: '', year: '' });
 
-
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   
   const subtotalCalculation = (quantity, price) => quantity * price
   const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.product.price), 0)
@@ -29,9 +32,9 @@ const Checkout = () => {
   const removeAllProducts = (id) => dispatch(minusAllProducts(id))
   const clearAllCart = () => dispatch(clearCart())
 
-  useEffect(() => {
-    if (!cart.length) Router.push('/')
-  }, [cart.length])
+  // useEffect(() => {
+  //   if (!cart.length) Router.push('/')
+  // }, [])
 
   return (
     <>
@@ -42,7 +45,7 @@ const Checkout = () => {
         <span className="flex">
           <button
             type="button"
-            onClick={() => Router.back()}
+            onClick={() => Router.push('/products')}
           >
             <FAIcon type="solid" name="angle-left" size="xl" />
           </button>
@@ -110,17 +113,30 @@ const Checkout = () => {
               <li>
                 Para la fecha, utilizar cualquiera que sea válida (no expirada). CVC cualquier combinación de tres números.
               </li>
+              <li className="border-t border-gray-500 border-opacity-30 mt-6 pt-4">
+                Para el pago con PayPal utilizar las siguientes credenciales, y luego seleccionar la tarjeta que aparecerá allí.
+               
+                <span className="flex flex-col space-y-1 mt-4 text-base text-gray-600">
+                  <span className="font-bold">
+                    sb-vkdkd24897621@personal.example.com&nbsp;
+                    <span className="font-normal italic">(email)</span>
+                  </span>
+                  <span className="font-bold">
+                    -L3f?gcU&nbsp;
+                    <span className="font-normal italic">(password)</span>
+                  </span>
+                </span>
+              </li>
             </ul>
           </div>
         </div>
         <div className="w-2/5 bg-default border border-black rounded-3xl py-6 px-10">
           <h3 className="font-bold text-3xl w-full my-auto pb-4 border-b border-tertiary">Card details</h3>
           <StripeComponent cart={cart} totalPrice={totalPrice} />
+          <h3 className="font-bold text-xl text-center w-full pt-4 mt-6 pb-2 border-t border-gray-500 border-opacity-40">Or pay with</h3>
+          <PaypalCheckotButton setErrorMessage={setErrorMessage} setErrorModal={setErrorModal} wines={cart} totalPrice={totalPrice} />
         </div>
       </div>
-      <>
-          <PaypalCheckotButton wines={cart} totalPrice={totalPrice} />
-        </>
      </div>
     </div>
     <GenericModal
@@ -139,6 +155,25 @@ const Checkout = () => {
       acceptBtnLabel="Yes"
       message={`Are you sure you want to clear your cart? This will remove ALL productos from it.`}
     />
+      {errorModal && (
+      <div className="backdrop-blur-sm bg-black flex fixed w-screen h-screen inset-0 bg-opacity-30" style={{ zIndex: 999 }}>
+        <div className="bg-white max-w-[50%] mx-auto my-auto rounded p-10">
+          <h3 className="text-2xl text-semibold uppercase text-black font-bold text-center">
+            Payment failed
+          </h3>
+          <p className="text-xl font-medium text-gray-600 py-4 text-center">
+            {errorMessage}
+          </p>
+          <div className="flex space-x-6 border-t border-slate-200 pt-6">
+            <GenericButton 
+              label="Accept"
+              size="sm"
+              onClick={() => setErrorModal(false)}
+            />
+          </div>
+        </div>
+      </div>
+    )}
   </>
   )
 }

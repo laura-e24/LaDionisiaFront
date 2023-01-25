@@ -15,13 +15,9 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
     for (let i = 1; i <= Math.ceil(wines.length / itemsPerPage); i++) {
         pages.push(i);
     }
-console.log('pages: ', pages)
+
     const renderPageNumbers = pages.map((number) => {
-      console.log('mayor: ',  number > minPageNumLim)
-      console.log('menor: ',  number < maxPageNumLim)
-      console.log('min: ',  minPageNumLim)
-      console.log('max: ',  maxPageNumLim)
-      console.log('NUMBER: ',  number)
+   
 
         if (number < maxPageNumLim + 1 && number > minPageNumLim) {
             return (

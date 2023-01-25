@@ -77,13 +77,13 @@ export default function CheckoutForm({ totalPrice, cart }) {
       redirect: 'if_required',
       // confirmParams: {
       //   // Make sure to change this to your payment completion page
-      //   return_url:  'http://localhost:3000/products/checkout/success'
+      //   return_url:  'http://localhost:3000/products/payment-successfulul'
       // },
     })
     console.log(paymentIntent)
     if (paymentIntent && paymentIntent.status === 'succeeded') {
       send()
-      Router.push(`/products/checkout/success?payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}&redirect_status=succeeded`)
+      Router.push(`/products/payment-successful?payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}&redirect_status=succeeded`)
     }
     else {
       if (error.type === "card_error" || error.type === "validation_error") {
@@ -108,28 +108,22 @@ export default function CheckoutForm({ totalPrice, cart }) {
     layout: "tabs",
   };
 
+const isPaymentDisable = isLoading || !stripe || !elements || !cart.length
+
   return (
     <>
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <div className="border-t border-black pt-6 my-6">
-        {/* <span className="flex font-semibold text-2xl justify-between">
-          <p>Subtotal</p>
-          <p className="text-gray-700">$200</p>
-        </span>
-        <span className="flex font-semibold text-2xl justify-between">
-          <p>Shipping</p>
-          <p className="text-gray-700">$4</p>
-        </span> */}
         <span className="flex font-bold text-2xl justify-between">
           <p>Total</p>
           <p className="text-gray-700">${totalPrice}</p>
         </span>
       </div>
       <button 
-        disabled={isLoading || !stripe || !elements} 
+        disabled={isPaymentDisable} 
         id="submit" 
-        className="group relative flex justify-center py-6 px-4 bg-[#3D3A35] hover:bg-[#1f1e1e] rounded-2xl w-full"
+        className={`group relative flex justify-center py-6 px-4 rounded-2xl w-full ${isPaymentDisable ? "bg-gray-400 opacity-75" : "bg-[#3D3A35] hover:bg-[#1f1e1e]"}`}
       >
         <span id="button-text">
           {isLoading ? 
