@@ -87,7 +87,7 @@ export default function Card({ wine }) {
         </button>
       </div>
       <div className="w-1/3 h-96 flex justify-center items-center bg-product wine-bootle">
-        <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
+        <img src={wine.image} alt={wine.wine} className="object-scale-down" style={{ maxHeight: 300 }} />
       </div>
     </>
   );

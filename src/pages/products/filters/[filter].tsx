@@ -4,17 +4,18 @@ import Pagination from "../../../components/Pagination";
 import Card from "../../../components/Card/Card";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, cleanUpState, selectAllWinesFilters, getRegiones, selectAllFilters, setWinerys } from "../../../features/products/productsSlice";
+import { selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, selectCurrentWines, getRegiones } from "../../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../../components/Footer/Footer";
 import Image from "next/image";
 import Filters from "../../../components/Filters/Filters";
+import { selectFilters } from "../../../features/generalSlice";
 import NotFound from "../../../components/Errors/NotFound";
 
 export default function index({ }) {
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
   const router = useRouter()
   const { filter } = router.query;
   const dispatch = useAppDispatch()
@@ -52,8 +53,8 @@ export default function index({ }) {
  m-auto
  max-w-screen-xl
  bg-bg-body 
- "><NavBar></NavBar>
-        <div className="
+ "><NavBar setCurrentPage={setCurrentPage}></NavBar>
+  <div className="
     w-full 
     flex 
     justify-around 
@@ -102,7 +103,7 @@ export default function index({ }) {
             </div>
           </a>
         </div>
-        <Filters />
+         <Filters setCurrentPage={setCurrentPage} />
         {winesCountry && winesCountry[0]?.error && (<div className="text-center">
           <NotFound></NotFound>
         </div>)}

@@ -2,9 +2,10 @@
 
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
-import { getAllWines, getWinerys, orderByName, selectAllRegions, selectAllWinerys, setFilters } from "../../features/products/productsSlice";
+import { setFilters, setMaxPageNumLim, setMinPageNumLim } from "../../features/generalSlice";
+import {  orderByName, selectAllRegions } from "../../features/products/productsSlice";
 import { useEffect } from "react";
-
+import { orderByName, selectAllRegions } from "../../features/products/productsSlice";
 const Filters = () => {
     const winerys = useSelector(selectAllWinerys)
     useEffect(() => {
@@ -14,17 +15,21 @@ const Filters = () => {
         }
         fetchData()
     }, [])
-    //arreglar paginado porque se rompe cuando estoy en la ultima y aplico un filtro y searchbar
-    //filtro de precio no toma los pobres 
-
     const dispatch = useAppDispatch()
     const regions = useSelector(selectAllRegions)
     function handleFilters(e) {
         const { value, name } = e.target;
         dispatch(setFilters({ [name]: value }));
+
+        setCurrentPage(1)
+        dispatch(setMaxPageNumLim(10))
+        dispatch(setMinPageNumLim(0));
     }
     function handleSort(e) {
-        dispatch(orderByName(e.target.value))
+      dispatch(orderByName(e.target.value)),
+      setCurrentPage(1),
+      dispatch(setMaxPageNumLim(10))
+      dispatch(setMinPageNumLim(0));
     }
     const vintage = [
         "2010-Present",

@@ -219,7 +219,6 @@ const initialState = {
   currentWines: [],
   disabledWines: [],
   wineTypes: [],
-  filters: [],
   allWinesStatus: EStateGeneric.IDLE,
   allWinesCountryStatus: EStateGeneric.IDLE,
   allDisabledWinesStatus: EStateGeneric.IDLE,
@@ -283,16 +282,6 @@ const productsSlice = createSlice({
     setCurrentWines: (state, action) => {
       state.currentWines = action.payload;
       console.log('reducer')
-    },
-    setFilters: (state, action) => {
-      const objToReplace = state.filters.find(item => Object.keys(item).includes(Object.keys(action.payload)[0]));
-      const index = state.filters.indexOf(objToReplace);
-      if (index !== -1) {
-        state.filters.splice(index, 1, action.payload);
-      } else {
-        state.filters.push(action.payload);
-      }
-      console.log(state.filters)
     },
     cleanUpState: (state) => {
       state.currentWines = [];
@@ -533,7 +522,6 @@ export const selectAllWinesByContry = (state) => state.products.winesCountry;
 export const selectAllWinesFilters = (state) => state.products.winesFilters;
 export const selectCurrentWines = (state) => state.products.currentWines;
 export const selectCountryFilter = (state) => state.products.filter;
-export const selectAllFilters = (state) => state.products.filters;
 export const selectAllFavorites = (state) => state.products.favorites;
 
 export const selectAllRegions = (state) => state.products.regions;
@@ -542,7 +530,6 @@ export const selectAllWinerys = (state) => state.products.winerys;
 export const {
   orderByName,
   setCurrentWines,
-  setFilters,
   cleanUpState,
   cleanUpStateFilters,
   clearOneWine,

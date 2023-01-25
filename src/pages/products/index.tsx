@@ -5,18 +5,18 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState, setWinerys } from "../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, selectAllWinesCountryStatus } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
 import Image from "next/image";
 import Filters from "../../components/Filters/Filters";
+import { selectFilters } from "../../features/generalSlice";
 import NotFound from "../../components/Errors/NotFound";
 
 export default function index() {
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
 
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -55,8 +55,8 @@ export default function index() {
  m-auto
  max-w-screen-xl
  bg-bg-body 
- "><NavBar></NavBar>
-        <div className="
+ "><NavBar setCurrentPage={setCurrentPage}></NavBar>
+  <div className="
     w-full 
     flex 
     justify-around 

@@ -5,12 +5,13 @@ import Pagination from "../../../components/Pagination"
 import Footer from "../../../components/Footer/Footer";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWineTypes, selectAllFilters, selectAllWineTypes, selectAllWineTypesStatus, setWinerys } from "../../../features/products/productsSlice";
+import { getAllWineTypes, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Image from "next/image";
 import Filters from "../../../components/Filters/Filters";
+import { selectFilters } from "../../../features/generalSlice";
 import NotFound from "../../../components/Errors/NotFound";
 
 export default function Reds({ }) {
@@ -18,7 +19,7 @@ export default function Reds({ }) {
   const { type } = router.query;
   const dispatch = useAppDispatch()
   const wines = useSelector(selectAllWineTypes)
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
   const winesStatus = useSelector(selectAllWineTypesStatus)
   const [filteredWines, setFilteredWines] = useState(wines);
 
@@ -53,8 +54,8 @@ export default function Reds({ }) {
  m-auto
  max-w-screen-xl
  bg-bg-body 
- "><NavBar></NavBar>
-        <div className="
+ "><NavBar setCurrentPage={setCurrentPage}></NavBar>
+  <div className="
     w-full 
     flex 
     justify-around 

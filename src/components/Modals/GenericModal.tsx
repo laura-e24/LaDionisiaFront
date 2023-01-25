@@ -7,10 +7,10 @@ const GenericModal = ({ display, setDisplay, title = '', message, onClickAccept,
       {display && (
         <div className="backdrop-blur-sm bg-black flex fixed w-screen h-screen inset-0 bg-opacity-30" style={{ zIndex: 999 }}>
           <div className="bg-white max-w-[50%] mx-auto my-auto rounded p-10">
-            <h3 className="text-lg text-semibold uppercase text-gray-500 text-center">
+            <h3 className="text-2xl text-semibold uppercase text-black font-bold text-center">
               {title}
             </h3>
-            <p className="text-gray-400 font-light py-4">
+            <p className="text-xl font-medium text-gray-600 py-4 text-center">
               {message}
             </p>
             <div className="flex space-x-6 border-t border-slate-200 pt-6">
@@ -36,14 +36,3 @@ const GenericModal = ({ display, setDisplay, title = '', message, onClickAccept,
   )
 }
 export default GenericModal;
-
-
-
-{/* <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                    <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t">
-                        
-                    </div>
-                    <div className="relative p-3 flex">
-                        
-                        
-                </div> */}

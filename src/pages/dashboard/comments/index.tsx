@@ -68,7 +68,6 @@ const Users = () => {
                             <button value={c.id} onClick={(e) => deleteCommentAdm(e)}>Borrar</button>
                         </div>
                     ))}
-                    <Footer />
                 </div>
             </div>
         </div>

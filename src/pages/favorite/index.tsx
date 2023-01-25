@@ -10,9 +10,8 @@ import Pagination from "../../components/Pagination";
 import CardFavorite from "../../components/Card/CardFavorite";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
+import { selectFilters } from "../../features/generalSlice";
 import DontHaveFavorites from "../../components/Errors/DontHaveFavorites";
-
-<title>Favorite</title>
 export default function index() {
   const filters = useSelector(selectAllFilters)
   const router = useRouter()
@@ -67,6 +66,7 @@ export default function index() {
       wine-types
     ">
         </div>
+        <Filters setCurrentPage={setCurrentPage} />
         {favorites && !favorites[0]?.error && filteredWines.length > 0 &&
           <>
             {
