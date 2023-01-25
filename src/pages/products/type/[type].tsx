@@ -5,19 +5,22 @@ import Pagination from "../../../components/Pagination"
 import Footer from "../../../components/Footer/Footer";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWineTypes, selectAllFilters, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
+import { getAllWineTypes, selectAllWineTypes, selectAllWineTypesStatus, setWinerys } from "../../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Image from "next/image";
 import Filters from "../../../components/Filters/Filters";
+import Types from "../../../components/Types/Types";
+import { selectFilters } from "../../../features/generalSlice";
+import NotFound from "../../../components/Errors/NotFound";
 
 export default function Reds({ }) {
   const router = useRouter()
   const { type } = router.query;
   const dispatch = useAppDispatch()
   const wines = useSelector(selectAllWineTypes)
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
   const winesStatus = useSelector(selectAllWineTypesStatus)
   const [filteredWines, setFilteredWines] = useState(wines);
 
@@ -30,6 +33,7 @@ export default function Reds({ }) {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
+    dispatch(setWinerys(filterWines(wines, filters)))
   }, [type, wines, filters])
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,86 +47,41 @@ export default function Reds({ }) {
   };
 
   return (
-<>
-<div className="
+    <>
+      <div className="
  main-body  
  pt-12 
  mb-8
  m-auto
  max-w-screen-xl
  bg-bg-body 
- "><NavBar></NavBar>
-  <div className="
-    w-full 
-    flex 
-    justify-around 
-    items-center 
-    mt-8
-    wine-types
-  ">
-    <a href='/products/type/rose'>
-      <div  className="rose text-center font-montserrat text-gray-600">
-        <div className='w-32 h-32 relative mb-2'>
-          <Image src="/assets/rose.png" layout='fill' />
-        </div>
-        Rose
+ "><NavBar setCurrentPage={setCurrentPage}></NavBar>
+  <Types/>
+        <Filters setCurrentPage={setCurrentPage}/>
+        {wines && wines[0]?.error && (<div className="text-center">
+          <NotFound></NotFound>
+        </div>)}
+        {filteredWines.length > 0 &&
+          <>
+            {
+              currentItems.map((wine) => (
+                <Card key={wine.id} wine={wine}></Card>
+              ))
+            }
+          </>
+        }
+        {!filteredWines.length &&
+          <NotFound />
+        }
+        <Pagination
+          onPageChange={onPageChange}
+          wines={filteredWines}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
-    </a>
-    <a href='/products/type/whites'>
-      <div className="white text-center font-montserrat text-gray-600">
-          <div className='w-32 h-32 relative mb-2'>
-            <Image src="/assets/white.png" layout='fill'/>
-          </div>
-          White
-      </div>
-    </a>
-    <a href='/products/type/reds'>
-      <div className="red text-center font-montserrat text-gray-600">
-        <div className='w-32 h-32 relative mb-2'>
-          <Image src="/assets/red.png" layout='fill'/>
-        </div>
-        Red
-      </div>
-    </a>
-    <a href='/products/type/sparkling'>
-      <div className="sparkling text-center font-montserrat text-gray-600">
-        <div className='w-32 h-32 relative mb-2'>
-            <Image src="/assets/sparkling.png" layout='fill' />
-        </div>
-        Sparkling
-      </div>
-    </a>
-    <a href='/products/type/dessert'>
-      <div className="dessert text-center font-montserrat text-gray-600">
-        <div className='w-32 h-32 relative mb-2'>
-          <Image src="/assets/dessert.png" layout='fill' />
-        </div>
-        Dessert
-      </div>
-    </a>
-  </div>
-  <Filters />
-  {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
-  {filteredWines.length > 0 &&
-    <>
-    {
-      currentItems.map((wine) => (
-        <Card key={wine.id} wine={wine}></Card>
-      ))
-    }
+      <Footer />
     </>
-  }
-  {!filteredWines.length &&
-      <h1>PRODUCTS NOT FOUND</h1>
-  }
-<Pagination
-    onPageChange={onPageChange}
-    wines={filteredWines}
-    itemsPerPage={itemsPerPage}
-    currentPage={currentPage}
-    setCurrentPage={setCurrentPage}
-/><Footer/>
-</div>
-</>
   )
 }
