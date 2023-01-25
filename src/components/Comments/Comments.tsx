@@ -8,6 +8,7 @@ import EditComment from "./EditComment";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { registerUser } from "../../features/comments/commentsApi";
 import s from "./Comments.module.css"
+import GenericModal from "../Modals/GenericModal";
 const Comments = () => {
     const { user } = useUser();
     const router = useRouter()
@@ -15,6 +16,7 @@ const Comments = () => {
     const comments = useSelector(selectAllComments)
     const users = useSelector(selectAllUsers)
     const userExistente = users.find(u => u.email === user?.email)
+    const [modalConfirmDeleteComment, setModalConfirmDeleteComment] = useState(false)
     const [comment, setComment] = useState({
         content: "",
         rating: 0,
@@ -54,9 +56,8 @@ const Comments = () => {
         }
 
     }
-    function deleteComment(e) {
-        const { value } = e.target
-        dispatch(disableCommentUser(value?.toString()));
+    function deleteComment(comment) {
+        dispatch(disableCommentUser(comment?.toString()));
         alert('Comment Deleted')
         dispatch(getAllComments(id?.toString()));
     }
@@ -91,7 +92,7 @@ const Comments = () => {
     }
     return (
         <div className="p-4">
-            <table className="w-full border-2 border-gray-400">
+            <table className="w-full">
                 <tr>
                     <td className="p-4">
                         {comments?.map((comment) => (
@@ -113,7 +114,15 @@ const Comments = () => {
                                                     </summary>
                                                     <EditComment comment={comment} />
                                                 </details>
-                                                <button className={`${s.iconos} p-2`} value={comment.id} onClick={(e) => deleteComment(e)}>🗑️ Delete</button>
+                                                <button className={`${s.iconos} p-2`} onClick={() => setModalConfirmDeleteComment(true)}>🗑️ Delete</button>
+                                                <GenericModal
+                                                    display={modalConfirmDeleteComment}
+                                                    setDisplay={setModalConfirmDeleteComment}
+                                                    title='Delete Comment'
+                                                    onClickAccept={() => deleteComment(comment.id)}
+                                                    acceptBtnLabel="Yes"
+                                                    message={`Are you sure you want to delete your comment?`}
+                                                />
                                             </div>
                                         )
                                     }{
