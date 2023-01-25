@@ -6,6 +6,9 @@ import { Provider } from 'react-redux';
 import { store, persistor } from '../app/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import "primereact/resources/themes/lara-light-indigo/theme.css";  
+import "primereact/resources/primereact.min.css";                  
+import "primeicons/primeicons.css";
 
 import { useRouter } from 'next/router';
 import { useState,useEffect } from 'react'
