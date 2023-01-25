@@ -2,7 +2,7 @@ import NavBar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { selectAllFilters, selectAllFavorites, selectAllFavoritesStatus, getFavorite, getFavorites } from "../../features/products/productsSlice";
+import { selectAllFavorites, selectAllFavoritesStatus, getFavorite, getFavorites } from "../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -12,8 +12,9 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
 import { selectFilters } from "../../features/generalSlice";
 import DontHaveFavorites from "../../components/Errors/DontHaveFavorites";
+import Filters from "../../components/Filters/Filters";
 export default function index() {
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
   const router = useRouter()
   const dispatch = useAppDispatch()
   const favorites = useSelector(selectAllFavorites)

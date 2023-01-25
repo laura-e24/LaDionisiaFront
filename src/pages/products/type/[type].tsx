@@ -5,7 +5,7 @@ import Pagination from "../../../components/Pagination"
 import Footer from "../../../components/Footer/Footer";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWineTypes, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
+import { getAllWineTypes, selectAllWineTypes, selectAllWineTypesStatus, setWinerys } from "../../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -104,7 +104,7 @@ export default function Reds({ }) {
             </div>
           </a>
         </div>
-        <Filters />
+        <Filters setCurrentPage={setCurrentPage}/>
         {wines && wines[0]?.error && (<div className="text-center">
           <NotFound></NotFound>
         </div>)}

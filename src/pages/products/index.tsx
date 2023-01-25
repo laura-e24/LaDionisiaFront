@@ -5,7 +5,7 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWines, selectAllWines, selectAllWinesStatus, selectAllWinesCountryStatus } from "../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, selectAllWinesCountryStatus, setWinerys } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
@@ -105,7 +105,7 @@ export default function index() {
             </div>
           </a>
         </div>
-        <Filters />
+        <Filters setCurrentPage={setCurrentPage}/>
         {wines && wines[0]?.error && (<div className="text-center">
           <NotFound></NotFound>
         </div>)}

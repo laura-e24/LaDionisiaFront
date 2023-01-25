@@ -4,7 +4,7 @@ import Pagination from "../../../components/Pagination";
 import Card from "../../../components/Card/Card";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, selectCurrentWines, getRegiones } from "../../../features/products/productsSlice";
+import { selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, selectCurrentWines, getRegiones, setWinerys } from "../../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";

@@ -3,10 +3,9 @@
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import { setFilters, setMaxPageNumLim, setMinPageNumLim } from "../../features/generalSlice";
-import {  orderByName, selectAllRegions } from "../../features/products/productsSlice";
+import { getAllWines, getWinerys, orderByName, selectAllRegions, selectAllWinerys } from "../../features/products/productsSlice";
 import { useEffect } from "react";
-import { orderByName, selectAllRegions } from "../../features/products/productsSlice";
-const Filters = () => {
+const Filters = ({ setCurrentPage }) => {
     const winerys = useSelector(selectAllWinerys)
     useEffect(() => {
         const fetchData = async () => {
@@ -26,10 +25,10 @@ const Filters = () => {
         dispatch(setMinPageNumLim(0));
     }
     function handleSort(e) {
-      dispatch(orderByName(e.target.value)),
-      setCurrentPage(1),
-      dispatch(setMaxPageNumLim(10))
-      dispatch(setMinPageNumLim(0));
+        dispatch(orderByName(e.target.value)),
+            setCurrentPage(1),
+            dispatch(setMaxPageNumLim(10))
+        dispatch(setMinPageNumLim(0));
     }
     const vintage = [
         "2010-Present",
