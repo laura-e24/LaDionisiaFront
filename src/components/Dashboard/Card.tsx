@@ -32,7 +32,8 @@ export default function Card({ wine, handleEditProduct }) {
     const disableProduct = async () => {
       const product = {
         id: wine.id,
-        disabled: true
+        disabled: true,
+        image: ""
       }
       const result = await dispatch(updateWine(product))
       if (updateWine.fulfilled.match(result)) /* alert('Product Deleted') */

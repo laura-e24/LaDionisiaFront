@@ -191,8 +191,9 @@ export const deleteAllFavorites = createAsyncThunk(
 interface ProductsState {
   wines: IProduct[],
   winesCountry: IProduct[],
-  regions: string[],
   disabledWines: IProduct[],
+  regions: string[],
+  winerys: string[],
   wineTypes: IProduct[],
   wine: IProduct,
   winesFilters: IProduct[],
@@ -213,6 +214,7 @@ const initialState = {
   wine: {},
   winesCountry: [],
   regions: [],
+  winerys: [],
   winesFilters: [],
   currentWines: [],
   disabledWines: [],
@@ -233,13 +235,27 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     // standard reducer logic, with auto-generated action types per reducer
-    getRegiones: (state, action) => {
+    getRegiones: (state) => {
       state.winesCountry.filter(wine => {
         if (!state.regions.includes(wine.region)) {
           state.regions = [...state.regions, wine.region]
         }
       })
       state.regions.sort((a, b) => {
+        if (a.toLowerCase() > b.toLowerCase()) return 1
+        else return -1
+      })
+    },
+    getWinerys: (state) => {
+      state.winerys = state.winerys
+    },
+    setWinerys: (state, action) => {
+      action.payload.filter(wine => {
+        if (!state.winerys.includes(wine.winery)) {
+          state.winerys = [...state.winerys, wine.winery]
+        }
+      })
+      state.winerys.sort((a, b) => {
         if (a.toLowerCase() > b.toLowerCase()) return 1
         else return -1
       })
@@ -521,6 +537,7 @@ export const selectAllFilters = (state) => state.products.filters;
 export const selectAllFavorites = (state) => state.products.favorites;
 
 export const selectAllRegions = (state) => state.products.regions;
+export const selectAllWinerys = (state) => state.products.winerys;
 
 export const {
   orderByName,
@@ -530,6 +547,8 @@ export const {
   cleanUpStateFilters,
   clearOneWine,
   getRegiones,
+  getWinerys,
+  setWinerys,
   setFavorites,
   getFavorites
 } = productsSlice.actions;

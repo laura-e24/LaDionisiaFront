@@ -4,7 +4,7 @@ import Pagination from "../../../components/Pagination";
 import Card from "../../../components/Card/Card";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, cleanUpState, selectAllWinesFilters, getRegiones, selectAllFilters } from "../../../features/products/productsSlice";
+import { selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, cleanUpState, selectAllWinesFilters, getRegiones, selectAllFilters, setWinerys } from "../../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
@@ -20,9 +20,6 @@ export default function index({ }) {
   const dispatch = useAppDispatch()
   const winesCountry = useSelector(selectAllWinesByContry)
   const winesCountryStatus = useSelector(selectAllWinesCountryStatus)
-  const wines = useSelector(selectAllWines)
-  const currentWines = useSelector(selectCurrentWines)
-  const winesStatus = useSelector(selectAllWinesStatus)
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredWines, setFilteredWines] = useState(winesCountry);
   const itemsPerPage = 21;
@@ -37,12 +34,13 @@ export default function index({ }) {
       if (router.isReady) {
         if (winesCountryStatus === EStateGeneric.IDLE) {
           await dispatch(getAllWinesByContry(filter.toString()));
-          await dispatch(getRegiones(filter.toString()));
+          await dispatch(getRegiones());
         }
       }
     }
     fetchData()
     setFilteredWines(filterWines(winesCountry, filters));
+    dispatch(setWinerys(filterWines(winesCountry, filters)))
   }, [filter, winesCountry, filters])
 
   return (
@@ -50,7 +48,7 @@ export default function index({ }) {
       <div className="
  main-body  
  pt-12 
- mb-12 
+ mb-8
  m-auto
  max-w-screen-xl
  bg-bg-body 

@@ -6,7 +6,7 @@ import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
 
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState } from "../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState, setWinerys } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
@@ -43,6 +43,7 @@ export default function index() {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
+    dispatch(setWinerys(filterWines(wines, filters)))
   }, [winesStatus, filters, wines])
   return (
 
@@ -50,7 +51,7 @@ export default function index() {
       <div className="
  main-body  
  pt-12 
- mb-12 
+ mb-8
  m-auto
  max-w-screen-xl
  bg-bg-body 

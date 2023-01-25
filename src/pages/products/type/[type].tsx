@@ -5,7 +5,7 @@ import Pagination from "../../../components/Pagination"
 import Footer from "../../../components/Footer/Footer";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWineTypes, selectAllFilters, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
+import { getAllWineTypes, selectAllFilters, selectAllWineTypes, selectAllWineTypesStatus, setWinerys } from "../../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -31,6 +31,7 @@ export default function Reds({ }) {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
+    dispatch(setWinerys(filterWines(wines, filters)))
   }, [type, wines, filters])
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,7 +49,7 @@ export default function Reds({ }) {
       <div className="
  main-body  
  pt-12 
- mb-12 
+ mb-8
  m-auto
  max-w-screen-xl
  bg-bg-body 
@@ -126,6 +127,7 @@ export default function Reds({ }) {
           setCurrentPage={setCurrentPage}
         />
       </div>
-      <Footer /></>
+      <Footer />
+    </>
   )
 }

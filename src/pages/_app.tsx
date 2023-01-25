@@ -34,9 +34,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <><Loading/>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-          <UserProvider>
-            <Component {...pageProps} />
-          </UserProvider>
+        <UserProvider>
+          <Component {...pageProps} />
+        </UserProvider>
       </PersistGate>
     </Provider>
     </>
