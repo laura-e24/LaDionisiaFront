@@ -2,17 +2,33 @@
 
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
-import { orderByName, selectAllRegions, setFilters } from "../../features/products/productsSlice";
-
-const Filters = () => {
+import { setFilters, setMaxPageNumLim, setMinPageNumLim } from "../../features/generalSlice";
+import { getAllWines, getWinerys, orderByName, selectAllRegions, selectAllWinerys } from "../../features/products/productsSlice";
+import { useEffect } from "react";
+const Filters = ({ setCurrentPage }) => {
+    const winerys = useSelector(selectAllWinerys)
+    useEffect(() => {
+        const fetchData = async () => {
+            await dispatch(getAllWines());
+            await dispatch(getWinerys());
+        }
+        fetchData()
+    }, [])
     const dispatch = useAppDispatch()
     const regions = useSelector(selectAllRegions)
     function handleFilters(e) {
         const { value, name } = e.target;
         dispatch(setFilters({ [name]: value }));
+
+        setCurrentPage(1)
+        dispatch(setMaxPageNumLim(10))
+        dispatch(setMinPageNumLim(0));
     }
     function handleSort(e) {
-        dispatch(orderByName(e.target.value))
+        dispatch(orderByName(e.target.value)),
+            setCurrentPage(1),
+            dispatch(setMaxPageNumLim(10))
+        dispatch(setMinPageNumLim(0));
     }
     const vintage = [
         "2010-Present",
@@ -59,7 +75,16 @@ const Filters = () => {
                     ))}
                 </select>
             }
-            <select id="filter-vintage" name="vintage" className="bg-[#F2F9F4] text-center box-content rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" onChange={handleFilters} >
+            <select id="filter-winery" className="bg-[#F2F9F4] text-center box-content rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" name="winery" onChange={handleFilters}>
+                <option disabled selected>WINERY</option>
+                <option value="all-winery">ALL</option>
+                {winerys.map((winery, index) => (
+                    <option key={index} value={winery}>
+                        {winery}
+                    </option>
+                ))}
+            </select>
+             <select id="filter-vintage" name="vintage" className="bg-[#F2F9F4] text-center box-content rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" onChange={handleFilters} >
                 <option disabled selected>VINTAGE</option>
                 <option value="all-vintage">ALL</option>
                 {vintage.map((v, index) => (

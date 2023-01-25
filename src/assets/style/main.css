@@ -87,10 +87,7 @@
               padding: 0;
    -ms-overflow-style: none;
       scrollbar-width: none; 
-     -moz-user-select: none;
-  -webkit-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+     
       scroll-behavior: auto;
   } body {     margin: 0;
               padding: 0;

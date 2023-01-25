@@ -5,21 +5,22 @@ import Pagination from "../../../components/Pagination"
 import Footer from "../../../components/Footer/Footer";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWineTypes, selectAllFilters, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
+import { getAllWineTypes, selectAllWineTypes, selectAllWineTypesStatus, setWinerys } from "../../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Image from "next/image";
 import Filters from "../../../components/Filters/Filters";
-import NotFound from "../../../components/componentsErrors/notFound";
 import Types from "../../../components/Types/Types";
+import { selectFilters } from "../../../features/generalSlice";
+import NotFound from "../../../components/Errors/NotFound";
 
 export default function Reds({ }) {
   const router = useRouter()
   const { type } = router.query;
   const dispatch = useAppDispatch()
   const wines = useSelector(selectAllWineTypes)
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
   const winesStatus = useSelector(selectAllWineTypesStatus)
   const [filteredWines, setFilteredWines] = useState(wines);
 
@@ -32,6 +33,7 @@ export default function Reds({ }) {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
+    dispatch(setWinerys(filterWines(wines, filters)))
   }, [type, wines, filters])
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,40 +47,41 @@ export default function Reds({ }) {
   };
 
   return (
-<>
-<div className="
+    <>
+      <div className="
  main-body  
  pt-12 
  mb-8
  m-auto
  max-w-screen-xl
  bg-bg-body 
- "><NavBar></NavBar>
+ "><NavBar setCurrentPage={setCurrentPage}></NavBar>
   <Types/>
-  <Filters />
-  {wines && wines[0]?.error && (<div className="text-center">
+        <Filters setCurrentPage={setCurrentPage}/>
+        {wines && wines[0]?.error && (<div className="text-center">
           <NotFound></NotFound>
         </div>)}
-  {filteredWines.length > 0 &&
-    <>
-    {
-      currentItems.map((wine) => (
-        <Card key={wine.id} wine={wine}></Card>
-      ))
-    }
+        {filteredWines.length > 0 &&
+          <>
+            {
+              currentItems.map((wine) => (
+                <Card key={wine.id} wine={wine}></Card>
+              ))
+            }
+          </>
+        }
+        {!filteredWines.length &&
+          <NotFound />
+        }
+        <Pagination
+          onPageChange={onPageChange}
+          wines={filteredWines}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
+      <Footer />
     </>
-  }
-  {!filteredWines.length &&
-      <NotFound/>
-  }
-<Pagination
-    onPageChange={onPageChange}
-    wines={filteredWines}
-    itemsPerPage={itemsPerPage}
-    currentPage={currentPage}
-    setCurrentPage={setCurrentPage}
-/><Footer/>
-</div>
-</>
   )
 }

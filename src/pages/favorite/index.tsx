@@ -2,22 +2,20 @@ import NavBar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { getAllFavorites, createFavorite, deleteFavorite, deleteAllFavorites, selectAllFilters, getAllWines, selectAllWines, selectAllWinesStatus, selectAllWinesCountryStatus, selectAllFavorites, selectAllFavoritesStatus, getOneWine, getFavorite } from "../../features/products/productsSlice";
+import { selectAllFavorites, selectAllFavoritesStatus, getFavorite, getFavorites } from "../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Pagination from "../../components/Pagination";
-import Card from "../../components/Card/Card";
-import Filters from "../../components/Filters/Filters";
+import CardFavorite from "../../components/Card/CardFavorite";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
 import NotFound from "../../components/componentsErrors/notFound";
-import DontHaveFavorites from "../../components/componentsErrors/dontHaveFavorites";
-
-<title>Favorite</title>
+import { selectFilters } from "../../features/generalSlice";
+import DontHaveFavorites from "../../components/Errors/DontHaveFavorites";
+import Filters from "../../components/Filters/Filters";
 export default function index() {
-  const filters = useSelector(selectAllFilters)
-
+  const filters = useSelector(selectFilters)
   const router = useRouter()
   const dispatch = useAppDispatch()
   const favorites = useSelector(selectAllFavorites)
@@ -42,27 +40,25 @@ export default function index() {
           await dispatch(getAllUsers());
         }
         if (favoritesStatus === EStateGeneric.IDLE) {
-          userExistente?.favorites.map(async element => {
-            await dispatch(getFavorite(element?.toString()))
-          })
+          userExistente ? await dispatch(getFavorites(userExistente?.favorites)) : null
         }
       }
-
     }
     fetchData()
     setFilteredWines(filterWines(favorites, filters));
-  }, [favoritesStatus, filters, favorites, users])
+  }, [favoritesStatus, filters, favorites, users, userExistente])
   return (
-
     <>
       <div className="
-   main-body  
-   pt-12 
-   mb-12 
-   m-auto
-   max-w-screen-xl
-   bg-bg-body 
-   "><NavBar></NavBar>
+      main-body  
+      pt-12 
+      mb-12 
+      m-auto
+      max-w-screen-xl
+      bg-bg-body 
+      "><NavBar></NavBar>
+        <img src="assets/favorites.jpg" />
+        <h1 className="font-montserrat text-gray-600 text-3xl mt-8" >YOUR FAVORITES</h1>
         <div className="
       w-full 
       flex 
@@ -71,9 +67,8 @@ export default function index() {
       mt-8
       wine-types
     ">
-
         </div>
-        <Filters />
+        <Filters setCurrentPage={setCurrentPage}  />
         {favorites && favorites[0]?.error && (<div className="text-center">
           <NotFound></NotFound>
         </div>)}
@@ -81,7 +76,7 @@ export default function index() {
           <>
             {
               currentItems.map((wine) => (
-                <Card key={wine.id} wine={wine}></Card>
+                <CardFavorite key={wine.id} wine={wine}></CardFavorite>
               ))
             }
           </>

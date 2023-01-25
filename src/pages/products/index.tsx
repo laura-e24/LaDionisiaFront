@@ -5,17 +5,18 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import NotFound from "../../components/componentsErrors/notFound";
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState } from "../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, selectAllWinesCountryStatus, setWinerys } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
 import Filters from "../../components/Filters/Filters";
 import Types from "../../components/Types/Types";
+import { selectFilters } from "../../features/generalSlice";
+import NotFound from "../../components/Errors/NotFound";
 
 export default function index() {
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
 
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -42,44 +43,45 @@ export default function index() {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
+    dispatch(setWinerys(filterWines(wines, filters)))
   }, [winesStatus, filters, wines])
   return (
-
-<>
-<div className="
+    <>
+      <div className="
  main-body  
  pt-12 
  mb-8
  m-auto
  max-w-screen-xl
  bg-bg-body 
- "><NavBar></NavBar>
-  <Types/>
-  <Filters />
-  {wines && wines[0]?.error && (<div className="text-center">
+ ">
+ <NavBar setCurrentPage={setCurrentPage}></NavBar>
+        <Types/>
+        <Filters setCurrentPage={setCurrentPage}/>
+        {wines && wines[0]?.error && (<div className="text-center">
           <NotFound></NotFound>
         </div>)}
-  {wines && !wines[0]?.error && filteredWines.length > 0 &&
-    <>
-      {
-        currentItems.map((wine) => (
-          <Card key={wine.id} wine={wine}></Card>
-        ))
-      }
-    </>
-  }
-  {!filteredWines.length &&
-    <>
-    <NotFound/>
-    </>
-  }
-  <Pagination
-    onPageChange={onPageChange}
-    wines={filteredWines}
-    itemsPerPage={itemsPerPage}
-    currentPage={currentPage}
-    setCurrentPage={setCurrentPage}
-  />
-<Footer/>
-</div>
-</>)};
+        {wines && !wines[0]?.error && filteredWines.length > 0 &&
+          <>
+            {
+              currentItems.map((wine) => (
+                <Card key={wine.id} wine={wine}></Card>
+              ))
+            }
+          </>
+        }
+        {!filteredWines.length &&
+            <NotFound />
+        }
+        <Pagination
+          onPageChange={onPageChange}
+          wines={filteredWines}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
+      <Footer />
+    </>)
+};
+
