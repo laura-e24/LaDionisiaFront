@@ -2,14 +2,14 @@ import NavBar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { selectAllFavorites, selectAllFavoritesStatus, getFavorite, getFavorites } from "../../features/products/productsSlice";
+import { selectAllFavorites, selectAllFavoritesStatus, getFavorite, getFavorites, setWinerys } from "../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Pagination from "../../components/Pagination";
 import CardFavorite from "../../components/Card/CardFavorite";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
+import { AllUsersStatus, getAllUsersDb, selectAllUsers } from "../../features/comments/commentsSlice";
 import NotFound from "../../components/componentsErrors/notFound";
 import { selectFilters } from "../../features/generalSlice";
 import DontHaveFavorites from "../../components/Errors/DontHaveFavorites";
@@ -37,7 +37,7 @@ export default function index() {
     const fetchData = async () => {
       if (router.isReady) {
         if (usersStatus === EStateGeneric.IDLE) {
-          await dispatch(getAllUsers());
+          await dispatch(getAllUsersDb());
         }
         if (favoritesStatus === EStateGeneric.IDLE) {
           userExistente ? await dispatch(getFavorites(userExistente?.favorites)) : null
@@ -46,6 +46,7 @@ export default function index() {
     }
     fetchData()
     setFilteredWines(filterWines(favorites, filters));
+    dispatch(setWinerys(filterWines(favorites, filters)))
   }, [favoritesStatus, filters, favorites, users, userExistente])
   return (
     <>
@@ -84,7 +85,6 @@ export default function index() {
         {!filteredWines.length &&
           <>
             <DontHaveFavorites/>
-            {userExistente?.favorites.map(e => (<p>{e}</p>))}
           </>
         }
         <Pagination

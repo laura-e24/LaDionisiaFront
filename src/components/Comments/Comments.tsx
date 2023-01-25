@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { useAppDispatch } from "../../app/store"
-import { createComment, disableCommentUser, getAllComments, getAllUsers, reportCommentUser, selectAllComments, selectAllCommentsStatus, selectAllUsers } from "../../features/comments/commentsSlice"
+import { createComment, disableCommentUser, getAllComments, getAllUsersDb, reportCommentUser, selectAllComments, selectAllCommentsStatus, selectAllUsers } from "../../features/comments/commentsSlice"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
 import { EStateGeneric } from "../../utils/general";
@@ -29,7 +29,7 @@ const Comments = () => {
             if (router.isReady) {
                 if (allCommentsStatus === EStateGeneric.IDLE) {
                     await dispatch(getAllComments(id?.toString()));
-                    await dispatch(getAllUsers());
+                    await dispatch(getAllUsersDb());
                 }
             }
         }

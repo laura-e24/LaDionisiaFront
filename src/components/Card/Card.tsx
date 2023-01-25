@@ -6,10 +6,11 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import { addNewProduct, selectDisplay, displayCart } from "../../features/products/cartSlice";
 import { createFavorite, getFavorite } from "../../features/products/productsSlice";
-import { AllUsersStatus, getAllUsers, selectAllUsers } from "../../features/comments/commentsSlice";
+import { AllUsersStatus, getAllUsersDb, selectAllUsers } from "../../features/comments/commentsSlice";
 import { useRouter } from "next/router";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { EStateGeneric } from "../../utils/general";
+import { registerUser } from "../../features/comments/commentsApi";
 
 export default function Card({ wine }) {
   const { user } = useUser();
@@ -27,7 +28,7 @@ export default function Card({ wine }) {
     const fetchData = async () => {
       if (router.isReady) {
         if (usersStatus === EStateGeneric.IDLE) {
-          await dispatch(getAllUsers());
+          await dispatch(getAllUsersDb());
         }
       }
     }
@@ -49,7 +50,14 @@ export default function Card({ wine }) {
     desc[1] = (desc[1] == "") ? "" : "(" + desc[1]
     return (<>{texto}<small>{desc[1]}</small></>);
   }
-  function añadirfavoritos() {
+  async function añadirfavoritos() {
+    if (user) {
+      try {
+        await registerUser(user)
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
     dispatch(createFavorite({ userId: currentUser, product: wine }))
     alert('Agregado')
   }
@@ -59,7 +67,6 @@ export default function Card({ wine }) {
   if (isLoading) {
     return null;
   }
-
   return (
     <>
       <div key={wine.id} className="wine-card w-2/3 float-right pt-4">
@@ -79,12 +86,11 @@ export default function Card({ wine }) {
         <button
           onClick={() => {
             dispatch(addNewProduct(wine))
-            if (!display) dispatch(displayCart())
           }}
           className="p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">TASTE&nbsp;IT</button>
-        <button onClick={añadirfavoritos} className="wine-button p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">
+        {user && (<button onClick={añadirfavoritos} className="wine-button p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">
           ❤
-        </button>
+        </button>)}
       </div>
       <div className="w-1/3 h-96 flex justify-center items-center bg-product wine-bootle">
         <a href={`/products/${wine.id}`}>

@@ -10,6 +10,7 @@ import Link from "next/link";
 import Comments from "../../components/Comments/Comments";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { selectAllUsers } from "../../features/comments/commentsSlice";
+import { addNewProduct } from "../../features/products/cartSlice";
 
 export default function Product() {
   const { user } = useUser();
@@ -83,16 +84,18 @@ export default function Product() {
           <p className="text-lg font-poppins text-gray-600 wine-description">
             <WineDescription text={wine.description} />
           </p>
-          <button className="wine-button p-2 rounded border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
-          <button onClick={añadirfavoritos} className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">
+          <button className="wine-button p-2 rounded border border-gray-600 w-18 self-center justify-self-end text-gray-600 " onClick={() => {
+            dispatch(addNewProduct(wine))
+          }}>TASTE&nbsp;IT</button>
+          {user && (<button onClick={añadirfavoritos} className="wine-button p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">
             ❤
-          </button>
+          </button>)}
         </div>
         <div className="w-1/3 h-96 flex justify-center items-center bg-product">
           <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
         </div>
         <Comments />
-        <Footer/>
+        <Footer />
       </div>
     </>)
 }
