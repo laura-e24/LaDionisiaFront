@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer/Footer";
-import NavBar from "../../components/Dashboard/Navbar"
+import NavBar from "../../components/Navbar/NavBar"
 import Sidebar from "../../components/Dashboard/Sidebar";
-import {Chart} from "primereact/chart"
+import { Chart } from "primereact/chart"
 
 
 const lineData = {
@@ -34,38 +34,41 @@ const lineData2 = {
 };
 
 export default function Dashboard() {
-  const [hasMounted, setHasMounted] = useState(false);
-//   useEffect(() => {
-//     setHasMounted(true);
-//   }, []);
-//   if (!hasMounted) {
-//     return null;
-//   }
-  return (
-    <div className="
-    main-body
-    pb-12
-    mb-8
-    m-auto
-    max-w-screen-xl
-    bg-bg-body
-    ">
-      <NavBar></NavBar>
-      
-      <div className="w-full flex">
-        <Sidebar/>
-        
-        <div className="w-full flex flex-col">
-        <div className="scale-95">
-            <Chart type="line" data={lineData2}/>
+    const [hasMounted, setHasMounted] = useState(false);
+    //   useEffect(() => {
+    //     setHasMounted(true);
+    //   }, []);
+    //   if (!hasMounted) {
+    //     return null;
+    //   }
+    return (
+        <><title>La Dionisia - Dashboard</title>
+            <NavBar></NavBar>
+            <div className="
+            main-body
+            home
+            mb-8
+            m-auto
+            max-w-screen-xl
+            pb-24
+            sm:rounded-2xl
+            ">
+
+                <div className="w-full flex">
+                    <Sidebar />
+                    <div className="w-full flex flex-col">
+                        <div className="scale-95">
+                            <Chart type="line" data={lineData2} />
+                        </div>
+                        <div className="scale-95">
+                            <Chart type="line" data={lineData} />
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        <div className="scale-95">
-            <Chart type="line" data={lineData}/>
-        </div>
-            
-        </div>
-        </div>
-        </div>
-        
-  )
+            <Footer />
+        </>
+
+    )
 }

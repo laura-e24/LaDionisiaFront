@@ -69,74 +69,35 @@ export default function Card({ wine }) {
   }
   return (
     <>
-
-
-<div key={wine.id} className="flex flex-row justify-center mt-14 sm:mt-24 sm:ml-0">
-          <div className="grow w-2/3 max-w-xl	 self-center">
-            <h3 className="font-poppins poppy uppercase text-sm sm:text-base sm:tracking-widest">{wine.winery} - {wine.year}</h3>
-            <h2 className="font-playfair font-bold choco text-xl sm:text-3xl leading-10 mt-2 sm:mt-4 tracking-wide">
-            {wine.wine}
-            </h2>
-            <p className="	 wine-description font-poppins bore font-extralight text-sm sm:text-base mt-1 mb-3 max-w-prose sm:pl-2 sm:pr-2">
-            <WineDescription text={wine.description} />
-            </p><div className="spacer"></div>
-            <Link href="/products/2889">
-              <button className="rounded boton">TASTE IT</button>
+      <div key={wine.id} className="flex flex-row justify-center mt-14 sm:mt-24 sm:ml-0">
+        <div className="grow w-2/3 max-w-xl	 self-center">
+          <h3 className="font-poppins poppy uppercase text-sm sm:text-base sm:tracking-widest">{wine.winery} - {wine.year}</h3>
+          <h2 className="cursor-pointer font-playfair font-bold choco text-xl sm:text-3xl leading-10 mt-2 sm:mt-4 tracking-wide">
+            <Link href={`/products/${wine.id}`}>
+              {wine.wine}
             </Link>
-          </div>
-          <div className="w-1/3 flowers2 no-flex">
+          </h2>
+          <p className="max-w-sm	md:max-w-md wine-description font-poppins bore font-extralight text-sm sm:text-base mt-1 mb-3 max-w-prose sm:pl-2 sm:pr-2">
+            <WineDescription text={wine.description} />
+          </p><div className="spacer"></div>
+          <button className="rounded boton" onClick={() => {
+            dispatch(addNewProduct(wine))
+          }}>TASTE IT</button>
+          {user && (<button onClick={añadirfavoritos} className="rounded boton ml-4">
+            ❤
+          </button>)}
+
+        </div>
+        <div className="w-1/3 flowers2 no-flex cursor-pointer">
+          <Link href={`/products/${wine.id}`}>
 
             <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
+          </Link>
 
-
-          </div>
-        </div>
-
-
-
-{/* 
-      <div key={wine.id} className="wine-card w-2/3 float-right pt-4">
-        <p className="text-xl font-poppins text-price-color wine-winery">{wine.winery} - {wine.year}</p>
-
-        <div className="flex flex-row justify-center wine-name font-playfair text-font-color pt-4 pb-4">
-          <div className="max-w-sm font-bold" >
-             {wine.wine}
-          </div>
-        </div>
-
-        <p className="font-playfair text-gray-600 pt-4 pb-4 text-4xl">
-          <span className="text-price-color">
-            <Price amount={wine.price} />
-          </span>
-          <span className="w-12 text-2xl ml-2 mt-4 pts font-poppins">{wine.rating}<small>&nbsp;pts.</small></span>
-        </p>
-
-        <p className="text-lg font-bodony text-gray-600 wine-description max-w-sm	">
-          <WineDescription text={wine.description} />
-        </p>
-
-        <div className="mt-8"> 
-        <a href={`/products/${wine.id}`}>
-          <button
-            onClick={() => {
-              dispatch(addNewProduct(wine))
-              if (!display) dispatch(displayCart())
-            }}
-            className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
-        </a>
-        </div>
-
-      </div>
-
-
-      <div className="w-1/3 mt-8 mb-5">
-        <div className=" h-96 flex justify-center items-center bg-product wine-bootle">
-        <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
         </div>
       </div>
 
 
-*/}
 
     </>
   );

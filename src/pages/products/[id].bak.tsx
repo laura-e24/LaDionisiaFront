@@ -81,13 +81,13 @@ export default function Product() {
   max-w-screen-xl
   pb-28
   sm:rounded-2xl
-  pt-24
 ">
 
 
 
-<a href="/products">
-<div className="zz w-12 h-12 pt-4 pl-4 opacity-50 cursor-pointer">
+
+<Link href="/products" >
+<div className="w-12 h-12 pt-4 pl-4 opacity-50 cursor-pointer">
 <svg fill="#000000"  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 219.151 219.151">
 <g>
 <path d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575
@@ -100,9 +100,9 @@ export default function Product() {
 </g>
 </svg>
 </div>
-</a>
+</Link>
 
-<div className="pt-4 iconitos">
+<div className="pt-16 iconitos">
 <Image width={36} height={36} onClick={opencart} src="/assets/cart.svg" />
 {user && 
 <div className="ml-6 float-right">
@@ -133,14 +133,10 @@ export default function Product() {
           <p className="text-lg font-bodony text-gray-600 wine-description">
             <WineDescription text={wine.description} />
           </p>
-
-
-
-
-          <button className="rounded boton" onClick={() => {
+          <button className="wine-button p-2 rounded border border-gray-600 w-18 self-center justify-self-end text-gray-600 " onClick={() => {
             dispatch(addNewProduct(wine))
           }}>TASTE&nbsp;IT</button>
-          {user && (<button onClick={añadirfavoritos} className="ml-4 rounded boton">
+          {user && (<button onClick={añadirfavoritos} className="wine-button p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">
             ❤
           </button>)}
         </div>

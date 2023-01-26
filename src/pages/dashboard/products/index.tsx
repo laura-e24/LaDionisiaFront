@@ -63,31 +63,34 @@ export default function Products() {
     router.push("/dashboard/products")
   }
 
-  
+
   return (
-    <div className="
-    main-body  
-    pt-12 
-    mb-8
-    m-auto
-    min-h-screen
-    max-w-screen-xl
-    bg-bg-body 
-    ">
+    <><title>La Dionisia - Dashboard</title>
       <NavBar />
-      <div className="w-full flex">
-        <Sidebar />
-        <div className="w-full flex flex-col">
-          <Navbar handleNewProduct={handleNewProduct} ViewProducts={ViewProducts} ViewProductsDisabled={ViewProductsDisabled} />
-          {productsEnabled && <Wines wines={wines} />}
-          {productsDisabled && <WinesDisabled winesDisabled={winesDisabled} />}
-          {newProduct ? (
-            <div className="modalC">
-              <CreateProduct handleCloseModal={handleCloseModal} />
-            </div>
-          ) : null}
+      <div className="
+            main-body
+            home
+            mb-8
+            m-auto
+            max-w-screen-xl
+            pb-24
+            sm:rounded-2xl
+    ">
+        <div className="w-full flex">
+          <Sidebar />
+          <div className="w-full flex flex-col">
+            <Navbar handleNewProduct={handleNewProduct} ViewProducts={ViewProducts} ViewProductsDisabled={ViewProductsDisabled} />
+            {productsEnabled && <Wines wines={wines} />}
+            {productsDisabled && <WinesDisabled winesDisabled={winesDisabled} />}
+            {newProduct ? (
+              <div className="modalC">
+                <CreateProduct handleCloseModal={handleCloseModal} />
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   )
 }

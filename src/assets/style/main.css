@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 
+.zz{display:none}
+
 .spacer{
   display: block;
 height:8px;

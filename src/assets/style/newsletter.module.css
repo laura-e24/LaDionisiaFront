@@ -6,7 +6,7 @@
      background: #fff;
        position: relative;
   border-radius: 4px;
-        z-index: 20;
+        z-index: 0;
         scale:.96;
 } #newsletter input {
          height: 38px;

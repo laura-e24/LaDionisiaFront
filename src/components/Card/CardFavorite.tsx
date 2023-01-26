@@ -51,32 +51,29 @@ export default function CardFavorite({ wine }) {
     }
     return (
         <>
-            <div key={wine.id} className="w-2/3 float-right pt-4">
-                <p className="text-xl font-montserrat text-price-color">{wine.winery} - {wine.year}</p>
-                <a href={`/products/${wine.id}`}>
-                    <p className="wine-name font-montserrat text-font-color" ><b>{wine.wine}</b></p>
-                </a>
-                <p className="font-montserrat text-gray-600 pt-4 pb-4 price">
-                    <span className="text-price-color">
-                        <Price amount={wine.price} />
-                    </span>
-                    <span className="w-12 text-2xl ml-2 mt-4 pts">{wine.rating}<small>&nbsp;pts.</small></span>
-                </p>
-                <p className="text-lg font-montserrat text-gray-600 wine-description">
-                    <WineDescription text={wine.description} />
-                </p>
-                <button
-                    onClick={() => {
+            <div key={wine.id} className="flex flex-row justify-center mt-14 sm:mt-24 sm:ml-0">
+                <div className="grow w-2/3 max-w-xl	 self-center">
+                    <h3 className="font-poppins poppy uppercase text-sm sm:text-base sm:tracking-widest">{wine.winery} - {wine.year}</h3>
+                    <Link href={`/products/${wine.id}`}>
+                        <h2 className="font-playfair font-bold choco text-2xl sm:text-4xl leading-10 mt-2 sm:mt-4 tracking-wide">
+                            {wine.wine}
+                        </h2>
+                    </Link>
+                    <p className="font-poppins bore font-extralight	text-sm sm:text-lg mt-4 mb-2 max-w-prose sm:pl-2 sm:pr-2">
+                        <WineDescription text={wine.description} />
+                    </p>
+                    <button className="rounded boton" onClick={() => {
                         dispatch(addNewProduct(wine))
-                        if (!display) dispatch(displayCart())
-                    }}
-                    className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
-                <button onClick={eliminarfavoritos} className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">
-                    x
-                </button>
-            </div>
-            <div className="w-1/3 h-96 flex justify-center items-center bg-product">
-                <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
+                    }}>TASTE IT</button>
+                    {user && (<button onClick={eliminarfavoritos} className="rounded boton">
+                        ❌
+                    </button>)}
+                </div>
+                <div className="w-1/3 flowers2 no-flex">
+                    <Link href={`/products/${wine.id}`}>
+                        <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
+                    </Link>
+                </div>
             </div>
         </>
     );
