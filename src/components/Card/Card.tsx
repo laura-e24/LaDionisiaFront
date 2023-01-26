@@ -74,12 +74,12 @@ export default function Card({ wine }) {
 <div key={wine.id} className="flex flex-row justify-center mt-14 sm:mt-24 sm:ml-0">
           <div className="grow w-2/3 max-w-xl	 self-center">
             <h3 className="font-poppins poppy uppercase text-sm sm:text-base sm:tracking-widest">{wine.winery} - {wine.year}</h3>
-            <h2 className="font-playfair font-bold choco text-2xl sm:text-4xl leading-10 mt-2 sm:mt-4 tracking-wide">
+            <h2 className="font-playfair font-bold choco text-xl sm:text-3xl leading-10 mt-2 sm:mt-4 tracking-wide">
             {wine.wine}
             </h2>
-            <p className="font-poppins bore font-extralight	text-sm sm:text-lg mt-4 mb-2 max-w-prose sm:pl-2 sm:pr-2">
+            <p className="	 wine-description font-poppins bore font-extralight text-sm sm:text-base mt-1 mb-3 max-w-prose sm:pl-2 sm:pr-2">
             <WineDescription text={wine.description} />
-            </p>
+            </p><div className="spacer"></div>
             <Link href="/products/2889">
               <button className="rounded boton">TASTE IT</button>
             </Link>

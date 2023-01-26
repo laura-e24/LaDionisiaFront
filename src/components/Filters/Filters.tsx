@@ -47,13 +47,15 @@ const Filters = ({ setCurrentPage }) => {
     ]
 
     return (
-        <div className="w-full inline-flex text-center font-poppins justify-center text-gray-600 mb-8 mt-8 space-x-32">
-            <select onChange={e => handleSort(e)} className="bg-[#F2F9F4] text-center box-content rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2">
+        <div className="w-full inline-flex text-center font-poppins justify-around text-gray-600 mb-8 mt-8 flex-wrap gap-5 ml-2 pr-4">
+            <select id="filter-az" onChange={e => handleSort(e)} className="bg-[#F2F9F4] text-center box-content rounded shadow-lg  
+            self-center pt-2  pr-2 pl-3 pb-2 pb-2">
                 <option disabled selected >SORT</option>
                 <option className="" value="atoz">A - Z</option>
                 <option className="" value="ztoa">Z - A</option>
             </select>
-            <select id="filter-price" name="price" className="bg-[#F2F9F4] text-center box-content rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" onChange={handleFilters}>
+            <select id="filter-price" name="price" className="bg-[#F2F9F4] text-center box-content rounded shadow-lg  self-center 
+            pt-2  pr-2 pl-3 pb-2 pb-2" onChange={handleFilters}>
                 <option disabled selected>PRICE</option>
                 <option value="all-price">ALL</option>
                 <option value="100-200">$100 - $200</option>
@@ -65,7 +67,7 @@ const Filters = ({ setCurrentPage }) => {
                 <option value="6-9">$6 - $9</option>
             </select>
             {regions.length > 0 &&
-                <select id="region" className="bg-[#F2F9F4] font-poppins text-center box-content rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" name="region" onChange={handleFilters}>
+                <select id="region" className="bg-[#F2F9F4] font-poppins text-center box-content rounded shadow-lg  self-center pt-2  pr-2 pl-3 pb-2 pb-2" name="region" onChange={handleFilters}>
                     <option disabled selected>REGIONS</option>
                     <option value="all-region">ALL</option>
                     {regions.map((region, index) => (
@@ -75,7 +77,7 @@ const Filters = ({ setCurrentPage }) => {
                     ))}
                 </select>
             }
-            <select id="filter-winery" className="bg-[#F2F9F4] text-center box-content rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" name="winery" onChange={handleFilters}>
+            <select id="filter-winery" className="bg-[#F2F9F4] text-center box-content rounded shadow-lg  self-center pt-2  pr-2 pl-3 pb-2 pb-2" name="winery" onChange={handleFilters}>
                 <option disabled selected>WINERY</option>
                 <option value="all-winery">ALL</option>
                 {winerys.map((winery, index) => (
@@ -84,7 +86,7 @@ const Filters = ({ setCurrentPage }) => {
                     </option>
                 ))}
             </select>
-             <select id="filter-vintage" name="vintage" className="bg-[#F2F9F4] text-center box-content rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" onChange={handleFilters} >
+             <select id="filter-vintage" name="vintage" className="bg-[#F2F9F4] text-center box-content rounded shadow-lg  self-center pt-2  pr-2 pl-3 pb-2 pb-2" onChange={handleFilters} >
                 <option disabled selected>VINTAGE</option>
                 <option value="all-vintage">ALL</option>
                 {vintage.map((v, index) => (
@@ -93,7 +95,7 @@ const Filters = ({ setCurrentPage }) => {
                     </option>
                 ))}
             </select>
-            <select id="filter-score" name="score" className="bg-[#F2F9F4] box-content text-center rounded shadow-lg w-24 self-center pt-2 pr-6 pb-2 pb-2" onChange={handleFilters}>
+            <select id="filter-score" name="score" className="bg-[#F2F9F4] box-content text-center rounded shadow-lg  self-center pt-2  pr-2 pl-3 pb-2 pb-2" onChange={handleFilters}>
                 <option disabled selected>SCORE</option>
                 <option value="all-score">ALL</option>
                 {scores.map((score, index) => (

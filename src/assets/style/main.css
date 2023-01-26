@@ -3,17 +3,59 @@
 @tailwind utilities;
 
 
-
-.wine-description{
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; 
-  overflow: hidden;
-  padding-right: 1.5rem;
-  text-align: justify;
-  margin-bottom: .75rem;
+.spacer{
+  display: block;
+height:8px;
 }
+
+#filter-az{
+width:88px;
+border-left:1px solid #ddd;
+border-radius: 10px;
+}
+#filter-price{
+  width:88px;
+  border-left:1px solid #ddd;
+  border-radius: 10px;
+}
+#region{
+  width:88px;
+  border-left:1px solid #ddd;
+  border-radius: 10px;
+}
+#filter-winery{
+  width:88px;
+  border-left:1px solid #ddd;
+  border-radius: 10px;
+}
+#filter-vintage{
+  width:88px;
+  border-left:1px solid #ddd;
+  border-radius: 10px;
+}
+#filter-score{
+  width:88px;
+  border-left:1px solid #ddd;
+  border-radius: 10px;
+}
+
+
+
+@media (max-width: 1023px) {
+
+  .wine-description{
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; 
+    overflow: hidden;
+    padding-right: 1.5rem;
+    text-align: justify;
+    margin-bottom: .75rem;
+  }
+
+}
+
 
 
 /*
