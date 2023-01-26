@@ -1,14 +1,15 @@
 import Image   from 'next/image'
 import Link    from 'next/link'
-import NavBar  from '../../components/Navbar/NavBar'
 import Circles from '../../components/Circles/Circles'
-import Footer  from '../../components/Footer/Footer'
+import Footer from '../../components/Footer/Footer'
+import NavBar from '../../components/Navbar/NavBar'
+
 
 const HomePage = () => {
 return (
 <>
 
-<NavBar></NavBar>
+<NavBar/>
 
 <div id="passion-for-wine" className="
   main-body

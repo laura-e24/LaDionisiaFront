@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux"
 import Sidebar from "../../../components/Dashboard/Sidebar"
-import Footer from "../../../components/Footer/Footer"
-import NavBar from "../../../components/Navbar/NavBar"
 import { getAllUsers, selectAllUsers, AllUsersStatus } from "../../../features/comments/commentsSlice"
 import { useAppDispatch } from "../../../app/store"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 import { EStateGeneric } from "../../../utils/general"
+import NavBar from "../../../components/Navbar/NavBar"
+import Footer from "../../../components/Footer/Footer"
 
 const Users = () => {
   const dispatch = useAppDispatch()

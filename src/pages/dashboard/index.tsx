@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/Navbar/NavBar"
 import Sidebar from "../../components/Dashboard/Sidebar";
+import Footer from "../../components/Footer/Footer";
 
 export default function Dashboard() {
   const [hasMounted, setHasMounted] = useState(false);
@@ -26,7 +26,7 @@ export default function Dashboard() {
         <Sidebar></Sidebar>
         <div className="w-full flex flex-col">
 
-          <Footer></Footer>
+          <Footer/>
         </div>
       </div>
     </div>

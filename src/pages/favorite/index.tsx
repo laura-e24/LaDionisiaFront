@@ -52,23 +52,22 @@ export default function index() {
   return (
 
     <>
-      <div className="
-   main-body  
-   pt-12 
-   mb-12 
-   m-auto
-   max-w-screen-xl
-   bg-bg-body 
-   "><NavBar/>
-        <div className="
-      w-full 
-      flex 
-      justify-around 
-      items-center 
-      mt-8
-      wine-types
+    <div className="
+    main-body  
+    pt-12 
+    mb-12 
+    m-auto
+    max-w-screen-xl
+    bg-bg-body 
+    "><NavBar/>
+          <div className="
+        w-full 
+        flex 
+        justify-around 
+        items-center 
+        mt-8
+        wine-types
     ">
-
         </div>
         <Filters />
         {favorites && favorites[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}

@@ -1,13 +1,13 @@
 import Image from 'next/image'
-import NavBar from "../../components/Navbar/NavBar";
-import Footer from "../../components/Footer/Footer";
 import style  from "../../assets/style/newsletter.module.css";
 import React from 'react';
+import NavBar from '../../components/Navbar/NavBar';
+import Footer from '../../components/Footer/Footer';
 
 const Newsletter = () => {
   return (
 <><title>La Dionisia - Newsletter</title>
-<NavBar></NavBar>
+<NavBar/>
 <div id="passion-for-wine" className="
   main-body
   home

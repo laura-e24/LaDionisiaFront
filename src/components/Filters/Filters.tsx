@@ -21,14 +21,14 @@ const Filters = () => {
         "1980-1989",
         "1970-1979",
         "1960-1969",
-        "1959-older",
+        "1959-Older",
     ]
     const scores = [
         "100",
         "99-97",
         "96-94",
         "93-91",
-        "90-under"
+        "90-Under"
     ]
 
     return (
@@ -43,10 +43,10 @@ const Filters = () => {
                 <option value="all-price">ALL</option>
                 <option value="100-200">$100 - $200</option>
                 <option value="50-99">$50 - $99</option>
-                <option value="30-49">$30 - 49</option>
-                <option value="20-29">$20 - 29</option>
-                <option value="16-19">$16 - 19</option>
-                <option value="10-15">$10 - 15</option>
+                <option value="30-49">$30 - $49</option>
+                <option value="20-29">$20 - $29</option>
+                <option value="16-19">$16 - $19</option>
+                <option value="10-15">$10 - $15</option>
                 <option value="6-9">$6 - $9</option>
             </select>
             {regions.length > 0 &&
