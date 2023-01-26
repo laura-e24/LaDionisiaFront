@@ -48,11 +48,22 @@ const CreateProduct = ({ handleCloseModal }) => {
     price: 0
   }
 
+
+  const handleChangeImage = (e) => {
+    setFile(ref.current?.files[0])
+    const file01 = ref.current?.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file01)
+    reader.onload = function load() {
+      setPathImage(reader.result)
+    }
+
+  }
   return (
     <div className="my-6 justify-center items-start flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
       <div className="relative w-2/4 mt-2 mx-auto max-w-6xl">
         {/*content*/}
-        <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none dark:bg-black ">
           {/*header*/}
           <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t">
             <p className="text-lg text-center font-semibold flex">
@@ -73,15 +84,14 @@ const CreateProduct = ({ handleCloseModal }) => {
               }))
               if (createWine.fulfilled.match(result)) {
                 alert('Product Created')
-                ref.current = null
-                setFile('')
+                actions.resetForm()
               }
 
               console.log(result)
             }}
           >
             {({ }) => (
-              <Form className="grid grid-cols-4 gap-4 bg-white shadow-md rounded px-6 pt-6 pb-8">
+              <Form className="grid grid-cols-4 gap-4 bg-white shadow-md rounded px-6 pt-6 pb-8 dark:bg-black">
                 <CustomField
                   label='Name'
                   name='wine'
@@ -127,6 +137,17 @@ const CreateProduct = ({ handleCloseModal }) => {
                   label='Stock'
                   name='stock'
                 />
+                <div className='col-span-2'>
+                  <label className="block text-sm font-bold mb-2">
+                    Image
+                  </label>
+                  {pathImage && <img className='h-40' src={pathImage} alt="" />}
+                  <input
+                    ref={ref}
+                    onChange={handleChangeImage}
+                    type="file"
+                  />
+                </div>
                 <div className='col-span-2 flex mt-auto mb-1 justify-between'>
                   <CustomCheckbox
                     label='Disabled'
@@ -141,36 +162,11 @@ const CreateProduct = ({ handleCloseModal }) => {
                     name='onSale'
                   />
                 </div>
-                <div className='col-span-2 pt-4'>
+                <div className='col-span-2'>
                   <CustomTextArea
                     label='Description'
                     name='description'
                   />
-                </div>
-                <div className='col-span-2 pt-4 ml-8'>
-                  <label className="block text-xl font-bold mb-2 font-sans">
-                    Image
-                  </label>
-                  <div className='flex'>
-                    <img className='h-40' src={pathImage} alt="" />
-                    <input
-                      ref={ref}
-                      onChange={() => {
-                        setFile(ref.current?.files[0])
-                        const file01 = ref.current?.files[0]
-                        const reader = new FileReader()
-                        reader.readAsDataURL(file01)
-                        reader.onload = function load() {
-                          setPathImage(reader.result)
-                        }
-                      }}
-                      type="file"
-                      className='hidden'
-                    />
-                    <button className='ml-6 text-xl font-semibold border border-black hover:bg-gray-300 hover:bg-opacity-50 rounded-lg px-6 py-4 my-auto' type="button" onClick={() => ref.current?.click()}>
-                      Update image
-                    </button>
-                  </div>
                 </div>
                 <div className="col-span-4 flex justify-around p-6 border-t border-slate-200 w-full">
                   <GenericButton

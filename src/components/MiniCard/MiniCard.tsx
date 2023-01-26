@@ -51,7 +51,7 @@ export default function MiniCard({ wine }) {
         <div className="flex">
           <p className="my-auto text-3xl font-bold text-black">{wine.quantity}</p> 
           <span className="block my-auto">
-            <button className="w-full" onClick={() => wine.quantity < wine.product.stock ? counterPlus() : null}>
+            <button className="w-full" onClick={counterPlus}>
               <FAIcon className="text-black active:text-gray-400" type="solid" size="md" name="caret-up" />
             </button>
             <button className="w-full" onClick={() => wine.quantity > 1  ?  counterLess() :  setModalConfirmClear(true)}>
