@@ -4,11 +4,13 @@ import NavBar from "../../components/Navbar/NavBar";
 import members from '../../components/componentsAbout/membersInfo'
 import MembersCard from '../../components/componentsAbout/membersCards'
 import Footer from "../../components/Footer/Footer";
+import { useState } from 'react';
 
 const About = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   return (
 <><title>La Dionisia - About</title>
-<NavBar></NavBar>
+<NavBar setCurrentPage={setCurrentPage}></NavBar>
 <div id="passion-for-wine" className="
   main-body
   home

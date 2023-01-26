@@ -1,34 +1,47 @@
 import NavBar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import Link from 'next/link'
+import Image from "next/image";
 
 const NewsletterReceived = () => {
 
   return (
-    <>
+    <><title>La Dionisia - Newsletter</title>
+      <NavBar></NavBar>
       <div className="
-        main-body  
-        pt-12 
-        mb-8
-        m-auto
-        min-h-screen
-        max-w-screen-xl
-        bg-bg-body 
+  main-body
+  home
+  mb-8
+  m-auto
+  max-w-screen-xl
+  pb-24
+  sm:rounded-2xl	
         ">
-        <NavBar></NavBar>
-        <img className="object-cover h-96 w-full" src="assets/newsletter.jpg" />
-        <h1 className="font-poppins text-gray-600 text-3xl mt-8" >THANK YOU!</h1>
-        <p className="font-poppins text-gray-600 text-xl text-justify mt-6 mb-7">
-          Hey there,
-        </p>
-        <p className="font-poppins text-gray-600 text-xl text-justify mt-6 mb-7">
-          First off, I’d like to extend a warm welcome and ‘thank you’ for subscribing to the Dionisia blog newsletter. I recognize that your time is valuable and I’m seriously flattered that you chose to join us.
-        </p>
-        <p className="font-poppins text-gray-600 text-xl text-justify mt-6 mb-7">
-          The Dionisia blog endeavors to send you only the best content, with actionable steps you can take to grow your business online and off. If we ever stray from that, just send me an email and I’ll do my damndest to get it straightened out.
-        </p>
-        <p className="font-poppins text-gray-600 text-xl text-justify mt-6 mb-7">
-          In the meantime, I’d love to hear from you about why you’ve subscribed to our list, and what you’re interested in learning about. So long as you reply to this email, I promise I will too.
+        <div className="h-100">
+          <div className="relative max-w-screen-xl h-full opacity-90">
+            <Image className="object-cover h-96 w-full" src="/assets/newsletter.jpg" layout="fill" loading="lazy" />
+          </div>
+        </div>
+        <h1>THANK YOU!<span className="divider"></span></h1>
+        <p className="mt-0 font-bodony text-gray-600 text-lg sm:text-xl text-justify m-auto max-w-prose hyphens
+        pl-4 pr-4 
+        sm:pl-8 sm:pr-8 
+        md:pl-8 md:pr-8 
+        lg:pl-1 lg:pr-1 
+        xl:pl-0 xl:pr-0
+        -mt-24
+        mb-16
+        ">
+           Hey there,
+           <br />
+           <br />
+           First off, I’d like to extend a warm welcome and ‘thank you’ for subscribing to the Dionisia blog newsletter. I recognize that your time is valuable and I’m seriously flattered that you chose to join us.
+           <br />
+           <br />
+           The Dionisia blog endeavors to send you only the best content, with actionable steps you can take to grow your business online and off. If we ever stray from that, just send me an email and I’ll do my damndest to get it straightened out.
+           <br />
+           <br />
+           In the meantime, I’d love to hear from you about why you’ve subscribed to our list, and what you’re interested in learning about. So long as you reply to this email, I promise I will too.
         </p>
         <Footer />
       </div>

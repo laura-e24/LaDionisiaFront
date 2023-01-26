@@ -72,7 +72,7 @@ export default function Product() {
 
   return (
     <>
-<NavBar></NavBar>
+<NavBar ></NavBar>
 <div id="passion-for-wine" className="
   main-body
   home

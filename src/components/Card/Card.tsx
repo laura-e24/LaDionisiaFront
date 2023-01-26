@@ -71,30 +71,34 @@ export default function Card({ wine }) {
     <>
 
 
-<div key={wine.id} className="flex flex-row justify-center mt-14 sm:mt-24 sm:ml-0">
-          <div className="grow w-2/3 max-w-xl	 self-center">
-            <h3 className="font-poppins poppy uppercase text-sm sm:text-base sm:tracking-widest">{wine.winery} - {wine.year}</h3>
+      <div key={wine.id} className="flex flex-row justify-center mt-14 sm:mt-24 sm:ml-0">
+        <div className="grow w-2/3 max-w-xl	 self-center">
+          <h3 className="font-poppins poppy uppercase text-sm sm:text-base sm:tracking-widest">{wine.winery} - {wine.year}</h3>
+          <Link href={`/products/${wine.id}`}>
             <h2 className="font-playfair font-bold choco text-2xl sm:text-4xl leading-10 mt-2 sm:mt-4 tracking-wide">
-            {wine.wine}
+              {wine.wine}
             </h2>
-            <p className="font-poppins bore font-extralight	text-sm sm:text-lg mt-4 mb-2 max-w-prose sm:pl-2 sm:pr-2">
+          </Link>
+          <p className="font-poppins bore font-extralight	text-sm sm:text-lg mt-4 mb-2 max-w-prose sm:pl-2 sm:pr-2">
             <WineDescription text={wine.description} />
-            </p>
-            <Link href="/products/2889">
-              <button className="rounded boton">TASTE IT</button>
-            </Link>
-          </div>
-          <div className="w-1/3 flowers2 no-flex">
-
-            <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
-
-
-          </div>
+          </p>
+          <button className="rounded boton" onClick={() => {
+            dispatch(addNewProduct(wine))
+          }}>TASTE IT</button>
+          {user && (<button onClick={añadirfavoritos} className="rounded boton">
+            ❤
+          </button>)}
         </div>
+        <div className="w-1/3 flowers2 no-flex">
+          <Link href={`/products/${wine.id}`}>
+            <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
+          </Link>
+        </div>
+      </div>
 
 
 
-{/* 
+      {/* 
       <div key={wine.id} className="wine-card w-2/3 float-right pt-4">
         <p className="text-xl font-poppins text-price-color wine-winery">{wine.winery} - {wine.year}</p>
 
