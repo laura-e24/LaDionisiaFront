@@ -1,17 +1,16 @@
 import { useState } from "react";
-import Card from "../../../components/Card/Card"
-import NavBar from "../../../components/Navbar/NavBar"
-import Pagination from "../../../components/Pagination"
-import Footer from "../../../components/Footer/Footer";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
 import { getAllWineTypes, selectAllFilters, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Image from "next/image";
-import Filters from "../../../components/Filters/Filters";
 import Circles from '../../../components/Circles/Circles'
+import Filters from "../../../components/Filters/Filters";
+import NavBar from "../../../components/Navbar/NavBar";
+import Card from "../../../components/Card/Card";
+import Pagination from "../../../components/Pagination";
+import Footer from "../../../components/Footer/Footer";
 
 export default function Reds({ }) {
   const router = useRouter()
@@ -45,7 +44,7 @@ export default function Reds({ }) {
 
   return (
 <><title>La Dionisia - Wines</title>
-<NavBar></NavBar>
+<NavBar/>
 <div id="passion-for-wine" className="
   main-body
   home
