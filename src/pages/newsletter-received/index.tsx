@@ -1,6 +1,6 @@
-import NavBar from "../../components/Navbar/NavBar";
-import Footer from "../../components/Footer/Footer";
 import Link   from 'next/link'
+import Footer from '../../components/Footer/Footer';
+import NavBar from '../../components/Navbar/NavBar';
 
 const NewsletterReceived = () => {
 
@@ -15,7 +15,7 @@ const NewsletterReceived = () => {
   max-w-screen-xl
   bg-bg-body 
   ">
-  <NavBar></NavBar>
+  <NavBar/>
   <img className="object-cover h-96 w-full" src="assets/newsletter.jpg"/>
   <h1 className="font-montserrat text-gray-600 text-3xl mt-8" >THANK YOU!</h1>
   <p  className="font-montserrat text-gray-600 text-xl text-justify mt-6 mb-7">

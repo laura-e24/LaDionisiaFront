@@ -1,11 +1,11 @@
 import Image from 'next/image'
-import NavBar from "../../components/Navbar/NavBar";
-import Footer from "../../components/Footer/Footer";
+import Footer from '../../components/Footer/Footer';
+import NavBar from '../../components/Navbar/NavBar';
 
 const Privacy = () => {
   return (
 <><title>La Dionisia - Privacy Policy</title>
-<NavBar></NavBar>
+<NavBar/>
 <div id="passion-for-wine" className="
   main-body
   home

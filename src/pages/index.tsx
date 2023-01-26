@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import Home from '../components/Home/Home'
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
+import Home from '../components/Home/Home';
 function isUser(obj: any): obj is { '/roles': string[] } {
   return '/roles' in obj;
 }

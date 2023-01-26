@@ -1,12 +1,12 @@
 import Image from 'next/image'
-import NavBar from "../../components/Navbar/NavBar";
-import Footer from "../../components/Footer/Footer";
+import Footer from '../../components/Footer/Footer';
+import NavBar from '../../components/Navbar/NavBar';
 
 
 const Shipping = () => {
   return (
 <><title>La Dionisia - Shipping</title>
-<NavBar></NavBar>
+<NavBar/>
 <div id="passion-for-wine" className="
   main-body
   home
