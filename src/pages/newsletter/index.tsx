@@ -29,7 +29,7 @@ const Newsletter = () => {
     const response = await axios.post(`${process.env.RESTURL_PRODUCTS}/sendEmail`,
       //aca debe ir el email de usuario loggeado
       {
-        userEmail: userExistente?.email,
+        userEmail: email || userExistente?.email,
         newsletter: true
       })
       if(response.status === 200) {
