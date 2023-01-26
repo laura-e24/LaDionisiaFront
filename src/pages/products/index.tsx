@@ -4,7 +4,7 @@ import Circles from '../../components/Circles/Circles'
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState } from "../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, selectAllFilters} from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
@@ -20,12 +20,10 @@ export default function index() {
   const dispatch = useAppDispatch()
   const wines = useSelector(selectAllWines)
   const winesStatus = useSelector(selectAllWinesStatus)
-  const winesCountryStatus = useSelector(selectAllWinesCountryStatus)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // console.log(wines[0].error)
   const [filteredWines, setFilteredWines] = useState(wines);
   const currentItems = filteredWines.slice(indexOfFirstItem, indexOfLastItem)
   const onPageChange = (event) => {
@@ -69,8 +67,6 @@ pt-24
     currentPage={currentPage}
     setCurrentPage={setCurrentPage}
   /></div>
-
-
   {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
   {wines && !wines[0]?.error && filteredWines.length > 0 &&
     <>
