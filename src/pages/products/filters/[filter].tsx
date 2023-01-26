@@ -83,7 +83,7 @@ export default function index({ }) {
 
   <Circles/>
   <Filters setCurrentPage={setCurrentPage}/>
-  {winesCountry && winesCountry[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+  {winesCountry && winesCountry[0]?.error && (<h1>PRODUCT NOT FOUND</h1>)}
         {filteredWines.length > 0 &&
           <>
             {

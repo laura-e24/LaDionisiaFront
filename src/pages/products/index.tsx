@@ -100,7 +100,7 @@ pt-28
 
 
 
-  {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+  {wines && wines[0]?.error && (<h1>PRODUCT NOT FOUND</h1>)}
   {wines && !wines[0]?.error && filteredWines.length > 0 &&
     <>
       {

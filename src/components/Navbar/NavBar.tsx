@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback,useLayoutEffect,useRef } from "react";
+import { useEffect, useState, useCallback, useLayoutEffect, useRef } from "react";
 import axios from 'axios';
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../../app/store"
@@ -8,6 +8,7 @@ import Image from "next/image";
 import { persistor } from '../../app/store';
 import { selectCart, selectDisplay, displayCart } from "../../features/products/cartSlice";
 import { setFilters, setMaxPageNumLim, setMinPageNumLim } from "../../features/generalSlice";
+import { useUser } from "@auth0/nextjs-auth0/client";
 function isUser(obj: any): obj is { '/roles': string[] } {
   return '/roles' in obj;
 }
@@ -45,9 +46,9 @@ const NavBar = ({ setCurrentPage }: any) => {
           }
         }
       }
-    },5)
+    }, 5)
 
- 
+
 
     setMounted(true)
     const unsubscribe = persistor.subscribe(() => {
@@ -158,18 +159,21 @@ const NavBar = ({ setCurrentPage }: any) => {
 
   const openNav = (e) => {
     e.preventDefault()
-    document.getElementById("myNav").style.width = "100%";
+    let myNav = document.getElementById("myNav")
+    if (myNav) {
+      myNav.style.width = "100%";
+    }
   }
 
   const openhome = (e) => {
     e.preventDefault()
-    document.getElementById("opengohome").click();  
+    document.getElementById("opengohome").click();
   }
 
 
 
   return (
-  <>
+    <>
       <div id="top"></div>
       <div id="logo" className="cursor-pointer" onClick={openhome}></div>
       <div id="navbar" className="sticky pt-2">
@@ -188,7 +192,7 @@ const NavBar = ({ setCurrentPage }: any) => {
                   </div>
                 </summary>
                 <form className="searchbuttondetails wine-search -mt-109 pl-8" onSubmit={(e) => { getWinesByName(e) }}>
-                  <input  type="search" onChange={(e) => { handleInputName(e) }} value={search} placeholder="Search Wines" />
+                  <input type="search" onChange={(e) => { handleInputName(e) }} value={search} placeholder="Search Wines" />
                   <button>GO</button>
                 </form>
               </details>
@@ -201,4 +205,5 @@ const NavBar = ({ setCurrentPage }: any) => {
           </div>
         </div>
       </div>
-</>)};export default NavBar;
+    </>)
+}; export default NavBar;

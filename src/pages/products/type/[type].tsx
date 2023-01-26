@@ -91,7 +91,7 @@ pt-28
  <Filters setCurrentPage={setCurrentPage}/>
  <div className="pb-20"></div>
 
- {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+ {wines && wines[0]?.error && (<h1>PRODUCT NOT FOUND</h1>)}
   {filteredWines.length > 0 &&
     <>
     {
