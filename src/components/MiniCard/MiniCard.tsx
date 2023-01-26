@@ -38,7 +38,7 @@ export default function MiniCard({ wine }) {
     <div className="flex bg-default border border-black rounded-3xl py-6 px-10">
       <div className="flex w-1/2 ">
         <img src={wine.product.image} alt={wine.product.wine} height={40} width={50} />
-        <span className="block my-auto">
+        <span className="lfpdesc block my-auto">
           <p className="my-auto text-2xl font-semibold px-6 font-body text-black">
             {wine.product.wine}
           </p>
@@ -48,18 +48,18 @@ export default function MiniCard({ wine }) {
         </span>
       </div>
       <div className="flex w-1/2 justify-end space-x-16">
-        <div className="flex">
+        <div className="flex lfpunits">
           <p className="my-auto text-3xl font-bold text-black">{wine.quantity}</p> 
           <span className="block my-auto">
             <button className="w-full" onClick={() => wine.quantity < wine.product.stock ? counterPlus() : null}>
               <FAIcon className="text-black active:text-gray-400" type="solid" size="md" name="caret-up" />
             </button>
-            <button className="w-full" onClick={() => wine.quantity > 1  ?  counterLess() :  setModalConfirmClear(true)}>
+            <button className=" w-full" onClick={() => wine.quantity > 1  ?  counterLess() :  setModalConfirmClear(true)}>
               <FAIcon className="text-black active:text-gray-400" type="solid" size="md" name="caret-down" />
             </button>
           </span>
         </div>
-        <p className="my-auto text-2xl font-semibold px-4 text-black">${subtotalCalculation(wine.quantity, wine.product.price)}</p>
+        <p className="lfpprice my-auto text-2xl font-semibold px-4 text-black ">${subtotalCalculation(wine.quantity, wine.product.price)}</p>
         <button className="" onClick={() => setModalConfirmClear(true)}>
           <FAIcon className="text-black" type="light" size="lg" name="trash-can" />
         </button>

@@ -11,11 +11,13 @@ import { useRouter } from "next/router";
 import Footer from "../../../components/Footer/Footer";
 import Image from "next/image";
 import Filters from "../../../components/Filters/Filters";
-import Types from "../../../components/Types/Types";
+import Circles from '../../../components/Circles/Circles'
+import { useUser } from '@auth0/nextjs-auth0/client';
 import { selectFilters } from "../../../features/generalSlice";
 import NotFound from "../../../components/Errors/NotFound";
 
 export default function index({ }) {
+  const { user } = useUser()
   const filters = useSelector(selectFilters)
   const router = useRouter()
   const { filter } = router.query;
@@ -31,6 +33,15 @@ export default function index({ }) {
   const onPageChange = (event) => {
     setCurrentPage(Number(event.target.id));
   };
+  const opencart = (e) => {
+    e.preventDefault()
+    document.getElementById("opencart").click();  
+  }
+  const openfav = (e) => {
+    e.preventDefault()
+    document.getElementById("openfav").click();  
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       if (router.isReady) {
@@ -47,20 +58,32 @@ export default function index({ }) {
 
   return (
     <>
-      <div className="
- main-body  
- pt-12 
- mb-8
- m-auto
- max-w-screen-xl
- bg-bg-body 
- ">
-  <NavBar setCurrentPage={setCurrentPage}></NavBar>
-  <Types/>
+<NavBar></NavBar>
+<div id="passion-for-wine" className="
+  main-body
+  home
+  mb-8
+  m-auto
+  max-w-screen-xl
+  pb-24
+  sm:rounded-2xl
+  pt-28
+">
+
+<div className="iconitos">
+<Image width={36} height={36} onClick={opencart} src="/assets/cart.svg" />
+{user && 
+<div className="ml-6 float-right">
+<Image width={36} height={36} onClick={openfav} src="/assets/heart.svg" />
+</div>
+}
+</div>
+
+
+
+  <Circles/>
   <Filters setCurrentPage={setCurrentPage}/>
-  {winesCountry && winesCountry[0]?.error && (<div className="text-center">
-          <NotFound></NotFound>
-        </div>)}
+  {winesCountry && winesCountry[0]?.error && (<h1>PRODUCT NOT FOUND</h1>)}
         {filteredWines.length > 0 &&
           <>
             {
@@ -73,15 +96,19 @@ export default function index({ }) {
         {!filteredWines.length &&
            <NotFound/>
         }
-        <Pagination
-          onPageChange={onPageChange}
-          wines={filteredWines}
-          itemsPerPage={itemsPerPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      </div>
-      <Footer />
-    </>
-  )
+
+{filteredWines.length > 0 && 
+
+<div className="w-64 m-auto mb-8 overflow-hidden grid-cols-3	"><Pagination
+    onPageChange={onPageChange}
+    wines={filteredWines}
+    itemsPerPage={itemsPerPage}
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
+  /></div>
 }
+
+</div>
+<Footer/>    
+</>    
+)}

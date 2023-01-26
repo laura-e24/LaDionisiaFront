@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import Image   from 'next/image';
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../app/store";
 import { selectMaxPageNumLim, selectMinPageNumLim, setMaxPageNumLim, setMinPageNumLim } from "../features/generalSlice";
+import { useAppDispatch } from "../app/store";
+
 
 function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrentPage }) {
 
@@ -16,24 +18,31 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
     for (let i = 1; i <= Math.ceil(wines.length / itemsPerPage); i++) {
         pages.push(i);
     }
-    const renderPageNumbers = pages.map((number) => {
-   
 
-        if (number < maxPageNumLim + 1 && number > minPageNumLim) {
-            return (
-                <li
-                    key={number}
-                    id={number}
-                    onClick={onPageChange}
-                    className={currentPage==number?"page-numbers rounded-full w-12 h-12 flex items-center justify-center text-grey-600 border border-gray-300 bg-grey-50 hover:bg-grey-100 hover:text-grey-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white" : "page-numbers rounded-full w-12 h-12 flex items-center justify-center ml-0 leading-tight text-gray-500 bg-pagination-color border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"}
-                >
-                    {number}
-                </li>
-            );
-        } else {
+    const totales =  Math.ceil(wines.length / itemsPerPage);
+
+
+    const renderPageNumbers = pages.map((number) => {
             return null;
-        }
-    });
+    })
+
+
+const goPage = (e)  => {
+
+    let quepage = Number(prompt("What page?"));
+    if (!Number.isNaN(quepage) && quepage>0 && quepage <= totales)
+    {
+        setCurrentPage(quepage);
+    }
+else {
+   setCurrentPage(1);
+    
+}    
+
+
+}
+
+
     const handleNextbtn = () => {
         setCurrentPage(currentPage + 1);
         if (currentPage + 1 > maxPageNumLim) {
@@ -61,154 +70,38 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
     }
 
     let pageIncrementBtn = null;
-    if (pages.length > maxPageNumLim) {
-        pageIncrementBtn = <li className="rounded-full 
-        w-12 h-12 
-        flex items-center 
-        justify-center 
-        leading-tight 
-        text-gray-500 
-        bg-pagination-color 
-        border border-gray-300 
-        hover:bg-gray-100 
-        hover:text-gray-700 
-        dark:bg-gray-800 
-        dark:border-gray-700 
-        dark:text-gray-400 
-        dark:hover:bg-gray-700 
-        dark:hover:text-white"onClick={handleNextbtn}> &hellip; </li>;
-    }
-
-    let pageDecrementBtn = null;
-    if (minPageNumLim >= 1) {
-        pageDecrementBtn = <li className="rounded-full 
-        w-12 h-12 
-        flex items-center 
-        justify-center 
-        leading-tight 
-        text-gray-500 
-        bg-pagination-color 
-        border border-gray-300 
-        hover:bg-gray-100 
-        hover:text-gray-700 
-        dark:bg-gray-800 
-        dark:border-gray-700 
-        dark:text-gray-400 
-        dark:hover:bg-gray-700 
-        dark:hover:text-white" onClick={handlePrevbtn}> &hellip; </li>;
-    }
     return (
         <>
-        <div className="font-poppins">
-            <ul className="
-            inline-flex -space-x-px 
-            w-full 
-            font-poppins 
-            justify-between 
-            py-6 bg-bg-body 
-            pl-4 pr-4
-            ">
-                <li>
-                    <button
-                        className="rounded-full
-                        w-12 h-12 
-                        flex font-poppins 
-                        items-center 
-                        justify-center 
-                        ml-0 leading-tight 
-                        text-gray-500 
-                        bg-pagination-color 
-                        border border-gray-300 
-                        hover:bg-gray-100 
-                        hover:text-gray-700 
-                        dark:bg-gray-800 
-                        dark:border-gray-700 
-                        dark:text-gray-400 
-                        dark:hover:bg-gray-700 
-                        dark:hover:text-white"
-                        onClick={handlePrevbtn}
-                        disabled={currentPage == pages[0] ? true : false}
-                    >
-                        ←
-                    </button>
-                </li>
-                {currentPage <= pages[pages.length - 1]  && currentPage >= pages[0] + pageNumberLimit? <li>
-                    <button
-                        className="rounded-full 
-                        w-12 h-12 flex 
-                        items-center 
-                        justify-center 
-                        leading-tight 
-                        text-gray-500 
-                        bg-pagination-color 
-                        border border-gray-300 
-                        hover:bg-gray-100 
-                        hover:text-gray-700 
-                        dark:bg-gray-800 
-                        dark:border-gray-700 
-                        dark:text-gray-400 
-                        dark:hover:bg-gray-700 
-                        dark:hover:text-white"
-                        onClick={handleFirstPage}
-                        disabled={currentPage == pages[0] ? true : false}
-                    >
-                        {pages[0]}
-                    </button>
 
-                </li> : null
-                }
-                {pageDecrementBtn}
-                {renderPageNumbers}
-                {pageIncrementBtn}
-                {currentPage >= pages[0] && currentPage <= pages[pages.length - 1] - pageNumberLimit ? <li>
-                    <button
-                        className="rounded-full 
-                        w-12 h-12 
-                        flex items-center 
-                        justify-center 
-                        leading-tight 
-                        text-gray-500 
-                        bg-pagination-color 
-                        border border-gray-300 
-                        hover:bg-gray-100 
-                        hover:text-gray-700 
-                        dark:bg-gray-800 
-                        dark:border-gray-700 
-                        dark:text-gray-400 
-                        dark:hover:bg-gray-700 
-                        dark:hover:text-white"
-                        onClick={handleLastPage}
-                        disabled={currentPage == pages[pages.length - 1] ? true : false}
-                    >
-                        {pages[pages.length - 1]}
-                    </button>
 
-                </li> : null
-                }
-                <li>
-                    <button
-                        className="rounded-full 
-                        w-12 h-12 
-                        flex items-center 
-                        justify-center 
-                        leading-tight 
-                        text-gray-500 
-                        bg-pagination-color 
-                        border border-gray-300 
-                        hover:bg-gray-100 
-                        hover:text-gray-700 
-                        dark:bg-gray-800 
-                        dark:border-gray-700 
-                        dark:text-gray-400 
-                        dark:hover:bg-gray-700 
-                        dark:hover:text-white"
-                        onClick={handleNextbtn}
-                        disabled={currentPage == pages[pages.length - 1] ? true : false}
-                    >→
-                    </button>
-                </li>
-            </ul>
-        </div>
+<div className="fixme font-poppins font-xl">
+    
+<button
+                className="pager-left"
+                onClick={handlePrevbtn}
+                disabled={currentPage == pages[0] ? true : false}
+            ><Image width={58} height={58}  src="/assets/left.svg"/>
+            </button>
+
+    <div onClick={goPage}>
+
+{currentPage}/{totales}
+
+    </div>
+
+
+    <button
+                className="pager-right"
+                onClick={handleNextbtn}
+                disabled={currentPage == pages[pages.length - 1] ? true : false}
+            ><Image width={58} height={58}  src="/assets/right.svg"/>
+    </button>
+ </div>
+
+
+    
+
+
         </>
     );
 }
