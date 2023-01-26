@@ -1,14 +1,18 @@
-
-/* cursors, and animations */
-
 .menu {
-    background: 
-      linear-gradient(90deg,#fff 50%,#a3a3a3 0) 100% ,
-      linear-gradient(#a3a3a3 0 0) 0% 100%/var(--_p,0%) 100% no-repeat;
-    -webkit-background-clip: text,padding-box;
-            background-clip: text,padding-box;
-    transition: .75s;
+  background: 
+  linear-gradient(90deg,#fff 50%,#a3a3a3 0) 100% ,
+  linear-gradient(#a3a3a3 0 0) 0% 100%/var(--_p,0%) 100% no-repeat;
+  -webkit-background-clip: text,padding-box;
+          background-clip: text,padding-box;
+               transition: .75s;
   }
+.menu:hover {  --_p: 100%}
+.menu-winery:hover,
+.main-home1:hover,
+.main-home2:hover,
+.video-logo
+{cursor:pointer}
+
   
   .price {
       font-size: 2.25rem; 
@@ -17,13 +21,6 @@
       margin-bottom: -25px;   
      }
   
-  .menu:hover {  --_p: 100%}
-  
-  .menu-winery:hover,
-   .main-home1:hover,
-   .main-home2:hover,
-  .video-logo
-  {cursor:pointer}
   
   .spinner-wrapper {
     position: absolute;

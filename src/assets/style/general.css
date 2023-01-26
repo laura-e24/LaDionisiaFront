@@ -41,6 +41,8 @@
             max-width: -webkit-fill-available;
            object-fit: fill;
               z-index: 40;
+              -webkit-backface-visibility: hidden;
+              backface-visibility: hidden;
 } .videologo{  filter: drop-shadow(2px 2px 1px rgb(0 0 0 / .6))}
 input {outline: none}
 

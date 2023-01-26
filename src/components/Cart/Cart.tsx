@@ -24,7 +24,7 @@ const Cart = ({ wines }) => {
   if (display)
     return (
       <>
-        <div className="px-6 font-body fixed z-50 rounded-2xl shadow-md bg-initial bg-opacity-40 py-6 overflow-auto border border-black" style={{ minWidth: 300, maxWidth:'50%',top: 150, right: 200, zIndex: 999, maxHeight: 'calc(100vh - 200px)' }}>
+        <div className="cartz px-6 font-body fixed z-50 rounded-2xl shadow-md bg-initial bg-opacity-40 py-6 overflow-auto border border-black" style={{ minWidth: 300, maxWidth:'50%',top: 150, right: 200, zIndex: 999, maxHeight: 'calc(100vh - 200px)' }}>
           {!!wines.length ? (
             <>
               <div className="w-full">
