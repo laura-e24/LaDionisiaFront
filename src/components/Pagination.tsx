@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import Image   from 'next/image';
+import { useSelector } from "react-redux";
+import { selectMaxPageNumLim, selectMinPageNumLim, setMaxPageNumLim, setMinPageNumLim } from "../features/generalSlice";
+import { useAppDispatch } from "../app/store";
 
 
 function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrentPage }) {
-    const pageNumberLimit = 10;
-    const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(10);
-    const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
+  const dispatch = useAppDispatch()
+    const pageNumberLimit = 10;
+    // const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(10);
+    // const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+    const minPageNumLim = useSelector(selectMinPageNumLim)
+    const maxPageNumLim = useSelector(selectMaxPageNumLim)
     const pages = [];
+
     for (let i = 1; i <= Math.ceil(wines.length / itemsPerPage); i++) {
         pages.push(i);
     }
@@ -38,28 +45,28 @@ else {
 
     const handleNextbtn = () => {
         setCurrentPage(currentPage + 1);
-        if (currentPage + 1 > maxPageNumberLimit) {
-            setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-            setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+        if (currentPage + 1 > maxPageNumLim) {
+          dispatch(setMaxPageNumLim(maxPageNumLim + pageNumberLimit));
+          dispatch(setMinPageNumLim(minPageNumLim + pageNumberLimit));
         }
     };
     const handlePrevbtn = () => {
-        setCurrentPage(currentPage - 1);
-        if ((currentPage - 1) % pageNumberLimit == 0) {
-            setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-            setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-        }
+      setCurrentPage(currentPage - 1);
+      if ((currentPage - 1) % pageNumberLimit == 0) {
+        dispatch(setMaxPageNumLim(maxPageNumLim - pageNumberLimit));
+        dispatch(setMinPageNumLim(minPageNumLim - pageNumberLimit));
+      }
     };
     const handleLastPage = () => {
-        setCurrentPage(pages[pages.length - 1]);
-        let newMaxPageNumberLimit = Math.ceil(pages[pages.length - 1] / pageNumberLimit) * pageNumberLimit;
-        setmaxPageNumberLimit(newMaxPageNumberLimit);
-        setminPageNumberLimit(newMaxPageNumberLimit - pageNumberLimit);
+      setCurrentPage(pages[pages.length - 1]);
+      let newMaxPageNumberLimit = Math.ceil(pages[pages.length - 1] / pageNumberLimit) * pageNumberLimit;
+      dispatch(setMaxPageNumLim(newMaxPageNumberLimit));
+      dispatch(setMinPageNumLim(newMaxPageNumberLimit - pageNumberLimit));
     }
     const handleFirstPage = () => {
-        setCurrentPage(1);
-        setmaxPageNumberLimit(10)
-        setminPageNumberLimit(0);
+      setCurrentPage(1);
+      dispatch(setMaxPageNumLim(10))
+      dispatch(setMinPageNumLim(0));
     }
 
     let pageIncrementBtn = null;

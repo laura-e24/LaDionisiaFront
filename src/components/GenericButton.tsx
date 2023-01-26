@@ -22,10 +22,10 @@ const GenericButton = ({
 
   switch (buttonType) {
     case EGenericButtonType.PRIMARY:
-      className += "  bg-blue-500 text-white active:bg-blue-600 font-bold uppercase rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ";
+      className += " border border-black px-8 py-4 text-black active:bg-gray-500 active:bg-opacity-20 hover:bg-gray-500 hover:bg-opacity-20 font-bold text-xl rounded-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ";
       break;
     case EGenericButtonType.CLOSE:
-      className += "  bg-red-500 text-white active:bg-red-600 font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ";
+      className += "  border border-red-500 px-8 py-4 text-red-500 active:bg-red-600 active:bg-opacity-20 hover:bg-red-600 hover:bg-opacity-20 font-bold text-xl rounded-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ";
       break;
   }
 

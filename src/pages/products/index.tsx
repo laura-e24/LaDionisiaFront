@@ -7,21 +7,23 @@ import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-
-import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState } from "../../features/products/productsSlice";
+import { getAllWines, selectAllWines, selectAllWinesStatus, selectAllWinesCountryStatus, setWinerys } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
-import Image from "next/image";
 import Filters from "../../components/Filters/Filters";
+import Types from "../../components/Types/Types";
+import { selectFilters } from "../../features/generalSlice";
+import NotFound from "../../components/Errors/NotFound";
 
 import { useUser } from '@auth0/nextjs-auth0/client';
+import Image from "next/image";
 
 
 
 export default function index() {
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
   const { user } = useUser()
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -60,6 +62,7 @@ export default function index() {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
+    dispatch(setWinerys(filterWines(wines, filters)))
   }, [winesStatus, filters, wines])
   return (
 <>
@@ -90,7 +93,7 @@ pt-28
 
 
 <div className="mt-4 mb-10">
-<Filters />
+<Filters setCurrentPage={setCurrentPage}/>
 </div>
 
 

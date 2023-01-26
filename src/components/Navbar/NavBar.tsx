@@ -2,13 +2,28 @@ import { useEffect, useState, useCallback,useLayoutEffect,useRef } from "react";
 import axios from 'axios';
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../../app/store"
-import { setFilters, getAllWinesByName } from "../../features/products/productsSlice"
+import { getAllWinesByName } from "../../features/products/productsSlice"
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { persistor } from '../../app/store';
 import { selectCart, selectDisplay, displayCart } from "../../features/products/cartSlice";
+import { setFilters, setMaxPageNumLim, setMinPageNumLim } from "../../features/generalSlice";
+function isUser(obj: any): obj is { '/roles': string[] } {
+  return '/roles' in obj;
+}
+const Btn = () => {
+  const { user } = useUser()
+  if (user) {
+    const usuario = isUser(user) ? user[`/roles`] : [];
+    if (usuario.includes('administrador')) {
+      return (
+        <a href="/dashboard">Dashboard</a>
+      )
+    }
+  }
+}
 
-const NavBar = () => {
+const NavBar = ({ setCurrentPage }: any) => {
   const [mounted, setMounted] = useState(false);
   const [search, setSearch] = useState('')
   const router = useRouter();
@@ -61,6 +76,9 @@ const NavBar = () => {
       undefined,
       { shallow: true }
     );
+    setCurrentPage(1)
+    dispatch(setMaxPageNumLim(10))
+    dispatch(setMinPageNumLim(0));
     setSearch('')
   }
   function handleInputName(e) {
@@ -100,17 +118,17 @@ const NavBar = () => {
   const goContact = (e) => {
     e.preventDefault()
     let menu = document.getElementById('portableMenu')
-        menu.style.display='none'
+    menu.style.display = 'none'
     document
-    .querySelector('#contact')
-    .scrollIntoView({block: "start", behavior: "smooth"})
+      .querySelector('#contact')
+      .scrollIntoView({ block: "start", behavior: "smooth" })
   }
 
   const goHome = (e) => {
-    if ( e.target.href == window.location || e.target.href === window.location+'home') {
+    if (e.target.href == window.location || e.target.href === window.location + 'home') {
       e.preventDefault()
       let menu = document.getElementById('portableMenu')
-          menu.style.display='none'
+      menu.style.display = 'none'
     }
   }
 
@@ -118,23 +136,23 @@ const NavBar = () => {
     e.preventDefault()
     let menu = document.getElementById('portableMenu')
     document
-    .querySelector('#portableMenu')
-    .scrollIntoView({block: "start", behavior: "smooth"})
-    menu.style.display='block'
+      .querySelector('#portableMenu')
+      .scrollIntoView({ block: "start", behavior: "smooth" })
+    menu.style.display = 'block'
   }
 
   const closeMobile = (e) => {
     e.preventDefault()
     let menu = document.getElementById('portableMenu')
-        menu.style.display='none'
+    menu.style.display = 'none'
   }
 
   const goProducts = (e) => {
     let menu = document.getElementById('portableMenu')
-        menu.style.display='none'
-        if ( e.target.href == window.location) {
-          e.preventDefault()
-        }
+    menu.style.display = 'none'
+    if (e.target.href == window.location) {
+      e.preventDefault()
+    }
   }
 
 

@@ -5,11 +5,35 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import { addNewProduct, selectDisplay, displayCart } from "../../features/products/cartSlice";
+import { createFavorite, getFavorite } from "../../features/products/productsSlice";
+import { AllUsersStatus, getAllUsersDb, selectAllUsers } from "../../features/comments/commentsSlice";
+import { useRouter } from "next/router";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { EStateGeneric } from "../../utils/general";
+import { registerUser } from "../../features/comments/commentsApi";
 
 export default function Card({ wine }) {
+  const { user } = useUser();
+  const router = useRouter()
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const display = useSelector(selectDisplay)
+  const usersStatus = useSelector(AllUsersStatus)
+  const users = useSelector(selectAllUsers)
+  const userExistente = users.find(u => u.email === user?.email)
+  const currentUser = userExistente?.id
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (router.isReady) {
+        if (usersStatus === EStateGeneric.IDLE) {
+          await dispatch(getAllUsersDb());
+        }
+      }
+    }
+    fetchData()
+  }, [users])
 
   const Price = ({ amount }) => {
     let price = (amount < 1) ? 100 : amount
@@ -26,7 +50,17 @@ export default function Card({ wine }) {
     desc[1] = (desc[1] == "") ? "" : "(" + desc[1]
     return (<>{texto}</>); // <small>{desc[1]}</small>
   }
-
+  async function añadirfavoritos() {
+    if (user) {
+      try {
+        await registerUser(user)
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    dispatch(createFavorite({ userId: currentUser, product: wine }))
+    alert('Agregado')
+  }
   useEffect(() => {
     setIsLoading(false);
   }, []);

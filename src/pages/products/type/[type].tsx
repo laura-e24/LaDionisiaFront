@@ -5,7 +5,7 @@ import Pagination from "../../../components/Pagination"
 import Footer from "../../../components/Footer/Footer";
 import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWineTypes, selectAllFilters, selectAllWineTypes, selectAllWineTypesStatus } from "../../../features/products/productsSlice";
+import { getAllWineTypes, selectAllWineTypes, selectAllWineTypesStatus, setWinerys } from "../../../features/products/productsSlice";
 import { EStateGeneric, filterWines } from "../../../utils/general";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -14,6 +14,7 @@ import Filters from "../../../components/Filters/Filters";
 import Circles from '../../../components/Circles/Circles'
 
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { selectFilters } from "../../../features/generalSlice";
 
 
 
@@ -22,7 +23,7 @@ export default function Reds({ }) {
   const { type } = router.query;
   const dispatch = useAppDispatch()
   const wines = useSelector(selectAllWineTypes)
-  const filters = useSelector(selectAllFilters)
+  const filters = useSelector(selectFilters)
   const winesStatus = useSelector(selectAllWineTypesStatus)
   const [filteredWines, setFilteredWines] = useState(wines);
 
@@ -45,6 +46,7 @@ export default function Reds({ }) {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
+    dispatch(setWinerys(filterWines(wines, filters)))
   }, [type, wines, filters])
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +88,7 @@ pt-28
 
  <Circles/>
  <div className="pb-8"></div>
- <Filters/>
+ <Filters setCurrentPage={setCurrentPage}/>
  <div className="pb-20"></div>
 
  {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}

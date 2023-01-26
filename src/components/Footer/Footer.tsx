@@ -9,7 +9,7 @@ import { selectCart, selectDisplay, displayCart } from "../../features/products/
 import { useEffect, useState, useCallback,useLayoutEffect,useRef } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../../app/store"
-import { setFilters, getAllWinesByName } from "../../features/products/productsSlice"
+import { getAllWinesByName } from "../../features/products/productsSlice"
 import { useSelector } from "react-redux";
 import { persistor } from '../../app/store';
 
