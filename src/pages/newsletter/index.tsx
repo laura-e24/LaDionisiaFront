@@ -36,7 +36,7 @@ const Newsletter = () => {
 
 <div id={style.newsletter}>
   <form id="newsletterform" action="/sendEmail" method="post">
-    <input type="newsletter" id="newsletter" name="newsletter" value="true"/>
+    <input type="hidden" id="newsletter" name="newsletter" value="true"/>
     <img className="mt-4" src="assets/stamp.png"/>
     <div className="title font-montserrat text-gray-600 text-xl pl-2 mt-4">
       Newsletter
