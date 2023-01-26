@@ -66,7 +66,6 @@ const Newsletter = () => {
   ">
           Every day we publish articles to pique your interest and awaken your thirst for wine knowledge. Too busy to visit? No problem – just sign up for our newsletter for weekly highlights from our articles, with links to the stories you may have missed.
         </p>
-
         <div id={style.newsletter} className="z-0">
           <form id="newsletterform" onSubmit={send}>
             <input type="newsletter" id="newsletter" name="newsletter"/>

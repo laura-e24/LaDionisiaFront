@@ -145,7 +145,8 @@ export default function Product() {
           <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
         </div>
         <Comments />
+        </div>
+
         <Footer />
-      </div>
     </>)
 }

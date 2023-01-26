@@ -14,6 +14,9 @@ import PaypalCheckotButton from "../../../components/PaypalCheckoutButton";
 import StripeComponent from "../../../components/stripe/StripeComponent";
 import { clearCart, minusAllProducts, minusOneProduct, plusOneProduct, selectCart } from "../../../features/products/cartSlice";
 import { EGenericButtonType } from "../../../utils/general";
+import Footer  from '../../../components/Footer/Footer'
+
+
 
 const Checkout = () => {
   const cart = useSelector(selectCart);
@@ -37,11 +40,20 @@ const Checkout = () => {
   // }, [])
 
   return (
-    <>
-    <div className="main-body pt-12 mb-12 m-auto min-h-screen max-w-screen-xl bg-bg-body">
-     <NavBar />
-     <div className="w-full">
-      <div className="w-full flex justify-between pb-4 border-b border-tertiary">
+<>
+<NavBar></NavBar>
+<div id="passion-for-wine" className="
+  main-body
+  home
+  mb-8
+  m-auto
+  max-w-screen-xl
+  pb-24
+  sm:rounded-2xl
+  pt-12	
+">
+     <div className="w-full   max-w-screen-xl pl-4 pr-4">
+      <div className="w-full max-w-screen-xl flex justify-between pb-4 border-b border-tertiary">
         <span className="flex">
           <button
             type="button"
@@ -59,7 +71,7 @@ const Checkout = () => {
           Clear cart
         </button>
       </div>
-      <div className="w-full flex justify-between space-x-6 pt-8">
+      <div className="w-full max-w-screen-xl flex justify-between space-x-6 pt-8">
         <div className="block w-2/3">
           <div className="space-y-6">
             {cart.map((c, i) => (
@@ -78,10 +90,10 @@ const Checkout = () => {
                 <div className="flex justify-between w-1/2">
                   <p className="my-auto text-3xl font-bold text-black">{c.quantity}</p> 
                   <span className="block my-auto">
-                    <button className="w-full" onClick={() => counterPlus(c.id)}>
+                    <button className="w-full max-w-screen-xl" onClick={() => counterPlus(c.id)}>
                       <FAIcon className="text-black active:text-gray-400" type="solid" size="md" name="caret-up" />
                     </button>
-                    <button className="w-full" onClick={() => c.quantity > 1  ?  counterLess(c.id) :  setModalConfirmRemoveAll(true)}>
+                    <button className="w-full max-w-screen-xl" onClick={() => c.quantity > 1  ?  counterLess(c.id) :  setModalConfirmRemoveAll(true)}>
                       <FAIcon className="text-black active:text-gray-400" type="solid" size="md" name="caret-down" />
                     </button>
                   </span>
@@ -98,7 +110,7 @@ const Checkout = () => {
             </div>
             ))}
           </div>
-          <div className="text-sm w-full border-2 border-[#e5a91f] border-dotted bg-[#e5a91f] bg-opacity-25 rounded-3xl p-10 mt-6">
+          <div className="text-sm w-full max-w-screen-xl border-2 border-[#e5a91f] border-dotted bg-[#e5a91f] bg-opacity-25 rounded-3xl p-10 mt-6">
             <span className="flex">
               <FAIcon name="triangle-exclamation" className="text-yellow-600" size="lg" type="light" />
               <p className="font-medium ml-4 my-auto">
@@ -131,9 +143,9 @@ const Checkout = () => {
           </div>
         </div>
         <div className="w-2/5 bg-default border border-black rounded-3xl py-6 px-10">
-          <h3 className="font-bold text-3xl w-full my-auto pb-4 border-b border-tertiary">Card details</h3>
+          <h3 className="font-bold text-3xl w-full max-w-screen-xl my-auto pb-4 border-b border-tertiary">Card details</h3>
           <StripeComponent cart={cart} totalPrice={totalPrice} />
-          <h3 className="font-bold text-xl text-center w-full pt-4 mt-6 pb-2 border-t border-gray-500 border-opacity-40">Or pay with</h3>
+          <h3 className="font-bold text-xl text-center w-full max-w-screen-xl pt-4 mt-6 pb-2 border-t border-gray-500 border-opacity-40">Or pay with</h3>
           <PaypalCheckotButton setErrorMessage={setErrorMessage} setErrorModal={setErrorModal} wines={cart} totalPrice={totalPrice} />
         </div>
       </div>
@@ -172,8 +184,9 @@ const Checkout = () => {
             />
           </div>
         </div>
-      </div>
-    )}
+        </div>
+     )}
+       <Footer/>
   </>
   )
 }
