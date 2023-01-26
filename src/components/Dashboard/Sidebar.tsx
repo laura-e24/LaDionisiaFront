@@ -16,8 +16,8 @@ const Sidebar = () => {
     }
     return (
         <>
-            <div className="w-1/4 h-full flex self-start p-2 sticky top-0">
-                <div className="w-full rounded-lg">
+            <div className="h-full flex self-start p-2">
+                <div className="w-full 0rounded-lg">
                     <div className="w-ful px-1 p-1">
                         <ul className="space-y-6">
                             <li className="flex hover:bg-gray-300 hover:bg-opacity-50 rounded-lg py-2 px-1">
