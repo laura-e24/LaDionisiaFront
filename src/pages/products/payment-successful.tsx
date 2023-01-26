@@ -13,10 +13,20 @@ const Success = () => {
   }, [payment_intent])
 
   return (
-    <div className="main-body pt-12 m-auto min-h-screen max-w-screen-xl">
-      <NavBar />
+<>
+
+<NavBar></NavBar>
+<div id="passion-for-wine" className="
+  main-body
+  home
+  mb-8
+  m-auto
+  max-w-screen-xl
+  pb-24
+  sm:rounded-2xl
+pt-24	
+">
       <div className="flex items-center justify-center mx-auto" style={{ height: 'calc(100vh - 400px)' }}>
-        
           <div className="bg-white rounded-lg shadow relative mx-auto">
             <span className="w-full h-20 bg-purple-600 flex rounded-t-lg"></span>
             <span className="flex p-20 text-green-500">
@@ -35,6 +45,7 @@ const Success = () => {
         
       </div>
     </div>
+</div>
   )
 }
 
