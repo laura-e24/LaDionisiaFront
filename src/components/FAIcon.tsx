@@ -18,19 +18,19 @@ const FAIcon = ({
   };
   switch (size) {
     case "xl":
-      style.fontSize = 35;
+      style.fontSize = 45;
+      style.height = 50;
+      style.width = 50;
+      break;
+    case "lg":
+      style.fontSize = 30;
       style.height = 45;
       style.width = 45;
       break;
-    case "lg":
+    case "md":
       style.fontSize = 25;
       style.height = 33;
       style.width = 33;
-      break;
-    case "md":
-      style.fontSize = 22;
-      style.height = 30;
-      style.width = 30;
       break;
     case "base":
       style.fontSize = 18;

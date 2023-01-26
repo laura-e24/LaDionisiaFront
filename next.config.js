@@ -19,12 +19,12 @@ module.exports = (phase) => {
     RESTURL_PRODUCTS: (() => {
       if (isDev) return 'http://localhost:3001'
       if (isProd) {
-        return 'https://ladionisiaback-production.up.railway.app'
+        return 'https://ladionisiaback-js-production.up.railway.app'
       }
     })(),
     RESTURL_SESSIONS: (() => {
       if (isDev) return 'http://localhost:3001'
-      if (isProd) return 'https://ladionisiaback-production.up.railway.app/products'
+      if (isProd) return 'https://ladionisiaback-js-production.up.railway.app'
     })(),
   }
 

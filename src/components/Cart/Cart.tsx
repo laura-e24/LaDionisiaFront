@@ -12,6 +12,8 @@ import MiniCard from "../MiniCard/MiniCard";
 import GenericModal from "../Modals/GenericModal";
 import Router  from "next/router";
 
+
+
 const Cart = ({ wines }) => {
   const dispatch = useAppDispatch();
   const display = useSelector(selectDisplay);
@@ -20,11 +22,11 @@ const Cart = ({ wines }) => {
   const clearAllCart = () => dispatch(clearCart())
 
   const totalPrice = cart.reduce((acc, curr) => acc + (curr.quantity * curr.product.price), 0)
-  
+
   if (display)
     return (
       <>
-        <div className="px-6 font-body fixed z-50 rounded-2xl shadow-md bg-initial bg-opacity-40 py-6 overflow-auto border border-black" style={{ minWidth: 300, maxWidth:'50%',top: 150, right: 200, zIndex: 999, maxHeight: 'calc(100vh - 200px)' }}>
+        <div className="cartz px-6 font-body fixed z-50 rounded-2xl shadow-md bg-initial bg-opacity-40 py-6 overflow-auto border border-black" style={{ minWidth: 300, maxWidth:'50%',top: 150, right: 200, zIndex: 999, maxHeight: 'calc(100vh - 200px)' }}>
           {!!wines.length ? (
             <>
               <div className="w-full">
@@ -55,6 +57,7 @@ const Cart = ({ wines }) => {
                   Clear cart
                 </button> */}
                 <button
+
                   className="text-xl py-6 px-4 bg-[#3D3A35] rounded-2xl w-full flex justify-between"
                   onClick={() => {
                     Router.push('/products/checkout')
@@ -67,8 +70,12 @@ const Cart = ({ wines }) => {
                     <FAIcon className="text-white" type="light" size="lg" name="arrow-right-long" />
                   </span>
                 </button>
-                
-              </div>
+                </div>
+                {/* <button>
+                  Go to checkout
+                <span className="text-xl font-bold">Total:&nbsp; &nbsp;</span>
+                <span className="text-xl font-bold">${totalPrice}</span>
+                </button> */}
             </>
           ) : <div className="text-center font-semibold text-black">
             <p className="pt-2 pb-3 font-bold text-xl">Your cart is empty.</p>

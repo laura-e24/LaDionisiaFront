@@ -3,7 +3,8 @@ import axios from "axios";
 
 
 export const registerUser = (user) => axios.post(`${process.env.RESTURL_PRODUCTS}/users/register`, user)
-export const getAllUsersApi = () => axios(`${process.env.RESTURL_PRODUCTS}/users`)
+export const getAllUsersDbApi = () => axios(`${process.env.RESTURL_PRODUCTS}/users`)
+export const getAllUsersAuth0Api = () => axios(`${process.env.RESTURL_PRODUCTS}/auth0/users`)
 // Comments
 export const createCommentProduct = (id: string| string[], comment) => axios.post(
     `${process.env.RESTURL_PRODUCTS}/comments/${id}`,
