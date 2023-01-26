@@ -1,22 +1,23 @@
 
 import { useState } from "react";
-import NavBar from "../../components/Navbar/NavBar";
+import NavBar from '../../components/Navbar/NavBar';
+import Circles from '../../components/Circles/Circles'
+
 import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { getAllWines, selectAllWines, selectAllWinesStatus, selectAllWinesCountryStatus, setWinerys } from "../../features/products/productsSlice";
+
+import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
+import Image from "next/image";
 import Filters from "../../components/Filters/Filters";
-import Types from "../../components/Types/Types";
-import { selectFilters } from "../../features/generalSlice";
-import NotFound from "../../components/Errors/NotFound";
 
 export default function index() {
-  const filters = useSelector(selectFilters)
+  const filters = useSelector(selectAllFilters)
 
   const router = useRouter()
   const dispatch = useAppDispatch()
@@ -24,7 +25,7 @@ export default function index() {
   const winesStatus = useSelector(selectAllWinesStatus)
   const winesCountryStatus = useSelector(selectAllWinesCountryStatus)
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 21;
+  const itemsPerPage = 5;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   // console.log(wines[0].error)
@@ -43,45 +44,59 @@ export default function index() {
     }
     fetchData()
     setFilteredWines(filterWines(wines, filters));
-    dispatch(setWinerys(filterWines(wines, filters)))
   }, [winesStatus, filters, wines])
   return (
-    <>
-      <div className="
- main-body  
- pt-12 
- mb-8
- m-auto
- max-w-screen-xl
- bg-bg-body 
- ">
- <NavBar setCurrentPage={setCurrentPage}></NavBar>
-        <Types/>
-        <Filters setCurrentPage={setCurrentPage}/>
-        {wines && wines[0]?.error && (<div className="text-center">
-          <NotFound></NotFound>
-        </div>)}
-        {wines && !wines[0]?.error && filteredWines.length > 0 &&
-          <>
-            {
-              currentItems.map((wine) => (
-                <Card key={wine.id} wine={wine}></Card>
-              ))
-            }
-          </>
-        }
-        {!filteredWines.length &&
-            <NotFound />
-        }
-        <Pagination
-          onPageChange={onPageChange}
-          wines={filteredWines}
-          itemsPerPage={itemsPerPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      </div>
-      <Footer />
-    </>)
-};
+<>
+<NavBar></NavBar>
+<div id="passion-for-wine" className="
+  main-body
+  home
+  mb-8
+  m-auto
+  max-w-screen-xl
+  pb-24
+  sm:rounded-2xl	
+pt-24
+">
+<Circles/>
 
+
+<div className="mt-4 mb-10">
+<Filters />
+</div>
+
+<div className="w-64 m-auto mb-8"><Pagination
+    onPageChange={onPageChange}
+    wines={filteredWines}
+    itemsPerPage={itemsPerPage}
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
+  /></div>
+
+
+  {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+  {wines && !wines[0]?.error && filteredWines.length > 0 &&
+    <>
+      {
+        currentItems.map((wine) => (
+          <Card key={wine.id} wine={wine}></Card>
+        ))
+      }
+    </>
+  }
+  {!filteredWines.length &&
+    <>
+      <h1>PRODUCTS NOT FOUND</h1>
+    </>
+  }
+
+<div className="w-64 h-30 m-auto mb-8"><Pagination
+    onPageChange={onPageChange}
+    wines={filteredWines}
+    itemsPerPage={itemsPerPage}
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
+  /></div>
+
+</div><Footer/>
+</>)};

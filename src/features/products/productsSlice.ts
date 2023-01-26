@@ -136,9 +136,9 @@ export const getFavorite = createAsyncThunk(
 )
 export const createFavorite = createAsyncThunk(
   'products/createFavorite',
-  async ({ userId, product }: { userId: any, product: IProduct }, { rejectWithValue }) => {
+  async ({ userId, productId }: { userId: any, productId: any }, { rejectWithValue }) => {
     try {
-      const response = await postFavorite(userId, product)
+      const response = await postFavorite(userId, productId)
       return response.data
     } catch (error) {
       console.log(error.response)
@@ -191,9 +191,8 @@ export const deleteAllFavorites = createAsyncThunk(
 interface ProductsState {
   wines: IProduct[],
   winesCountry: IProduct[],
-  disabledWines: IProduct[],
   regions: string[],
-  winerys: string[],
+  disabledWines: IProduct[],
   wineTypes: IProduct[],
   wine: IProduct,
   winesFilters: IProduct[],
@@ -214,11 +213,11 @@ const initialState = {
   wine: {},
   winesCountry: [],
   regions: [],
-  winerys: [],
   winesFilters: [],
   currentWines: [],
   disabledWines: [],
   wineTypes: [],
+  filters: [],
   allWinesStatus: EStateGeneric.IDLE,
   allWinesCountryStatus: EStateGeneric.IDLE,
   allDisabledWinesStatus: EStateGeneric.IDLE,
@@ -234,27 +233,13 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     // standard reducer logic, with auto-generated action types per reducer
-    getRegiones: (state) => {
+    getRegiones: (state, action) => {
       state.winesCountry.filter(wine => {
         if (!state.regions.includes(wine.region)) {
           state.regions = [...state.regions, wine.region]
         }
       })
       state.regions.sort((a, b) => {
-        if (a.toLowerCase() > b.toLowerCase()) return 1
-        else return -1
-      })
-    },
-    getWinerys: (state) => {
-      state.winerys = state.winerys
-    },
-    setWinerys: (state, action) => {
-      action.payload.filter(wine => {
-        if (!state.winerys.includes(wine.winery)) {
-          state.winerys = [...state.winerys, wine.winery]
-        }
-      })
-      state.winerys.sort((a, b) => {
         if (a.toLowerCase() > b.toLowerCase()) return 1
         else return -1
       })
@@ -283,6 +268,16 @@ const productsSlice = createSlice({
       state.currentWines = action.payload;
       console.log('reducer')
     },
+    setFilters: (state, action) => {
+      const objToReplace = state.filters.find(item => Object.keys(item).includes(Object.keys(action.payload)[0]));
+      const index = state.filters.indexOf(objToReplace);
+      if (index !== -1) {
+        state.filters.splice(index, 1, action.payload);
+      } else {
+        state.filters.push(action.payload);
+      }
+      console.log(state.filters)
+    },
     cleanUpState: (state) => {
       state.currentWines = [];
     },
@@ -292,14 +287,7 @@ const productsSlice = createSlice({
     clearOneWine: (state) => {
       state.wine = {}
     },
-    setFavorites: (state, action) => {
-      state.favorites = state.favorites.filter(w => {
-        if (w.id !== action.payload.id)
-          return w
-      });
-    },
     getFavorites: (state, action) => {
-      state.favorites = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -488,7 +476,10 @@ const productsSlice = createSlice({
 
 
     builder.addCase(deleteFavorite.fulfilled, (state, action) => {
-
+      state.favorites = state.favorites.map(w => {
+        if (w.id !== action.payload.id)
+          return w
+      });
       state.allFavoritesStatus = EStateGeneric.SUCCEEDED;
     })
     builder.addCase(deleteFavorite.pending, (state, action) => {
@@ -522,22 +513,19 @@ export const selectAllWinesByContry = (state) => state.products.winesCountry;
 export const selectAllWinesFilters = (state) => state.products.winesFilters;
 export const selectCurrentWines = (state) => state.products.currentWines;
 export const selectCountryFilter = (state) => state.products.filter;
+export const selectAllFilters = (state) => state.products.filters;
 export const selectAllFavorites = (state) => state.products.favorites;
 
 export const selectAllRegions = (state) => state.products.regions;
-export const selectAllWinerys = (state) => state.products.winerys;
 
 export const {
   orderByName,
   setCurrentWines,
+  setFilters,
   cleanUpState,
   cleanUpStateFilters,
   clearOneWine,
-  getRegiones,
-  getWinerys,
-  setWinerys,
-  setFavorites,
-  getFavorites
+  getRegiones
 } = productsSlice.actions;
 
 export const selectAllWinesStatus = (state) => state.products.allWinesStatus;

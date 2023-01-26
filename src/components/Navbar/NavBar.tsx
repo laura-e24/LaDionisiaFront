@@ -1,32 +1,17 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback,useLayoutEffect,useRef } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../../app/store"
-import { getAllWinesByName } from "../../features/products/productsSlice"
+import { setFilters, getAllWinesByName } from "../../features/products/productsSlice"
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { persistor } from '../../app/store';
 import Cart from "../Cart/Cart";
 import { selectCart, selectDisplay, displayCart } from "../../features/products/cartSlice";
-import { setMaxPageNumLim, setMinPageNumLim } from "../../features/generalSlice";
-function isUser(obj: any): obj is { '/roles': string[] } {
-  return '/roles' in obj;
-}
-const Btn = () => {
-  const { user } = useUser()
-  if (user) {
-    const usuario = isUser(user) ? user[`/roles`] : [];
-    if (usuario.includes('administrador')) {
-      return (
-        <a href="/dashboard">Dashboard</a>
-      )
-    }
-  }
-}
 
-const NavBar = ({ setCurrentPage }: any) => {
+const NavBar = () => {
   const [mounted, setMounted] = useState(false);
   const [search, setSearch] = useState('')
   const router = useRouter();
@@ -34,12 +19,30 @@ const NavBar = ({ setCurrentPage }: any) => {
   const cart = useSelector(selectCart)
   const { user } = useUser()
   const dispatch = useAppDispatch()
+
+
+
   useEffect(() => {
+    setTimeout(() => {
+      window.onscroll = function () {
+        let nav = document.getElementById("navbar");
+        if (nav !== null) {
+          let fija = nav.offsetTop;
+          if (window.pageYOffset > fija) {
+            nav.classList.add("fix");
+          } else {
+            nav.classList.remove("fix");
+          }
+        }
+      }
+    },5)
+
+ 
+
     setMounted(true)
     const unsubscribe = persistor.subscribe(() => {
       console.log('Local storage updated with latest state: ', cart);
     });
-
     return () => {
       unsubscribe();
     }
@@ -63,31 +66,56 @@ const NavBar = ({ setCurrentPage }: any) => {
       undefined,
       { shallow: true }
     );
-    setCurrentPage(1)
-    dispatch(setMaxPageNumLim(10))
-    dispatch(setMinPageNumLim(0));
     setSearch('')
   }
   function handleInputName(e) {
     setSearch(e.target.value)
   }
-
   if (!mounted) return null
+  function handleFilters(e) {
+    const { value, name } = e.target;
+    dispatch(setFilters({ [name]: value }));
+  }
+  const scores = [
+    "100",
+    "99-97",
+    "96-94",
+    "93-91",
+    "90-under"
+  ]
+  const vintage = [
+    "2010-Present",
+    "2000-2009",
+    "1980-1989",
+    "1970-1979",
+    "1960-1969",
+    "1959-older",
+  ]
+  const countries = [
+    'France',
+    'Argentina',
+    'Portugal',
+    'South Africa',
+    'Spain',
+    'Italy',
+    'Australia',
+    'United States',
+  ]
 
   const goContact = (e) => {
     e.preventDefault()
     let menu = document.getElementById('portableMenu')
-    menu.style.display = 'none'
+        menu.style.display='none'
     document
-      .querySelector('#contact')
-      .scrollIntoView({ block: "start", behavior: "smooth" })
+    .querySelector('#contact')
+    .scrollIntoView({block: "start", behavior: "smooth"})
   }
 
   const goHome = (e) => {
-    if (e.target.href == window.location || e.target.href === window.location + 'home') {
+    if ( e.target.href == window.location || e.target.href === window.location+'home') {
       e.preventDefault()
       let menu = document.getElementById('portableMenu')
-      menu.style.display = 'none'
+          menu.style.display='none'
     }
   }
 
@@ -95,31 +123,75 @@ const NavBar = ({ setCurrentPage }: any) => {
     e.preventDefault()
     let menu = document.getElementById('portableMenu')
     document
-      .querySelector('#portableMenu')
-      .scrollIntoView({ block: "start", behavior: "smooth" })
-    menu.style.display = 'block'
+    .querySelector('#portableMenu')
+    .scrollIntoView({block: "start", behavior: "smooth"})
+    menu.style.display='block'
   }
 
   const closeMobile = (e) => {
     e.preventDefault()
     let menu = document.getElementById('portableMenu')
-    menu.style.display = 'none'
+        menu.style.display='none'
   }
 
   const goProducts = (e) => {
     let menu = document.getElementById('portableMenu')
-    menu.style.display = 'none'
-    if (e.target.href == window.location) {
-      e.preventDefault()
-    }
+        menu.style.display='none'
+        if ( e.target.href == window.location) {
+          e.preventDefault()
+        }
   }
 
+
+  const openNav = (e) => {
+    e.preventDefault()
+    document.getElementById("myNav").style.width = "100%";
+  }
+
+
+
   return (
-    <>
-      <div id="navbar" className="w-28 h-28 absolute left-1/2 -translate-x-1/2">
-        <Image layout="fill" src="/assets/logonav.svg" alt="La Dionisia Logo" />
+  <>
+      <div id="top"></div>
+      <div id="logo"></div>
+      <div id="navbar" className="sticky pt-2">
+        <div className="flex flex-wrap justify-center items-center mt-24">
+          <div className="w-full max-w-screen-xl w-1/2 mitadsearch">
+            <div className="searchbutton lucho font-poppins font-bold text-lg sm:text-xl m-auto max-w-screen-xl">
+              <details className="ml-2">
+                <summary id="buscador">
+                  <div className='searchicon cursor-pointer'>
+                    <div className="w-7 h-12  relative">
+                      <Image layout="fill" src="/assets/search.svg" />
+                    </div>
+                    <div className="searchword -mt-9 -ml-6">
+                      SEARCH
+                    </div>
+                  </div>
+                </summary>
+                <form className="searchbuttondetails wine-search -mt-109 pl-8" onSubmit={(e) => { getWinesByName(e) }}>
+                  <input type="search" onChange={(e) => { handleInputName(e) }} value={search} placeholder="Search Wines" />
+                  <button>GO</button>
+                </form>
+              </details>
+            </div>
+          </div>
+          <div className="w-full max-w-screen-xl w-1/2 mitadmenu">
+            <div className="lucho font-poppins font-bold text-lg sm:text-xl text-right pr-1">
+              <div id="menubutton" className="menubutton cursor-pointer" onClick={openNav}>&#9776; MENU</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <nav className="
+
+
+
+{/*
+
+    <div id="navbar" className="w-28 h-28 absolute left-1/2 -translate-x-1/2">
+      <Image layout="fill" src="/assets/logonav.svg" alt="La Dionisia Logo"/>
+    </div>
+    <nav className="
       float-right   
       mt-10 
       bg-bg-body 
@@ -127,20 +199,20 @@ const NavBar = ({ setCurrentPage }: any) => {
       w-2/5
       nav-icons
     ">
-        <details className="float-right ml-2">
-          <summary>
-            <div className="w-7 h-7 mt-1 relative">
-              <Image layout="fill" src="/assets/search.svg" />
-            </div>
-          </summary>
+      <details className="float-right ml-2">
+        <summary>
+          <div className="w-7 h-7 mt-1 relative">
+            <Image layout="fill" src="/assets/search.svg" />
+          </div>
+        </summary>
           <form className="wine-search  float-right -mt-7 pl-8" onSubmit={(e) => { getWinesByName(e) }}>
             <input type="search" onChange={(e) => { handleInputName(e) }} value={search} placeholder="Search Wines" />
             <button>GO</button>
           </form>
-        </details>
+      </details>
         <div className="w-7 h-7 mt-1 ml-2 relative float-right">
           <Image onClick={() => dispatch(displayCart())} layout="fill" src="/assets/cart.svg" />
-          <Cart wines={cart} />
+          <Cart wines={cart}/>
         </div>
         <details className="ml-2 float-right">
           <summary>
@@ -153,14 +225,13 @@ const NavBar = ({ setCurrentPage }: any) => {
             <a href="#">Support</a><br />
             <a href="#">License</a><br />
             {user && <a href="/api/auth/logout" onClick={handleCookieLogout}>Logout</a>}
-            <Btn/>
             {!user && <a href="/api/auth/login">Login</a>}
           </div>
         </details>
         <a href='/favorite'>
-          <div className="w-7 h-7 mt-1 relative float-right">
-            <Image layout="fill" src="/assets/heart.svg" />
-          </div>
+        <div className="w-7 h-7 mt-1 relative float-right">
+          <Image  layout="fill" src="/assets/heart.svg" />
+        </div>
         </a>
       </nav>
 
@@ -168,10 +239,10 @@ const NavBar = ({ setCurrentPage }: any) => {
         MENU
       </a>
       <div id="portableMenu">
-        <a id="gohome2" onClick={goHome} href='/home'>Home</a>
-        <a id="goproducts" onClick={goProducts} href='/products'>Products</a>
-        <a id="gocontacts" onClick={goContact} href='#contact'>Contact</a>
-        <a id="closecell" onClick={closeMobile} href="#">Return</a>
+        <a id="gohome2"     onClick={goHome}      href='/home'>Home</a>
+        <a id="goproducts" onClick={goProducts}  href='/products'>Products</a>
+        <a id="gocontacts" onClick={goContact}   href='#contact'>Contact</a>
+        <a id="closecell"  onClick={closeMobile} href="#">Return</a>
       </div>
       <nav className="
   nav 
@@ -182,12 +253,12 @@ const NavBar = ({ setCurrentPage }: any) => {
   divide-neutral-400 
   mt-10 
   mb-14">
-        <a id="gohome" onClick={goHome} href='/home' className="menu w-24  h-6 inline-block text-center align-sub">
+          <a id="gohome" onClick={goHome} href='/home' className="menu w-24  h-6 inline-block text-center align-sub">
           Home
-        </a>
+          </a>
         <div className="menu w-24  h-6 inline-block text-center align-sub">
           <details>
-            <summary>
+            <summary className="menu-winery">
               Winery
             </summary>
             <div className="submenu z-50">
@@ -226,8 +297,5 @@ const NavBar = ({ setCurrentPage }: any) => {
           Contact
         </a>
       </nav>
-    </>
-  )
-}
-
-export default NavBar;
+ */}
+</>)};export default NavBar;

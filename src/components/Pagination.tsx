@@ -1,32 +1,37 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../app/store";
-import { selectMaxPageNumLim, selectMinPageNumLim, setMaxPageNumLim, setMinPageNumLim } from "../features/generalSlice";
+import Image   from 'next/image';
+
 
 function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrentPage }) {
-
-  const dispatch = useAppDispatch()
     const pageNumberLimit = 10;
-    // const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(10);
-    // const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
-    const minPageNumLim = useSelector(selectMinPageNumLim)
-    const maxPageNumLim = useSelector(selectMaxPageNumLim)
-    const pages = [];
+    const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(10);
+    const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
+    const pages = [];
     for (let i = 1; i <= Math.ceil(wines.length / itemsPerPage); i++) {
         pages.push(i);
     }
-    const renderPageNumbers = pages.map((number) => {
-   
 
-        if (number < maxPageNumLim + 1 && number > minPageNumLim) {
+    const renderPageNumbers = pages.map((number) => {
+        if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
             return (
                 <li
                     key={number}
                     id={number}
                     onClick={onPageChange}
-                    className={currentPage==number?"page-numbers rounded-full w-12 h-12 flex items-center justify-center text-grey-600 border border-gray-300 bg-grey-50 hover:bg-grey-100 hover:text-grey-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white" : "page-numbers rounded-full w-12 h-12 flex items-center justify-center ml-0 leading-tight text-gray-500 bg-pagination-color border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"}
+                    className={
+                        currentPage == number 
+? "page-numbers"
+: "page-numbers"
+
+                    }
                 >
+
+{/* 
+                    ? "page-numbers rounded-full w-12 h-12 flex items-center justify-center text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white" 
+                    : "page-numbers rounded-full w-12 h-12 flex items-center justify-center ml-0 leading-tight text-gray-500 bg-pagination-color border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+
+*/}
                     {number}
                 </li>
             );
@@ -34,152 +39,125 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
             return null;
         }
     });
+
     const handleNextbtn = () => {
         setCurrentPage(currentPage + 1);
-        if (currentPage + 1 > maxPageNumLim) {
-          dispatch(setMaxPageNumLim(maxPageNumLim + pageNumberLimit));
-          dispatch(setMinPageNumLim(minPageNumLim + pageNumberLimit));
+        if (currentPage + 1 > maxPageNumberLimit) {
+            setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+            setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
         }
     };
     const handlePrevbtn = () => {
-      setCurrentPage(currentPage - 1);
-      if ((currentPage - 1) % pageNumberLimit == 0) {
-        dispatch(setMaxPageNumLim(maxPageNumLim - pageNumberLimit));
-        dispatch(setMinPageNumLim(minPageNumLim - pageNumberLimit));
-      }
+        setCurrentPage(currentPage - 1);
+        if ((currentPage - 1) % pageNumberLimit == 0) {
+            setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+            setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+        }
     };
     const handleLastPage = () => {
-      setCurrentPage(pages[pages.length - 1]);
-      let newMaxPageNumberLimit = Math.ceil(pages[pages.length - 1] / pageNumberLimit) * pageNumberLimit;
-      dispatch(setMaxPageNumLim(newMaxPageNumberLimit));
-      dispatch(setMinPageNumLim(newMaxPageNumberLimit - pageNumberLimit));
+        setCurrentPage(pages[pages.length - 1]);
+        let newMaxPageNumberLimit = Math.ceil(pages[pages.length - 1] / pageNumberLimit) * pageNumberLimit;
+        setmaxPageNumberLimit(newMaxPageNumberLimit);
+        setminPageNumberLimit(newMaxPageNumberLimit - pageNumberLimit);
     }
     const handleFirstPage = () => {
-      setCurrentPage(1);
-      dispatch(setMaxPageNumLim(10))
-      dispatch(setMinPageNumLim(0));
+        setCurrentPage(1);
+        setmaxPageNumberLimit(10)
+        setminPageNumberLimit(0);
     }
 
     let pageIncrementBtn = null;
-    if (pages.length > maxPageNumLim) {
-        pageIncrementBtn = <li className="rounded-full 
-        w-12 h-12 
-        flex items-center 
-        justify-center 
-        leading-tight 
-        text-gray-500 
-        bg-pagination-color 
-        border border-gray-300 
-        hover:bg-gray-100 
-        hover:text-gray-700 
-        dark:bg-gray-800 
-        dark:border-gray-700 
-        dark:text-gray-400 
-        dark:hover:bg-gray-700 
-        dark:hover:text-white"onClick={handleNextbtn}> &hellip; </li>;
+    if (pages.length > maxPageNumberLimit) {
+        pageIncrementBtn = <li className="page-numbers" onClick={handleNextbtn}> &hellip; </li>;
     }
 
+    {/* 
+        page-numbers
+        flex 
+        items-center 
+        justify-center
+        rounded-full 
+        bg-gray-800
+        hover:bg-gray-700 
+        hover:text-white
+        text-gray-400
+        w-12 
+        h-12
+
+*/}
+
+
     let pageDecrementBtn = null;
-    if (minPageNumLim >= 1) {
-        pageDecrementBtn = <li className="rounded-full 
-        w-12 h-12 
-        flex items-center 
-        justify-center 
-        leading-tight 
-        text-gray-500 
-        bg-pagination-color 
-        border border-gray-300 
-        hover:bg-gray-100 
-        hover:text-gray-700 
-        dark:bg-gray-800 
-        dark:border-gray-700 
-        dark:text-gray-400 
-        dark:hover:bg-gray-700 
-        dark:hover:text-white" onClick={handlePrevbtn}> &hellip; </li>;
+    if (minPageNumberLimit >= 1) {
+        pageDecrementBtn = <li className="page-numbers" onClick={handlePrevbtn}> &hellip; </li>;
     }
+{/* 
+        //         rounded-full w-12 h-12 flex items-center justify-center ml-0 leading-tight text-gray-500 bg-pagination-color border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white
+
+*/}
+
+
     return (
         <>
-        <div className="font-poppins">
-            <ul className="
-            inline-flex -space-x-px 
-            w-full 
-            font-poppins 
-            justify-between 
-            py-6 bg-bg-body 
-            pl-4 pr-4
-            ">
+            <ul className="inline-flex -space-x-px w-full justify-between py-6  pl-4 pr-4">
                 <li>
                     <button
-                        className="rounded-full
-                        w-12 h-12 
-                        flex font-poppins 
-                        items-center 
-                        justify-center 
-                        ml-0 leading-tight 
-                        text-gray-500 
-                        bg-pagination-color 
-                        border border-gray-300 
-                        hover:bg-gray-100 
-                        hover:text-gray-700 
-                        dark:bg-gray-800 
-                        dark:border-gray-700 
-                        dark:text-gray-400 
-                        dark:hover:bg-gray-700 
-                        dark:hover:text-white"
+                        className="pager-left"
                         onClick={handlePrevbtn}
                         disabled={currentPage == pages[0] ? true : false}
-                    >
+                    >{/* 
+                                            rounded-full w-12 h-12 flex items-center justify-center ml-0 leading-tight text-gray-500 
+                        bg-pagination-color border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                         ←
+
+                    */}
+<Image width={58} height={58}  src="/assets/left.svg"/>
                     </button>
                 </li>
                 {currentPage <= pages[pages.length - 1]  && currentPage >= pages[0] + pageNumberLimit? <li>
                     <button
-                        className="rounded-full 
-                        w-12 h-12 flex 
-                        items-center 
-                        justify-center 
-                        leading-tight 
-                        text-gray-500 
-                        bg-pagination-color 
-                        border border-gray-300 
-                        hover:bg-gray-100 
-                        hover:text-gray-700 
-                        dark:bg-gray-800 
-                        dark:border-gray-700 
-                        dark:text-gray-400 
-                        dark:hover:bg-gray-700 
-                        dark:hover:text-white"
+                        className="page-numbers"
                         onClick={handleFirstPage}
                         disabled={currentPage == pages[0] ? true : false}
                     >
                         {pages[0]}
                     </button>
 
+{/* 
+                        rounded-full w-12 h-12 flex items-center justify-center leading-tight text-gray-500 bg-pagination-color border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+
+*/}
+
                 </li> : null
                 }
+
                 {pageDecrementBtn}
                 {renderPageNumbers}
                 {pageIncrementBtn}
                 {currentPage >= pages[0] && currentPage <= pages[pages.length - 1] - pageNumberLimit ? <li>
                     <button
-                        className="rounded-full 
-                        w-12 h-12 
-                        flex items-center 
-                        justify-center 
-                        leading-tight 
-                        text-gray-500 
-                        bg-pagination-color 
-                        border border-gray-300 
-                        hover:bg-gray-100 
-                        hover:text-gray-700 
-                        dark:bg-gray-800 
-                        dark:border-gray-700 
-                        dark:text-gray-400 
-                        dark:hover:bg-gray-700 
-                        dark:hover:text-white"
+                        className="page-numbers page-last
+                        "
                         onClick={handleLastPage}
                         disabled={currentPage == pages[pages.length - 1] ? true : false}
                     >
+
+{/* 
+                        page-numbers
+                        flex 
+                        items-center 
+                        justify-center
+                        rounded-full 
+                        bg-gray-800
+                        hover:bg-gray-700 
+                        hover:text-white
+                        text-gray-400
+                        w-12 
+                        h-12
+
+*/}
+
+
                         {pages[pages.length - 1]}
                     </button>
 
@@ -187,28 +165,19 @@ function Pagination({ onPageChange, wines, itemsPerPage, currentPage, setCurrent
                 }
                 <li>
                     <button
-                        className="rounded-full 
-                        w-12 h-12 
-                        flex items-center 
-                        justify-center 
-                        leading-tight 
-                        text-gray-500 
-                        bg-pagination-color 
-                        border border-gray-300 
-                        hover:bg-gray-100 
-                        hover:text-gray-700 
-                        dark:bg-gray-800 
-                        dark:border-gray-700 
-                        dark:text-gray-400 
-                        dark:hover:bg-gray-700 
-                        dark:hover:text-white"
+                        className="pager-right"
                         onClick={handleNextbtn}
                         disabled={currentPage == pages[pages.length - 1] ? true : false}
-                    >→
+                    >
+
+{/* 
+rounded-full w-12 h-12 flex items-center justify-center leading-tight text-gray-500 bg-pagination-color border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white
+→
+*/}
+<Image width={58} height={58}  src="/assets/right.svg"/>
                     </button>
                 </li>
             </ul>
-        </div>
         </>
     );
 }

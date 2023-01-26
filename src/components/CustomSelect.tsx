@@ -12,8 +12,8 @@ const CustomSelect = ({
   ...FormikBag
 }) => {
   const [field, meta, helpers] = useField({ ...FormikBag, name });
-  let className = `text-white shadow appearance-none border rounded-lg w-full py-3 px-3 leading-tight focus:outline-none 
-  focus:shadow-outline placeholder-gray-100`;
+  let className = `shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none 
+    focus:shadow-outline placeholder-gray-500 placeholder-opacity-20`;
 
 
   const isError = meta.touched && !_.isEmpty(meta.error)
@@ -22,7 +22,7 @@ const CustomSelect = ({
       " bg-red-700 bg-opacity-25 border-red-600 focus:border-red-600 ";
   else
     className +=
-      " bg-[#3D3A35] border-black focus:border-gray-500  ";
+      " bg-transparent focus:border-gray-500 ";
 
   return (
     <Field name={name} value={FormikBag.value}>
@@ -31,7 +31,7 @@ const CustomSelect = ({
           {label && (
             <label
               htmlFor={name}
-              className="block text-xl font-bold mb-2 font-sans"
+              className="block text-sm font-bold mb-2"
             >
               {label}
             </label>

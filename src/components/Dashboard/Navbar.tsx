@@ -31,7 +31,7 @@ const NavBar = () => {
 
   return (
     <nav className="flex justify-between items-center p-10">
-      <span className="block">Admin Dashboard - La Dionisia</span>
+      <span className="block">La Dionisia</span>
       <span className="block mx-20">
         <input className="p-2 rounded-md focus:outline-none" type="text" placeholder="Buscar..." />
       </span>

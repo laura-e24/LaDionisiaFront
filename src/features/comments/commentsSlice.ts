@@ -1,4 +1,4 @@
-import { getAllCommentsProduct, createCommentProduct, disableComment, updateComment, getOneCommentProduct, reportComment, getAllUsersDbApi, getAllCommentsDisabled, getAllUsersAuth0Api } from "./commentsApi";
+import { getAllCommentsProduct, createCommentProduct, disableComment, updateComment, getOneCommentProduct, reportComment, getAllUsersApi, getAllCommentsDisabled } from "./commentsApi";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { EStateGeneric } from "../../utils/general";
 interface Comment {
@@ -28,22 +28,11 @@ export const getAllCommentsDisables = createAsyncThunk(
         }
     }
 )
-export const getAllUsersDb = createAsyncThunk(
-    'comments/getAllUsersDb',
+export const getAllUsers = createAsyncThunk(
+    'comments/getAllUsers',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await getAllUsersDbApi()
-            return response.data
-        } catch (error) {
-            return rejectWithValue(error.response.data)
-        }
-    }
-)
-export const getAllUsersAuth0 = createAsyncThunk(
-    'comments/getAllUsersAuth0',
-    async (_, { rejectWithValue }) => {
-        try {
-            const response = await getAllUsersAuth0Api()
+            const response = await getAllUsersApi()
             return response.data
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -111,11 +100,9 @@ const initialState = {
     comments: [],
     commentsDisabled: [],
     users: [],
-    usersAuth0: [],
     allCommentsStatus: EStateGeneric.IDLE,
     allCommentsDisabledStatus: EStateGeneric.IDLE,
     allUsersStatus: EStateGeneric.IDLE,
-    allUsersAuth0Status: EStateGeneric.IDLE,
 }
 
 const commentsSlice = createSlice({
@@ -147,26 +134,14 @@ const commentsSlice = createSlice({
         })
 
 
-        builder.addCase(getAllUsersDb.fulfilled, (state, action) => {
+        builder.addCase(getAllUsers.fulfilled, (state, action) => {
             state.users = action.payload;
             state.allUsersStatus = EStateGeneric.SUCCEEDED;
         })
-        builder.addCase(getAllUsersDb.pending, (state, _action) => {
+        builder.addCase(getAllUsers.pending, (state, _action) => {
             state.allUsersStatus = EStateGeneric.PENDING;
         })
-        builder.addCase(getAllUsersDb.rejected, (state, _action) => {
-            state.allUsersStatus = EStateGeneric.FAILED;
-        })
-
-
-        builder.addCase(getAllUsersAuth0.fulfilled, (state, action) => {
-            state.usersAuth0 = action.payload;
-            state.allUsersStatus = EStateGeneric.SUCCEEDED;
-        })
-        builder.addCase(getAllUsersAuth0.pending, (state, _action) => {
-            state.allUsersStatus = EStateGeneric.PENDING;
-        })
-        builder.addCase(getAllUsersAuth0.rejected, (state, _action) => {
+        builder.addCase(getAllUsers.rejected, (state, _action) => {
             state.allUsersStatus = EStateGeneric.FAILED;
         })
 
@@ -238,5 +213,3 @@ export const selectAllCommentsDisabled = (state) => state.comments.commentsDisab
 export const selectAllCommentsDisabledStatus = (state) => state.comments.allCommentsStatus;
 export const selectAllUsers = (state) => state.comments.users;
 export const AllUsersStatus = (state) => state.comments.allUsersStatus;
-export const selectAllUsersAuth0 = (state) => state.comments.usersAuth0;
-export const AllUsersStatusAuth0 = (state) => state.comments.allUsersAuth0Status;

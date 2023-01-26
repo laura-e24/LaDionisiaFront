@@ -5,35 +5,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/store";
 import { addNewProduct, selectDisplay, displayCart } from "../../features/products/cartSlice";
-import { createFavorite, getFavorite } from "../../features/products/productsSlice";
-import { AllUsersStatus, getAllUsersDb, selectAllUsers } from "../../features/comments/commentsSlice";
-import { useRouter } from "next/router";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { EStateGeneric } from "../../utils/general";
-import { registerUser } from "../../features/comments/commentsApi";
 
 export default function Card({ wine }) {
-  const { user } = useUser();
-  const router = useRouter()
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const display = useSelector(selectDisplay)
-  const usersStatus = useSelector(AllUsersStatus)
-  const users = useSelector(selectAllUsers)
-  const userExistente = users.find(u => u.email === user?.email)
-  const currentUser = userExistente?.id
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (router.isReady) {
-        if (usersStatus === EStateGeneric.IDLE) {
-          await dispatch(getAllUsersDb());
-        }
-      }
-    }
-    fetchData()
-  }, [users])
 
   const Price = ({ amount }) => {
     let price = (amount < 1) ? 100 : amount
@@ -50,17 +26,7 @@ export default function Card({ wine }) {
     desc[1] = (desc[1] == "") ? "" : "(" + desc[1]
     return (<>{texto}<small>{desc[1]}</small></>);
   }
-  async function añadirfavoritos() {
-    if (user) {
-      try {
-        await registerUser(user)
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    dispatch(createFavorite({ userId: currentUser, product: wine }))
-    alert('Agregado')
-  }
+
   useEffect(() => {
     setIsLoading(false);
   }, []);
@@ -70,32 +36,30 @@ export default function Card({ wine }) {
   return (
     <>
       <div key={wine.id} className="wine-card w-2/3 float-right pt-4">
-        <p className="text-xl font-bodony text-price-color wine-winery">{wine.winery} - {wine.year}</p>
-        <a href={`/products/${wine.id}`}>
-          <p className="wine-name font-playfair text-font-color" ><b>{wine.wine}</b></p>
-        </a>
-        <p className="font-poppins text-gray-600 pt-4 pb-4 price">
+        <p className="text-xl font-montserrat text-price-color wine-winery">{wine.winery} - {wine.year}</p>
+        <p className="wine-name font-montserrat text-font-color" ><b>{wine.wine}</b></p>
+        <p className="font-montserrat text-gray-600 pt-4 pb-4 price">
           <span className="text-price-color">
             <Price amount={wine.price} />
           </span>
           <span className="w-12 text-2xl ml-2 mt-4 pts">{wine.rating}<small>&nbsp;pts.</small></span>
         </p>
-        <p className="text-lg font-bodony text-gray-600 wine-description">
+
+        <p className="text-lg font-montserrat text-gray-600 wine-description">
           <WineDescription text={wine.description} />
         </p>
-        <button
-          onClick={() => {
-            dispatch(addNewProduct(wine))
-          }}
-          className="p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">TASTE&nbsp;IT</button>
-        {user && (<button onClick={añadirfavoritos} className="wine-button p-2 border rounded border-gray-600 w-18 self-center justify-self-end text-gray-600">
-          ❤
-        </button>)}
+ 
+        <a href={`/products/${wine.id}`}>
+          <button
+            onClick={() => {
+              dispatch(addNewProduct(wine))
+              if (!display) dispatch(displayCart())
+            }}
+            className="wine-button p-2 border border-gray-600 w-18 self-center justify-self-end text-gray-600 ">TASTE&nbsp;IT</button>
+        </a>
       </div>
       <div className="w-1/3 h-96 flex justify-center items-center bg-product wine-bootle">
-        <a href={`/products/${wine.id}`}>
-          <img src={wine.image} alt={wine.wine} className="object-scale-down" style={{ maxHeight: 300 }} />
-        </a>
+        <img src={wine.image} alt={wine.wine} className="object-scale-down h-4/12" />
       </div>
     </>
   );
