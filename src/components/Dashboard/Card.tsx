@@ -103,8 +103,8 @@ export default function Card({ wine, handleEditProduct }) {
                     <Link href={`/dashboard/products/${wine.id}`}>
                         <div className="flex flex-col items-center text-center m-7 ">
                             <img src={wine.image} alt={wine} className="object-scale-down" style={{ maxHeight: 300 }} />
-                            <h1>{wine.wine} || ${wine.price}</h1>
-                            <h3>stock:{wine.stock}</h3>
+                            <h2 className="font-poppins lucho">{wine.wine} || ${wine.price}</h2>
+                            <h3 className="font-poppins lucho">stock:{wine.stock}</h3>
                         </div>
                     </Link>
                 </div>

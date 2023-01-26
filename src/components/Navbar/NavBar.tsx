@@ -165,11 +165,15 @@ const NavBar = ({ setCurrentPage }: any) => {
     }
   }
 
+
   const openhome = (e) => {
     e.preventDefault()
-    document.getElementById("opengohome").click();
-  }
-
+    let myNav = document.getElementById("opengohome")
+    if (myNav)
+    {
+      myNav.click();
+    }
+}
 
 
   return (
