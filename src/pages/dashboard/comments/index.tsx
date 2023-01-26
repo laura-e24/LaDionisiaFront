@@ -59,7 +59,7 @@ const Users = () => {
             <div className="w-full flex">
                 <Sidebar />
                 <div className="w-full flex flex-col">
-                    {/* <h2 className="font-bold text-3xl text-center">Reported Comments</h2> */}
+                    <h2 className="font-bold text-3xl text-center">Reported Comments</h2>
                     <table className="w-full">
                         <tr>
                             <td className="p-4">
