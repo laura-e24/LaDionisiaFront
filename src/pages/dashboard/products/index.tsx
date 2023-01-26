@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Footer from "../../../components/Footer/Footer";
-import NavBar from "../../../components/Navbar/NavBar"
 import Sidebar from "../../../components/Dashboard/Sidebar";
 import Wines from "../../../components/Dashboard/Products/Wines";
 import CreateProduct from "../../../components/Dashboard/CreateProduct ";
@@ -11,6 +9,8 @@ import { useAppDispatch } from "../../../app/store";
 import { useSelector } from "react-redux";
 import { getAllDisabledWines, getAllWines, selectAllDisabedWinesStatus, selectAllDisabledWines, selectAllWines, selectAllWinesStatus } from "../../../features/products/productsSlice";
 import { EStateGeneric } from "../../../utils/general";
+import NavBar from "../../../components/Navbar/NavBar";
+import Footer from "../../../components/Footer/Footer";
 
 export default function Products() {
   const router = useRouter()

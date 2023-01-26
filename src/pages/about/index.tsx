@@ -1,14 +1,13 @@
 import Image from 'next/image'
-import NavBar from "../../components/Navbar/NavBar";
-
-import members from '../../components/componentsAbout/membersInfo'
-import MembersCard from '../../components/componentsAbout/membersCards'
-import Footer from "../../components/Footer/Footer";
+import MembersCard from '../../components/componentsAbout/membersCards';
+import members from '../../components/componentsAbout/membersInfo';
+import Footer from '../../components/Footer/Footer';
+import NavBar from '../../components/Navbar/NavBar';
 
 const About = () => {
   return (
 <><title>La Dionisia - About</title>
-<NavBar></NavBar>
+<NavBar/>
 <div id="passion-for-wine" className="
   main-body
   home
@@ -58,59 +57,7 @@ const About = () => {
      )
     })}
 </div>
-
-
-{/* 
-  <div className="w-full max-w-screen-xl sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4">
-    <div className="white text-center font-poppins font-normal text-gray-600 flex flex-col items-center">
-        <div className='w-24 h-24 relative mb-2'>
-          <Image src="/assets/white.png" layout='fill' />
-        </div>
-        <p>White</p>
-        <p>White</p>
-    </div>
-  </div>
-*/}
-
-
-
-
-
-
-{/*
-  <div className="flex flex-wrap justify-center items-center">
-  </div>
-  */}
-
-{/* 
-
-*/}
-
-
 </div><Footer/>
-
-{/*
-
-  <div className=" 
-    div-members
-    mt-8
-    pb-16
-    grid 
-  ">
-   {members?.map((e,index)=>{
-     return(
-      <MembersCard key={index}
-        name={e.name}
-        image={e.image}
-        github={e.github}
-        linkedin={e.linkedin}
-      />
-     )
-    })}
-  </div>
-  <Footer/>
-</div>
-*/}
 </>
 )}
 export default About;
