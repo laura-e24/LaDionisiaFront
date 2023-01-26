@@ -62,7 +62,7 @@ export default function Reds({ }) {
 
   return (
 <><title>La Dionisia - Wines</title>
-<NavBar></NavBar>
+<NavBar setCurrentPage={setCurrentPage}></NavBar>
 <div id="passion-for-wine" className="
   main-body
   home

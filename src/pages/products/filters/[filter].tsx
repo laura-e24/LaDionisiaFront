@@ -58,7 +58,7 @@ export default function index({ }) {
 
   return (
     <>
-<NavBar></NavBar>
+<NavBar setCurrentPage={setCurrentPage}></NavBar>
 <div id="passion-for-wine" className="
   main-body
   home

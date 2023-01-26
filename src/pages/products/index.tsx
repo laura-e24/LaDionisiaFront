@@ -66,7 +66,7 @@ export default function index() {
   }, [winesStatus, filters, wines])
   return (
 <>
-<NavBar></NavBar>
+<NavBar setCurrentPage={setCurrentPage}></NavBar>
 <div id="passion-for-wine" className="
   main-body
   home
