@@ -42,44 +42,44 @@ export default function Reds({ }) {
     setCurrentPage(Number(event.target.id));
   };
 
-  return (
-<><title>La Dionisia - Wines</title>
-<NavBar/>
-<div id="passion-for-wine" className="
-  main-body
-  home
-  mb-8
-  m-auto
-  max-w-screen-xl
-  pb-24
-  sm:rounded-2xl	
-pt-24
-">
- <Circles/>
- <div className="pb-8"></div>
- <Filters/>
- <div className="pb-20"></div>
+return (
+  <><title>La Dionisia - Wines</title>
+  <NavBar/>
+  <div id="passion-for-wine" className="
+    main-body
+    home
+    mb-8
+    m-auto
+    max-w-screen-xl
+    pb-24
+    sm:rounded-2xl	
+    pt-24
+  ">
+  <Circles/>
+  <div className="pb-8"></div>
+  <Filters/>
+  <div className="pb-20"></div>
 
- {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
-  {filteredWines.length > 0 &&
-    <>
-    {
-      currentItems.map((wine) => (
-        <Card key={wine.id} wine={wine}></Card>
-      ))
+  {wines && wines[0]?.error && (<div className="text-center"><p className="text-9xl font-bold">Product not found</p></div>)}
+    {filteredWines.length > 0 &&
+      <>
+      {
+        currentItems.map((wine) => (
+          <Card key={wine.id} wine={wine}></Card>
+        ))
+      }
+      </>
     }
-    </>
-  }
-  {!filteredWines.length &&
+    {!filteredWines.length &&
       <h1>PRODUCTS NOT FOUND</h1>
-  }
-<Pagination
+    }
+  <Pagination
     onPageChange={onPageChange}
     wines={filteredWines}
     itemsPerPage={itemsPerPage}
     currentPage={currentPage}
     setCurrentPage={setCurrentPage}
-/>
-</div>
-<Footer/>
+  />
+  </div>
+  <Footer/>
 </>)}
