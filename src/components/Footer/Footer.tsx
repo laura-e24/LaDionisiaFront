@@ -1,7 +1,7 @@
 import Script from 'next/script'
 import Image from 'next/image';
 import Link from "next/link";
-import style  from "../../assets/style/footer.module.css";
+import style  from "./footer.module.css";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import axios from 'axios';
 import Cart from "../Cart/Cart";
