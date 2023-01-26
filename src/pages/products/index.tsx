@@ -1,20 +1,17 @@
 
 import { useState } from "react";
-import NavBar from '../../components/Navbar/NavBar';
 import Circles from '../../components/Circles/Circles'
-
-import Pagination from "../../components/Pagination";
 import Card from "../../components/Card/Card";
 import { useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-
 import { getAllWines, selectAllWines, selectAllWinesStatus, getAllWinesByContry, selectAllWinesByContry, selectAllWinesCountryStatus, setCurrentWines, selectCurrentWines, selectCountryFilter, selectAllFilters, cleanUpState } from "../../features/products/productsSlice";
 import { useEffect } from "react";
 import { EStateGeneric, filterWines } from "../../utils/general";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer/Footer";
-import Image from "next/image";
 import Filters from "../../components/Filters/Filters";
+import Pagination from "../../components/Pagination";
+import NavBar from "../../components/Navbar/NavBar";
 
 export default function index() {
   const filters = useSelector(selectAllFilters)
@@ -47,7 +44,7 @@ export default function index() {
   }, [winesStatus, filters, wines])
   return (
 <>
-<NavBar></NavBar>
+<NavBar/>
 <div id="passion-for-wine" className="
   main-body
   home
