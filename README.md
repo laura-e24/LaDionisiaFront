@@ -15,18 +15,11 @@ Por otro lado, los usuarios registrados tienen la posibilidad de dejar reseñas 
 
 ### Backend
 
-Abrir en una terminal la carpeta 'api' y utilizar el comando ```npm install```. Esto instalará todas las dependencias necesarias para correr la API de la aplicación, luego para iniciarla utilizar ```npm start```. El servidor comenzará a operar en el puerto 3001.
-
-Para visualizar la documentación de la API ir a la ruta __/api/files/data__
-
-Para correr los tests que validan la API usar el comando ```npm test```.
-
+Abrir en una terminal el repositorio del backend y utilizar el comando ```npm install```. Esto instalará todas las dependencias necesarias para correr la API de la aplicación, luego para iniciarla utilizar ```npm run dev```. El servidor comenzará a operar en el puerto 3001.
 
 
 ### Frontend
 
-Abrir en otra terminal la carpeta 'client' y utilizar el comando ```npm install```. 
+Abrir en otra terminal este repositorio y utilizar el comando ```npm install```. 
 
-Para iniciar la aplicación utilizar ```npm start```.
-
-_IMPORTANTE: Utilizar la versión 16 de Node.js o de lo contrario no funcionará la aplicación._
+Para iniciar la aplicación utilizar ```npm run dev```.
