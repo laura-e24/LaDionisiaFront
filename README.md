@@ -6,3 +6,27 @@ Asimismo, si deseás un producto pero no vas a comprarlo inmediatamente, dispon�
 Además, existe la posibilidad de ser usuario administrador, el cual tiene acceso a un dashboard privado donde verá todos los productos subidos a su tienda y podrá editar toda su información o incluso eliminar o desactivar alguno y agregar nuevos. También cuenta con un panel de estadísticas donde muestra los gráficos de ventas, sumado a otro panel donde se muestran todos los usuarios registrados. 
 
 Por otro lado, los usuarios registrados tienen la posibilidad de dejar reseñas y puntuación en los vinos, las cuales pueden ser reportadas por otros usuarios en caso de considerarlas ofensivas, lo que ocultará el comentario, notificará al administrador, y el mismo, desde su panel de comentarios, podrá moderarlos y decidir si eliminar o permitir el comentario reportado.
+
+## Cómo utilizar la aplicación
+
+*IMPORTANTE: El backend y el frontend se encuentran por separado, por lo que primero deberán clonar ambos repositorios.*
+
+*__Repo back: https://github.com/laura-e24/LaDionisiaBack__*
+
+### Backend
+
+Abrir en una terminal la carpeta 'api' y utilizar el comando ```npm install```. Esto instalará todas las dependencias necesarias para correr la API de la aplicación, luego para iniciarla utilizar ```npm start```. El servidor comenzará a operar en el puerto 3001.
+
+Para visualizar la documentación de la API ir a la ruta __/api/files/data__
+
+Para correr los tests que validan la API usar el comando ```npm test```.
+
+
+
+### Frontend
+
+Abrir en otra terminal la carpeta 'client' y utilizar el comando ```npm install```. 
+
+Para iniciar la aplicación utilizar ```npm start```.
+
+_IMPORTANTE: Utilizar la versión 16 de Node.js o de lo contrario no funcionará la aplicación._
