@@ -17,9 +17,9 @@ module.exports = (phase) => {
 
   const env = {
     RESTURL_PRODUCTS: (() => {
-      if (isDev) return 'http://localhost:3001'
+      if (isDev) return '' || 'http://localhost:3001'
       if (isProd) {
-        return 'https://ladionisiaback.onrender.com/' || 'https://ladionisiaback-production.up.railway.app/'
+        return 'https://ladionisiaback.onrender.com' || 'https://ladionisiaback-production.up.railway.app'
       }
     })(),
     RESTURL_SESSIONS: (() => {
